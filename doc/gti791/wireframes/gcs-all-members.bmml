@@ -1,0 +1,143 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1502" measuredH="775" mockupW="1186" mockupH="752">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="316" y="23" w="1186" h="752" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tableau%20de%20bord%0Asimplets.etsmtl.ca/dashboard</text>
+        <value>0</value>
+        <verticalScrollbar>false</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::HSplitter" x="508" y="100" w="-1" h="648" measuredW="11" measuredH="100" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::LinkBar" x="1195" y="125" w="-1" h="-1" measuredW="252" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>gcs-homepage%26bm%3Bgcs-homepage.bmml%26bm%3Bgcs-homepage.bmml%26bm%3Bgcs-homepage.bmml%2Cgcs-parameters%26bm%3Bgcs-parameters.bmml%26bm%3Bgcs-parameters.bmml%26bm%3Bgcs-parameters.bmml%2Cgcs-bad-login%26bm%3Bgcs-bad-login.bmml%26bm%3Bgcs-bad-login.bmml%26bm%3Bgcs-bad-login.bmml</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22879%2C102%2C944%2C123%22%20href%3D%22gcs-homepage.bmml%22%20alt%3D%22gcs-homepage%22%20id%3D%224_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22962%2C102%2C1037%2C123%22%20href%3D%22gcs-parameters.bmml%22%20alt%3D%22gcs-parameters%22%20id%3D%224_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%221055%2C102%2C1131%2C123%22%20href%3D%22gcs-bad-login.bmml%22%20alt%3D%22gcs-bad-login%22%20id%3D%224_2%22/%3E%0A</map>
+        <text>Dashboard%2C%20Param%E8tres%2C%20D%E9connexion</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::SubTitle" x="316" y="125" w="156" h="-1" measuredW="120" measuredH="33" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20Membres</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::SubTitle" x="316" y="228" w="196" h="-1" measuredW="188" measuredH="33" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20Commanditaires</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Label" x="333" y="261" w="-1" h="-1" measuredW="60" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BConsulter%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Label" x="333" y="282" w="-1" h="-1" measuredW="48" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BAjouter%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="333" y="303" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BModifier%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Label" x="333" y="324" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BSupprimer%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::SubTitle" x="316" y="356" w="196" h="-1" measuredW="153" measuredH="33" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20Fournisseurs</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="333" y="389" w="-1" h="-1" measuredW="60" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BConsulter%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Label" x="333" y="410" w="-1" h="-1" measuredW="48" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BAjouter%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::Label" x="333" y="431" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BModifier%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="21" controlTypeID="com.balsamiq.mockups::Label" x="333" y="452" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BSupprimer%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="541" y="125" w="-1" h="-1" measuredW="164" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bienvenue%2C%20Patrick%20Lavall%E9e</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::HRule" x="526" y="169" w="961" h="-1" measuredW="100" measuredH="10" zOrder="15" locked="false" isInGroup="-1"/>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::ComboBox" x="919" y="125" w="-1" h="-1" measuredW="71" measuredH="23" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>PR%C9CI%0A%C9volution%0ALiETS</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Label" x="790" y="125" w="-1" h="-1" measuredW="123" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Voir%20les%20donn%E9es%20de%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::DataGrid" x="534" y="222" w="913" h="286" measuredW="604" measuredH="203" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>3</selectedIndex>
+        <text>Nom%20%5E%2C%20Prenom%2C%20Code%20Permanent%2C%20Courriel%2C%20Telephone%2C%20Actif%0ABalthazar%2C%20Justine%2C%20BALJ11111111%2C%20juju@larousse.diguidi%2C%20819-111-1111%2C%20%5Bx%5D%0ABedard%2C%20Mathieu%2C%20BEDM22222222%2C%20bedstar@bacon.lol%2C%20450-222-2222%2C%20%5Bx%5D%0AColucci%2C%20Leo%2C%20COLL33333333%2C%20pastis@vino.fr%2C%2077%2052%2078%2096%2012%2C%20%5Bx%5D%0ALavallee%2C%20Patrick%2C%20LAVP12048408%2C%20lavalleep@gmail.com%2C%20514-726-4257%2C%20%5Bx%5D%0APitre%2C%20Maxime%2C%20PITM55555555%2C%20livinthelife@%23yolo.com%2C%20541-333-3333%2C%20%5Bx%5D%0ASalesse-Lafleur%2C%20Michael%2C%20SALM66666666%2C%20chewbachat@mikachu.jp%2C%20514-555-5678%2C%20%5Bx%5D%0A%7B0L%2C%200L%2C%200C%2C%200C%2C%200C%2C%200C%7D</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::PointyButton" x="1329" y="333" w="163" h="-1" measuredW="127" measuredH="28" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>left</direction>
+        <href>gcs-public-profil%26bm%3Bgcs-public-profil.bmml%26bm%3Bgcs-public-profil.bmml%26bm%3Bgcs-public-profil.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%221013%2C310%2C1176%2C338%22%20href%3D%22gcs-public-profil.bmml%22%20alt%3D%22gcs-public-profil%22%20id%3D%2285%22/%3E</map>
+        <size>18</size>
+        <text>Double%20Click%21%21</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Label" x="333" y="159" w="-1" h="-1" measuredW="135" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>gcs-all-members%26bm%3Bgcs-all-members.bmml%26bm%3Bgcs-all-members.bmml%26bm%3Bgcs-all-members.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2217%2C136%2C152%2C157%22%20href%3D%22gcs-all-members.bmml%22%20alt%3D%22gcs-all-members%22%20id%3D%2286%22/%3E</map>
+        <text>%5BGestion%20des%20membres%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="333" y="180" w="-1" h="-1" measuredW="117" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>gcs-add-members%26bm%3Bgcs-add-members.bmml%26bm%3Bgcs-add-members.bmml%26bm%3Bgcs-add-members.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2217%2C157%2C134%2C178%22%20href%3D%22gcs-add-members.bmml%22%20alt%3D%22gcs-add-members%22%20id%3D%2287%22/%3E</map>
+        <text>%5BAjouter%20un%20membre%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::Label" x="333" y="202" w="-1" h="-1" measuredW="126" measuredH="21" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5BG%E9rer%20les%20formations%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::StickyNote" x="618" y="463" w="365" h="179" measuredW="109" measuredH="123" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>La%20grille%20prend%20en%20charge%20les%20op%E9ration%20suivantes%3A%0A%09-%20Consultation%20%28tous%29%0A%09-%20Supression%20%20%28capitaine%29%0A%09-%20Modification%20actif/inactif%20%28capitaine%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::Button" x="1306" y="523" w="141" h="27" measuredW="133" measuredH="27" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fiches%20Signalitiques</text>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::StickyNote" x="1278" y="539" w="196" h="123" measuredW="109" measuredH="123" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Exporte%20en%20format%20PDF%20le%20profil%20public%20d%27un%20utilisateur</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
