@@ -1,25 +1,16 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services
 {
-    using System.Reflection;
     using System.Web.Http;
-    using log4net;
-    using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authorization;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling;
 
-    /// <summary>
-    /// </summary>
-    [Trace]
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    [Authenticated]
+    [Authorized]
+    [HandlesException]
     public abstract class BaseService : ApiController
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        protected BaseService()
-        {
-            this.asdf();
-        }
-
-        private void asdf()
-        {
-            Logger.DebugFormat("Entering: {0}", "asf");
-        }
     }
 }

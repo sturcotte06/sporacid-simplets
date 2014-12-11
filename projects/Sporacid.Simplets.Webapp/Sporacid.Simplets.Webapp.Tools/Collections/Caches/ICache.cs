@@ -28,12 +28,13 @@
         /// </summary>
         /// <param name="key">The key object.</param>
         /// <param name="do">The action to take</param>
-        void WithLockedValueDo(TKey key, Action<TValue> @do);
+        void WithValueDo(TKey key, Action<TValue> @do);
 
         /// <summary>
         /// Remove the cached object for the given key.
         /// </summary>
         /// <param name="key">The key object.</param>
-        void Remove(TKey key);
+        /// <returns>Whether the removal was successful.</returns>
+        bool Remove(TKey key);
     }
 }

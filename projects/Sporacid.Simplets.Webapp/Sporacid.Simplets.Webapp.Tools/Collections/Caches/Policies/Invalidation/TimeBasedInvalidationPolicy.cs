@@ -3,34 +3,36 @@
     using System;
     using Sporacid.Simplets.Webapp.Tools.Threading.Timers;
 
-    /// <summary>
-    /// </summary>
-    /// <typeparam name="TKey">Type of the key.</typeparam>
-    /// <typeparam name="TValue">Type of the value.</typeparam>
-    public class TimeBasedInvalidationPolicy<TKey, TValue> : ICacheInvalidationPolicy<TKey>
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    public class TimeBasedInvalidationPolicy<TKey, TValue> : BasePolicy<TKey, TValue>, ICacheInvalidationPolicy<TKey, TValue>
     {
-        private readonly ICache<TKey, TValue> cacheRef;
         private readonly TimeSpan validitySpan;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="cacheRef">The cache reference, on which policies are applied.</param>
         /// <param name="validitySpan">The timespan of validity.</param>
-        public TimeBasedInvalidationPolicy(ICache<TKey, TValue> cacheRef, TimeSpan validitySpan)
+        public TimeBasedInvalidationPolicy(TimeSpan validitySpan)
         {
-            this.cacheRef = cacheRef;
             this.validitySpan = validitySpan;
+            this.OnInvalidate += (key, value) => this.Cache.Remove(key);
         }
 
         /// <summary>
-        /// Applies the caching policy on the given cache key.
+        /// What to do after the Put() method of the cache.
         /// </summary>
-        /// <param name="key">The cache key.</param>
-        public void ApplyInvalidationPolicy(TKey key)
+        /// <param name="key">The key object.</param>
+        /// <param name="value">The object to cache.</param>
+        public override void AfterPut(TKey key, TValue value)
         {
             // After validity span, remove the cached value.
-            TimeoutTimer.StartNew(this.validitySpan, (sender, args) => this.cacheRef.Remove(key));
+            TimeoutTimer.StartNew(this.validitySpan, (sender, args) => this.OnInvalidate(key, value));
         }
+
+        /// <summary>
+        /// Event when invalidation occurs.
+        /// </summary>
+        public event OnInvalidateHandler<TKey, TValue> OnInvalidate;
     }
 }

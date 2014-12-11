@@ -11,6 +11,8 @@
     /// Aspect that, when applied on a method, emits a trace message before and
     /// after the method execution.
     /// </summary>
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
     [Serializable]
     public class TraceAttribute : OnMethodBoundaryAspect
     {
@@ -18,7 +20,7 @@
 
         private string methodName;
 
-        [NonSerialized] private long previousElapsedTicks;
+        [NonSerialized] private TimeSpan previousTime;
 
         [NonSerialized] private Stopwatch stopwatch;
 
@@ -34,7 +36,14 @@
         /// <param name="aspectInfo">Unused.</param>
         public override void CompileTimeInitialize(MethodBase method, AspectInfo aspectInfo)
         {
-            this.methodName = method.DeclaringType.FullName + "." + method.Name;
+            if (method.DeclaringType == null)
+            {
+                this.methodName = method.Name;
+            }
+            else
+            {
+                this.methodName = method.DeclaringType.FullName + "." + method.Name;
+            }
         }
 
         /// <summary>
@@ -50,7 +59,7 @@
             }
 
             Logger.DebugFormat("Entering: {0}", this.methodName);
-            this.previousElapsedTicks = this.stopwatch.ElapsedTicks;
+            this.previousTime = this.stopwatch.Elapsed;
         }
 
         /// <summary>
@@ -60,7 +69,7 @@
         /// <param name="args">Unused.</param>
         public override void OnSuccess(MethodExecutionArgs args)
         {
-            Logger.DebugFormat("Exiting: {0}, Elapsed ticks: {1}", this.methodName, this.stopwatch.ElapsedTicks - this.previousElapsedTicks);
+            Logger.DebugFormat("Exiting: {0}, Elapsed: {1}", this.methodName, this.stopwatch.Elapsed - this.previousTime);
         }
 
         /// <summary>
@@ -101,7 +110,7 @@
             stringBuilder.Append(": ");
             stringBuilder.Append(args.Exception.Message);
             stringBuilder.Append(", ");
-            stringBuilder.AppendFormat("Elapsed Ticks: {0}", this.stopwatch.ElapsedTicks - this.previousElapsedTicks);
+            stringBuilder.AppendFormat("Elapsed: {0}", this.stopwatch.Elapsed - this.previousTime);
 
             Logger.Warn(stringBuilder);
         }

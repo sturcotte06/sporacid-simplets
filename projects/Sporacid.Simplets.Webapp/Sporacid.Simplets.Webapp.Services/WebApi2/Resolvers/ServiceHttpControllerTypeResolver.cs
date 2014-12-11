@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.AspNetMvc.Resolvers
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Resolvers
 {
     using System;
     using System.Web.Http.Controllers;

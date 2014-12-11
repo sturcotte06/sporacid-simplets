@@ -8,7 +8,7 @@
   </appender>
   <!-- File appender definition -->
   <appender name="fileAppender" type="log4net.Appender.RollingFileAppender">
-    <file value=".\Logs\sporacid.simplets.txt" />
+    <file value="C:\Logs\sporacid.simplets.txt" />
     <appendToFile value="true" />
     <maximumFileSize value="4096KB"/>
     <layout type="log4net.Layout.PatternLayout">

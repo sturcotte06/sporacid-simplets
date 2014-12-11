@@ -1,10 +1,10 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authorization
 {
+    using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
     using Sporacid.Simplets.Webapp.Core.Models;
     using Sporacid.Simplets.Webapp.Core.Models.Contexts;
-    using Sporacid.Simplets.Webapp.Core.Models.Sessions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -25,10 +25,10 @@
         /// not have the required authorization level, an exception will be raised.
         /// </summary>
         /// <typeparam name="TContext">The model object of the context.</typeparam>
-        /// <param name="session">The session of the user.</param>
+        /// <param name="principal">The principal of the user.</param>
         /// <param name="context">The context for which the user must be authorized.</param>
         /// <exception cref="SecurityException" />
         /// <exception cref="NotAuthorizedException">If user is unauthorized.</exception>
-        void Authorize<TContext>(Session session, IContext<TContext> context) where TContext : AbstractModel;
+        void Authorize<TContext>(IPrincipal principal, IContext<TContext> context) where TContext : AbstractModel;
     }
 }

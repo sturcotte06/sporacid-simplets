@@ -62,10 +62,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Caches\ConfigurableCache.cs" />
+    <Compile Include="Collections\Caches\Exceptions\CachingException.cs" />
+    <Compile Include="Collections\Caches\IConfigurableCache.cs" />
+    <Compile Include="Collections\Caches\Policies\BasePolicy.cs" />
+    <Compile Include="Collections\Caches\Policies\ICachePolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Invalidation\ICacheInvalidationPolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Invalidation\TimeBasedInvalidationPolicy.cs" />
+    <Compile Include="Collections\Caches\Policies\Locking\BaseLockingPolicy.cs" />
+    <Compile Include="Collections\Caches\Policies\Locking\ExclusiveLockingPolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Locking\ICacheLockingPolicy.cs" />
-    <Compile Include="Collections\Caches\Policies\Locking\SharedReadExclusiveWriteLockingPolicy.cs" />
     <Compile Include="Collections\Concurrent\BlockingBoundedQueue.cs" />
     <Compile Include="Collections\Concurrent\BlockingPriorityQueue.cs" />
     <Compile Include="Collections\Concurrent\BlockingQueue.cs" />
@@ -78,6 +83,13 @@
     <Compile Include="Collections\Pooling\ObjectPool.cs" />
     <Compile Include="Events\EventExtensions.cs" />
     <Compile Include="Events\GenericEventArgs.cs" />
+    <Compile Include="Factories\ConstructorArgumentAttribute.cs" />
+    <Compile Include="Factories\Exceptions\FactoryConfigurationException.cs" />
+    <Compile Include="Factories\Exceptions\ObjectCreationException.cs" />
+    <Compile Include="Factories\Factory.cs" />
+    <Compile Include="Factories\IFactory.cs" />
+    <Compile Include="Factories\IFactoryConfiguration.cs" />
+    <Compile Include="Factories\PropertyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snippets.cs" />
     <Compile Include="Strings\StringExtensions.cs" />

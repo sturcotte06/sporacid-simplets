@@ -11,7 +11,37 @@
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// Iterates through every objects of an enumeration and apply 
+        /// Iterates through every objects of an enumeration and apply
+        /// an action on it.
+        /// </summary>
+        /// <typeparam name="T">Type of the enumeration</typeparam>
+        /// <param name="enumeration">An enumeration</param>
+        /// <param name="action"></param>
+        public static void ForEachDesc<T>(this IList<T> enumeration, Action<T> action)
+        {
+            for (var i = enumeration.Count(); i >= 0; i--)
+            {
+                action(enumeration.ElementAt(i));
+            }
+        }
+
+        /// <summary>
+        /// Iterates through every objects of an enumeration and apply
+        /// an action on it.
+        /// </summary>
+        /// <typeparam name="T">Type of the enumeration</typeparam>
+        /// <param name="enumeration">An enumeration</param>
+        /// <param name="action"></param>
+        public static void ForEachDesc<T>(this IList<T> enumeration, Action<int, T> action)
+        {
+            for (var i = enumeration.Count(); i >= 0; i--)
+            {
+                action(i, enumeration.ElementAt(i));
+            }
+        }
+
+        /// <summary>
+        /// Iterates through every objects of an enumeration and apply
         /// an action on it.
         /// </summary>
         /// <typeparam name="T">Type of the enumeration</typeparam>
@@ -26,7 +56,7 @@
         }
 
         /// <summary>
-        /// Iterates through every objects of an enumeration and apply 
+        /// Iterates through every objects of an enumeration and apply
         /// an action on it.
         /// </summary>
         /// <typeparam name="T">Type of the enumeration</typeparam>
@@ -43,7 +73,7 @@
         }
 
         /// <summary>
-        /// Iterates through every objects of an array and apply 
+        /// Iterates through every objects of an array and apply
         /// an action on it.
         /// </summary>
         /// <typeparam name="T">Type of the array</typeparam>
@@ -58,7 +88,7 @@
         }
 
         /// <summary>
-        /// Iterates through every objects of an array and apply 
+        /// Iterates through every objects of an array and apply
         /// an action on it.
         /// </summary>
         /// <typeparam name="T">Type of the array</typeparam>
@@ -199,7 +229,6 @@
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="enumeration"></param>

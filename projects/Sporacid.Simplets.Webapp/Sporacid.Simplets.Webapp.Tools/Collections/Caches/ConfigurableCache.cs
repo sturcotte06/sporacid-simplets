@@ -2,28 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
-    using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;
-    using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Locking;
+    using System.Linq;
+    using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
 
-    /// <summary>
-    /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    public class ConfigurableCache<TKey, TValue> : ICache<TKey, TValue>
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    public class ConfigurableCache<TKey, TValue> : IConfigurableCache<TKey, TValue>
     {
         private readonly Dictionary<TKey, TValue> cache = new Dictionary<TKey, TValue>();
-        private readonly ICacheInvalidationPolicy<TKey> invalidationPolicy;
-        private readonly object @lock = new object();
-        private readonly ICacheLockingPolicy<TKey> lockingPolicy;
+        private readonly List<ICachePolicy<TKey, TValue>> registeredPolicies = new List<ICachePolicy<TKey, TValue>>();
 
-        /// <summary>
-        /// </summary>
-        /// <param name="invalidationPolicy"></param>
-        /// <param name="lockingPolicy"></param>
-        public ConfigurableCache(ICacheInvalidationPolicy<TKey> invalidationPolicy, ICacheLockingPolicy<TKey> lockingPolicy)
+        public ConfigurableCache(IEnumerable<ICachePolicy<TKey, TValue>> policies)
         {
-            this.invalidationPolicy = invalidationPolicy;
-            this.lockingPolicy = lockingPolicy;
+            this.RegisterPolicies(policies.ToArray());
         }
 
         /// <summary>
@@ -33,10 +24,21 @@
         /// <returns>Whether an object is cached for the given key.</returns>
         public bool Has(TKey key)
         {
-            lock (@lock)
+            // Trigger policies to take action before Has().
+            this.registeredPolicies.ForEach(p => p.BeforeHas(key));
+
+            bool has;
+            try
             {
-                return cache.ContainsKey(key);
+                has = this.cache.ContainsKey(key);
             }
+            finally
+            {
+                // Trigger policies to take action after Has().
+                this.registeredPolicies.ForEachDesc(p => p.AfterHas(key));
+            }
+
+            return has;
         }
 
         /// <summary>
@@ -46,14 +48,22 @@
         /// <param name="value">The object to cache.</param>
         public void Put(TKey key, TValue value)
         {
-            lock (@lock)
+            // Trigger policies to take action before Put().
+            this.registeredPolicies.ForEach(p => p.BeforePut(key, value));
+
+            try
             {
-                if (cache.ContainsKey(key))
+                if (this.cache.ContainsKey(key))
                 {
                     throw new InvalidOperationException("Cache key already exists.");
                 }
 
-                cache.Add(key, value);
+                this.cache.Add(key, value);
+            }
+            finally
+            {
+                // Trigger policies to take action after Put().
+                this.registeredPolicies.ForEachDesc(p => p.AfterPut(key, value));
             }
         }
 
@@ -63,20 +73,25 @@
         /// </summary>
         /// <param name="key">The key object.</param>
         /// <param name="do">The action to take</param>
-        public void WithLockedValueDo(TKey key, Action<TValue> @do)
+        public void WithValueDo(TKey key, Action<TValue> @do)
         {
-            lock (@lock)
-            {
-                lockingPolicy.WithReadLockDo(key, () =>
-                {
-                    TValue value;
-                    if (!cache.TryGetValue(key, out value))
-                    {
-                        throw new InvalidOperationException("Couldn't retrieve cached value for key.");
-                    }
+            // Trigger policies to take action before WithValueDo().
+            this.registeredPolicies.ForEach(p => p.BeforeWithValueDo(key, @do));
 
-                    @do(value);
-                });
+            try
+            {
+                TValue value;
+                if (!this.cache.TryGetValue(key, out value))
+                {
+                    throw new InvalidOperationException("Couldn't retrieve cached value for key.");
+                }
+
+                @do(value);
+            }
+            finally
+            {
+                // Trigger policies to take action before WithValueDo().
+                this.registeredPolicies.ForEachDesc(p => p.AfterWithValueDo(key, @do));
             }
         }
 
@@ -84,21 +99,37 @@
         /// Remove the cached object for the given key.
         /// </summary>
         /// <param name="key">The key object.</param>
-        public void Remove(TKey key)
+        /// <returns>Whether the removal was successful.</returns>
+        public bool Remove(TKey key)
         {
-            lock (@lock)
+            // Trigger policies to take action before Remove().
+            this.registeredPolicies.ForEach(p => p.BeforeRemove(key));
+
+            bool successful;
+            try
             {
-                lockingPolicy.WithWriteLockDo(key, () =>
-                {
-                    TValue value;
-                    if (!cache.TryGetValue(key, out value))
-                    {
-
-                    }
-
-                    // @do(value);
-                });
+                successful = this.cache.ContainsKey(key) && this.cache.Remove(key);
             }
+            finally
+            {
+                // Trigger policies to take action after Remove().
+                this.registeredPolicies.ForEachDesc(p => p.AfterRemove(key));
+            }
+
+            return successful;
+        }
+
+        /// <summary>
+        /// Register a policies in the cache. Because policies have very different behaviour, caches implementation
+        /// are responsible of using the policy.
+        /// </summary>
+        /// <param name="policies">The policies to register.</param>
+        public void RegisterPolicies(params ICachePolicy<TKey, TValue>[] policies)
+        {
+            this.registeredPolicies.AddRange(policies);
+
+            // Apply each policies to this cache instance.
+            policies.ForEach(p => p.ApplyOn(this));
         }
     }
 }

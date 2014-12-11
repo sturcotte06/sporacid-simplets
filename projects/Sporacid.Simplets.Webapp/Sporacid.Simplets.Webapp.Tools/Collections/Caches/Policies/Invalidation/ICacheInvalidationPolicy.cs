@@ -1,11 +1,16 @@
 ﻿namespace Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation
 {
-    public interface ICacheInvalidationPolicy<in TKey>
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    public interface ICacheInvalidationPolicy<TKey, TValue> : ICachePolicy<TKey, TValue>
     {
         /// <summary>
-        /// Applies the caching policy on the given cache key.
+        /// Event when invalidation occurs.
         /// </summary>
-        /// <param name="key">The cache key.</param>
-        void ApplyInvalidationPolicy(TKey key);
+        event OnInvalidateHandler<TKey, TValue> OnInvalidate;
     }
+
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    public delegate void OnInvalidateHandler<in TKey, in TValue>(TKey key, TValue value);
 }
