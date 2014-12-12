@@ -22,6 +22,8 @@
 
             var config = GlobalConfiguration.Configuration;
 
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.LocalOnly;
+
             // Configure the json output.
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             config.Formatters.JsonFormatter.SerializerSettings.DateFormatString = "yyyy-MM-ddTHH:mm:ssZ";

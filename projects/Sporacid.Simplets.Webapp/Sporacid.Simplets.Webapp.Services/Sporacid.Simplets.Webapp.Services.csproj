@@ -157,8 +157,6 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\IMembreService.cs" />
     <Compile Include="Services\Impl\MembreService.cs" />
-    <Compile Include="Services\Impl\SessionService.cs" />
-    <Compile Include="Services\ISessionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

@@ -1,10 +1,9 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication
 {
-    using System.Net;
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
-    using ICredentials = Sporacid.Simplets.Webapp.Core.Models.Sessions.ICredentials;
+    using Sporacid.Simplets.Webapp.Core.Models.Sessions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

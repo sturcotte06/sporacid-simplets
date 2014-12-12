@@ -1,8 +1,11 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl
 {
+    using System;
+    using System.DirectoryServices.AccountManagement;
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Models.Contexts;
     using Sporacid.Simplets.Webapp.Core.Models.Sessions;
     using Sporacid.Simplets.Webapp.Core.Security.Token;
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories;
@@ -13,13 +16,15 @@
     public class KerberosAuthenticationModule : IAuthenticationModule
     {
         private static readonly AuthenticationScheme[] SupportedSchemes = {AuthenticationScheme.Kerberos};
+        private readonly String kerberosDomainControllerName;
         private readonly ICache<IToken, IPrincipal> tokenCache;
         private readonly ITokenFactory tokenFactory;
 
-        public KerberosAuthenticationModule(ICache<IToken, IPrincipal> tokenCache, ITokenFactory tokenFactory)
+        public KerberosAuthenticationModule(ICache<IToken, IPrincipal> tokenCache, ITokenFactory tokenFactory, String kerberosDomainControllerName)
         {
             this.tokenCache = tokenCache;
             this.tokenFactory = tokenFactory;
+            this.kerberosDomainControllerName = kerberosDomainControllerName;
         }
 
         /// <summary>
@@ -32,11 +37,23 @@
         /// <exception cref="WrongPasswordException">If the password does not match.</exception>
         public IPrincipal Authenticate(ICredentials credentials)
         {
-            // Do authentication...
+            using (var context = new PrincipalContext(ContextType.Domain, this.kerberosDomainControllerName))
+            {
+                // Username and password for authentication.
+                if (!context.ValidateCredentials(credentials.Username, credentials.Password))
+                {
+                    throw new WrongUsernameException();
+                }
+            }
 
-            var token = this.tokenFactory.Generate();
-            this.tokenCache.Put(token, null);
-            return null;
+            // User authenticated.
+            var principal = new Principal(credentials.Username, AuthenticationScheme.Kerberos, AuthorizationLevel.User);
+
+            // Cache the token with the principals. 
+            // If the user specify token authentication, we can speed up its response.
+            this.tokenCache.Put(this.tokenFactory.Generate(), principal);
+
+            return principal;
         }
 
         /// <summary>

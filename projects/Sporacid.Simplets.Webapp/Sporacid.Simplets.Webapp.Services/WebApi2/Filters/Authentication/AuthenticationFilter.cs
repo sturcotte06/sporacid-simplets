@@ -48,7 +48,7 @@
         /// </returns>
         /// <param name="context">The authentication context.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
+        public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             // Look for credentials in the request.
             var request = context.Request;
@@ -73,7 +73,7 @@
             {
                 throw new SecurityException(String.Format("Scheme {0} is not supported.", scheme));
             }
-            
+
             // If there are credentials that the filter understands, try to validate them.
             // If the credentials are bad, set the error result.
             if (authorization.Parameter.IsNullOrEmpty())
@@ -88,6 +88,7 @@
             }
 
             context.Principal = authenticationModule.Authenticate(credentials);
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -97,7 +98,7 @@
         /// <returns></returns>
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
-            var challenge = new AuthenticationHeaderValue(AuthenticationSchemes.Ntlm.ToString());
+            var challenge = new AuthenticationHeaderValue(AuthenticationScheme.Kerberos.ToString());
             context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
             return Task.FromResult(0);
         }

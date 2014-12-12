@@ -40,10 +40,10 @@
         /// <param name="actionContext">The action context.</param>
         /// <param name="cancellationToken">The cancellation token associated with the filter.</param>
         /// <param name="continuation">The continuation.</param>
-        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken,
+        public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
-            return null;
+            return continuation.Invoke();
         }
     }
 }

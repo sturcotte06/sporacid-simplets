@@ -15,13 +15,14 @@
         /// an action on it.
         /// </summary>
         /// <typeparam name="T">Type of the enumeration</typeparam>
-        /// <param name="enumeration">An enumeration</param>
+        /// <param name="list">A list.</param>
         /// <param name="action"></param>
-        public static void ForEachDesc<T>(this IList<T> enumeration, Action<T> action)
+        public static void ForEachDesc<T>(this IList<T> list, Action<T> action)
         {
-            for (var i = enumeration.Count(); i >= 0; i--)
+            var lastIndex = list.Count - 1;
+            for (var i = 0; i < list.Count; i++)
             {
-                action(enumeration.ElementAt(i));
+                action(list.ElementAt(lastIndex - i));
             }
         }
 
@@ -30,13 +31,14 @@
         /// an action on it.
         /// </summary>
         /// <typeparam name="T">Type of the enumeration</typeparam>
-        /// <param name="enumeration">An enumeration</param>
+        /// <param name="list">An list.</param>
         /// <param name="action"></param>
-        public static void ForEachDesc<T>(this IList<T> enumeration, Action<int, T> action)
+        public static void ForEachDesc<T>(this IList<T> list, Action<int, T> action)
         {
-            for (var i = enumeration.Count(); i >= 0; i--)
+            var lastIndex = list.Count - 1;
+            for (var i = 0; i < list.Count; i++)
             {
-                action(i, enumeration.ElementAt(i));
+                action(lastIndex - i, list.ElementAt(lastIndex - i));
             }
         }
 

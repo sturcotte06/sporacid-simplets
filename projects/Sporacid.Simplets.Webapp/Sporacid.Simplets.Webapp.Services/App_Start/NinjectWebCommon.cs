@@ -98,7 +98,8 @@ namespace Sporacid.Simplets.Webapp.Services
                 });
 
             // Core project bindings.
-            kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>();
+            kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
+                .WithConstructorArgument("ENS.AD.ETSMTL.CA");
             kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>();
             kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
                 .WithConstructorArgument(TimeSpan.FromHours(6))
@@ -110,7 +111,6 @@ namespace Sporacid.Simplets.Webapp.Services
             });
 
             // Services project bindings.
-            kernel.Bind<ISessionService>().To<SessionService>();
             kernel.Bind<IMembreService>().To<MembreService>();
 
             // Filter bindings.

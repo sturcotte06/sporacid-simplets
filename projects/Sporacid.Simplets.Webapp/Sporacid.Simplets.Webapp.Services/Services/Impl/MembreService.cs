@@ -3,7 +3,6 @@
     using System;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
-    using Sporacid.Simplets.Webapp.Core.Models.Sessions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -30,8 +29,7 @@
         [HttpGet]
         public object Get(int membreId)
         {
-            return new SessionToken();
-            // throw new ArgumentException();
+            throw new ArgumentException();
         }
     }
 }
