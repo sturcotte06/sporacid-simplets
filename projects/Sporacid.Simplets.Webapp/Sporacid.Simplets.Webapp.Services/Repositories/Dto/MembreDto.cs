@@ -13,6 +13,9 @@
         public string CodeUniversel { get; set; }
 
         [Required]
+        public ConcentrationDto Concentration { get; set; }
+
+        [Required]
         [StringLength(50)]
         public string Nom { get; set; }
 

@@ -26,6 +26,7 @@ namespace Sporacid.Simplets.Webapp.Services
 
             // Create all mappings.
             Mapper.CreateMap<Membre, MembreDto>();
+            Mapper.CreateMap<Concentration, ConcentrationDto>();
 
             // Assert that we have not screwed up.
             Mapper.AssertConfigurationIsValid();
