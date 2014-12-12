@@ -18,11 +18,18 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        [NonSerialized] private readonly LoggingLevel loggingLevel;
+
         private string methodName;
 
         [NonSerialized] private TimeSpan previousTime;
 
         [NonSerialized] private Stopwatch stopwatch;
+
+        public TraceAttribute(LoggingLevel loggingLevel)
+        {
+            this.loggingLevel = loggingLevel;
+        }
 
         /// <summary>
         /// Method executed at build time. Initializes the aspect instance. After the execution
@@ -53,12 +60,17 @@
         /// <param name="args">Unused.</param>
         public override void OnEntry(MethodExecutionArgs args)
         {
+            if (!this.LevelEnabled())
+            {
+                return;
+            }
+
             if (this.stopwatch == null)
             {
                 this.stopwatch = Stopwatch.StartNew();
             }
 
-            Logger.DebugFormat("Entering: {0}", this.methodName);
+            this.LogFormat("Entering: {0}", this.methodName);
             this.previousTime = this.stopwatch.Elapsed;
         }
 
@@ -69,7 +81,12 @@
         /// <param name="args">Unused.</param>
         public override void OnSuccess(MethodExecutionArgs args)
         {
-            Logger.DebugFormat("Exiting: {0}, Elapsed: {1}", this.methodName, this.stopwatch.Elapsed - this.previousTime);
+            if (!this.LevelEnabled())
+            {
+                return;
+            }
+
+            this.LogFormat("Exiting: {0}, Elapsed: {1}", this.methodName, this.stopwatch.Elapsed - this.previousTime);
         }
 
         /// <summary>
@@ -79,6 +96,11 @@
         /// <param name="args">Unused.</param>
         public override void OnException(MethodExecutionArgs args)
         {
+            if (!this.LevelEnabled())
+            {
+                return;
+            }
+
             var stringBuilder = new StringBuilder(1024);
 
             // Write the exit message. 
@@ -112,7 +134,62 @@
             stringBuilder.Append(", ");
             stringBuilder.AppendFormat("Elapsed: {0}", this.stopwatch.Elapsed - this.previousTime);
 
-            Logger.Warn(stringBuilder);
+            this.Log(stringBuilder.ToString());
+        }
+
+        private bool LevelEnabled()
+        {
+            switch (this.loggingLevel)
+            {
+                case LoggingLevel.Debug:
+                    return Logger.IsDebugEnabled;
+                case LoggingLevel.Information:
+                    return Logger.IsInfoEnabled;
+                case LoggingLevel.Warning:
+                    return Logger.IsWarnEnabled;
+                case LoggingLevel.Error:
+                    return Logger.IsErrorEnabled;
+                case LoggingLevel.Fatal:
+                    return Logger.IsFatalEnabled;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Logs the formatted message at the configured logging level.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="formats">The format objects.</param>
+        private void LogFormat(String message, params Object[] formats)
+        {
+            this.Log(String.Format(message, formats));
+        }
+
+        /// <summary>
+        /// Logs the message at the configured logging level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        private void Log(String message)
+        {
+            switch (this.loggingLevel)
+            {
+                case LoggingLevel.Debug:
+                    Logger.Debug(message);
+                    break;
+                case LoggingLevel.Information:
+                    Logger.Info(message);
+                    break;
+                case LoggingLevel.Warning:
+                    Logger.Warn(message);
+                    break;
+                case LoggingLevel.Error:
+                    Logger.Error(message);
+                    break;
+                case LoggingLevel.Fatal:
+                    Logger.Fatal(message);
+                    break;
+            }
         }
     }
 }

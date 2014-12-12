@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sporacid.Simplets.Webapp.Core.Aspects.Logging
+﻿namespace Sporacid.Simplets.Webapp.Core.Aspects.Logging
 {
-    class LoggingLevel
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    public enum LoggingLevel
     {
+        Debug,
+        Information,
+        Warning,
+        Error,
+        Fatal
     }
 }

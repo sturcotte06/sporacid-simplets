@@ -1,7 +1,9 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
+    using System.Reflection;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication;
+    using System.Web.Http.Dispatcher;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Resolvers;
 
     public static class WebApiConfig
     {
@@ -10,10 +12,13 @@
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            // // Convention-based routing.
-            // config.Routes.MapHttpRoute(
-            //     name: "SimpletsRoutingConvention",
-            //     routeTemplate: "api/v1/{controller}");
+            // The convention for this project is NameService instead of NameController.
+            config.Services.Replace(typeof (IHttpControllerTypeResolver), new ServiceHttpControllerTypeResolver());
+            var suffix = typeof (DefaultHttpControllerSelector).GetField("ControllerSuffix", BindingFlags.Static | BindingFlags.Public);
+            if (suffix != null)
+            {
+                suffix.SetValue(null, "Service");
+            }
         }
     }
 }

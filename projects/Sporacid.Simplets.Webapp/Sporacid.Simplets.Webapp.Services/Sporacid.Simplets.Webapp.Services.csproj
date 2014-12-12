@@ -40,6 +40,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -75,6 +81,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -141,7 +148,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\SerializationConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="LinqToSql\Database.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\CommitBehaviour.cs" />
+    <Compile Include="Repositories\Dto\ConcentrationDto.cs" />
+    <Compile Include="Repositories\Dto\MembreDto.cs" />
+    <Compile Include="Repositories\Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Repositories\Exceptions\RepositoryException.cs" />
+    <Compile Include="Repositories\IMembreRepository.cs" />
+    <Compile Include="Repositories\Impl\MembreRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="WebApi2\Binders\Ipv4AddressModelBinder.cs" />
     <Compile Include="WebApi2\Filters\Authentication\AuthenticatedAttribute.cs" />
     <Compile Include="WebApi2\Filters\Authentication\AuthenticationFilter.cs" />
@@ -159,10 +182,13 @@
     <Compile Include="Services\Impl\MembreService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="LinqToSql\Database.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Database.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Resources\log4net.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -176,7 +202,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -195,6 +223,12 @@
       <Name>Sporacid.Simplets.Webapp.Tools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqToSql\Database.dbml.layout">
+      <DependentUpon>Database.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -228,6 +262,7 @@
     <Error Condition="!Exists('..\packages\PostSharp.4.0.37\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
     <Error Condition="Exists('..\packages\PostSharp.4.0.37\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
   </Target>
+  <Import Project="..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

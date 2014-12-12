@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Aspects\Logging\LoggingLevel.cs" />
     <Compile Include="Aspects\Logging\TraceAttribute.cs" />
+    <Compile Include="Aspects\Validation\ValidAttribute.cs" />
     <Compile Include="Exceptions\Authorization\NotAuthorizedException.cs" />
     <Compile Include="Localization\ILocalizable.cs" />
     <Compile Include="Localization\IMessageLocalizer.cs" />

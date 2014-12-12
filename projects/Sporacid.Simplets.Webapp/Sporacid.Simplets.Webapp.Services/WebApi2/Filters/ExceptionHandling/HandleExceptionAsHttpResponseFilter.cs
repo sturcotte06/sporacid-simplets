@@ -9,6 +9,7 @@
     using System.Web;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Services.Repositories.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -20,7 +21,9 @@
             {
                 {typeof (ArgumentException), HttpStatusCode.BadRequest},
                 {typeof (ArgumentNullException), HttpStatusCode.BadRequest},
+                {typeof (ArgumentOutOfRangeException), HttpStatusCode.BadRequest},
                 {typeof (SecurityException), HttpStatusCode.Unauthorized},
+                {typeof (EntityNotFoundException<>), HttpStatusCode.NotFound},
             };
         }
 
@@ -56,15 +59,24 @@
                 return;
             }
 
-            var exception = actionExecutedContext.Exception;
             var request = actionExecutedContext.Request;
+            var exception = actionExecutedContext.Exception;
 
             if (actionExecutedContext.Exception is HttpException)
             {
                 var httpException = (HttpException) exception;
                 actionExecutedContext.Response = request.CreateErrorResponse((HttpStatusCode) httpException.GetHttpCode(), httpException);
             }
-            else if (this.Mappings.ContainsKey(exception.GetType()))
+
+            // Not an Http exception so cannot map directly to a http status code.
+            // Do a lookup in the mappings.
+            var exceptionType = exception.GetType();
+            if (exceptionType.IsGenericType)
+            {
+                exceptionType = exceptionType.GetGenericTypeDefinition();
+            }
+
+            if (this.Mappings.ContainsKey(exceptionType))
             {
                 var httpStatusCode = this.Mappings[exception.GetType()];
                 actionExecutedContext.Response = request.CreateErrorResponse(httpStatusCode, exception);

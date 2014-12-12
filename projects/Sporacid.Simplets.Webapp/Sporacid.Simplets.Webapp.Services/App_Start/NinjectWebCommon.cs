@@ -20,6 +20,9 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Token;
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories;
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories.Impl;
+    using Sporacid.Simplets.Webapp.Services.LinqToSql;
+    using Sporacid.Simplets.Webapp.Services.Repositories;
+    using Sporacid.Simplets.Webapp.Services.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Services.Services;
     using Sporacid.Simplets.Webapp.Services.Services.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication;
@@ -83,7 +86,37 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            // Tools project bindings.
+            RegisterToolProject(kernel);
+            RegisterCoreProject(kernel);
+            RegisterServiceProject(kernel);
+            RegisterServiceProjectFilters(kernel);
+        }
+
+        /// <summary>
+        /// Register all bindings for the core project.
+        /// </summary>
+        /// <param name="kernel">The kernel.</param>
+        private static void RegisterCoreProject(IKernel kernel)
+        {
+            kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
+                .WithConstructorArgument("ENS.AD.ETSMTL.CA");
+            kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>();
+            kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
+                .WithConstructorArgument(TimeSpan.FromHours(6))
+                .WithConstructorArgument((uint) 64);
+            kernel.Bind<IAuthenticationModule[]>().ToMethod<IAuthenticationModule[]>(ctx => new IAuthenticationModule[]
+            {
+                kernel.Get<KerberosAuthenticationModule>(),
+                kernel.Get<TokenAuthenticationModule>()
+            });
+        }
+
+        /// <summary>
+        /// Register all bindings for the tools project.
+        /// </summary>
+        /// <param name="kernel">The kernel.</param>
+        private static void RegisterToolProject(IKernel kernel)
+        {
             kernel.Bind<IThreadPool>().To<ThreadPool>();
             kernel.Bind(typeof (IFactory<>)).To(typeof (Factory<>));
             kernel.Bind(typeof (IObjectPool<>)).To(typeof (ObjectPool<>));
@@ -96,24 +129,26 @@ namespace Sporacid.Simplets.Webapp.Services
                     kernel.Get<ICacheLockingPolicy<IToken, IPrincipal>>(),
                     kernel.Get<ICacheInvalidationPolicy<IToken, IPrincipal>>(),
                 });
+        }
 
-            // Core project bindings.
-            kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
-                .WithConstructorArgument("ENS.AD.ETSMTL.CA");
-            kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>();
-            kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
-                .WithConstructorArgument(TimeSpan.FromHours(6))
-                .WithConstructorArgument((uint) 64);
-            kernel.Bind<IAuthenticationModule[]>().ToMethod<IAuthenticationModule[]>(ctx => new IAuthenticationModule[]
-            {
-                kernel.Get<KerberosAuthenticationModule>(),
-                kernel.Get<TokenAuthenticationModule>()
-            });
-
-            // Services project bindings.
+        /// <summary>
+        /// Register all bindings for the services project.
+        /// </summary>
+        /// <param name="kernel">The kernel.</param>
+        private static void RegisterServiceProject(IKernel kernel)
+        {
             kernel.Bind<IMembreService>().To<MembreService>();
+            kernel.Bind<DatabaseDataContext>().To<DatabaseDataContext>();
+            kernel.Bind<IMembreRepository>().To<MembreRepository>()
+                .WithConstructorArgument(CommitBehaviour.Automatic);
+        }
 
-            // Filter bindings.
+        /// <summary>
+        /// Register all web api filters for the services project.
+        /// </summary>
+        /// <param name="kernel">The kernel.</param>
+        private static void RegisterServiceProjectFilters(IKernel kernel)
+        {
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
                 .WhenControllerHas<AuthenticatedAttribute>();
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Action)
