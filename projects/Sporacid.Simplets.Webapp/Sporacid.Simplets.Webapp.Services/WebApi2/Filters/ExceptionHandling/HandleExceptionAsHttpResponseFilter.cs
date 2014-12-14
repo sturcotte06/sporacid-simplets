@@ -9,7 +9,7 @@
     using System.Web;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
-    using Sporacid.Simplets.Webapp.Services.Repositories.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -24,6 +24,7 @@
                 {typeof (ArgumentOutOfRangeException), HttpStatusCode.BadRequest},
                 {typeof (SecurityException), HttpStatusCode.Unauthorized},
                 {typeof (EntityNotFoundException<>), HttpStatusCode.NotFound},
+                {typeof (NotSupportedException), HttpStatusCode.NotImplemented},
             };
         }
 
@@ -52,11 +53,11 @@
         /// </returns>
         /// <param name="actionExecutedContext">The action executed context.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        public async Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
+        public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
         {
             if (actionExecutedContext.Exception == null)
             {
-                return;
+                return Task.FromResult(0);
             }
 
             var request = actionExecutedContext.Request;
@@ -76,15 +77,11 @@
                 exceptionType = exceptionType.GetGenericTypeDefinition();
             }
 
-            if (this.Mappings.ContainsKey(exceptionType))
-            {
-                var httpStatusCode = this.Mappings[exception.GetType()];
-                actionExecutedContext.Response = request.CreateErrorResponse(httpStatusCode, exception);
-            }
-            else
-            {
-                actionExecutedContext.Response = request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception);
-            }
+            HttpStatusCode httpStatusCode;
+            actionExecutedContext.Response = request.CreateErrorResponse(
+                this.Mappings.TryGetValue(exceptionType, out httpStatusCode) ? httpStatusCode : HttpStatusCode.InternalServerError, exception);
+
+            return Task.FromResult(0);
         }
     }
 }

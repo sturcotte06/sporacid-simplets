@@ -6,6 +6,7 @@ using Sporacid.Simplets.Webapp.Services;
 namespace Sporacid.Simplets.Webapp.Services
 {
     using System;
+    using System.Data.Linq;
     using System.Security.Principal;
     using System.Web;
     using System.Web.Http.Filters;
@@ -13,6 +14,8 @@ namespace Sporacid.Simplets.Webapp.Services
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.WebApi.FilterBindingSyntax;
+    using Sporacid.Simplets.Webapp.Core.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
@@ -21,8 +24,6 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories;
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories.Impl;
     using Sporacid.Simplets.Webapp.Services.LinqToSql;
-    using Sporacid.Simplets.Webapp.Services.Repositories;
-    using Sporacid.Simplets.Webapp.Services.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Services.Services;
     using Sporacid.Simplets.Webapp.Services.Services.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication;
@@ -98,6 +99,7 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterCoreProject(IKernel kernel)
         {
+            kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>));
             kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
                 .WithConstructorArgument("ENS.AD.ETSMTL.CA");
             kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>();
@@ -138,9 +140,7 @@ namespace Sporacid.Simplets.Webapp.Services
         private static void RegisterServiceProject(IKernel kernel)
         {
             kernel.Bind<IMembreService>().To<MembreService>();
-            kernel.Bind<DatabaseDataContext>().To<DatabaseDataContext>();
-            kernel.Bind<IMembreRepository>().To<MembreRepository>()
-                .WithConstructorArgument(CommitBehaviour.Automatic);
+            kernel.Bind<DataContext>().To<DatabaseDataContext>();
         }
 
         /// <summary>

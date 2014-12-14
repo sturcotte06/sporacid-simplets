@@ -11,11 +11,11 @@
     using System.Web.Http;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
-    using Sporacid.Simplets.Webapp.Core.Models.Sessions;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl;
     using Sporacid.Simplets.Webapp.Tools.Strings;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
-    using ICredentials = Sporacid.Simplets.Webapp.Core.Models.Sessions.ICredentials;
+    using ICredentials = Sporacid.Simplets.Webapp.Core.Security.Authentication.ICredentials;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

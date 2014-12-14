@@ -1,5 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
+    using System;
     using System.Web.Http;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
@@ -16,7 +17,16 @@
             jsonFormatterSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             jsonFormatterSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             jsonFormatterSettings.Converters.Add(new StringEnumConverter());
-            jsonFormatterSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            jsonFormatterSettings.ContractResolver = new PascalCasePropertyNamesContractResolver();
+        }
+    }
+
+    class PascalCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
+    {
+        protected override string ResolvePropertyName(string propertyName)
+        {
+            var pascalCase = base.ResolvePropertyName(propertyName);
+            return pascalCase.Remove(0, 1).Insert(0, Char.ToUpper(pascalCase[0]).ToString());
         }
     }
 }

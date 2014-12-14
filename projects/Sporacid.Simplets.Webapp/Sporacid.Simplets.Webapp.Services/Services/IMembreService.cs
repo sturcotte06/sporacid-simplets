@@ -1,9 +1,8 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services
 {
-    using System.Collections.Generic;
+    using System;
     using PostSharp.Patterns.Contracts;
-    using Sporacid.Simplets.Webapp.Services.LinqToSql;
-    using Sporacid.Simplets.Webapp.Services.Repositories.Dto;
+    using Sporacid.Simplets.Webapp.Services.Models.Dto;
 
     /// <summary>
     /// Interface for all membre services.
@@ -30,7 +29,13 @@
         /// Adds a member entity into the system.
         /// </summary>
         /// <param name="membre">The member entity.</param>
-        void Add([Required] MembreDto membre);
+        Int32 Add([Required] MembreDto membre);
+
+        /// <summary>
+        /// Updates a member entity from the system.
+        /// </summary>
+        /// <param name="membre">The member entity.</param>
+        void Update([Required] MembreDto membre);
 
         /// <summary>
         /// Deletes a member entity from the system.
@@ -45,11 +50,11 @@
         /// <returns>The member entity.</returns>
         MembreDto Get([Positive] int membreId);
 
-        /// <summary>
-        /// Get all member entities subscribed to the club entity.
-        /// </summary>
-        /// <param name="clubId">The id of the club entity.</param>
-        /// <returns>All subscribed member entities.</returns>
-        IEnumerable<Membre> GetByClub([Positive] int clubId);
+        // /// <summary>
+        // /// Get all member entities subscribed to the club entity.
+        // /// </summary>
+        // /// <param name="clubId">The id of the club entity.</param>
+        // /// <returns>All subscribed member entities.</returns>
+        // IEnumerable<MembreDto> GetByClub([Positive] int clubId);
     }
 }

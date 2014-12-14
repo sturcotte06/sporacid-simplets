@@ -18,11 +18,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 	using System.Reflection;
 	using System.Linq;
 	using System.Linq.Expressions;
+	using System.Runtime.Serialization;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SIMPLETS")]
+	using Sporacid.Simplets.Webapp.Core.Repositories;
+
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SIMPLETS")]
 	public partial class DatabaseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,15 +32,15 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAdress(Adress instance);
-    partial void UpdateAdress(Adress instance);
-    partial void DeleteAdress(Adress instance);
-    partial void InsertSuivy(Suivy instance);
-    partial void UpdateSuivy(Suivy instance);
-    partial void DeleteSuivy(Suivy instance);
-    partial void InsertAllergy(Allergy instance);
-    partial void UpdateAllergy(Allergy instance);
-    partial void DeleteAllergy(Allergy instance);
+    partial void InsertAdresse(Adresse instance);
+    partial void UpdateAdresse(Adresse instance);
+    partial void DeleteAdresse(Adresse instance);
+    partial void InsertSuivie(Suivie instance);
+    partial void UpdateSuivie(Suivie instance);
+    partial void DeleteSuivie(Suivie instance);
+    partial void InsertAllergie(Allergie instance);
+    partial void UpdateAllergie(Allergie instance);
+    partial void DeleteAllergie(Allergie instance);
     partial void InsertAudit(Audit instance);
     partial void UpdateAudit(Audit instance);
     partial void DeleteAudit(Audit instance);
@@ -51,9 +53,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void InsertConcentration(Concentration instance);
     partial void UpdateConcentration(Concentration instance);
     partial void DeleteConcentration(Concentration instance);
-    partial void InsertContactsUrgence(ContactsUrgence instance);
-    partial void UpdateContactsUrgence(ContactsUrgence instance);
-    partial void DeleteContactsUrgence(ContactsUrgence instance);
+    partial void InsertContactUrgence(ContactUrgence instance);
+    partial void UpdateContactUrgence(ContactUrgence instance);
+    partial void DeleteContactUrgence(ContactUrgence instance);
     partial void InsertEvenement(Evenement instance);
     partial void UpdateEvenement(Evenement instance);
     partial void DeleteEvenement(Evenement instance);
@@ -63,39 +65,39 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void InsertFournisseur(Fournisseur instance);
     partial void UpdateFournisseur(Fournisseur instance);
     partial void DeleteFournisseur(Fournisseur instance);
-    partial void InsertFournisseursItem(FournisseursItem instance);
-    partial void UpdateFournisseursItem(FournisseursItem instance);
-    partial void DeleteFournisseursItem(FournisseursItem instance);
+    partial void InsertFournisseurItem(FournisseurItem instance);
+    partial void UpdateFournisseurItem(FournisseurItem instance);
+    partial void DeleteFournisseurItem(FournisseurItem instance);
     partial void InsertItem(Item instance);
     partial void UpdateItem(Item instance);
     partial void DeleteItem(Item instance);
     partial void InsertLiensParente(LiensParente instance);
     partial void UpdateLiensParente(LiensParente instance);
     partial void DeleteLiensParente(LiensParente instance);
-    partial void InsertMembreClubsRole(MembreClubsRole instance);
-    partial void UpdateMembreClubsRole(MembreClubsRole instance);
-    partial void DeleteMembreClubsRole(MembreClubsRole instance);
+    partial void InsertMembreClubRole(MembreClubRole instance);
+    partial void UpdateMembreClubRole(MembreClubRole instance);
+    partial void DeleteMembreClubRole(MembreClubRole instance);
     partial void InsertMembrePreference(MembrePreference instance);
     partial void UpdateMembrePreference(MembrePreference instance);
     partial void DeleteMembrePreference(MembrePreference instance);
     partial void InsertMembre(Membre instance);
     partial void UpdateMembre(Membre instance);
     partial void DeleteMembre(Membre instance);
-    partial void InsertMembresAllergy(MembresAllergy instance);
-    partial void UpdateMembresAllergy(MembresAllergy instance);
-    partial void DeleteMembresAllergy(MembresAllergy instance);
-    partial void InsertMembresClub(MembresClub instance);
-    partial void UpdateMembresClub(MembresClub instance);
-    partial void DeleteMembresClub(MembresClub instance);
-    partial void InsertMembresFormation(MembresFormation instance);
-    partial void UpdateMembresFormation(MembresFormation instance);
-    partial void DeleteMembresFormation(MembresFormation instance);
+    partial void InsertMembreAllergie(MembreAllergie instance);
+    partial void UpdateMembreAllergie(MembreAllergie instance);
+    partial void DeleteMembreAllergie(MembreAllergie instance);
+    partial void InsertMembreClub(MembreClub instance);
+    partial void UpdateMembreClub(MembreClub instance);
+    partial void DeleteMembreClub(MembreClub instance);
+    partial void InsertMembreFormation(MembreFormation instance);
+    partial void UpdateMembreFormation(MembreFormation instance);
+    partial void DeleteMembreFormation(MembreFormation instance);
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
-    partial void InsertStatutsSuivie(StatutsSuivie instance);
-    partial void UpdateStatutsSuivie(StatutsSuivie instance);
-    partial void DeleteStatutsSuivie(StatutsSuivie instance);
+    partial void InsertStatutSuivie(StatutSuivie instance);
+    partial void UpdateStatutSuivie(StatutSuivie instance);
+    partial void DeleteStatutSuivie(StatutSuivie instance);
     partial void InsertUnite(Unite instance);
     partial void UpdateUnite(Unite instance);
     partial void DeleteUnite(Unite instance);
@@ -131,27 +133,27 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Adress> Adresses
+		public System.Data.Linq.Table<Adresse> Adresses
 		{
 			get
 			{
-				return this.GetTable<Adress>();
+				return this.GetTable<Adresse>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Suivy> Suivies
+		public System.Data.Linq.Table<Suivie> Suivies
 		{
 			get
 			{
-				return this.GetTable<Suivy>();
+				return this.GetTable<Suivie>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Allergy> Allergies
+		public System.Data.Linq.Table<Allergie> Allergies
 		{
 			get
 			{
-				return this.GetTable<Allergy>();
+				return this.GetTable<Allergie>();
 			}
 		}
 		
@@ -187,11 +189,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<ContactsUrgence> ContactsUrgences
+		public System.Data.Linq.Table<ContactUrgence> ContactUrgences
 		{
 			get
 			{
-				return this.GetTable<ContactsUrgence>();
+				return this.GetTable<ContactUrgence>();
 			}
 		}
 		
@@ -219,11 +221,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<FournisseursItem> FournisseursItems
+		public System.Data.Linq.Table<FournisseurItem> FournisseurItems
 		{
 			get
 			{
-				return this.GetTable<FournisseursItem>();
+				return this.GetTable<FournisseurItem>();
 			}
 		}
 		
@@ -243,11 +245,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<MembreClubsRole> MembreClubsRoles
+		public System.Data.Linq.Table<MembreClubRole> MembreClubRoles
 		{
 			get
 			{
-				return this.GetTable<MembreClubsRole>();
+				return this.GetTable<MembreClubRole>();
 			}
 		}
 		
@@ -267,27 +269,27 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<MembresAllergy> MembresAllergies
+		public System.Data.Linq.Table<MembreAllergie> MembreAllergies
 		{
 			get
 			{
-				return this.GetTable<MembresAllergy>();
+				return this.GetTable<MembreAllergie>();
 			}
 		}
 		
-		public System.Data.Linq.Table<MembresClub> MembresClubs
+		public System.Data.Linq.Table<MembreClub> MembreClubs
 		{
 			get
 			{
-				return this.GetTable<MembresClub>();
+				return this.GetTable<MembreClub>();
 			}
 		}
 		
-		public System.Data.Linq.Table<MembresFormation> MembresFormations
+		public System.Data.Linq.Table<MembreFormation> MembreFormations
 		{
 			get
 			{
-				return this.GetTable<MembresFormation>();
+				return this.GetTable<MembreFormation>();
 			}
 		}
 		
@@ -299,11 +301,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<StatutsSuivie> StatutsSuivies
+		public System.Data.Linq.Table<StatutSuivie> StatutSuivies
 		{
 			get
 			{
-				return this.GetTable<StatutsSuivie>();
+				return this.GetTable<StatutSuivie>();
 			}
 		}
 		
@@ -317,7 +319,8 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Adresses")]
-	public partial class Adress : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Adresse : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -337,6 +340,8 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		private System.Data.Linq.Binary _Version;
 		
 		private EntitySet<Fournisseur> _Fournisseurs;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -358,13 +363,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public Adress()
+		public Adresse()
 		{
-			this._Fournisseurs = new EntitySet<Fournisseur>(new Action<Fournisseur>(this.attach_Fournisseurs), new Action<Fournisseur>(this.detach_Fournisseurs));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -385,6 +390,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoCivique", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int NoCivique
 		{
 			get
@@ -405,6 +411,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rue", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Rue
 		{
 			get
@@ -425,6 +432,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Appartement", DbType="VarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Appartement
 		{
 			get
@@ -445,6 +453,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ville", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string Ville
 		{
 			get
@@ -465,6 +474,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodePostal", DbType="VarChar(16) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string CodePostal
 		{
 			get
@@ -485,6 +495,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -505,10 +516,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Adress_Fournisseur", Storage="_Fournisseurs", ThisKey="Id", OtherKey="AdresseId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
 		public EntitySet<Fournisseur> Fournisseurs
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Fournisseurs.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Fournisseurs;
 			}
 			set
@@ -540,18 +557,46 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		private void attach_Fournisseurs(Fournisseur entity)
 		{
 			this.SendPropertyChanging();
-			entity.Adress = this;
+			entity.Adresse = this;
 		}
 		
 		private void detach_Fournisseurs(Fournisseur entity)
 		{
 			this.SendPropertyChanging();
-			entity.Adress = null;
+			entity.Adresse = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Fournisseurs = new EntitySet<Fournisseur>(new Action<Fournisseur>(this.attach_Fournisseurs), new Action<Fournisseur>(this.detach_Fournisseurs));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Suivies")]
-	public partial class Suivy : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Suivie : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -572,7 +617,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private EntityRef<Membre> _Membre;
 		
-		private EntityRef<StatutsSuivie> _StatutsSuivie;
+		private EntityRef<StatutSuivie> _StatutsSuivie;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -592,15 +637,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public Suivy()
+		public Suivie()
 		{
-			this._Commandite = default(EntityRef<Commandite>);
-			this._Membre = default(EntityRef<Membre>);
-			this._StatutsSuivie = default(EntityRef<StatutsSuivie>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommanditeId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int CommanditeId
 		{
 			get
@@ -625,6 +668,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int MembreId
 		{
 			get
@@ -649,6 +693,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatutSuivieId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int StatutSuivieId
 		{
 			get
@@ -673,6 +718,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSuivie", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.DateTime DateSuivie
 		{
 			get
@@ -693,6 +739,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string Commentaire
 		{
 			get
@@ -713,6 +760,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -801,7 +849,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutsSuivie_Suivy", Storage="_StatutsSuivie", ThisKey="StatutSuivieId", OtherKey="Id", IsForeignKey=true)]
-		public StatutsSuivie StatutsSuivie
+		public StatutSuivie StatutSuivie
 		{
 			get
 			{
@@ -809,7 +857,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 			set
 			{
-				StatutsSuivie previousValue = this._StatutsSuivie.Entity;
+				StatutSuivie previousValue = this._StatutsSuivie.Entity;
 				if (((previousValue != value) 
 							|| (this._StatutsSuivie.HasLoadedOrAssignedValue == false)))
 				{
@@ -829,7 +877,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					{
 						this._StatutSuivieId = default(int);
 					}
-					this.SendPropertyChanged("StatutsSuivie");
+					this.SendPropertyChanged("StatutSuivie");
 				}
 			}
 		}
@@ -853,10 +901,26 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Commandite = default(EntityRef<Commandite>);
+			this._Membre = default(EntityRef<Membre>);
+			this._StatutsSuivie = default(EntityRef<StatutSuivie>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Allergies")]
-	public partial class Allergy : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Allergie : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -867,7 +931,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<MembresAllergy> _MembresAllergies;
+		private EntitySet<MembreAllergie> _MembresAllergies;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -881,13 +947,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public Allergy()
+		public Allergie()
 		{
-			this._MembresAllergies = new EntitySet<MembresAllergy>(new Action<MembresAllergy>(this.attach_MembresAllergies), new Action<MembresAllergy>(this.detach_MembresAllergies));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -908,6 +974,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Description
 		{
 			get
@@ -928,6 +995,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -948,10 +1016,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Allergy_MembresAllergy", Storage="_MembresAllergies", ThisKey="Id", OtherKey="AllergieId")]
-		public EntitySet<MembresAllergy> MembresAllergies
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
+		public EntitySet<MembreAllergie> MembreAllergies
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembresAllergies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembresAllergies;
 			}
 			set
@@ -980,21 +1054,49 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_MembresAllergies(MembresAllergy entity)
+		private void attach_MembresAllergies(MembreAllergie entity)
 		{
 			this.SendPropertyChanging();
-			entity.Allergy = this;
+			entity.Allergie = this;
 		}
 		
-		private void detach_MembresAllergies(MembresAllergy entity)
+		private void detach_MembresAllergies(MembreAllergie entity)
 		{
 			this.SendPropertyChanging();
-			entity.Allergy = null;
+			entity.Allergie = null;
+		}
+		
+		private void Initialize()
+		{
+			this._MembresAllergies = new EntitySet<MembreAllergie>(new Action<MembreAllergie>(this.attach_MembresAllergies), new Action<MembreAllergie>(this.detach_MembresAllergies));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Audits")]
-	public partial class Audit : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Audit : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1031,10 +1133,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Audit()
 		{
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -1055,6 +1158,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string CodeUniversel
 		{
 			get
@@ -1075,6 +1179,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdresseIp", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string AdresseIp
 		{
 			get
@@ -1095,6 +1200,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Message
 		{
 			get
@@ -1115,6 +1221,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateAudit", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.DateTime DateAudit
 		{
 			get
@@ -1135,6 +1242,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -1173,10 +1281,23 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clubs")]
-	public partial class Club : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Club : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1193,7 +1314,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private EntitySet<Evenement> _Evenements;
 		
-		private EntitySet<MembresClub> _MembresClubs;
+		private EntitySet<MembreClub> _MembresClubs;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1211,13 +1334,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Club()
 		{
-			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
-			this._Evenements = new EntitySet<Evenement>(new Action<Evenement>(this.attach_Evenements), new Action<Evenement>(this.detach_Evenements));
-			this._MembresClubs = new EntitySet<MembresClub>(new Action<MembresClub>(this.attach_MembresClubs), new Action<MembresClub>(this.detach_MembresClubs));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -1238,6 +1359,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Nom
 		{
 			get
@@ -1258,6 +1380,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
 			get
@@ -1278,6 +1401,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -1298,10 +1422,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_Commandite", Storage="_Commandites", ThisKey="Id", OtherKey="ClubId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
 		public EntitySet<Commandite> Commandites
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Commandites.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Commandites;
 			}
 			set
@@ -1311,10 +1441,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_Evenement", Storage="_Evenements", ThisKey="Id", OtherKey="ClubId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6, EmitDefaultValue=false)]
 		public EntitySet<Evenement> Evenements
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Evenements.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Evenements;
 			}
 			set
@@ -1324,10 +1460,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_MembresClub", Storage="_MembresClubs", ThisKey="Id", OtherKey="ClubId")]
-		public EntitySet<MembresClub> MembresClubs
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
+		public EntitySet<MembreClub> MembreClubs
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembresClubs.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembresClubs;
 			}
 			set
@@ -1380,21 +1522,51 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			entity.Club = null;
 		}
 		
-		private void attach_MembresClubs(MembresClub entity)
+		private void attach_MembresClubs(MembreClub entity)
 		{
 			this.SendPropertyChanging();
 			entity.Club = this;
 		}
 		
-		private void detach_MembresClubs(MembresClub entity)
+		private void detach_MembresClubs(MembreClub entity)
 		{
 			this.SendPropertyChanging();
 			entity.Club = null;
 		}
+		
+		private void Initialize()
+		{
+			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
+			this._Evenements = new EntitySet<Evenement>(new Action<Evenement>(this.attach_Evenements), new Action<Evenement>(this.detach_Evenements));
+			this._MembresClubs = new EntitySet<MembreClub>(new Action<MembreClub>(this.attach_MembresClubs), new Action<MembreClub>(this.detach_MembresClubs));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Commandites")]
-	public partial class Commandite : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Commandite : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1413,13 +1585,15 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<Suivy> _Suivies;
+		private EntitySet<Suivie> _Suivies;
 		
 		private EntityRef<Club> _Club;
 		
 		private EntityRef<Fournisseur> _Fournisseur;
 		
 		private EntityRef<Item> _Item;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1443,14 +1617,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Commandite()
 		{
-			this._Suivies = new EntitySet<Suivy>(new Action<Suivy>(this.attach_Suivies), new Action<Suivy>(this.detach_Suivies));
-			this._Club = default(EntityRef<Club>);
-			this._Fournisseur = default(EntityRef<Fournisseur>);
-			this._Item = default(EntityRef<Item>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -1471,6 +1642,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FournisseurId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int FournisseurId
 		{
 			get
@@ -1495,6 +1667,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int ItemId
 		{
 			get
@@ -1519,6 +1692,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public int ClubId
 		{
 			get
@@ -1543,6 +1717,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Valeur", DbType="Decimal(6,2) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public decimal Valeur
 		{
 			get
@@ -1563,6 +1738,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nature", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string Nature
 		{
 			get
@@ -1583,6 +1759,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -1603,10 +1780,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Commandite_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="CommanditeId")]
-		public EntitySet<Suivy> Suivies
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		public EntitySet<Suivie> Suivies
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Suivies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Suivies;
 			}
 			set
@@ -1737,21 +1920,52 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_Suivies(Suivy entity)
+		private void attach_Suivies(Suivie entity)
 		{
 			this.SendPropertyChanging();
 			entity.Commandite = this;
 		}
 		
-		private void detach_Suivies(Suivy entity)
+		private void detach_Suivies(Suivie entity)
 		{
 			this.SendPropertyChanging();
 			entity.Commandite = null;
 		}
+		
+		private void Initialize()
+		{
+			this._Suivies = new EntitySet<Suivie>(new Action<Suivie>(this.attach_Suivies), new Action<Suivie>(this.detach_Suivies));
+			this._Club = default(EntityRef<Club>);
+			this._Fournisseur = default(EntityRef<Fournisseur>);
+			this._Item = default(EntityRef<Item>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Concentrations")]
-	public partial class Concentration : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Concentration : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1765,6 +1979,8 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		private System.Data.Linq.Binary _Version;
 		
 		private EntitySet<Membre> _Membres;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1782,11 +1998,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Concentration()
 		{
-			this._Membres = new EntitySet<Membre>(new Action<Membre>(this.attach_Membres), new Action<Membre>(this.detach_Membres));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -1807,6 +2023,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Acronyme", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Acronyme
 		{
 			get
@@ -1827,6 +2044,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
 			get
@@ -1847,6 +2065,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -1867,10 +2086,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Concentration_Membre", Storage="_Membres", ThisKey="Id", OtherKey="ConcentrationId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
 		public EntitySet<Membre> Membres
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Membres.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Membres;
 			}
 			set
@@ -1910,10 +2135,38 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			this.SendPropertyChanging();
 			entity.Concentration = null;
 		}
+		
+		private void Initialize()
+		{
+			this._Membres = new EntitySet<Membre>(new Action<Membre>(this.attach_Membres), new Action<Membre>(this.detach_Membres));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ContactsUrgence")]
-	public partial class ContactsUrgence : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class ContactUrgence : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1956,14 +2209,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public ContactsUrgence()
+		public ContactUrgence()
 		{
-			this._LiensParente = default(EntityRef<LiensParente>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -1984,6 +2236,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int MembreId
 		{
 			get
@@ -2008,6 +2261,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LienParenteId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int LienParenteId
 		{
 			get
@@ -2032,6 +2286,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Nom
 		{
 			get
@@ -2052,6 +2307,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string Prenom
 		{
 			get
@@ -2072,6 +2328,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string Telephone
 		{
 			get
@@ -2092,6 +2349,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2128,12 +2386,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._LiensParente.Entity = null;
-						previousValue.ContactsUrgences.Remove(this);
+						previousValue.ContactUrgences.Remove(this);
 					}
 					this._LiensParente.Entity = value;
 					if ((value != null))
 					{
-						value.ContactsUrgences.Add(this);
+						value.ContactUrgences.Add(this);
 						this._LienParenteId = value.Id;
 					}
 					else
@@ -2162,12 +2420,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Membre.Entity = null;
-						previousValue.ContactsUrgences.Remove(this);
+						previousValue.ContactUrgences.Remove(this);
 					}
 					this._Membre.Entity = value;
 					if ((value != null))
 					{
-						value.ContactsUrgences.Add(this);
+						value.ContactUrgences.Add(this);
 						this._MembreId = value.Id;
 					}
 					else
@@ -2198,10 +2456,25 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._LiensParente = default(EntityRef<LiensParente>);
+			this._Membre = default(EntityRef<Membre>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Evenements")]
-	public partial class Evenement : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Evenement : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2244,11 +2517,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Evenement()
 		{
-			this._Club = default(EntityRef<Club>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -2269,6 +2542,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int ClubId
 		{
 			get
@@ -2293,6 +2567,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Nom
 		{
 			get
@@ -2313,6 +2588,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Description
 		{
 			get
@@ -2333,6 +2609,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDebut", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.DateTime DateDebut
 		{
 			get
@@ -2353,6 +2630,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateFin", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Nullable<System.DateTime> DateFin
 		{
 			get
@@ -2373,6 +2651,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2445,10 +2724,24 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Club = default(EntityRef<Club>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Formations")]
-	public partial class Formation : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Formation : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2461,7 +2754,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<MembresFormation> _MembresFormations;
+		private EntitySet<MembreFormation> _MembresFormations;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2479,11 +2774,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Formation()
 		{
-			this._MembresFormations = new EntitySet<MembresFormation>(new Action<MembresFormation>(this.attach_MembresFormations), new Action<MembresFormation>(this.detach_MembresFormations));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -2504,6 +2799,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titre", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Titre
 		{
 			get
@@ -2524,6 +2820,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
 			get
@@ -2544,6 +2841,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2564,10 +2862,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Formation_MembresFormation", Storage="_MembresFormations", ThisKey="Id", OtherKey="FormationId")]
-		public EntitySet<MembresFormation> MembresFormations
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
+		public EntitySet<MembreFormation> MembreFormations
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembresFormations.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembresFormations;
 			}
 			set
@@ -2596,21 +2900,49 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_MembresFormations(MembresFormation entity)
+		private void attach_MembresFormations(MembreFormation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Formation = this;
 		}
 		
-		private void detach_MembresFormations(MembresFormation entity)
+		private void detach_MembresFormations(MembreFormation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Formation = null;
 		}
+		
+		private void Initialize()
+		{
+			this._MembresFormations = new EntitySet<MembreFormation>(new Action<MembreFormation>(this.attach_MembresFormations), new Action<MembreFormation>(this.detach_MembresFormations));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fournisseurs")]
-	public partial class Fournisseur : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Fournisseur : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2631,9 +2963,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private EntitySet<Commandite> _Commandites;
 		
-		private EntitySet<FournisseursItem> _FournisseursItems;
+		private EntitySet<FournisseurItem> _FournisseursItems;
 		
-		private EntityRef<Adress> _Adress;
+		private EntityRef<Adresse> _Adress;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2657,13 +2991,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Fournisseur()
 		{
-			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
-			this._FournisseursItems = new EntitySet<FournisseursItem>(new Action<FournisseursItem>(this.attach_FournisseursItems), new Action<FournisseursItem>(this.detach_FournisseursItems));
-			this._Adress = default(EntityRef<Adress>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -2684,6 +3016,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdresseId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int AdresseId
 		{
 			get
@@ -2708,6 +3041,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Nom
 		{
 			get
@@ -2728,6 +3062,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Contact
 		{
 			get
@@ -2748,6 +3083,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string Telephone
 		{
 			get
@@ -2768,6 +3104,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string Courriel
 		{
 			get
@@ -2788,6 +3125,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2808,10 +3146,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_Commandite", Storage="_Commandites", ThisKey="Id", OtherKey="FournisseurId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
 		public EntitySet<Commandite> Commandites
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Commandites.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Commandites;
 			}
 			set
@@ -2821,10 +3165,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_FournisseursItem", Storage="_FournisseursItems", ThisKey="Id", OtherKey="FournisseurId")]
-		public EntitySet<FournisseursItem> FournisseursItems
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
+		public EntitySet<FournisseurItem> FournisseurItems
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._FournisseursItems.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._FournisseursItems;
 			}
 			set
@@ -2834,7 +3184,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Adress_Fournisseur", Storage="_Adress", ThisKey="AdresseId", OtherKey="Id", IsForeignKey=true)]
-		public Adress Adress
+		public Adresse Adresse
 		{
 			get
 			{
@@ -2842,7 +3192,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 			set
 			{
-				Adress previousValue = this._Adress.Entity;
+				Adresse previousValue = this._Adress.Entity;
 				if (((previousValue != value) 
 							|| (this._Adress.HasLoadedOrAssignedValue == false)))
 				{
@@ -2862,7 +3212,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					{
 						this._AdresseId = default(int);
 					}
-					this.SendPropertyChanged("Adress");
+					this.SendPropertyChanged("Adresse");
 				}
 			}
 		}
@@ -2899,21 +3249,51 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			entity.Fournisseur = null;
 		}
 		
-		private void attach_FournisseursItems(FournisseursItem entity)
+		private void attach_FournisseursItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Fournisseur = this;
 		}
 		
-		private void detach_FournisseursItems(FournisseursItem entity)
+		private void detach_FournisseursItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Fournisseur = null;
 		}
+		
+		private void Initialize()
+		{
+			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
+			this._FournisseursItems = new EntitySet<FournisseurItem>(new Action<FournisseurItem>(this.attach_FournisseursItems), new Action<FournisseurItem>(this.detach_FournisseursItems));
+			this._Adress = default(EntityRef<Adresse>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FournisseursItems")]
-	public partial class FournisseursItem : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class FournisseurItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2944,14 +3324,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public FournisseursItem()
+		public FournisseurItem()
 		{
-			this._Fournisseur = default(EntityRef<Fournisseur>);
-			this._Item = default(EntityRef<Item>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FournisseurId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int FournisseurId
 		{
 			get
@@ -2976,6 +3355,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int ItemId
 		{
 			get
@@ -3000,6 +3380,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeFournisseur", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string CodeFournisseur
 		{
 			get
@@ -3020,6 +3401,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -3056,12 +3438,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Fournisseur.Entity = null;
-						previousValue.FournisseursItems.Remove(this);
+						previousValue.FournisseurItems.Remove(this);
 					}
 					this._Fournisseur.Entity = value;
 					if ((value != null))
 					{
-						value.FournisseursItems.Add(this);
+						value.FournisseurItems.Add(this);
 						this._FournisseurId = value.Id;
 					}
 					else
@@ -3090,12 +3472,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Item.Entity = null;
-						previousValue.FournisseursItems.Remove(this);
+						previousValue.FournisseurItems.Remove(this);
 					}
 					this._Item.Entity = value;
 					if ((value != null))
 					{
-						value.FournisseursItems.Add(this);
+						value.FournisseurItems.Add(this);
 						this._ItemId = value.Id;
 					}
 					else
@@ -3126,10 +3508,25 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Fournisseur = default(EntityRef<Fournisseur>);
+			this._Item = default(EntityRef<Item>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Items")]
-	public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -3152,9 +3549,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private EntitySet<Commandite> _Commandites;
 		
-		private EntitySet<FournisseursItem> _FournisseursItems;
+		private EntitySet<FournisseurItem> _FournisseursItems;
 		
 		private EntityRef<Unite> _Unite;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3180,13 +3579,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Item()
 		{
-			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
-			this._FournisseursItems = new EntitySet<FournisseursItem>(new Action<FournisseursItem>(this.attach_FournisseursItems), new Action<FournisseursItem>(this.detach_FournisseursItems));
-			this._Unite = default(EntityRef<Unite>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -3207,6 +3604,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniteId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int UniteId
 		{
 			get
@@ -3231,6 +3629,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
 			get
@@ -3251,6 +3650,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeClub", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string CodeClub
 		{
 			get
@@ -3271,6 +3671,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantiteCourante", DbType="Decimal(6,3) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public decimal QuantiteCourante
 		{
 			get
@@ -3291,6 +3692,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QunatiteMin", DbType="Decimal(6,3)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Nullable<decimal> QunatiteMin
 		{
 			get
@@ -3311,6 +3713,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantiteMax", DbType="Decimal(6,3)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Nullable<decimal> QuantiteMax
 		{
 			get
@@ -3331,6 +3734,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -3351,10 +3755,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_Commandite", Storage="_Commandites", ThisKey="Id", OtherKey="ItemId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
 		public EntitySet<Commandite> Commandites
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Commandites.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Commandites;
 			}
 			set
@@ -3364,10 +3774,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_FournisseursItem", Storage="_FournisseursItems", ThisKey="Id", OtherKey="ItemId")]
-		public EntitySet<FournisseursItem> FournisseursItems
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		public EntitySet<FournisseurItem> FournisseurItems
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._FournisseursItems.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._FournisseursItems;
 			}
 			set
@@ -3442,21 +3858,51 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			entity.Item = null;
 		}
 		
-		private void attach_FournisseursItems(FournisseursItem entity)
+		private void attach_FournisseursItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Item = this;
 		}
 		
-		private void detach_FournisseursItems(FournisseursItem entity)
+		private void detach_FournisseursItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Item = null;
 		}
+		
+		private void Initialize()
+		{
+			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
+			this._FournisseursItems = new EntitySet<FournisseurItem>(new Action<FournisseurItem>(this.attach_FournisseursItems), new Action<FournisseurItem>(this.detach_FournisseursItems));
+			this._Unite = default(EntityRef<Unite>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LiensParente")]
-	public partial class LiensParente : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class LiensParente : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -3467,7 +3913,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<ContactsUrgence> _ContactsUrgences;
+		private EntitySet<ContactUrgence> _ContactsUrgences;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3483,11 +3931,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public LiensParente()
 		{
-			this._ContactsUrgences = new EntitySet<ContactsUrgence>(new Action<ContactsUrgence>(this.attach_ContactsUrgences), new Action<ContactsUrgence>(this.detach_ContactsUrgences));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -3508,6 +3956,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Description
 		{
 			get
@@ -3528,6 +3977,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -3548,10 +3998,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LiensParente_ContactsUrgence", Storage="_ContactsUrgences", ThisKey="Id", OtherKey="LienParenteId")]
-		public EntitySet<ContactsUrgence> ContactsUrgences
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
+		public EntitySet<ContactUrgence> ContactUrgences
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._ContactsUrgences.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._ContactsUrgences;
 			}
 			set
@@ -3580,21 +4036,49 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_ContactsUrgences(ContactsUrgence entity)
+		private void attach_ContactsUrgences(ContactUrgence entity)
 		{
 			this.SendPropertyChanging();
 			entity.LiensParente = this;
 		}
 		
-		private void detach_ContactsUrgences(ContactsUrgence entity)
+		private void detach_ContactsUrgences(ContactUrgence entity)
 		{
 			this.SendPropertyChanging();
 			entity.LiensParente = null;
 		}
+		
+		private void Initialize()
+		{
+			this._ContactsUrgences = new EntitySet<ContactUrgence>(new Action<ContactUrgence>(this.attach_ContactsUrgences), new Action<ContactUrgence>(this.detach_ContactsUrgences));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembreClubsRoles")]
-	public partial class MembreClubsRole : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class MembreClubRole : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -3605,7 +4089,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntityRef<MembresClub> _MembresClub;
+		private EntityRef<MembreClub> _MembresClub;
 		
 		private EntityRef<Role> _Role;
 		
@@ -3621,14 +4105,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public MembreClubsRole()
+		public MembreClubRole()
 		{
-			this._MembresClub = default(EntityRef<MembresClub>);
-			this._Role = default(EntityRef<Role>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreClubId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int MembreClubId
 		{
 			get
@@ -3653,6 +4136,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int RoleId
 		{
 			get
@@ -3677,6 +4161,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -3697,7 +4182,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MembresClub_MembreClubsRole", Storage="_MembresClub", ThisKey="MembreClubId", OtherKey="Id", IsForeignKey=true)]
-		public MembresClub MembresClub
+		public MembreClub MembreClub
 		{
 			get
 			{
@@ -3705,7 +4190,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 			set
 			{
-				MembresClub previousValue = this._MembresClub.Entity;
+				MembreClub previousValue = this._MembresClub.Entity;
 				if (((previousValue != value) 
 							|| (this._MembresClub.HasLoadedOrAssignedValue == false)))
 				{
@@ -3713,19 +4198,19 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._MembresClub.Entity = null;
-						previousValue.MembreClubsRoles.Remove(this);
+						previousValue.MembreClubRoles.Remove(this);
 					}
 					this._MembresClub.Entity = value;
 					if ((value != null))
 					{
-						value.MembreClubsRoles.Add(this);
+						value.MembreClubRoles.Add(this);
 						this._MembreClubId = value.Id;
 					}
 					else
 					{
 						this._MembreClubId = default(int);
 					}
-					this.SendPropertyChanged("MembresClub");
+					this.SendPropertyChanged("MembreClub");
 				}
 			}
 		}
@@ -3747,12 +4232,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Role.Entity = null;
-						previousValue.MembreClubsRoles.Remove(this);
+						previousValue.MembreClubRoles.Remove(this);
 					}
 					this._Role.Entity = value;
 					if ((value != null))
 					{
-						value.MembreClubsRoles.Add(this);
+						value.MembreClubRoles.Add(this);
 						this._RoleId = value.Id;
 					}
 					else
@@ -3783,10 +4268,25 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._MembresClub = default(EntityRef<MembreClub>);
+			this._Role = default(EntityRef<Role>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembrePreferences")]
-	public partial class MembrePreference : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class MembrePreference : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -3821,11 +4321,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public MembrePreference()
 		{
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -3846,6 +4346,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int MembreId
 		{
 			get
@@ -3870,6 +4371,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreferenceKey", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string PreferenceKey
 		{
 			get
@@ -3890,6 +4392,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreferenceValue", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string PreferenceValue
 		{
 			get
@@ -3910,6 +4413,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -3982,10 +4486,24 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Membre = default(EntityRef<Membre>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Membres")]
-	public partial class Membre : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Membre : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -4008,19 +4526,21 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<Suivy> _Suivies;
+		private EntitySet<Suivie> _Suivies;
 		
-		private EntitySet<ContactsUrgence> _ContactsUrgences;
+		private EntitySet<ContactUrgence> _ContactsUrgences;
 		
 		private EntitySet<MembrePreference> _MembrePreferences;
 		
-		private EntitySet<MembresAllergy> _MembresAllergies;
+		private EntitySet<MembreAllergie> _MembresAllergies;
 		
-		private EntitySet<MembresClub> _MembresClubs;
+		private EntitySet<MembreClub> _MembresClubs;
 		
-		private EntitySet<MembresFormation> _MembresFormations;
+		private EntitySet<MembreFormation> _MembresFormations;
 		
 		private EntityRef<Concentration> _Concentration;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4048,17 +4568,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Membre()
 		{
-			this._Suivies = new EntitySet<Suivy>(new Action<Suivy>(this.attach_Suivies), new Action<Suivy>(this.detach_Suivies));
-			this._ContactsUrgences = new EntitySet<ContactsUrgence>(new Action<ContactsUrgence>(this.attach_ContactsUrgences), new Action<ContactsUrgence>(this.detach_ContactsUrgences));
-			this._MembrePreferences = new EntitySet<MembrePreference>(new Action<MembrePreference>(this.attach_MembrePreferences), new Action<MembrePreference>(this.detach_MembrePreferences));
-			this._MembresAllergies = new EntitySet<MembresAllergy>(new Action<MembresAllergy>(this.attach_MembresAllergies), new Action<MembresAllergy>(this.detach_MembresAllergies));
-			this._MembresClubs = new EntitySet<MembresClub>(new Action<MembresClub>(this.attach_MembresClubs), new Action<MembresClub>(this.detach_MembresClubs));
-			this._MembresFormations = new EntitySet<MembresFormation>(new Action<MembresFormation>(this.attach_MembresFormations), new Action<MembresFormation>(this.detach_MembresFormations));
-			this._Concentration = default(EntityRef<Concentration>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -4079,6 +4593,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConcentrationId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public System.Nullable<int> ConcentrationId
 		{
 			get
@@ -4103,6 +4618,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string CodeUniversel
 		{
 			get
@@ -4123,6 +4639,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Nom
 		{
 			get
@@ -4143,6 +4660,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string Prenom
 		{
 			get
@@ -4163,6 +4681,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string Courriel
 		{
 			get
@@ -4183,6 +4702,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public string Telephone
 		{
 			get
@@ -4203,6 +4723,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Actif", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public bool Actif
 		{
 			get
@@ -4223,6 +4744,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -4243,10 +4765,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="MembreId")]
-		public EntitySet<Suivy> Suivies
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		public EntitySet<Suivie> Suivies
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Suivies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Suivies;
 			}
 			set
@@ -4256,10 +4784,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_ContactsUrgence", Storage="_ContactsUrgences", ThisKey="Id", OtherKey="MembreId")]
-		public EntitySet<ContactsUrgence> ContactsUrgences
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
+		public EntitySet<ContactUrgence> ContactUrgences
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._ContactsUrgences.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._ContactsUrgences;
 			}
 			set
@@ -4269,10 +4803,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembrePreference", Storage="_MembrePreferences", ThisKey="Id", OtherKey="MembreId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
 		public EntitySet<MembrePreference> MembrePreferences
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembrePreferences.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembrePreferences;
 			}
 			set
@@ -4282,10 +4822,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembresAllergy", Storage="_MembresAllergies", ThisKey="Id", OtherKey="MembreId")]
-		public EntitySet<MembresAllergy> MembresAllergies
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
+		public EntitySet<MembreAllergie> MembreAllergies
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembresAllergies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembresAllergies;
 			}
 			set
@@ -4295,10 +4841,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembresClub", Storage="_MembresClubs", ThisKey="Id", OtherKey="MembreId")]
-		public EntitySet<MembresClub> MembresClubs
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
+		public EntitySet<MembreClub> MembreClubs
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembresClubs.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembresClubs;
 			}
 			set
@@ -4308,10 +4860,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembresFormation", Storage="_MembresFormations", ThisKey="Id", OtherKey="MembreId")]
-		public EntitySet<MembresFormation> MembresFormations
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
+		public EntitySet<MembreFormation> MembreFormations
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembresFormations.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembresFormations;
 			}
 			set
@@ -4374,25 +4932,25 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_Suivies(Suivy entity)
+		private void attach_Suivies(Suivie entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = this;
 		}
 		
-		private void detach_Suivies(Suivy entity)
+		private void detach_Suivies(Suivie entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = null;
 		}
 		
-		private void attach_ContactsUrgences(ContactsUrgence entity)
+		private void attach_ContactsUrgences(ContactUrgence entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = this;
 		}
 		
-		private void detach_ContactsUrgences(ContactsUrgence entity)
+		private void detach_ContactsUrgences(ContactUrgence entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = null;
@@ -4410,45 +4968,79 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			entity.Membre = null;
 		}
 		
-		private void attach_MembresAllergies(MembresAllergy entity)
+		private void attach_MembresAllergies(MembreAllergie entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = this;
 		}
 		
-		private void detach_MembresAllergies(MembresAllergy entity)
+		private void detach_MembresAllergies(MembreAllergie entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = null;
 		}
 		
-		private void attach_MembresClubs(MembresClub entity)
+		private void attach_MembresClubs(MembreClub entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = this;
 		}
 		
-		private void detach_MembresClubs(MembresClub entity)
+		private void detach_MembresClubs(MembreClub entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = null;
 		}
 		
-		private void attach_MembresFormations(MembresFormation entity)
+		private void attach_MembresFormations(MembreFormation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = this;
 		}
 		
-		private void detach_MembresFormations(MembresFormation entity)
+		private void detach_MembresFormations(MembreFormation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Membre = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Suivies = new EntitySet<Suivie>(new Action<Suivie>(this.attach_Suivies), new Action<Suivie>(this.detach_Suivies));
+			this._ContactsUrgences = new EntitySet<ContactUrgence>(new Action<ContactUrgence>(this.attach_ContactsUrgences), new Action<ContactUrgence>(this.detach_ContactsUrgences));
+			this._MembrePreferences = new EntitySet<MembrePreference>(new Action<MembrePreference>(this.attach_MembrePreferences), new Action<MembrePreference>(this.detach_MembrePreferences));
+			this._MembresAllergies = new EntitySet<MembreAllergie>(new Action<MembreAllergie>(this.attach_MembresAllergies), new Action<MembreAllergie>(this.detach_MembresAllergies));
+			this._MembresClubs = new EntitySet<MembreClub>(new Action<MembreClub>(this.attach_MembresClubs), new Action<MembreClub>(this.detach_MembresClubs));
+			this._MembresFormations = new EntitySet<MembreFormation>(new Action<MembreFormation>(this.attach_MembresFormations), new Action<MembreFormation>(this.detach_MembresFormations));
+			this._Concentration = default(EntityRef<Concentration>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembresAllergies")]
-	public partial class MembresAllergy : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class MembreAllergie : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -4459,7 +5051,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntityRef<Allergy> _Allergy;
+		private EntityRef<Allergie> _Allergy;
 		
 		private EntityRef<Membre> _Membre;
 		
@@ -4475,14 +5067,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public MembresAllergy()
+		public MembreAllergie()
 		{
-			this._Allergy = default(EntityRef<Allergy>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int MembreId
 		{
 			get
@@ -4507,6 +5098,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllergieId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int AllergieId
 		{
 			get
@@ -4531,6 +5123,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -4551,7 +5144,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Allergy_MembresAllergy", Storage="_Allergy", ThisKey="AllergieId", OtherKey="Id", IsForeignKey=true)]
-		public Allergy Allergy
+		public Allergie Allergie
 		{
 			get
 			{
@@ -4559,7 +5152,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 			set
 			{
-				Allergy previousValue = this._Allergy.Entity;
+				Allergie previousValue = this._Allergy.Entity;
 				if (((previousValue != value) 
 							|| (this._Allergy.HasLoadedOrAssignedValue == false)))
 				{
@@ -4567,19 +5160,19 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Allergy.Entity = null;
-						previousValue.MembresAllergies.Remove(this);
+						previousValue.MembreAllergies.Remove(this);
 					}
 					this._Allergy.Entity = value;
 					if ((value != null))
 					{
-						value.MembresAllergies.Add(this);
+						value.MembreAllergies.Add(this);
 						this._AllergieId = value.Id;
 					}
 					else
 					{
 						this._AllergieId = default(int);
 					}
-					this.SendPropertyChanged("Allergy");
+					this.SendPropertyChanged("Allergie");
 				}
 			}
 		}
@@ -4601,12 +5194,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Membre.Entity = null;
-						previousValue.MembresAllergies.Remove(this);
+						previousValue.MembreAllergies.Remove(this);
 					}
 					this._Membre.Entity = value;
 					if ((value != null))
 					{
-						value.MembresAllergies.Add(this);
+						value.MembreAllergies.Add(this);
 						this._MembreId = value.Id;
 					}
 					else
@@ -4637,10 +5230,25 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Allergy = default(EntityRef<Allergie>);
+			this._Membre = default(EntityRef<Membre>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembresClubs")]
-	public partial class MembresClub : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class MembreClub : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -4657,11 +5265,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<MembreClubsRole> _MembreClubsRoles;
+		private EntitySet<MembreClubRole> _MembreClubsRoles;
 		
 		private EntityRef<Club> _Club;
 		
 		private EntityRef<Membre> _Membre;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4681,15 +5291,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public MembresClub()
+		public MembreClub()
 		{
-			this._MembreClubsRoles = new EntitySet<MembreClubsRole>(new Action<MembreClubsRole>(this.attach_MembreClubsRoles), new Action<MembreClubsRole>(this.detach_MembreClubsRoles));
-			this._Club = default(EntityRef<Club>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -4710,6 +5318,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int ClubId
 		{
 			get
@@ -4734,6 +5343,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int MembreId
 		{
 			get
@@ -4758,6 +5368,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDebut", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.DateTime DateDebut
 		{
 			get
@@ -4778,6 +5389,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateFin", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Nullable<System.DateTime> DateFin
 		{
 			get
@@ -4798,6 +5410,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -4818,10 +5431,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MembresClub_MembreClubsRole", Storage="_MembreClubsRoles", ThisKey="Id", OtherKey="MembreClubId")]
-		public EntitySet<MembreClubsRole> MembreClubsRoles
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
+		public EntitySet<MembreClubRole> MembreClubRoles
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembreClubsRoles.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembreClubsRoles;
 			}
 			set
@@ -4847,12 +5466,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Club.Entity = null;
-						previousValue.MembresClubs.Remove(this);
+						previousValue.MembreClubs.Remove(this);
 					}
 					this._Club.Entity = value;
 					if ((value != null))
 					{
-						value.MembresClubs.Add(this);
+						value.MembreClubs.Add(this);
 						this._ClubId = value.Id;
 					}
 					else
@@ -4881,12 +5500,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Membre.Entity = null;
-						previousValue.MembresClubs.Remove(this);
+						previousValue.MembreClubs.Remove(this);
 					}
 					this._Membre.Entity = value;
 					if ((value != null))
 					{
-						value.MembresClubs.Add(this);
+						value.MembreClubs.Add(this);
 						this._MembreId = value.Id;
 					}
 					else
@@ -4918,21 +5537,51 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_MembreClubsRoles(MembreClubsRole entity)
+		private void attach_MembreClubsRoles(MembreClubRole entity)
 		{
 			this.SendPropertyChanging();
-			entity.MembresClub = this;
+			entity.MembreClub = this;
 		}
 		
-		private void detach_MembreClubsRoles(MembreClubsRole entity)
+		private void detach_MembreClubsRoles(MembreClubRole entity)
 		{
 			this.SendPropertyChanging();
-			entity.MembresClub = null;
+			entity.MembreClub = null;
+		}
+		
+		private void Initialize()
+		{
+			this._MembreClubsRoles = new EntitySet<MembreClubRole>(new Action<MembreClubRole>(this.attach_MembreClubsRoles), new Action<MembreClubRole>(this.detach_MembreClubsRoles));
+			this._Club = default(EntityRef<Club>);
+			this._Membre = default(EntityRef<Membre>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembresFormations")]
-	public partial class MembresFormation : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class MembreFormation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -4967,14 +5616,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public MembresFormation()
+		public MembreFormation()
 		{
-			this._Formation = default(EntityRef<Formation>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int MembreId
 		{
 			get
@@ -4999,6 +5647,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormationId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int FormationId
 		{
 			get
@@ -5023,6 +5672,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSuivie", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public System.DateTime DateSuivie
 		{
 			get
@@ -5043,6 +5693,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateEcheance", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Nullable<System.DateTime> DateEcheance
 		{
 			get
@@ -5063,6 +5714,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5099,12 +5751,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Formation.Entity = null;
-						previousValue.MembresFormations.Remove(this);
+						previousValue.MembreFormations.Remove(this);
 					}
 					this._Formation.Entity = value;
 					if ((value != null))
 					{
-						value.MembresFormations.Add(this);
+						value.MembreFormations.Add(this);
 						this._FormationId = value.Id;
 					}
 					else
@@ -5133,12 +5785,12 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Membre.Entity = null;
-						previousValue.MembresFormations.Remove(this);
+						previousValue.MembreFormations.Remove(this);
 					}
 					this._Membre.Entity = value;
 					if ((value != null))
 					{
-						value.MembresFormations.Add(this);
+						value.MembreFormations.Add(this);
 						this._MembreId = value.Id;
 					}
 					else
@@ -5169,10 +5821,25 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Formation = default(EntityRef<Formation>);
+			this._Membre = default(EntityRef<Membre>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Roles")]
-	public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -5185,7 +5852,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<MembreClubsRole> _MembreClubsRoles;
+		private EntitySet<MembreClubRole> _MembreClubsRoles;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5203,11 +5872,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Role()
 		{
-			this._MembreClubsRoles = new EntitySet<MembreClubsRole>(new Action<MembreClubsRole>(this.attach_MembreClubsRoles), new Action<MembreClubsRole>(this.detach_MembreClubsRoles));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -5228,6 +5897,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Nom
 		{
 			get
@@ -5248,6 +5918,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
 			get
@@ -5268,6 +5939,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5288,10 +5960,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_MembreClubsRole", Storage="_MembreClubsRoles", ThisKey="Id", OtherKey="RoleId")]
-		public EntitySet<MembreClubsRole> MembreClubsRoles
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
+		public EntitySet<MembreClubRole> MembreClubRoles
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._MembreClubsRoles.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._MembreClubsRoles;
 			}
 			set
@@ -5320,21 +5998,49 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_MembreClubsRoles(MembreClubsRole entity)
+		private void attach_MembreClubsRoles(MembreClubRole entity)
 		{
 			this.SendPropertyChanging();
 			entity.Role = this;
 		}
 		
-		private void detach_MembreClubsRoles(MembreClubsRole entity)
+		private void detach_MembreClubsRoles(MembreClubRole entity)
 		{
 			this.SendPropertyChanging();
 			entity.Role = null;
 		}
+		
+		private void Initialize()
+		{
+			this._MembreClubsRoles = new EntitySet<MembreClubRole>(new Action<MembreClubRole>(this.attach_MembreClubsRoles), new Action<MembreClubRole>(this.detach_MembreClubsRoles));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StatutsSuivie")]
-	public partial class StatutsSuivie : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class StatutSuivie : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -5347,7 +6053,9 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<Suivy> _Suivies;
+		private EntitySet<Suivie> _Suivies;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5363,13 +6071,13 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
     partial void OnVersionChanged();
     #endregion
 		
-		public StatutsSuivie()
+		public StatutSuivie()
 		{
-			this._Suivies = new EntitySet<Suivy>(new Action<Suivy>(this.attach_Suivies), new Action<Suivy>(this.detach_Suivies));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -5390,6 +6098,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Code
 		{
 			get
@@ -5410,6 +6119,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
 			get
@@ -5430,6 +6140,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5450,10 +6161,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutsSuivie_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="StatutSuivieId")]
-		public EntitySet<Suivy> Suivies
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
+		public EntitySet<Suivie> Suivies
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Suivies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Suivies;
 			}
 			set
@@ -5482,21 +6199,49 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 			}
 		}
 		
-		private void attach_Suivies(Suivy entity)
+		private void attach_Suivies(Suivie entity)
 		{
 			this.SendPropertyChanging();
-			entity.StatutsSuivie = this;
+			entity.StatutSuivie = this;
 		}
 		
-		private void detach_Suivies(Suivy entity)
+		private void detach_Suivies(Suivie entity)
 		{
 			this.SendPropertyChanging();
-			entity.StatutsSuivie = null;
+			entity.StatutSuivie = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Suivies = new EntitySet<Suivie>(new Action<Suivie>(this.attach_Suivies), new Action<Suivie>(this.detach_Suivies));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Unites")]
-	public partial class Unite : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+    public partial class Unite : INotifyPropertyChanging, INotifyPropertyChanged, IHasId<Int32>
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -5510,6 +6255,8 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		private System.Data.Linq.Binary _Version;
 		
 		private EntitySet<Item> _Items;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5527,11 +6274,11 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		
 		public Unite()
 		{
-			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
 			get
@@ -5552,6 +6299,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Code
 		{
 			get
@@ -5572,6 +6320,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Systeme", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Systeme
 		{
 			get
@@ -5592,6 +6341,7 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5612,10 +6362,16 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Unite_Item", Storage="_Items", ThisKey="Id", OtherKey="UniteId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
 		public EntitySet<Item> Items
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Items.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Items;
 			}
 			set
@@ -5654,6 +6410,33 @@ namespace Sporacid.Simplets.Webapp.Services.LinqToSql
 		{
 			this.SendPropertyChanging();
 			entity.Unite = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 }

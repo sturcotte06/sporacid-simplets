@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Repositories.Dto
+﻿namespace Sporacid.Simplets.Webapp.Services.Models.Dto
 {
     using System;
     using System.ComponentModel.DataAnnotations;

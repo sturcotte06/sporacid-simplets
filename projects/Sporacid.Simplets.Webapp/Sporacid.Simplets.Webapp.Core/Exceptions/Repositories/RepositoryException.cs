@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Repositories.Exceptions
+﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Repositories
 {
     using System;
 

@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SIMPLETS" Class="DatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SIMPLETS" Class="DatabaseDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=LOCALHOST;Initial Catalog=SIMPLETS;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SIMPLETSConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Adresses" Member="Adresses">
-    <Type Name="Adress">
+    <Type Name="Adresse">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="NoCivique" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Rue" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
@@ -13,7 +13,7 @@
     </Type>
   </Table>
   <Table Name="dbo.Suivies" Member="Suivies">
-    <Type Name="Suivy">
+    <Type Name="Suivie">
       <Column Name="CommanditeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="StatutSuivieId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -22,15 +22,15 @@
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Association Name="Commandite_Suivy" Member="Commandite" ThisKey="CommanditeId" OtherKey="Id" Type="Commandite" IsForeignKey="true" />
       <Association Name="Membre_Suivy" Member="Membre" ThisKey="MembreId" OtherKey="Id" Type="Membre" IsForeignKey="true" />
-      <Association Name="StatutsSuivie_Suivy" Member="StatutsSuivie" ThisKey="StatutSuivieId" OtherKey="Id" Type="StatutsSuivie" IsForeignKey="true" />
+      <Association Name="StatutsSuivie_Suivy" Member="StatutSuivie" Storage="_StatutsSuivie" ThisKey="StatutSuivieId" OtherKey="Id" Type="StatutSuivie" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Allergies" Member="Allergies">
-    <Type Name="Allergy">
+    <Type Name="Allergie">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Allergy_MembresAllergy" Member="MembresAllergies" ThisKey="Id" OtherKey="AllergieId" Type="MembresAllergy" />
+      <Association Name="Allergy_MembresAllergy" Member="MembreAllergies" Storage="_MembresAllergies" ThisKey="Id" OtherKey="AllergieId" Type="MembreAllergie" />
     </Type>
   </Table>
   <Table Name="dbo.Audits" Member="Audits">
@@ -51,7 +51,7 @@
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Association Name="Club_Commandite" Member="Commandites" ThisKey="Id" OtherKey="ClubId" Type="Commandite" />
       <Association Name="Club_Evenement" Member="Evenements" ThisKey="Id" OtherKey="ClubId" Type="Evenement" />
-      <Association Name="Club_MembresClub" Member="MembresClubs" ThisKey="Id" OtherKey="ClubId" Type="MembresClub" />
+      <Association Name="Club_MembresClub" Member="MembreClubs" Storage="_MembresClubs" ThisKey="Id" OtherKey="ClubId" Type="MembreClub" />
     </Type>
   </Table>
   <Table Name="dbo.Commandites" Member="Commandites">
@@ -63,7 +63,7 @@
       <Column Name="Valeur" Type="System.Decimal" DbType="Decimal(6,2) NOT NULL" CanBeNull="false" />
       <Column Name="Nature" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Commandite_Suivy" Member="Suivies" ThisKey="Id" OtherKey="CommanditeId" Type="Suivy" />
+      <Association Name="Commandite_Suivy" Member="Suivies" ThisKey="Id" OtherKey="CommanditeId" Type="Suivie" />
       <Association Name="Club_Commandite" Member="Club" ThisKey="ClubId" OtherKey="Id" Type="Club" IsForeignKey="true" />
       <Association Name="Fournisseur_Commandite" Member="Fournisseur" ThisKey="FournisseurId" OtherKey="Id" Type="Fournisseur" IsForeignKey="true" />
       <Association Name="Item_Commandite" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
@@ -78,8 +78,8 @@
       <Association Name="Concentration_Membre" Member="Membres" ThisKey="Id" OtherKey="ConcentrationId" Type="Membre" />
     </Type>
   </Table>
-  <Table Name="dbo.ContactsUrgence" Member="ContactsUrgences">
-    <Type Name="ContactsUrgence">
+  <Table Name="dbo.ContactsUrgence" Member="ContactUrgences">
+    <Type Name="ContactUrgence">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="LienParenteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -109,7 +109,7 @@
       <Column Name="Titre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Formation_MembresFormation" Member="MembresFormations" ThisKey="Id" OtherKey="FormationId" Type="MembresFormation" />
+      <Association Name="Formation_MembresFormation" Member="MembreFormations" Storage="_MembresFormations" ThisKey="Id" OtherKey="FormationId" Type="MembreFormation" />
     </Type>
   </Table>
   <Table Name="dbo.Fournisseurs" Member="Fournisseurs">
@@ -122,12 +122,12 @@
       <Column Name="Courriel" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Association Name="Fournisseur_Commandite" Member="Commandites" ThisKey="Id" OtherKey="FournisseurId" Type="Commandite" />
-      <Association Name="Fournisseur_FournisseursItem" Member="FournisseursItems" ThisKey="Id" OtherKey="FournisseurId" Type="FournisseursItem" />
-      <Association Name="Adress_Fournisseur" Member="Adress" ThisKey="AdresseId" OtherKey="Id" Type="Adress" IsForeignKey="true" />
+      <Association Name="Fournisseur_FournisseursItem" Member="FournisseurItems" Storage="_FournisseursItems" ThisKey="Id" OtherKey="FournisseurId" Type="FournisseurItem" />
+      <Association Name="Adress_Fournisseur" Member="Adresse" Storage="_Adress" ThisKey="AdresseId" OtherKey="Id" Type="Adresse" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.FournisseursItems" Member="FournisseursItems">
-    <Type Name="FournisseursItem">
+  <Table Name="dbo.FournisseursItems" Member="FournisseurItems">
+    <Type Name="FournisseurItem">
       <Column Name="FournisseurId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CodeFournisseur" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
@@ -147,7 +147,7 @@
       <Column Name="QuantiteMax" Type="System.Decimal" DbType="Decimal(6,3)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Association Name="Item_Commandite" Member="Commandites" ThisKey="Id" OtherKey="ItemId" Type="Commandite" />
-      <Association Name="Item_FournisseursItem" Member="FournisseursItems" ThisKey="Id" OtherKey="ItemId" Type="FournisseursItem" />
+      <Association Name="Item_FournisseursItem" Member="FournisseurItems" Storage="_FournisseursItems" ThisKey="Id" OtherKey="ItemId" Type="FournisseurItem" />
       <Association Name="Unite_Item" Member="Unite" ThisKey="UniteId" OtherKey="Id" Type="Unite" IsForeignKey="true" />
     </Type>
   </Table>
@@ -156,15 +156,15 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="LiensParente_ContactsUrgence" Member="ContactsUrgences" ThisKey="Id" OtherKey="LienParenteId" Type="ContactsUrgence" />
+      <Association Name="LiensParente_ContactsUrgence" Member="ContactUrgences" Storage="_ContactsUrgences" ThisKey="Id" OtherKey="LienParenteId" Type="ContactUrgence" />
     </Type>
   </Table>
-  <Table Name="dbo.MembreClubsRoles" Member="MembreClubsRoles">
-    <Type Name="MembreClubsRole">
+  <Table Name="dbo.MembreClubsRoles" Member="MembreClubRoles">
+    <Type Name="MembreClubRole">
       <Column Name="MembreClubId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="MembresClub_MembreClubsRole" Member="MembresClub" ThisKey="MembreClubId" OtherKey="Id" Type="MembresClub" IsForeignKey="true" />
+      <Association Name="MembresClub_MembreClubsRole" Member="MembreClub" Storage="_MembresClub" ThisKey="MembreClubId" OtherKey="Id" Type="MembreClub" IsForeignKey="true" />
       <Association Name="Role_MembreClubsRole" Member="Role" ThisKey="RoleId" OtherKey="Id" Type="Role" IsForeignKey="true" />
     </Type>
   </Table>
@@ -189,39 +189,39 @@
       <Column Name="Telephone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="Actif" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Membre_Suivy" Member="Suivies" ThisKey="Id" OtherKey="MembreId" Type="Suivy" />
-      <Association Name="Membre_ContactsUrgence" Member="ContactsUrgences" ThisKey="Id" OtherKey="MembreId" Type="ContactsUrgence" />
+      <Association Name="Membre_Suivy" Member="Suivies" ThisKey="Id" OtherKey="MembreId" Type="Suivie" />
+      <Association Name="Membre_ContactsUrgence" Member="ContactUrgences" Storage="_ContactsUrgences" ThisKey="Id" OtherKey="MembreId" Type="ContactUrgence" />
       <Association Name="Membre_MembrePreference" Member="MembrePreferences" ThisKey="Id" OtherKey="MembreId" Type="MembrePreference" />
-      <Association Name="Membre_MembresAllergy" Member="MembresAllergies" ThisKey="Id" OtherKey="MembreId" Type="MembresAllergy" />
-      <Association Name="Membre_MembresClub" Member="MembresClubs" ThisKey="Id" OtherKey="MembreId" Type="MembresClub" />
-      <Association Name="Membre_MembresFormation" Member="MembresFormations" ThisKey="Id" OtherKey="MembreId" Type="MembresFormation" />
+      <Association Name="Membre_MembresAllergy" Member="MembreAllergies" Storage="_MembresAllergies" ThisKey="Id" OtherKey="MembreId" Type="MembreAllergie" />
+      <Association Name="Membre_MembresClub" Member="MembreClubs" Storage="_MembresClubs" ThisKey="Id" OtherKey="MembreId" Type="MembreClub" />
+      <Association Name="Membre_MembresFormation" Member="MembreFormations" Storage="_MembresFormations" ThisKey="Id" OtherKey="MembreId" Type="MembreFormation" />
       <Association Name="Concentration_Membre" Member="Concentration" ThisKey="ConcentrationId" OtherKey="Id" Type="Concentration" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.MembresAllergies" Member="MembresAllergies">
-    <Type Name="MembresAllergy">
+  <Table Name="dbo.MembresAllergies" Member="MembreAllergies">
+    <Type Name="MembreAllergie">
       <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AllergieId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Allergy_MembresAllergy" Member="Allergy" ThisKey="AllergieId" OtherKey="Id" Type="Allergy" IsForeignKey="true" />
+      <Association Name="Allergy_MembresAllergy" Member="Allergie" Storage="_Allergy" ThisKey="AllergieId" OtherKey="Id" Type="Allergie" IsForeignKey="true" />
       <Association Name="Membre_MembresAllergy" Member="Membre" ThisKey="MembreId" OtherKey="Id" Type="Membre" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.MembresClubs" Member="MembresClubs">
-    <Type Name="MembresClub">
+  <Table Name="dbo.MembresClubs" Member="MembreClubs">
+    <Type Name="MembreClub">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ClubId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DateDebut" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateFin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="MembresClub_MembreClubsRole" Member="MembreClubsRoles" ThisKey="Id" OtherKey="MembreClubId" Type="MembreClubsRole" />
+      <Association Name="MembresClub_MembreClubsRole" Member="MembreClubRoles" Storage="_MembreClubsRoles" ThisKey="Id" OtherKey="MembreClubId" Type="MembreClubRole" />
       <Association Name="Club_MembresClub" Member="Club" ThisKey="ClubId" OtherKey="Id" Type="Club" IsForeignKey="true" />
       <Association Name="Membre_MembresClub" Member="Membre" ThisKey="MembreId" OtherKey="Id" Type="Membre" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.MembresFormations" Member="MembresFormations">
-    <Type Name="MembresFormation">
+  <Table Name="dbo.MembresFormations" Member="MembreFormations">
+    <Type Name="MembreFormation">
       <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="FormationId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="DateSuivie" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -237,16 +237,16 @@
       <Column Name="Nom" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Role_MembreClubsRole" Member="MembreClubsRoles" ThisKey="Id" OtherKey="RoleId" Type="MembreClubsRole" />
+      <Association Name="Role_MembreClubsRole" Member="MembreClubRoles" Storage="_MembreClubsRoles" ThisKey="Id" OtherKey="RoleId" Type="MembreClubRole" />
     </Type>
   </Table>
-  <Table Name="dbo.StatutsSuivie" Member="StatutsSuivies">
-    <Type Name="StatutsSuivie">
+  <Table Name="dbo.StatutsSuivie" Member="StatutSuivies">
+    <Type Name="StatutSuivie">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="StatutsSuivie_Suivy" Member="Suivies" ThisKey="Id" OtherKey="StatutSuivieId" Type="Suivy" />
+      <Association Name="StatutsSuivie_Suivy" Member="Suivies" ThisKey="Id" OtherKey="StatutSuivieId" Type="Suivie" />
     </Type>
   </Table>
   <Table Name="dbo.Unites" Member="Unites">

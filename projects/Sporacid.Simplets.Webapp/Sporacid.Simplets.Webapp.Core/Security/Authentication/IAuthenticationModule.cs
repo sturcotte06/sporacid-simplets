@@ -3,7 +3,6 @@
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
-    using Sporacid.Simplets.Webapp.Core.Models.Sessions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -15,7 +14,7 @@
         /// </summary>
         /// <param name="credentials">The credentials of the user.</param>
         /// <exception cref="SecurityException" />
-        /// <exception cref="WrongUsernameException">If user does not exist.</exception>
+        /// <exception cref="WrongCredentialsException">If user does not exist.</exception>
         /// <exception cref="WrongPasswordException">If the password does not match.</exception>
         IPrincipal Authenticate(ICredentials credentials);
 

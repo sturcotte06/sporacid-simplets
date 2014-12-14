@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Core.Models.Sessions
+﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication
 {
     using System;
     using System.ComponentModel.DataAnnotations;

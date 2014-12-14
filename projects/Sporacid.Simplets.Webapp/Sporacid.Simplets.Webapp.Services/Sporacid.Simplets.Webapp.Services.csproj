@@ -46,6 +46,15 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\packages\LINQKit.1.1.1\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -87,6 +96,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -156,15 +166,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\CommitBehaviour.cs" />
-    <Compile Include="Repositories\Dto\ConcentrationDto.cs" />
-    <Compile Include="Repositories\Dto\MembreDto.cs" />
-    <Compile Include="Repositories\Exceptions\EntityNotFoundException.cs" />
-    <Compile Include="Repositories\Exceptions\RepositoryException.cs" />
-    <Compile Include="Repositories\IMembreRepository.cs" />
-    <Compile Include="Repositories\Impl\MembreRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Models\CompositeId\MembresClubId.cs" />
+    <Compile Include="Models\Dto\ConcentrationDto.cs" />
+    <Compile Include="Models\Dto\MembreDto.cs" />
     <Compile Include="WebApi2\Binders\Ipv4AddressModelBinder.cs" />
     <Compile Include="WebApi2\Filters\Authentication\AuthenticatedAttribute.cs" />
     <Compile Include="WebApi2\Filters\Authentication\AuthenticationFilter.cs" />

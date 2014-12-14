@@ -1,13 +1,15 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Repositories.Dto
+﻿namespace Sporacid.Simplets.Webapp.Services.Models.Dto
 {
     using System;
     using System.ComponentModel.DataAnnotations;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Serializable]
     public class MembreDto
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         [RegularExpression("[A-Za-z]{2}[0-9]{5}")]
         public string CodeUniversel { get; set; }
@@ -25,7 +27,7 @@
 
         [Required]
         [StringLength(250)]
-        [RegularExpression("[0-9]{10}")]
+        [RegularExpression(@"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$")]
         public string Courriel { get; set; }
 
         [Required]

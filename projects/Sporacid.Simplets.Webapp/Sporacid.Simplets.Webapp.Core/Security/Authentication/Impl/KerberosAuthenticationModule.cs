@@ -6,7 +6,6 @@
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
     using Sporacid.Simplets.Webapp.Core.Models.Contexts;
-    using Sporacid.Simplets.Webapp.Core.Models.Sessions;
     using Sporacid.Simplets.Webapp.Core.Security.Token;
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
@@ -33,7 +32,7 @@
         /// </summary>
         /// <param name="credentials">The credentials of the user.</param>
         /// <exception cref="SecurityException" />
-        /// <exception cref="WrongUsernameException">If user does not exist.</exception>
+        /// <exception cref="WrongCredentialsException">If user does not exist.</exception>
         /// <exception cref="WrongPasswordException">If the password does not match.</exception>
         public IPrincipal Authenticate(ICredentials credentials)
         {
@@ -42,7 +41,7 @@
                 // Username and password for authentication.
                 if (!context.ValidateCredentials(credentials.Username, credentials.Password))
                 {
-                    throw new WrongUsernameException();
+                    throw new WrongCredentialsException();
                 }
             }
 
