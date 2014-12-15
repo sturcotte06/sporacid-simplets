@@ -2,11 +2,6 @@
 INSERT INTO [dbo].[Clubs] VALUES ('LiETS','Ligue d`Improvisation de l`ETS', DEFAULT);
 INSERT INTO [dbo].[Clubs] VALUES ('Evolution','Véhicule à faible consommation', DEFAULT);
 INSERT INTO [dbo].[Clubs] VALUES ('Baja','Véhicule amphibie tout terrain', DEFAULT);
-				
-INSERT INTO [dbo].[Roles] VALUES ('Membre', 'Un membre.', DEFAULT);
-INSERT INTO [dbo].[Roles] VALUES ('Capitaine', 'Un capitaine.', DEFAULT);
-INSERT INTO [dbo].[Roles] VALUES ('Membre', 'Un membre.', DEFAULT);
-INSERT INTO [dbo].[Roles] VALUES ('Auditeur', 'Un auditeur.', DEFAULT);
 
 INSERT INTO [dbo].[Concentrations] VALUES ('CTN','Génie de la construction', DEFAULT);
 INSERT INTO [dbo].[Concentrations] VALUES ('ELE','Génie électrique', DEFAULT);
