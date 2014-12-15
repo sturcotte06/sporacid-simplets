@@ -8,10 +8,10 @@
     public interface ICredentials
     {
         /// <summary>
-        /// The username of the credentials' owner.
+        /// The identity of the credentials' owner.
         /// </summary>
         [Required]
-        String Username { get; set; }
+        String Identity { get; set; }
 
         /// <summary>
         /// The password of the credentials' owner.

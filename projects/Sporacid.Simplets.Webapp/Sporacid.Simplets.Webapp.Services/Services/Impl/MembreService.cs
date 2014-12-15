@@ -4,14 +4,13 @@
     using System.Linq;
     using System.Web.Http;
     using AutoMapper;
-    using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
     using Sporacid.Simplets.Webapp.Core.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.LinqToSql;
     using Sporacid.Simplets.Webapp.Services.Models.Dto;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Trace(LoggingLevel.Information)]
     [RoutePrefix("api/v1/membre")]
     public class MembreService : BaseService, IMembreService
     {

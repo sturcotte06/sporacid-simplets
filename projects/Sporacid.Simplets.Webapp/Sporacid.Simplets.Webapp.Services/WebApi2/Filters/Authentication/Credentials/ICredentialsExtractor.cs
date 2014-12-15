@@ -1,20 +1,17 @@
-﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication.Credentials
 {
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Security.Authentication;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public interface IAuthenticationModule
+    public interface ICredentialsExtractor
     {
         /// <summary>
-        /// Authenticate a user agaisnt a membership repository.
-        /// If the authentication fails, an exception will be raised.
+        /// Extract credentials from
         /// </summary>
-        /// <param name="credentials">The credentials of the user.</param>
-        /// <exception cref="SecurityException" />
-        /// <exception cref="WrongCredentialsException">If user does not exist or the password does not match.</exception>
-        ITokenAndPrincipal Authenticate(ICredentials credentials);
+        /// <param name="credentialsParameter"></param>
+        /// <returns></returns>
+        ICredentials Extract(string credentialsParameter);
 
         /// <summary>
         /// Whether the authentication scheme is supported.

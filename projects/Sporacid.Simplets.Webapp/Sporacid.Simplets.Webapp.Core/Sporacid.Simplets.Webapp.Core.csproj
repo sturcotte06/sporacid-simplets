@@ -34,6 +34,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PostSharp, Version=4.0.37.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\PostSharp.4.0.37\lib\net35-client\PostSharp.dll</HintPath>
@@ -71,16 +74,19 @@
     <Compile Include="Localization\ILocalizable.cs" />
     <Compile Include="Localization\IMessageLocalizer.cs" />
     <Compile Include="Localization\MessageLocalizer.cs" />
-    <Compile Include="Models\AbstractModel.cs" />
-    <Compile Include="Models\Contexts\Actions.cs" />
-    <Compile Include="Models\Contexts\IContext.cs" />
-    <Compile Include="Models\Contexts\AuthorizationLevel.cs" />
+    <Compile Include="Security\Authentication\Impl\PrincipalIdentity.cs" />
+    <Compile Include="Security\Authentication\Impl\TokenAndPrincipal.cs" />
+    <Compile Include="Security\Authentication\ITokenAndPrincipal.cs" />
+    <Compile Include="Security\Authorization\Actions.cs" />
+    <Compile Include="Security\Authorization\IContext.cs" />
+    <Compile Include="Security\Authorization\AuthorizationLevel.cs" />
     <Compile Include="Repositories\ICompositeId.cs" />
     <Compile Include="Repositories\IHasId.cs" />
     <Compile Include="Repositories\Impl\GenericRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Security\Authentication\Impl\Credentials.cs" />
     <Compile Include="Security\Authentication\Impl\Principal.cs" />
+    <Compile Include="Security\Authorization\Impl\Context.cs" />
     <Compile Include="Security\Token\Factories\Impl\AuthenticationTokenFactory.cs" />
     <Compile Include="Security\Token\Factories\ITokenFactory.cs" />
     <Compile Include="Security\Authentication\ICredentials.cs" />

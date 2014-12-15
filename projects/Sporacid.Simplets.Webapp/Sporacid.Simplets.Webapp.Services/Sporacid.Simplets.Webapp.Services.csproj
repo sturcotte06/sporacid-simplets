@@ -46,15 +46,6 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="LinqKit">
-      <HintPath>..\packages\LINQKit.1.1.1\lib\net45\LinqKit.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -73,6 +64,9 @@
     </Reference>
     <Reference Include="Ninject.Web.WebApi">
       <HintPath>..\packages\Ninject.Web.WebApi.3.2.3.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PostSharp, Version=4.0.37.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -110,6 +104,9 @@
     <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Tracing">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Tracing.5.2.2\lib\net45\System.Web.Http.Tracing.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -172,10 +169,15 @@
     <Compile Include="WebApi2\Binders\Ipv4AddressModelBinder.cs" />
     <Compile Include="WebApi2\Filters\Authentication\AuthenticatedAttribute.cs" />
     <Compile Include="WebApi2\Filters\Authentication\AuthenticationFilter.cs" />
+    <Compile Include="WebApi2\Filters\Authentication\Credentials\ICredentialsExtractor.cs" />
+    <Compile Include="WebApi2\Filters\Authentication\Credentials\Impl\TokenCredentialsExtractor.cs" />
+    <Compile Include="WebApi2\Filters\Authentication\Credentials\Impl\KerberosCredentialsExtractor.cs" />
+    <Compile Include="WebApi2\Filters\Authorization\AuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Authorization\AuthorizedAttribute.cs" />
     <Compile Include="WebApi2\Filters\Authorization\ContextualAuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\HandlesExceptionAttribute.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\HandleExceptionAsHttpResponseFilter.cs" />
+    <Compile Include="WebApi2\Filters\Responses\StandardHeaderResponseFilter.cs" />
     <Compile Include="WebApi2\Resolvers\ServiceHttpControllerTypeResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -184,6 +186,7 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\IMembreService.cs" />
     <Compile Include="Services\Impl\MembreService.cs" />
+    <Compile Include="WebApi2\Trace\Log4NetTraceWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -215,9 +218,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Messages\simplets.services.messages.en" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Sporacid.Simplets.Webapp.Core\Sporacid.Simplets.Webapp.Core.csproj">
       <Project>{DDB68A62-E4BE-4EAD-98CB-83310F843917}</Project>
       <Name>Sporacid.Simplets.Webapp.Core</Name>
@@ -232,7 +232,9 @@
       <DependentUpon>Database.dbml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages\simplets.services.messages.en.resx" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

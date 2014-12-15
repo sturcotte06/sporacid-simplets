@@ -6,14 +6,14 @@
     {
         public Credentials(string username, string password)
         {
-            this.Username = username;
+            this.Identity = username;
             this.Password = password;
         }
 
         /// <summary>
-        /// The username of the credentials' owner.
+        /// The identity of the credentials' owner.
         /// </summary>
-        public string Username { get; set; }
+        public string Identity { get; set; }
 
         /// <summary>
         /// The password of the credentials' owner.

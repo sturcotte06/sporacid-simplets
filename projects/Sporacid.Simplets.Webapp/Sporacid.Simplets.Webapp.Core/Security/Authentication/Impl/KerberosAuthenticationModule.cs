@@ -2,10 +2,9 @@
 {
     using System;
     using System.DirectoryServices.AccountManagement;
-    using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
-    using Sporacid.Simplets.Webapp.Core.Models.Contexts;
+    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Token;
     using Sporacid.Simplets.Webapp.Core.Security.Token.Factories;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
@@ -16,10 +15,10 @@
     {
         private static readonly AuthenticationScheme[] SupportedSchemes = {AuthenticationScheme.Kerberos};
         private readonly String kerberosDomainControllerName;
-        private readonly ICache<IToken, IPrincipal> tokenCache;
+        private readonly ICache<IToken, ITokenAndPrincipal> tokenCache;
         private readonly ITokenFactory tokenFactory;
 
-        public KerberosAuthenticationModule(ICache<IToken, IPrincipal> tokenCache, ITokenFactory tokenFactory, String kerberosDomainControllerName)
+        public KerberosAuthenticationModule(ICache<IToken, ITokenAndPrincipal> tokenCache, ITokenFactory tokenFactory, String kerberosDomainControllerName)
         {
             this.tokenCache = tokenCache;
             this.tokenFactory = tokenFactory;
@@ -32,27 +31,35 @@
         /// </summary>
         /// <param name="credentials">The credentials of the user.</param>
         /// <exception cref="SecurityException" />
-        /// <exception cref="WrongCredentialsException">If user does not exist.</exception>
-        /// <exception cref="WrongPasswordException">If the password does not match.</exception>
-        public IPrincipal Authenticate(ICredentials credentials)
+        /// <exception cref="WrongCredentialsException">If user does not exist or the password does not match.</exception>
+        public ITokenAndPrincipal Authenticate(ICredentials credentials)
         {
             using (var context = new PrincipalContext(ContextType.Domain, this.kerberosDomainControllerName))
             {
-                // Username and password for authentication.
-                if (!context.ValidateCredentials(credentials.Username, credentials.Password))
+                try
                 {
-                    throw new WrongCredentialsException();
+                    // Username and password for authentication.
+                    if (!context.ValidateCredentials(credentials.Identity, credentials.Password))
+                    {
+                        throw new WrongCredentialsException();
+                    }
+                }
+                catch (PrincipalServerDownException ex)
+                {
+                    throw new SecurityException("Unable to contact kerberos server.", ex);
                 }
             }
 
             // User authenticated.
-            var principal = new Principal(credentials.Username, AuthenticationScheme.Kerberos, AuthorizationLevel.User);
+            var token = this.tokenFactory.Generate();
+            var principal = new Principal(credentials.Identity, AuthenticationScheme.Kerberos, AuthorizationLevel.User);
+            var tokenAndPrincipal = new TokenAndPrincipal(token, principal);
 
             // Cache the token with the principals. 
             // If the user specify token authentication, we can speed up its response.
-            this.tokenCache.Put(this.tokenFactory.Generate(), principal);
+            this.tokenCache.Put(token, tokenAndPrincipal);
 
-            return principal;
+            return tokenAndPrincipal;
         }
 
         /// <summary>

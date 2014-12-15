@@ -1,9 +1,12 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
+    using System.Diagnostics;
     using System.Reflection;
     using System.Web.Http;
     using System.Web.Http.Dispatcher;
+    using System.Web.Http.Tracing;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Resolvers;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Trace;
 
     public static class WebApiConfig
     {
@@ -19,6 +22,10 @@
             {
                 suffix.SetValue(null, "Service");
             }
+
+            // Use log4net for logging
+            config.Services.Replace(typeof(ITraceWriter), new Log4NetTraceWriter());
+            Trace.AutoFlush = true;
         }
     }
 }

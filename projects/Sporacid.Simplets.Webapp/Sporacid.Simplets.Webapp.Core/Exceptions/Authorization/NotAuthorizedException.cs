@@ -1,7 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Authorization
 {
     using System;
-    using Sporacid.Simplets.Webapp.Core.Models.Contexts;
+    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

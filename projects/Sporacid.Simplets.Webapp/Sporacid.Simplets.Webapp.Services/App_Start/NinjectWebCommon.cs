@@ -7,7 +7,6 @@ namespace Sporacid.Simplets.Webapp.Services
 {
     using System;
     using System.Data.Linq;
-    using System.Security.Principal;
     using System.Web;
     using System.Web.Http.Filters;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -27,8 +26,11 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Services.Services;
     using Sporacid.Simplets.Webapp.Services.Services.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication.Credentials;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication.Credentials.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authorization;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Responses;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;
@@ -102,15 +104,11 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>));
             kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
                 .WithConstructorArgument("ENS.AD.ETSMTL.CA");
+            kernel.Bind<IAuthenticationModule>().To<TokenAuthenticationModule>();
             kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>();
             kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
                 .WithConstructorArgument(TimeSpan.FromHours(6))
                 .WithConstructorArgument((uint) 64);
-            kernel.Bind<IAuthenticationModule[]>().ToMethod<IAuthenticationModule[]>(ctx => new IAuthenticationModule[]
-            {
-                kernel.Get<KerberosAuthenticationModule>(),
-                kernel.Get<TokenAuthenticationModule>()
-            });
         }
 
         /// <summary>
@@ -122,15 +120,11 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind<IThreadPool>().To<ThreadPool>();
             kernel.Bind(typeof (IFactory<>)).To(typeof (Factory<>));
             kernel.Bind(typeof (IObjectPool<>)).To(typeof (ObjectPool<>));
-            kernel.Bind(typeof (ICacheLockingPolicy<,>)).To(typeof (ExclusiveLockingPolicy<,>));
-            kernel.Bind(typeof (ICacheInvalidationPolicy<,>)).To(typeof (TimeBasedInvalidationPolicy<,>))
+            kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (ExclusiveLockingPolicy<,>));
+            kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (TimeBasedInvalidationPolicy<,>))
                 .WithConstructorArgument(TimeSpan.FromHours(6));
-            kernel.Bind(typeof (ICache<IToken, IPrincipal>)).To(typeof (ConfigurableCache<IToken, IPrincipal>))
-                .WithConstructorArgument(new ICachePolicy<IToken, IPrincipal>[]
-                {
-                    kernel.Get<ICacheLockingPolicy<IToken, IPrincipal>>(),
-                    kernel.Get<ICacheInvalidationPolicy<IToken, IPrincipal>>(),
-                });
+            kernel.Bind(typeof (ICache<IToken, ITokenAndPrincipal>)).To(typeof (ConfigurableCache<IToken, ITokenAndPrincipal>))
+                .InSingletonScope();
         }
 
         /// <summary>
@@ -141,6 +135,13 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             kernel.Bind<IMembreService>().To<MembreService>();
             kernel.Bind<DataContext>().To<DatabaseDataContext>();
+            kernel.Bind<ICredentialsExtractor>().To<KerberosCredentialsExtractor>();
+            kernel.Bind<ICredentialsExtractor>().To<TokenCredentialsExtractor>();
+            // kernel.Bind<ICredentialsExtractor[]>().ToMethod<ICredentialsExtractor[]>(ctx => new ICredentialsExtractor[]
+            // {
+            //     kernel.Get<KerberosCredentialsExtractor>(),
+            //     kernel.Get<TokenCredentialsExtractor>()
+            // });
         }
 
         /// <summary>
@@ -163,6 +164,8 @@ namespace Sporacid.Simplets.Webapp.Services
                 .WhenControllerHas<HandlesExceptionAttribute>();
             kernel.BindHttpFilter<HandleExceptionAsHttpResponseFilter>(FilterScope.Action)
                 .WhenActionMethodHas<HandlesExceptionAttribute>();
+
+            kernel.BindHttpFilter<StandardHeaderResponseFilter>(FilterScope.Controller);
         }
     }
 }

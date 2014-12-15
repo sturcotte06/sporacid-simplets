@@ -43,6 +43,8 @@
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
+            var request = actionContext.Request;
+
             return continuation.Invoke();
         }
     }

@@ -2,8 +2,8 @@
 {
     using System;
 
-    /// <summary>
-    /// </summary>
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     public interface ICache<in TKey, TValue>
@@ -27,7 +27,7 @@
         /// An exclusive lock will be acquired while the action is taken.
         /// </summary>
         /// <param name="key">The key object.</param>
-        /// <param name="do">The action to take</param>
+        /// <param name="do">The action to take.</param>
         void WithValueDo(TKey key, Action<TValue> @do);
 
         /// <summary>

@@ -5,27 +5,38 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
-    using Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl;
-    using Sporacid.Simplets.Webapp.Tools.Strings;
+    using Sporacid.Simplets.Webapp.Core.Security.Token;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication.Credentials;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
-    using ICredentials = Sporacid.Simplets.Webapp.Core.Security.Authentication.ICredentials;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public class AuthenticationFilter : IAuthenticationFilter
     {
-        private readonly IAuthenticationModule[] supportedAuthenticationModules;
+        [ThreadStatic] private static IToken requestToken;
 
-        public AuthenticationFilter(IAuthenticationModule[] supportedAuthenticationModules)
+        private readonly IAuthenticationModule[] supportedAuthenticationModules;
+        private readonly ICredentialsExtractor[] supportedCredentialsExtractors;
+
+        public AuthenticationFilter(IAuthenticationModule[] supportedAuthenticationModules, ICredentialsExtractor[] supportedCredentialsExtractors)
         {
             this.supportedAuthenticationModules = supportedAuthenticationModules;
+            this.supportedCredentialsExtractors = supportedCredentialsExtractors;
+        }
+
+        /// <summary>
+        /// The thread's request token.
+        /// </summary>
+        public static IToken RequestToken
+        {
+            get { return requestToken; }
+            private set { requestToken = value; }
         }
 
         /// <summary>
@@ -74,20 +85,22 @@
                 throw new SecurityException(String.Format("Scheme {0} is not supported.", scheme));
             }
 
-            // If there are credentials that the filter understands, try to validate them.
-            // If the credentials are bad, set the error result.
-            if (authorization.Parameter.IsNullOrEmpty())
+            var credentialsExtractor = this.supportedCredentialsExtractors.FirstOrDefault(e => e.IsSupported(scheme));
+            if (credentialsExtractor == null)
             {
-                throw new SecurityException("Credentials are missing.");
+                throw new SecurityException(String.Format("Credentials for scheme {0} cannot be extracted.", scheme));
             }
 
-            var credentials = ExtractCredentials(authorization.Parameter);
+            var credentials = credentialsExtractor.Extract(authorization.Parameter);
             if (credentials == null)
             {
                 throw new SecurityException("Credentials are in an invalid format.");
             }
 
-            context.Principal = authenticationModule.Authenticate(credentials);
+            var tokenAndPrincipal = authenticationModule.Authenticate(credentials);
+            context.Principal = tokenAndPrincipal.Principal;
+            RequestToken = tokenAndPrincipal.Token;
+
             return Task.FromResult(0);
         }
 
@@ -101,58 +114,6 @@
             var challenge = new AuthenticationHeaderValue(AuthenticationScheme.Kerberos.ToString());
             context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
             return Task.FromResult(0);
-        }
-
-        /// <summary>
-        /// Extract the credentials
-        /// </summary>
-        /// <param name="authorizationParameter"></param>
-        /// <returns></returns>
-        private static ICredentials ExtractCredentials(String authorizationParameter)
-        {
-            byte[] credentialBytes;
-            try
-            {
-                credentialBytes = Convert.FromBase64String(authorizationParameter);
-            }
-            catch (FormatException)
-            {
-                return null;
-            }
-
-            // The currently approved HTTP 1.1 specification says characters here are ISO-8859-1.
-            // However, the current draft updated specification for HTTP 1.1 indicates this encoding is infrequently
-            // used in practice and defines behavior only for ASCII.
-            var encoding = Encoding.ASCII;
-            // Make a writable copy of the encoding to enable setting a decoder fallback.
-            encoding = (Encoding) encoding.Clone();
-            // Fail on invalid bytes rather than silently replacing and continuing.
-            encoding.DecoderFallback = DecoderFallback.ExceptionFallback;
-
-            string decodedCredentials;
-            try
-            {
-                decodedCredentials = encoding.GetString(credentialBytes);
-            }
-            catch (DecoderFallbackException)
-            {
-                return null;
-            }
-
-            if (decodedCredentials.IsNullOrEmpty())
-            {
-                return null;
-            }
-
-            var colonIndex = decodedCredentials.IndexOf(':');
-            if (colonIndex == -1)
-            {
-                return null;
-            }
-
-            var username = decodedCredentials.Substring(0, colonIndex);
-            var password = decodedCredentials.Substring(colonIndex + 1);
-            return new Credentials(username, password);
         }
 
         /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>

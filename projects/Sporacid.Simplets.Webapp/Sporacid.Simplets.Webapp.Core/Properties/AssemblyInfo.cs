@@ -5,6 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+using log4net.Config;
+using PostSharp.Extensibility;
+using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
+
 [assembly: AssemblyTitle("Sporacid.Simplets.Webapp.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -34,3 +38,9 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// [assembly: XmlConfigurator(ConfigFile = @".\Resources\log4net.xml", Watch = true)]
+// 
+// // Postsharp aspects.
+// [assembly: Trace(AttributeTargetAssemblies = "regex:Sporacid.Simplets.Webapp.*",
+//     AttributeTargetMemberAttributes = MulticastAttributes.Public)]

@@ -4,6 +4,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using log4net.Config;
+using PostSharp.Extensibility;
+using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
 
 [assembly: AssemblyTitle("Sporacid.Simplets.Webapp.Services")]
 [assembly: AssemblyDescription("")]
@@ -37,3 +39,9 @@ using log4net.Config;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: XmlConfigurator(ConfigFile = @".\Resources\log4net.xml", Watch = true)]
+
+// Postsharp aspects.
+[assembly: Trace(AttributeTargetAssemblies = "Sporacid.Simplets.Webapp.Core|Sporacid.Simplets.Webapp.Services",
+    AttributeTargetTypeAttributes = MulticastAttributes.Public,
+    AttributeTargetMemberAttributes = MulticastAttributes.Public,
+    AttributeTargetElements = MulticastTargets.Method)]

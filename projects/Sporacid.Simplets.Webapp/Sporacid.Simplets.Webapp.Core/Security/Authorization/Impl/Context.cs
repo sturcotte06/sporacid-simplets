@@ -1,34 +1,33 @@
-﻿namespace Sporacid.Simplets.Webapp.Core.Models.Contexts
+﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authorization.Impl
 {
     using System;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public interface IContext<out TModel> where TModel : AbstractModel
+    public class Context<TModel> : IContext<TModel>
     {
         /// <summary>
         /// The context's associated actions.
         /// For example, if "(Actions | Actions.Update) && (Actions | Actions.Delete)" is true, then the
         /// action taken for the context is an update, coupled with a delete.
         /// </summary>
-        Actions Actions { get; }
+        public Actions Actions { get; set; }
 
         /// <summary>
         /// The context's authorization level required to take this action.
         /// </summary>
-        AuthorizationLevel RequiredAuthorizationLevel { get; }
+        public AuthorizationLevel RequiredAuthorizationLevel { get; set; }
 
         /// <summary>
         /// The model object associated with this context.
         /// </summary>
-        TModel ContextObject { get; }
+        public TModel ContextObject { get; set; }
 
         /// <summary>
-        /// Builds the contextual relative url (i.e path) for this context.
+        /// The contextual relative url (i.e path) for this context.
         /// For example, a Hockey stats context which has the league name, the team name and the player name could
         /// return "/nhl/canadiens/subban".
         /// </summary>
-        /// <returns>The relative url of this context.</returns>
-        String GetRelativeUrl();
+        public string RelativeUrl { get; private set; }
     }
 }
