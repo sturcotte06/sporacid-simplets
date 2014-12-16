@@ -5,8 +5,8 @@
 namespace Sporacid.Simplets.Webapp.Services
 {
     using AutoMapper;
-    using Sporacid.Simplets.Webapp.Services.LinqToSql;
-    using Sporacid.Simplets.Webapp.Services.Models.Dto;
+    using Sporacid.Simplets.Webapp.Services.Database;
+    using Sporacid.Simplets.Webapp.Services.Database.Dto;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -27,7 +27,7 @@ namespace Sporacid.Simplets.Webapp.Services
             // Create all mappings.
             Mapper.CreateMap<Membre, MembreDto>().ReverseMap();
             Mapper.CreateMap<Concentration, ConcentrationDto>().ReverseMap();
-            
+
             // Assert that we have not screwed up.
             Mapper.AssertConfigurationIsValid();
         }

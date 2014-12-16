@@ -8,7 +8,7 @@
     using System.Web;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Authentication;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

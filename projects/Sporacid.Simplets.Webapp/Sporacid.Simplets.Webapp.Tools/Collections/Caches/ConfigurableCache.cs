@@ -96,6 +96,20 @@
         }
 
         /// <summary>
+        /// Takes an action on a cached value.
+        /// An exclusive lock will be acquired while the action is taken.
+        /// </summary>
+        /// <param name="do">The action to take.</param>
+        public void ForEachKeyValueDo(Action<TKey, TValue> @do)
+        {
+            foreach (var key in this.cache.Keys)
+            {
+                var dummyKey = key;
+                this.WithValueDo(key, value => @do(dummyKey, value));
+            }
+        }
+
+        /// <summary>
         /// Remove the cached object for the given key.
         /// </summary>
         /// <param name="key">The key object.</param>

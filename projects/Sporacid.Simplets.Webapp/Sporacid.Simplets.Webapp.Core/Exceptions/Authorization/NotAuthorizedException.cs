@@ -11,14 +11,8 @@
         {
         }
 
-        public NotAuthorizedException(AuthorizationLevel requiredLevel)
-            : base(String.Format("The action cannot be authorized. A minimum authorization level of '{0}' is required to take action.", requiredLevel))
-        {
-        }
-
-        public NotAuthorizedException(AuthorizationLevel level, AuthorizationLevel requiredLevel)
-            : base(String.Format("The action cannot be authorized. A minimum authorization level of '{0}' is required to take action (Current authorization level: {1}).",
-                requiredLevel, level))
+        public NotAuthorizedException(IResource resource)
+            : base(String.Format("The action cannot be authorized for resource '{0}'.", resource.Value))
         {
         }
     }

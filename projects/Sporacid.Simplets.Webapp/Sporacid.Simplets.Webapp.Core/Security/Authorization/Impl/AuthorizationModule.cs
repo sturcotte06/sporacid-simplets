@@ -1,39 +1,60 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authorization.Impl
 {
     using System;
+    using System.Linq;
+    using System.Security.Claims;
     using System.Security.Principal;
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
+    using Sporacid.Simplets.Webapp.Core.Repositories;
+    using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public class AuthorizationModule : IAuthorizationModule
     {
-        /// <summary>
-        /// Authorizes an anonymous user in the given context. If the context does not allow anonymous requests,
-        /// an exception will be raised.
-        /// </summary>
-        /// <typeparam name="TContextModel">The model object of the context.</typeparam>
-        /// <param name="context">The context for which the user must be authorized.</param>
-        /// <exception cref="SecurityException" />
-        /// <exception cref="NotAuthorizedException">If anonymous action cannot be taken.</exception>
-        public void AuthorizeAnonymous<TContextModel>(IContext<TContextModel> context)
+        private readonly IRepository<Int32, Database.Principal> principalRepository;
+        private readonly IRepository<Int32, Database.Resource> resourceRepository;
+
+        public AuthorizationModule(IRepository<Int32, Database.Principal> principalRepository, IRepository<Int32, Database.Resource> resourceRepository)
         {
-            throw new NotImplementedException();
+            this.principalRepository = principalRepository;
+            this.resourceRepository = resourceRepository;
         }
 
         /// <summary>
         /// Authorizes an authenticated session in the given context. If the session, and its associated user, does
         /// not have the required authorization level, an exception will be raised.
         /// </summary>
-        /// <typeparam name="TContextModel">The model object of the context.</typeparam>
-        /// <param name="principal">The principal of the user.</param>
-        /// <param name="context">The context for which the user must be authorized.</param>
-        /// <exception cref="SecurityException" />
-        /// <exception cref="NotAuthorizedException">If user is unauthorized.</exception>
-        public void Authorize<TContextModel>(IPrincipal principal, IContext<TContextModel> context)
+        /// <param name="principal">The principal of an authenticated user.</param>
+        /// <param name="resource">The resource the user tries to access.</param>
+        public IPrincipal Authorize(IPrincipal principal, IResource resource)
         {
-            throw new NotImplementedException();
+            var resourceEntity = this.resourceRepository.GetUnique(r => r.Name == resource.Value);
+            var resourceRequiredClaims = resourceEntity.ResourceRequiredClaims
+                .Select(rrc => rrc.Claim)
+                .ToArray();
+
+            var principalEntity = this.principalRepository.GetUnique(p => p.Identity == principal.Identity.Name);
+            var principalClaimsOnResource = principalEntity.PrincipalResourceClaims
+                .Where(prc => prc.Resource.Name == resource.Value)
+                .Select(prc => prc.Claim)
+                .ToArray();
+
+            // Assert that all required claims for this resource are possessed by the principal.
+            resourceRequiredClaims.ForEach(requiredClaim =>
+            {
+                if (principalClaimsOnResource.All(c => c != requiredClaim))
+                {
+                    // The principal lacks a claim.
+                    throw new NotAuthorizedException();
+                }
+            });
+
+            // Upgrade principal with the claims.
+            var upgradedPrincipal = new ClaimsPrincipal(principal,
+                principalEntity.PrincipalResourceClaims.Select(prc => new Claim(prc.Resource.Name, prc.Claim.Name)).ToArray());
+
+            return upgradedPrincipal;
         }
     }
 }

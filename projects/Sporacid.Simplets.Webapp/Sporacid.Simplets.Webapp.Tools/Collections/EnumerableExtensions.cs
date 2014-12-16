@@ -74,37 +74,37 @@
             }
         }
 
-        /// <summary>
-        /// Iterates through every objects of an array and apply
-        /// an action on it.
-        /// </summary>
-        /// <typeparam name="T">Type of the array</typeparam>
-        /// <param name="array">An array</param>
-        /// <param name="action"></param>
-        public static void ForEach<T>(this T[] array, Action<T> action)
-        {
-            foreach (var item in array)
-            {
-                action(item);
-            }
-        }
-
-        /// <summary>
-        /// Iterates through every objects of an array and apply
-        /// an action on it.
-        /// </summary>
-        /// <typeparam name="T">Type of the array</typeparam>
-        /// <param name="array">An array</param>
-        /// <param name="action"></param>
-        public static void ForEach<T>(this T[] array, Action<int, T> action)
-        {
-            var i = 0;
-            foreach (var item in array)
-            {
-                action(i, item);
-                i++;
-            }
-        }
+        // /// <summary>
+        // /// Iterates through every objects of an array and apply
+        // /// an action on it.
+        // /// </summary>
+        // /// <typeparam name="T">Type of the array</typeparam>
+        // /// <param name="array">An array</param>
+        // /// <param name="action"></param>
+        // public static void ForEach<T>(this T[] array, Action<T> action)
+        // {
+        //     foreach (var item in array)
+        //     {
+        //         action(item);
+        //     }
+        // }
+        // 
+        // /// <summary>
+        // /// Iterates through every objects of an array and apply
+        // /// an action on it.
+        // /// </summary>
+        // /// <typeparam name="T">Type of the array</typeparam>
+        // /// <param name="array">An array</param>
+        // /// <param name="action"></param>
+        // public static void ForEach<T>(this T[] array, Action<int, T> action)
+        // {
+        //     var i = 0;
+        //     foreach (var item in array)
+        //     {
+        //         action(i, item);
+        //         i++;
+        //     }
+        // }
 
         /// <summary>
         /// Returns the index of a certain object using the default equality comparer

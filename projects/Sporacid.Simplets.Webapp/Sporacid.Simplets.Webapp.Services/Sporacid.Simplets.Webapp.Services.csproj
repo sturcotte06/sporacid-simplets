@@ -158,23 +158,25 @@
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\SerializationConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
-    <Compile Include="LinqToSql\Database.designer.cs">
+    <Compile Include="Database\Database.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\CompositeId\MembresClubId.cs" />
-    <Compile Include="Models\Dto\ConcentrationDto.cs" />
-    <Compile Include="Models\Dto\MembreDto.cs" />
+    <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
+    <Compile Include="Database\Dto\ConcentrationDto.cs" />
+    <Compile Include="Database\Dto\MembreDto.cs" />
+    <Compile Include="Services\Impl\ContextAdministrationService.cs" />
+    <Compile Include="Services\Impl\SubscriptionService.cs" />
+    <Compile Include="Services\IContextAdministrationService.cs" />
+    <Compile Include="Services\ISubscriptionService.cs" />
     <Compile Include="WebApi2\Binders\Ipv4AddressModelBinder.cs" />
-    <Compile Include="WebApi2\Filters\Authentication\AuthenticatedAttribute.cs" />
-    <Compile Include="WebApi2\Filters\Authentication\AuthenticationFilter.cs" />
-    <Compile Include="WebApi2\Filters\Authentication\Credentials\ICredentialsExtractor.cs" />
-    <Compile Include="WebApi2\Filters\Authentication\Credentials\Impl\TokenCredentialsExtractor.cs" />
-    <Compile Include="WebApi2\Filters\Authentication\Credentials\Impl\KerberosCredentialsExtractor.cs" />
-    <Compile Include="WebApi2\Filters\Authorization\AuthorizationFilter.cs" />
-    <Compile Include="WebApi2\Filters\Authorization\AuthorizedAttribute.cs" />
-    <Compile Include="WebApi2\Filters\Authorization\ContextualAuthorizationFilter.cs" />
+    <Compile Include="WebApi2\Filters\Security\AuthorizationFilter.cs" />
+    <Compile Include="WebApi2\Filters\Security\AuthenticationFilter.cs" />
+    <Compile Include="WebApi2\Filters\Security\AuthenticatedAndAuthorizedAttribute.cs" />
+    <Compile Include="WebApi2\Filters\Security\Credentials\ICredentialsExtractor.cs" />
+    <Compile Include="WebApi2\Filters\Security\Credentials\Impl\TokenCredentialsExtractor.cs" />
+    <Compile Include="WebApi2\Filters\Security\Credentials\Impl\KerberosCredentialsExtractor.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\HandlesExceptionAttribute.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\HandleExceptionAsHttpResponseFilter.cs" />
     <Compile Include="WebApi2\Filters\Responses\StandardHeaderResponseFilter.cs" />
@@ -191,7 +193,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
-    <Content Include="LinqToSql\Database.dbml">
+    <Content Include="Database\Database.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Database.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -228,13 +230,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LinqToSql\Database.dbml.layout">
+    <None Include="Database\Database.dbml.layout">
       <DependentUpon>Database.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Messages\simplets.services.messages.en.resx" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

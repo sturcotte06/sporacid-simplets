@@ -1,65 +1,26 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Impl
 {
     using System;
-    using System.Linq;
     using System.Web.Http;
     using AutoMapper;
+    using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Repositories;
-    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Services.LinqToSql;
-    using Sporacid.Simplets.Webapp.Services.Models.Dto;
+    using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Services.Database;
+    using Sporacid.Simplets.Webapp.Services.Database.Dto;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix("api/v1/membre")]
     public class MembreService : BaseService, IMembreService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Membre> membreRepository;
-        private readonly IRepository<Int32, MembreClub> membresClubRepository;
+        private readonly IRepository<Int32, Principal> principalRepository;
 
-        public MembreService(IRepository<Int32, Membre> membreRepository, IRepository<Int32, Club> clubRepository, IRepository<Int32, MembreClub> membresClubRepository)
+        public MembreService(IRepository<Int32, Membre> membreRepository, IRepository<Int32, Principal> principalRepository)
         {
             this.membreRepository = membreRepository;
-            this.clubRepository = clubRepository;
-            this.membresClubRepository = membresClubRepository;
-        }
-
-        /// <summary>
-        /// Subscribes a member entity to a club entity.
-        /// </summary>
-        /// <param name="clubId">The id of the club entity.</param>
-        /// <param name="membreId">The id of the member entity.</param>
-        [HttpPost]
-        [Route("{membreId:int}/subscribe-to/{clubId:int}")]
-        public void SubscribeToClub(int clubId, int membreId)
-        {
-            var membreEntity = this.membreRepository.Get(membreId);
-            var clubEntity = this.clubRepository.Get(clubId);
-
-            membreEntity.MembreClubs.Add(new MembreClub
-            {
-                Membre = membreEntity,
-                Club = clubEntity,
-                DateDebut = DateTime.UtcNow
-            });
-
-            this.membreRepository.Update(membreEntity);
-        }
-
-        /// <summary>
-        /// Unsubscribes a member entity from a club entity.
-        /// </summary>
-        /// <param name="clubId">The id of the club entity.</param>
-        /// <param name="membreId">The id of the member entity.</param>
-        [HttpDelete]
-        [Route("{membreId:int}/unsubscribe-from/{clubId:int}")]
-        public void UnsubscribeFromClub(int clubId, int membreId)
-        {
-            var membreEntity = this.membreRepository.Get(membreId);
-            var membreClubEntity = membreEntity.MembreClubs
-                .FirstOrDefault(mc => mc.ClubId == clubId && mc.MembreId == membreId);
-            this.membresClubRepository.Delete(membreClubEntity);
+            this.principalRepository = principalRepository;
         }
 
         /// <summary>
@@ -73,6 +34,10 @@
             var membreEntity = Mapper.Map<MembreDto, Membre>(membre);
             this.membreRepository.Add(membreEntity);
 
+            // Add the new principal for this membre.
+            var principalEntity = new Principal {Identity = membreEntity.CodeUniversel};
+            this.principalRepository.Add(principalEntity);
+
             return membreEntity.Id;
         }
 
@@ -85,6 +50,11 @@
         public void Update(MembreDto membre)
         {
             var membreEntity = this.membreRepository.Get(membre.Id);
+            if (membreEntity.CodeUniversel != membre.CodeUniversel)
+            {
+                throw new SecurityException("Cannot update the field 'CodeUniversel'.");
+            }
+
             membreEntity = Mapper.Map(membre, membreEntity);
             this.membreRepository.Update(membreEntity);
         }
@@ -97,7 +67,13 @@
         [Route("{membreId:int}")]
         public void Delete(int membreId)
         {
-            this.membreRepository.Delete(membreId);
+            var membreEntity = this.membreRepository.Get(membreId);
+            this.membreRepository.Delete(membreEntity);
+
+            // Remove the principal.
+            var principalEntity = this.principalRepository.GetUnique(p =>
+                String.Equals(p.Identity, membreEntity.CodeUniversel, StringComparison.CurrentCultureIgnoreCase));
+            this.principalRepository.Delete(principalEntity);
         }
 
         /// <summary>

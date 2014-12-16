@@ -67,7 +67,7 @@
         /// <summary>
         /// Returns the entity with the given id.
         /// </summary>
-        /// <param name="entityId">The entity id,</param>
+        /// <param name="entityId">The entity id.</param>
         /// <returns>The entity with the given id.</returns>
         public TEntity Get(TEntityId entityId)
         {
@@ -75,6 +75,22 @@
             if (entity == null)
             {
                 throw new EntityNotFoundException<TEntity>(entityId);
+            }
+
+            return entity;
+        }
+
+        /// <summary>
+        /// Returns the entity that matches the predicate.
+        /// </summary>
+        /// <param name="whereClause">The entity id.</param>
+        /// <returns>The entity that matches the given predicate.</returns>
+        public TEntity GetUnique(Predicate<TEntity> whereClause)
+        {
+            var entity =  this.GetAll(whereClause).SingleOrDefault();
+            if (entity == null)
+            {
+                throw new EntityNotUniqueException();
             }
 
             return entity;

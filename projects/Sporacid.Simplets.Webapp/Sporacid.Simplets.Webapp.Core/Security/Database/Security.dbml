@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SIMPLETS" Class="SecurityDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="security.RoleTemplatesModulesClaims" Member="RoleTemplateModuleClaims">
+    <Type Name="RoleTemplateModuleClaim">
+      <Column Name="RoleTemplateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ClaimId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Claim_RoleTemplateModuleClaim" Member="Claim" ThisKey="ClaimId" OtherKey="Id" Type="Claim" IsForeignKey="true" />
+      <Association Name="Module_RoleTemplateModuleClaim" Member="Module" ThisKey="ModuleId" OtherKey="Id" Type="Module" IsForeignKey="true" />
+      <Association Name="RoleTemplate_RoleTemplateModuleClaim" Member="RoleTemplate" ThisKey="RoleTemplateId" OtherKey="Id" Type="RoleTemplate" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="security.Claims" Member="Claims">
+    <Type Name="Claim">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Claim_RoleTemplateModuleClaim" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="ClaimId" Type="RoleTemplateModuleClaim" />
+      <Association Name="Claim_PrincipalResourceClaim" Member="PrincipalResourceClaims" ThisKey="Id" OtherKey="ClaimId" Type="PrincipalResourceClaim" />
+      <Association Name="Claim_ResourceRequiredClaim" Member="ResourceRequiredClaims" ThisKey="Id" OtherKey="ClaimId" Type="ResourceRequiredClaim" />
+    </Type>
+  </Table>
+  <Table Name="security.Modules" Member="Modules">
+    <Type Name="Module">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Module_RoleTemplateModuleClaim" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="ModuleId" Type="RoleTemplateModuleClaim" />
+      <Association Name="Module_Resource" Member="Resources" ThisKey="Id" OtherKey="ModuleId" Type="Resource" />
+    </Type>
+  </Table>
+  <Table Name="security.PrincipalAudit" Member="PrincipalAudits">
+    <Type Name="PrincipalAudit">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PrincipalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IpAddress" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Principal_PrincipalAudit" Member="Principal" ThisKey="PrincipalId" OtherKey="Id" Type="Principal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="security.Principals" Member="Principals">
+    <Type Name="Principal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Identity]" Member="Identity" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="Principal_PrincipalAudit" Member="PrincipalAudits" ThisKey="Id" OtherKey="PrincipalId" Type="PrincipalAudit" />
+      <Association Name="Principal_PrincipalResourceClaim" Member="PrincipalResourceClaims" ThisKey="Id" OtherKey="PrincipalId" Type="PrincipalResourceClaim" />
+    </Type>
+  </Table>
+  <Table Name="security.PrincipalsResourcesClaims" Member="PrincipalResourceClaims">
+    <Type Name="PrincipalResourceClaim">
+      <Column Name="PrincipalId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ClaimId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Claim_PrincipalResourceClaim" Member="Claim" ThisKey="ClaimId" OtherKey="Id" Type="Claim" IsForeignKey="true" />
+      <Association Name="Principal_PrincipalResourceClaim" Member="Principal" ThisKey="PrincipalId" OtherKey="Id" Type="Principal" IsForeignKey="true" />
+      <Association Name="Resource_PrincipalResourceClaim" Member="Resource" ThisKey="ResourceId" OtherKey="Id" Type="Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="security.Resources" Member="Resources">
+    <Type Name="Resource">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="BaseUrl" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Resource_PrincipalResourceClaim" Member="PrincipalResourceClaims" ThisKey="Id" OtherKey="ResourceId" Type="PrincipalResourceClaim" />
+      <Association Name="Resource_ResourceRequiredClaim" Member="ResourceRequiredClaims" ThisKey="Id" OtherKey="ResourceId" Type="ResourceRequiredClaim" />
+      <Association Name="Module_Resource" Member="Module" ThisKey="ModuleId" OtherKey="Id" Type="Module" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="security.ResourcesRequiredClaims" Member="ResourceRequiredClaims">
+    <Type Name="ResourceRequiredClaim">
+      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ClaimId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Claim_ResourceRequiredClaim" Member="Claim" ThisKey="ClaimId" OtherKey="Id" Type="Claim" IsForeignKey="true" />
+      <Association Name="Resource_ResourceRequiredClaim" Member="Resource" ThisKey="ResourceId" OtherKey="Id" Type="Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="security.RoleTemplates" Member="RoleTemplates">
+    <Type Name="RoleTemplate">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="RoleTemplate_RoleTemplateModuleClaim" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="RoleTemplateId" Type="RoleTemplateModuleClaim" />
+    </Type>
+  </Table>
+</Database>
