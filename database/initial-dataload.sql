@@ -1,7 +1,10 @@
-﻿INSERT INTO [dbo].[Clubs] VALUES ('PRECI','Programme de Regroupement Étudiant pour la Coopération Internationale', DEFAULT);
-INSERT INTO [dbo].[Clubs] VALUES ('LiETS','Ligue d`Improvisation de l`ETS', DEFAULT);
-INSERT INTO [dbo].[Clubs] VALUES ('Evolution','Véhicule à faible consommation', DEFAULT);
-INSERT INTO [dbo].[Clubs] VALUES ('Baja','Véhicule amphibie tout terrain', DEFAULT);
+﻿USE [SIMPLETS]
+GO
+
+-- INSERT INTO [dbo].[Clubs] VALUES ('PRECI','Programme de Regroupement Étudiant pour la Coopération Internationale', DEFAULT);
+-- INSERT INTO [dbo].[Clubs] VALUES ('LiETS','Ligue d`Improvisation de l`ETS', DEFAULT);
+-- INSERT INTO [dbo].[Clubs] VALUES ('Evolution','Véhicule à faible consommation', DEFAULT);
+-- INSERT INTO [dbo].[Clubs] VALUES ('Baja','Véhicule amphibie tout terrain', DEFAULT);
 
 INSERT INTO [dbo].[Concentrations] VALUES ('CTN','Génie de la construction', DEFAULT);
 INSERT INTO [dbo].[Concentrations] VALUES ('ELE','Génie électrique', DEFAULT);
@@ -52,10 +55,10 @@ INSERT INTO [dbo].[Fournisseurs] VALUES (3,'Imperdiet Corp.','Jennings, Brynn P.
 INSERT INTO [dbo].[Fournisseurs] VALUES (4,'Adipiscing Enim Corporation','Hickman, Wade M.','(268) 523-2179','eget@montesnasceturridiculus.edu', DEFAULT);
 INSERT INTO [dbo].[Fournisseurs] VALUES (5,'Urna Nunc Quis Company','Douglas, Dustin M.','(318) 662-4800','Phasellus.in.felis@pellentesquemassalobortis.com', DEFAULT);
 
-INSERT INTO [dbo].[Commandites] VALUES (1,1,1,908,'ut, pellentesque eget, dictum placerat,', DEFAULT);
-INSERT INTO [dbo].[Commandites] VALUES (2,2,2,9686,'posuere vulputate, lacus. Cras interdum.', DEFAULT);
-INSERT INTO [dbo].[Commandites] VALUES (3,3,3,1628,'feugiat placerat velit. Quisque varius.', DEFAULT);
-INSERT INTO [dbo].[Commandites] VALUES (4,4,4,5702,'molestie dapibus ligula. Aliquam erat', DEFAULT);
+-- INSERT INTO [dbo].[Commandites] VALUES (1,1,1,908,'ut, pellentesque eget, dictum placerat,', DEFAULT);
+-- INSERT INTO [dbo].[Commandites] VALUES (2,2,2,9686,'posuere vulputate, lacus. Cras interdum.', DEFAULT);
+-- INSERT INTO [dbo].[Commandites] VALUES (3,3,3,1628,'feugiat placerat velit. Quisque varius.', DEFAULT);
+-- INSERT INTO [dbo].[Commandites] VALUES (4,4,4,5702,'molestie dapibus ligula. Aliquam erat', DEFAULT);
 
 INSERT INTO [dbo].[LiensParente] VALUES ('Mère', DEFAULT);
 INSERT INTO [dbo].[LiensParente] VALUES ('Père', DEFAULT);
@@ -71,10 +74,10 @@ INSERT INTO [dbo].[ContactsUrgence] VALUES (1,1,'Harper','Nissim','1-702-829-533
 --INSERT INTO [dbo].[ContactUrgenceMembres] VALUES (3,3, DEFAULT);
 --INSERT INTO [dbo].[ContactUrgenceMembres] VALUES (4,4, DEFAULT);
 
-INSERT INTO [dbo].[Evenements] VALUES (1,'Événement1','mauris, aliquam eu, accumsan sed,','2012-05-05','2013-09-17', DEFAULT);
-INSERT INTO [dbo].[Evenements] VALUES (2,'Événement2','In lorem. Donec elementum, lorem','2014-02-24','2014-09-25', DEFAULT);
-INSERT INTO [dbo].[Evenements] VALUES (3,'Événement3','lorem. Donec elementum, lorem ut','2010-09-23','2014-06-04', DEFAULT);
-INSERT INTO [dbo].[Evenements] VALUES (4,'Événement4','nulla. Integer urna. Vivamus molestie','2015-12-14','2013-09-30', DEFAULT);
+-- INSERT INTO [dbo].[Evenements] VALUES (1,'Événement1','mauris, aliquam eu, accumsan sed,','2012-05-05','2013-09-17', DEFAULT);
+-- INSERT INTO [dbo].[Evenements] VALUES (2,'Événement2','In lorem. Donec elementum, lorem','2014-02-24','2014-09-25', DEFAULT);
+-- INSERT INTO [dbo].[Evenements] VALUES (3,'Événement3','lorem. Donec elementum, lorem ut','2010-09-23','2014-06-04', DEFAULT);
+-- INSERT INTO [dbo].[Evenements] VALUES (4,'Événement4','nulla. Integer urna. Vivamus molestie','2015-12-14','2013-09-30', DEFAULT);
 
 INSERT INTO [dbo].[Formations] VALUES ('ATELIER', 'Peux entrer dans l''atelier et utiliser les outils de bases', DEFAULT);
 INSERT INTO [dbo].[Formations] VALUES ('SOUDURE', 'Peux utiliser les machines à souder', DEFAULT);
@@ -91,10 +94,10 @@ INSERT INTO [dbo].[StatutsSuivie] VALUES ('PROSPECT', 'Prospect', DEFAULT);
 INSERT INTO [dbo].[StatutsSuivie] VALUES ('CONFIRME', 'Confirmé', DEFAULT);
 INSERT INTO [dbo].[StatutsSuivie] VALUES ('FERME', 'Fermé', DEFAULT);
 
-INSERT INTO [dbo].[Suivies] VALUES (1,1,1,'2012-10-03','erat, in conserectagiluca dsauhifds fgrakfoh fdeuihtur massa. Restibilum', DEFAULT);
-INSERT INTO [dbo].[Suivies] VALUES (2,2,2,'2013-11-09','erat, in consectetuer ipsum nunc id enim. Curabitur massa. Vestibulum', DEFAULT);
-INSERT INTO [dbo].[Suivies] VALUES (3,3,3,'2014-12-08','eleifend non, dapibus rutrum, justo. Praesent luctus. Curabitur egestas nunc', DEFAULT);
-INSERT INTO [dbo].[Suivies] VALUES (4,4,4,'2014-02-09','congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit', DEFAULT);
+-- INSERT INTO [dbo].[Suivies] VALUES (1,1,1,'2012-10-03','erat, in conserectagiluca dsauhifds fgrakfoh fdeuihtur massa. Restibilum', DEFAULT);
+-- INSERT INTO [dbo].[Suivies] VALUES (2,2,2,'2013-11-09','erat, in consectetuer ipsum nunc id enim. Curabitur massa. Vestibulum', DEFAULT);
+-- INSERT INTO [dbo].[Suivies] VALUES (3,3,3,'2014-12-08','eleifend non, dapibus rutrum, justo. Praesent luctus. Curabitur egestas nunc', DEFAULT);
+-- INSERT INTO [dbo].[Suivies] VALUES (4,4,4,'2014-02-09','congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit', DEFAULT);
 
 INSERT INTO [dbo].[MembresAllergies] VALUES (1,1, DEFAULT);
 INSERT INTO [dbo].[MembresAllergies] VALUES (1,2, DEFAULT);
