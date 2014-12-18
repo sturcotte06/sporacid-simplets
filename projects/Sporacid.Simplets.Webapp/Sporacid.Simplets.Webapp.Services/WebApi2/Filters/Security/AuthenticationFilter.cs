@@ -7,12 +7,12 @@
     using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Web;
     using System.Web.Http;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens;
-    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
 
@@ -22,16 +22,13 @@
     {
         [ThreadStatic] private static IToken requestToken;
 
-        private readonly IAuthorizationModule authorizationModule;
         private readonly IAuthenticationModule[] supportedAuthenticationModules;
         private readonly ICredentialsExtractor[] supportedCredentialsExtractors;
 
-        public AuthenticationFilter(IAuthenticationModule[] supportedAuthenticationModules, ICredentialsExtractor[] supportedCredentialsExtractors,
-            IAuthorizationModule authorizationModule)
+        public AuthenticationFilter(IAuthenticationModule[] supportedAuthenticationModules, ICredentialsExtractor[] supportedCredentialsExtractors)
         {
             this.supportedAuthenticationModules = supportedAuthenticationModules;
             this.supportedCredentialsExtractors = supportedCredentialsExtractors;
-            this.authorizationModule = authorizationModule;
         }
 
         /// <summary>
@@ -101,8 +98,11 @@
                 throw new SecurityException("Credentials are in an invalid format.");
             }
 
+            // Authenticate the principal.
             var tokenAndPrincipal = authenticationModule.Authenticate(credentials);
-            context.Principal = tokenAndPrincipal.Principal;
+
+            // Make sure this stupid principal is set everywhere.
+            HttpContext.Current.User = Thread.CurrentPrincipal = context.Principal = tokenAndPrincipal.Principal;
             RequestToken = tokenAndPrincipal.Token;
 
             return Task.FromResult(0);

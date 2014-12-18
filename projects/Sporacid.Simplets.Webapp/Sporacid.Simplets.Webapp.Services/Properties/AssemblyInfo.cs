@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using log4net.Config;
 using PostSharp.Extensibility;
 using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
+using Sporacid.Simplets.Webapp.Services;
 
 [assembly: AssemblyTitle("Sporacid.Simplets.Webapp.Services")]
 [assembly: AssemblyDescription("")]
@@ -45,3 +46,9 @@ using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
     AttributeTargetTypeAttributes = MulticastAttributes.Public,
     AttributeTargetMemberAttributes = MulticastAttributes.Public,
     AttributeTargetElements = MulticastTargets.Method)]
+
+// Bootstrap activator methods.
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start", Order = 0)]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(AutoMapperConfig), "InitializeAutoMapper", Order = 1)]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SecurityConfig), "BootstrapSecurityContext", Order = 2)]

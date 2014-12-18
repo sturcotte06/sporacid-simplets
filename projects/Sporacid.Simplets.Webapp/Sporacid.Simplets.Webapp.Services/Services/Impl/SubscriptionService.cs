@@ -1,6 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Impl
 {
     using System;
+    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -30,12 +31,12 @@
         public void SubscribeToClub(String clubName, int membreId)
         {
             var membreEntity = this.membreRepository.Get(membreId);
-            var clubEntity = this.clubRepository.GetUnique(c => c.Nom == clubName);
+            var clubEntity = this.clubRepository.GetUnique(c => SqlMethods.Like(c.Nom, clubName));
 
             membreEntity.MembreClubs.Add(new MembreClub
             {
                 Membre = membreEntity,
-                Club = clubEntity,
+                ClubId = clubEntity.Id,
                 DateDebut = DateTime.UtcNow
             });
 
@@ -52,9 +53,15 @@
         public void UnsubscribeFromClub(String clubName, int membreId)
         {
             var membreEntity = this.membreRepository.Get(membreId);
+            var clubEntity = this.clubRepository.GetUnique(c => SqlMethods.Like(c.Nom, clubName));
+
             membreEntity.MembreClubs.Remove(membreEntity.MembreClubs
-                .FirstOrDefault(mc => mc.Club.Nom == clubName && mc.MembreId == membreId));
+                .FirstOrDefault(mc => mc.ClubId == clubEntity.Id && mc.MembreId == membreId));
+            clubEntity.MembreClubs.Remove(membreEntity.MembreClubs
+                .FirstOrDefault(mc => mc.ClubId == clubEntity.Id && mc.MembreId == membreId));
+
             this.membreRepository.Update(membreEntity);
+            this.clubRepository.Update(clubEntity);
         }
     }
 }

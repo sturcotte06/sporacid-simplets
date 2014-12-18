@@ -31,8 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\packages\LINQKit.1.1.1\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
@@ -58,6 +70,7 @@
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,17 +88,20 @@
     <Compile Include="Localization\ILocalizable.cs" />
     <Compile Include="Localization\IMessageLocalizer.cs" />
     <Compile Include="Localization\MessageLocalizer.cs" />
+    <Compile Include="Repositories\IDatabaseCreator.cs" />
+    <Compile Include="Repositories\IDataContextStore.cs" />
+    <Compile Include="Repositories\Impl\DataContextStore.cs" />
+    <Compile Include="Repositories\Impl\DatabaseCreator.cs" />
+    <Compile Include="Repositories\Impl\GenericRepository.cs" />
     <Compile Include="Security\Authentication\BaseAuthenticationModule.cs" />
     <Compile Include="Security\Authentication\IAuthenticationObservable.cs" />
     <Compile Include="Security\Authentication\IAuthenticationObserver.cs" />
     <Compile Include="Security\Authentication\Impl\PrincipalIdentity.cs" />
     <Compile Include="Security\Authentication\Impl\TokenAndPrincipal.cs" />
     <Compile Include="Security\Authentication\ITokenAndPrincipal.cs" />
+    <Compile Include="Security\Authorization\Claims.cs" />
     <Compile Include="Security\Authorization\Impl\ClaimsPrincipal.cs" />
-    <Compile Include="Security\Authorization\IResource.cs" />
-    <Compile Include="Repositories\ICompositeId.cs" />
     <Compile Include="Repositories\IHasId.cs" />
-    <Compile Include="Repositories\Impl\GenericRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Security\Authentication\Impl\Credentials.cs" />
     <Compile Include="Security\Authentication\Impl\Principal.cs" />
@@ -103,6 +119,14 @@
     <Compile Include="Security\Authorization\Impl\AuthorizationModule.cs" />
     <Compile Include="Security\Authentication\Tokens\Impl\AuthenticationToken.cs" />
     <Compile Include="Security\Authentication\Tokens\IToken.cs" />
+    <Compile Include="Security\Authorization\RequiredClaimsAttribute.cs" />
+    <Compile Include="Security\Authorization\ContextualAttribute.cs" />
+    <Compile Include="Security\Bootstrap\Impl\RoleBootstrapper.cs" />
+    <Compile Include="Security\Bootstrap\Impl\SecurityDatabaseBootstrapper.cs" />
+    <Compile Include="Security\Authorization\ModuleAttribute.cs" />
+    <Compile Include="Security\Authorization\FixedContextAttribute.cs" />
+    <Compile Include="Security\Bootstrap\IRoleBootstrapper.cs" />
+    <Compile Include="Security\Bootstrap\ISecurityDatabaseBootstrapper.cs" />
     <Compile Include="Security\Database\Dto\RoleDto.cs" />
     <Compile Include="Security\Database\LinqToSqlSecurityCorrections.cs" />
     <Compile Include="Security\Database\Security.designer.cs">
@@ -112,7 +136,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Security\Database\Security.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

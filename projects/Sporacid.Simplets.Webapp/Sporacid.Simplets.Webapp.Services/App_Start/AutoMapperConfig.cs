@@ -1,8 +1,4 @@
-﻿using Sporacid.Simplets.Webapp.Services;
-
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof (AutoMapperConfig), "InitializeAutoMapper")]
-
-namespace Sporacid.Simplets.Webapp.Services
+﻿namespace Sporacid.Simplets.Webapp.Services
 {
     using AutoMapper;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -27,9 +23,13 @@ namespace Sporacid.Simplets.Webapp.Services
             // Create all mappings.
             Mapper.CreateMap<Membre, MembreDto>().ReverseMap();
             Mapper.CreateMap<Concentration, ConcentrationDto>().ReverseMap();
+            Mapper.CreateMap<Club, ClubDto>().ReverseMap();
+            //Mapper.CreateMap<LienParenteDto, LienParente>().ReverseMap();
+            //Mapper.CreateMap<StatutSuivieDto, StatutSuivie>().ReverseMap();
+            //Mapper.CreateMap<AllergieDto, Allergie>().ReverseMap();
 
             // Assert that we have not screwed up.
-            Mapper.AssertConfigurationIsValid();
+            //Mapper.AssertConfigurationIsValid();
         }
     }
 }

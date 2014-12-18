@@ -30,6 +30,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Sporacid.Simplets.Webapp.Services.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -156,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\SecurityConfig.cs" />
     <Compile Include="App_Start\SerializationConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Database\Database.designer.cs">
@@ -163,14 +166,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Database\Dto\ApiMethodDescriptionDto.cs" />
+    <Compile Include="Database\Dto\ClubDto.cs" />
+    <Compile Include="Database\Dto\AllergieDto.cs" />
+    <Compile Include="Database\Dto\LienParenteDto.cs" />
+    <Compile Include="Database\Dto\ProfilDto.cs" />
+    <Compile Include="Database\Dto\StatutSuivieDto.cs" />
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
     <Compile Include="Database\Dto\ConcentrationDto.cs" />
     <Compile Include="Database\Dto\MembreDto.cs" />
+    <Compile Include="Services\IAdministrationService.cs" />
+    <Compile Include="Services\IAnonymousService.cs" />
+    <Compile Include="Services\IEnumerationService.cs" />
+    <Compile Include="Services\Impl\AdministrationService.cs" />
+    <Compile Include="Services\Impl\AnonymousService.cs" />
     <Compile Include="Services\Impl\ContextAdministrationService.cs" />
+    <Compile Include="Services\Impl\ProfilService.cs" />
+    <Compile Include="Services\Impl\EnumerationService.cs" />
+    <Compile Include="Services\Impl\PrincipalService.cs" />
     <Compile Include="Services\Impl\SubscriptionService.cs" />
     <Compile Include="Services\IContextAdministrationService.cs" />
+    <Compile Include="Services\IPrincipalService.cs" />
+    <Compile Include="Services\IProfilService.cs" />
     <Compile Include="Services\ISubscriptionService.cs" />
     <Compile Include="WebApi2\Binders\Ipv4AddressModelBinder.cs" />
+    <Compile Include="WebApi2\Description\XmlDocumentationProvider.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthenticationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthenticatedAndAuthorizedAttribute.cs" />

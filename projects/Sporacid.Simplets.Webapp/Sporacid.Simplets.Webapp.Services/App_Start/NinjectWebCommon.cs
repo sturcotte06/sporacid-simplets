@@ -1,8 +1,3 @@
-using Sporacid.Simplets.Webapp.Services;
-
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof (NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof (NinjectWebCommon), "Stop")]
-
 namespace Sporacid.Simplets.Webapp.Services
 {
     using System;
@@ -22,6 +17,8 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens.Factories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization.Impl;
+    using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
+    using Sporacid.Simplets.Webapp.Core.Security.Bootstrap.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Services;
@@ -31,7 +28,6 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials.Impl;
-    using Sporacid.Simplets.Webapp.Tools.Collections;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;
@@ -102,36 +98,55 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterCoreProject(IKernel kernel)
         {
+            // Repositories configuration.
+            // Bind all (beside exceptions) repositories in request scope, because linq to sql data
+            // contexts should live for a single unit of work.
             kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
-                .InSingletonScope();
+                .WhenAnyAncestorMatches(ctx =>
+                    !typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) &&
+                    !typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
+                .InRequestScope()
+                .OnDeactivation(repository => ((IDisposable) repository).Dispose());
+            // Bind repositories used in the bootstrapping of security database in thread scope,
+            // because it's not running as a web request.
+            kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
+                .WhenAnyAncestorMatches(ctx =>
+                    typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) ||
+                    typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
+                .InThreadScope()
+                .OnDeactivation(repository => ((IDisposable) repository).Dispose());
+
+            // Data context stores configuration
+            kernel.Bind<IDataContextStore>().To<DataContextStore>()
+                .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
+                .WithConstructorArgument(typeof (SecurityDataContext));
+            kernel.Bind<IDataContextStore>().To<DataContextStore>()
+                .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
+                .WithConstructorArgument(typeof (DatabaseDataContext));
+
+            // Security database boostrap configuration.
+            kernel.Bind<ISecurityDatabaseBootstrapper>().To<SecurityDatabaseBootstrapper>();
+            kernel.Bind<IRoleBootstrapper>().To<RoleBootstrapper>();
+            kernel.Bind<IDatabaseCreator>().To<DatabaseCreator>();
+
+            // Cache configurations.
             kernel.Bind(typeof (ICache<,>)).To(typeof (ConfigurableCache<,>))
                 .InSingletonScope();
+
+            // Security modules configuration.
             kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
                 .InSingletonScope()
                 .WithConstructorArgument("ENS.AD.ETSMTL.CA");
             kernel.Bind<IAuthenticationModule>().To<TokenAuthenticationModule>()
-                .InSingletonScope();
-                // .OnActivation(tokenAuthenticationModule =>
-                // {
-                //     var authenticationObservables = kernel.Get<IAuthenticationObservable[]>();
-                // 
-                //     authenticationObservables.ForEach(authenticationObservable =>
-                //     {
-                //         if (authenticationObservable != tokenAuthenticationModule)
-                //             authenticationObservable.AddObserver(tokenAuthenticationModule);
-                //     });
-                // });
-            kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>()
                 .InSingletonScope()
-               /*.WithConstructorArgument(
-                   new SecurityDataContext(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString))*/;
+            .OnActivation(tokenAuthenticationModule => 
+                kernel.Get<KerberosAuthenticationModule>().AddObserver(tokenAuthenticationModule));
+            kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>()
+                .InSingletonScope();
             kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
                 .InSingletonScope()
                 .WithConstructorArgument(TimeSpan.FromHours(6))
                 .WithConstructorArgument((uint) 64);
-
-            // kernel.Bind<IAuthenticationObservable>().To<IAuthenticationModule>();
-            // kernel.Bind<IAuthenticationObservable>().To<IAuthenticationModule>();
         }
 
         /// <summary>
@@ -154,13 +169,26 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServiceProject(IKernel kernel)
         {
+            // Services configuration.
+            kernel.Bind<IAdministrationService>().To<AdministrationService>();
+            kernel.Bind<IAnonymousService>().To<AnonymousService>();
+            kernel.Bind<IContextAdministrationService>().To<ContextAdministrationService>();
+            kernel.Bind<IEnumerationService>().To<EnumerationService>();
             kernel.Bind<IMembreService>().To<MembreService>();
+            kernel.Bind<IPrincipalService>().To<PrincipalService>();
             kernel.Bind<ISubscriptionService>().To<SubscriptionService>();
+
+            // Data context
+            kernel.Bind<DataContext>().To<SecurityDataContext>()
+                .WhenInjectedInto(
+                    typeof (IRepository<Int32, Core.Security.Database.RoleTemplate>),
+                    typeof (IRepository<Int32, Core.Security.Database.Context>),
+                    typeof (IRepository<Int32, Core.Security.Database.Principal>),
+                    typeof (IRepository<Int32, Core.Security.Database.Module>))
+                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
             kernel.Bind<DataContext>().To<DatabaseDataContext>()
                 .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
-            //kernel.Bind<DataContext>().To<SecurityDataContext>()
-            //    .WhenInjectedExactlyInto<IAuthorizationModule>()
-            //    .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
+
             kernel.Bind<ICredentialsExtractor>().To<KerberosCredentialsExtractor>();
             kernel.Bind<ICredentialsExtractor>().To<TokenCredentialsExtractor>();
         }

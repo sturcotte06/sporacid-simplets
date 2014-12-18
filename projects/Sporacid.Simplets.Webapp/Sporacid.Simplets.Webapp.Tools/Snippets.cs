@@ -9,6 +9,11 @@
     /// <author>Simon Turcotte-Langevin</author>
     public static class Snippets
     {
+        public static Action<TException> NoOp<TException>()
+        {
+            return ex => { };
+        }
+
         /// <summary>
         /// Utility method to express a one-liner try-finally block.
         /// </summary>

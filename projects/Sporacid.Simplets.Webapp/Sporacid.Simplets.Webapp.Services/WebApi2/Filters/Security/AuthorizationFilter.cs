@@ -1,33 +1,32 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
+    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
+    using System.Web.Http.Services;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Services.Services;
+    using Sporacid.Simplets.Webapp.Tools.Reflection;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public class AuthorizationFilter : IAuthorizationFilter
     {
         private readonly IAuthorizationModule authorizationModule;
+        private readonly Dictionary<String, Claims> claimsByAction;
 
         public AuthorizationFilter(IAuthorizationModule authorizationModule)
         {
             this.authorizationModule = authorizationModule;
+            this.claimsByAction = new Dictionary<string, Claims>();
+            this.Initialize(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services");
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether more than one instance of the indicated attribute can be specified for a single
-        /// program element.
-        /// </summary>
-        /// <returns>
-        /// true if more than one instance is allowed to be specified; otherwise, false. The default is false.
-        /// </returns>
-        public bool AllowMultiple { get; private set; }
 
         /// <summary>
         /// Executes the authorization filter to synchronize.
@@ -41,34 +40,139 @@
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
-            // var request = actionContext.Request;
-            // var pathAndQuery = request.RequestUri.PathAndQuery;
-            // var relativePath = pathAndQuery.Remove(pathAndQuery.IndexOf('?'));
-            // var contextPath = pathAndQuery.Remove(pathAndQuery.IndexOf(
-            //     BaseService.BasePath, StringComparison.InvariantCultureIgnoreCase) + BaseService.BasePath.Length);
+            var serviceType = actionContext.ControllerContext.Controller.GetType();
+            var serviceMethod = this.GetMethodInfoFromActionContext(actionContext);
+
+            var moduleAttr = serviceType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
+            if (moduleAttr == null)
+            {
+                throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+            }
+
+            Claims claims;
+            var serviceActionName = this.GetServiceActionName(moduleAttr, serviceMethod);
+            if (!this.claimsByAction.TryGetValue(serviceActionName, out claims))
+            {
+                throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+            }
             
+            // var fixedCtxAttr = serviceType.GetAllCustomAttributes<FixedContextAttribute>().FirstOrDefault();
+            // if (fixedCtxAttr != null)
+            // {
+            //     this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
+            // }
+            // else
+            // {
+            //     var contextualAttr = serviceType.GetAllCustomAttributes<ContextualAttribute>().FirstOrDefault();
+            //     if (contextualAttr == null)
+            //     {
+            //         throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+            //     }
+            // 
+            //     var context = actionContext.Request.GetRouteData().Values["context"];
+            //     if (context == null)
+            //     {
+            //         throw new NotAuthorizedException("Contextual action has no context. Cannot authorize.");
+            //     }
+            // 
+            //     this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
+            // }
+
             return continuation.Invoke();
         }
 
-        /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
-        /// <version>1.9.0</version>
-        private class ContextResource : IResource
+        /// <summary>
+        /// Gets or sets a value indicating whether more than one instance of the indicated attribute can be specified for a single
+        /// program element.
+        /// </summary>
+        /// <returns>
+        /// true if more than one instance is allowed to be specified; otherwise, false. The default is false.
+        /// </returns>
+        public bool AllowMultiple { get; private set; }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="moduleAttr"></param>
+        /// <param name="serviceMethod"></param>
+        /// <returns></returns>
+        private String GetServiceActionName(ModuleAttribute moduleAttr, MethodInfo serviceMethod)
         {
-            private ContextResource(String serviceName)
+            return String.Format("{0}.{1}", moduleAttr.Name, serviceMethod);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="endpointsNamespaces"></param>
+        private void Initialize(Assembly assembly, params String[] endpointsNamespaces)
+        {
+            // Get all endpoint types.
+            var endpointTypes = from type in assembly.GetTypes()
+                where (type.IsClass || type.IsInterface) &&
+                      endpointsNamespaces.Contains(type.Namespace)
+                select type;
+
+            // For each of them, cache authorization configuration.
+            foreach (var endpointType in endpointTypes)
             {
-                this.Value = serviceName;
+                var moduleAttr = endpointType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
+                if (moduleAttr == null)
+                {
+                    continue;
+                }
+
+                var endpointTypeMethods = from method in endpointType.GetMethods()
+                    select method;
+
+                foreach (var endpointTypeMethod in endpointTypeMethods)
+                {
+                    var requiredClaimsAttr = endpointTypeMethod.GetCustomAttributes<RequiredClaimsAttribute>(true).FirstOrDefault();
+                    if (requiredClaimsAttr != null)
+                    {
+                        // Endpoint actions.
+                        var actionName = this.GetServiceActionName(moduleAttr, endpointTypeMethod);
+                        this.claimsByAction.Add(actionName, requiredClaimsAttr.RequiredClaims);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the controller method info that is to be executed.
+        /// </summary>
+        /// <param name="actionContext">The action context.</param>
+        /// <returns>The controller method info that is to be executed.</returns>
+        private MethodInfo GetMethodInfoFromActionContext(HttpActionContext actionContext)
+        {
+            ReflectedHttpActionDescriptor reflectedActionDescriptor = null;
+
+            // Check whether the ActionDescriptor is wrapped in a decorator or not.
+            var wrapper = actionContext.ActionDescriptor as IDecorator<HttpActionDescriptor>;
+            while (wrapper != null)
+            {
+                var castedWrapper = wrapper.Inner as IDecorator<HttpActionDescriptor>;
+                if (castedWrapper == null)
+                {
+                    reflectedActionDescriptor = wrapper.Inner as ReflectedHttpActionDescriptor;
+                }
+
+                wrapper = castedWrapper;
             }
 
-            private ContextResource(String serviceName, String contextName)
+            if (reflectedActionDescriptor == null)
             {
-                this.Value = String.Format("{0}{1}", serviceName, contextName);
+                throw new NotAuthorizedException("Unable to get claims required by reflection. Cannot authorize.");
             }
 
-            /// <summary>
-            /// The value of the resource, as a string.
-            /// Normally returns ToString() implementation.
-            /// </summary>
-            public string Value { get; private set; }
+            return reflectedActionDescriptor.MethodInfo;
+        }
+
+        public class ServiceMethodDescription
+        {
+            public ModuleAttribute ModuleAttribute { get; set; }
+            public FixedContextAttribute FixedContextAttribute { get; set; }
+            public ContextualAttribute ContextualAttribute { get; set; }
+            public RequiredClaimsAttribute RequiredClaimsAttribute { get; set; }
         }
     }
 }

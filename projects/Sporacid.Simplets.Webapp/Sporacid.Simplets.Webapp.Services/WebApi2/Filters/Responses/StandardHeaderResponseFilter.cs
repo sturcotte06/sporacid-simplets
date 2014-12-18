@@ -43,14 +43,14 @@
         /// <param name="continuation">The delegate function to continue after the action method is invoked.</param>
         public Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
-            var response = HttpContext.Current.Response;
-
-            // Add token authorization informations.
-            var token = AuthenticationFilter.RequestToken;
-            var base64Token = Convert.ToBase64String(Encoding.GetBytes(AuthenticationFilter.RequestToken.Key));
-            response.Headers.Add("Authorization-Token", base64Token);
-            response.Headers.Add("Authorization-Token-Emitted-At", token.EmittedAt.ToString("G"));
-            response.Headers.Add("Authorization-Token-Valid-For", token.ValidFor.ToString());
+            // var response = HttpContext.Current.Response;
+            // 
+            // // Add token authorization informations.
+            // var token = AuthenticationFilter.RequestToken;
+            // var base64Token = Convert.ToBase64String(Encoding.GetBytes(AuthenticationFilter.RequestToken.Key));
+            // response.Headers.Add("Authorization-Token", base64Token);
+            // response.Headers.Add("Authorization-Token-Emitted-At", token.EmittedAt.ToString("G"));
+            // response.Headers.Add("Authorization-Token-Valid-For", token.ValidFor.ToString());
 
             return continuation.Invoke();
         }

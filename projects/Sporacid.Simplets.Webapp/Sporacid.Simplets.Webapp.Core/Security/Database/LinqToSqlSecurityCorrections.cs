@@ -21,7 +21,7 @@
     {
     }
 
-    partial class Resource : IHasId<Int32>
+    partial class Context : IHasId<Int32>
     {
     }
 

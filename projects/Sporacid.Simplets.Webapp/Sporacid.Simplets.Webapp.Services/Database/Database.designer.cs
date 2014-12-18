@@ -93,6 +93,12 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void DeleteSuivie(Suivie instance);
     #endregion
 		
+		public DatabaseDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public DatabaseDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -1415,7 +1421,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Commandite_Suivie", Storage="_Suivies", ThisKey="Id", OtherKey="CommanditeId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Commandite_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="CommanditeId")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
 		public EntitySet<Suivie> Suivies
 		{
@@ -4287,7 +4293,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivie", Storage="_Suivies", ThisKey="Id", OtherKey="MembreId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="MembreId")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
 		public EntitySet<Suivie> Suivies
 		{
@@ -5312,7 +5318,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutSuivie_Suivie", Storage="_Suivies", ThisKey="Id", OtherKey="StatutSuivieId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutSuivie_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="StatutSuivieId")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
 		public EntitySet<Suivie> Suivies
 		{
@@ -5398,6 +5404,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
+		private int _Id;
+		
 		private int _CommanditeId;
 		
 		private int _MembreId;
@@ -5414,12 +5422,14 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private EntityRef<Membre> _Membre;
 		
-		private EntityRef<StatutSuivie> _StatutsSuivie;
+		private EntityRef<StatutSuivie> _StatutSuivie;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
     partial void OnCommanditeIdChanging(int value);
     partial void OnCommanditeIdChanged();
     partial void OnMembreIdChanging(int value);
@@ -5439,8 +5449,29 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			this.Initialize();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommanditeId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommanditeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int CommanditeId
 		{
 			get
@@ -5464,8 +5495,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int MembreId
 		{
 			get
@@ -5490,7 +5521,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatutSuivieId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public int StatutSuivieId
 		{
 			get
@@ -5501,7 +5532,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			{
 				if ((this._StatutSuivieId != value))
 				{
-					if (this._StatutsSuivie.HasLoadedOrAssignedValue)
+					if (this._StatutSuivie.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -5515,7 +5546,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSuivie", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.DateTime DateSuivie
 		{
 			get
@@ -5536,7 +5567,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string Commentaire
 		{
 			get
@@ -5557,7 +5588,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5577,7 +5608,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Commandite_Suivie", Storage="_Commandite", ThisKey="CommanditeId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Commandite_Suivy", Storage="_Commandite", ThisKey="CommanditeId", OtherKey="Id", IsForeignKey=true)]
 		public Commandite Commandite
 		{
 			get
@@ -5611,7 +5642,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivie", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
 		public Membre Membre
 		{
 			get
@@ -5645,26 +5676,26 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutSuivie_Suivie", Storage="_StatutsSuivie", ThisKey="StatutSuivieId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutSuivie_Suivy", Storage="_StatutSuivie", ThisKey="StatutSuivieId", OtherKey="Id", IsForeignKey=true)]
 		public StatutSuivie StatutSuivie
 		{
 			get
 			{
-				return this._StatutsSuivie.Entity;
+				return this._StatutSuivie.Entity;
 			}
 			set
 			{
-				StatutSuivie previousValue = this._StatutsSuivie.Entity;
+				StatutSuivie previousValue = this._StatutSuivie.Entity;
 				if (((previousValue != value) 
-							|| (this._StatutsSuivie.HasLoadedOrAssignedValue == false)))
+							|| (this._StatutSuivie.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._StatutsSuivie.Entity = null;
+						this._StatutSuivie.Entity = null;
 						previousValue.Suivies.Remove(this);
 					}
-					this._StatutsSuivie.Entity = value;
+					this._StatutSuivie.Entity = value;
 					if ((value != null))
 					{
 						value.Suivies.Add(this);
@@ -5703,7 +5734,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		{
 			this._Commandite = default(EntityRef<Commandite>);
 			this._Membre = default(EntityRef<Membre>);
-			this._StatutsSuivie = default(EntityRef<StatutSuivie>);
+			this._StatutSuivie = default(EntityRef<StatutSuivie>);
 			OnCreated();
 		}
 		

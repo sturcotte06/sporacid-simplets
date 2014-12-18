@@ -5,7 +5,6 @@
     using AutoMapper;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Repositories;
-    using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
 
@@ -15,12 +14,12 @@
     public class MembreService : BaseService, IMembreService
     {
         private readonly IRepository<Int32, Membre> membreRepository;
-        private readonly IRepository<Int32, Principal> principalRepository;
+        private readonly IPrincipalService principalService;
 
-        public MembreService(IRepository<Int32, Membre> membreRepository, IRepository<Int32, Principal> principalRepository)
+        public MembreService(IPrincipalService principalService, IRepository<Int32, Membre> membreRepository)
         {
             this.membreRepository = membreRepository;
-            this.principalRepository = principalRepository;
+            this.principalService = principalService;
         }
 
         /// <summary>
@@ -34,10 +33,7 @@
             var membreEntity = Mapper.Map<MembreDto, Membre>(membre);
             this.membreRepository.Add(membreEntity);
 
-            // Add the new principal for this membre.
-            var principalEntity = new Principal {Identity = membreEntity.CodeUniversel};
-            this.principalRepository.Add(principalEntity);
-
+            this.principalService.Create(membreEntity.CodeUniversel);
             return membreEntity.Id;
         }
 
@@ -69,11 +65,6 @@
         {
             var membreEntity = this.membreRepository.Get(membreId);
             this.membreRepository.Delete(membreEntity);
-
-            // Remove the principal.
-            var principalEntity = this.principalRepository.GetUnique(p =>
-                String.Equals(p.Identity, membreEntity.CodeUniversel, StringComparison.CurrentCultureIgnoreCase));
-            this.principalRepository.Delete(principalEntity);
         }
 
         /// <summary>

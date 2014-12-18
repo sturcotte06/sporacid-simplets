@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SIMPLETS" Class="DatabaseDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LOCALHOST;Initial Catalog=SIMPLETS;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SIMPLETSConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Adresses" Member="Adresses">
     <Type Name="Adresse">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -48,7 +49,7 @@
       <Column Name="Valeur" Type="System.Decimal" DbType="Decimal(6,2) NOT NULL" CanBeNull="false" />
       <Column Name="Nature" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Commandite_Suivie" Member="Suivies" ThisKey="Id" OtherKey="CommanditeId" Type="Suivie" />
+      <Association Name="Commandite_Suivy" Member="Suivies" ThisKey="Id" OtherKey="CommanditeId" Type="Suivie" />
       <Association Name="Club_Commandite" Member="Club" ThisKey="ClubId" OtherKey="Id" Type="Club" IsForeignKey="true" />
       <Association Name="Fournisseur_Commandite" Member="Fournisseur" ThisKey="FournisseurId" OtherKey="Id" Type="Fournisseur" IsForeignKey="true" />
       <Association Name="Item_Commandite" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
@@ -170,7 +171,7 @@
       <Association Name="Membre_MembreAllergie" Member="MembreAllergies" Storage="_MembresAllergies" ThisKey="Id" OtherKey="MembreId" Type="MembreAllergie" />
       <Association Name="Membre_MembreClub" Member="MembreClubs" Storage="_MembresClubs" ThisKey="Id" OtherKey="MembreId" Type="MembreClub" />
       <Association Name="Membre_MembreFormation" Member="MembreFormations" Storage="_MembresFormations" ThisKey="Id" OtherKey="MembreId" Type="MembreFormation" />
-      <Association Name="Membre_Suivie" Member="Suivies" ThisKey="Id" OtherKey="MembreId" Type="Suivie" />
+      <Association Name="Membre_Suivy" Member="Suivies" ThisKey="Id" OtherKey="MembreId" Type="Suivie" />
       <Association Name="Concentration_Membre" Member="Concentration" ThisKey="ConcentrationId" OtherKey="Id" Type="Concentration" IsForeignKey="true" />
     </Type>
   </Table>
@@ -211,20 +212,21 @@
       <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="StatutSuivie_Suivie" Member="Suivies" ThisKey="Id" OtherKey="StatutSuivieId" Type="Suivie" />
+      <Association Name="StatutSuivie_Suivy" Member="Suivies" ThisKey="Id" OtherKey="StatutSuivieId" Type="Suivie" />
     </Type>
   </Table>
   <Table Name="dbo.Suivies" Member="Suivies">
     <Type Name="Suivie">
-      <Column Name="CommanditeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CommanditeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MembreId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StatutSuivieId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DateSuivie" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Commentaire" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Commandite_Suivie" Member="Commandite" ThisKey="CommanditeId" OtherKey="Id" Type="Commandite" IsForeignKey="true" />
-      <Association Name="Membre_Suivie" Member="Membre" ThisKey="MembreId" OtherKey="Id" Type="Membre" IsForeignKey="true" />
-      <Association Name="StatutSuivie_Suivie" Member="StatutSuivie" Storage="_StatutsSuivie" ThisKey="StatutSuivieId" OtherKey="Id" Type="StatutSuivie" IsForeignKey="true" />
+      <Association Name="Commandite_Suivy" Member="Commandite" ThisKey="CommanditeId" OtherKey="Id" Type="Commandite" IsForeignKey="true" />
+      <Association Name="Membre_Suivy" Member="Membre" ThisKey="MembreId" OtherKey="Id" Type="Membre" IsForeignKey="true" />
+      <Association Name="StatutSuivie_Suivy" Member="StatutSuivie" ThisKey="StatutSuivieId" OtherKey="Id" Type="StatutSuivie" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

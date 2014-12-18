@@ -29,6 +29,17 @@
         private static readonly RandomNumberGenerator SecureRng = new RNGCryptoServiceProvider();
 
         /// <summary>
+        /// Returns whether two strings are equals, regardless of case or culture.
+        /// </summary>
+        /// <param name="str1">The first string to test.</param>
+        /// <param name="str2">The second string to test.</param>
+        /// <returns>Whether two strings are equals, regardless of case or culture.</returns>
+        public static bool EqualsIgnoreCase([NotNull] this string str1, string str2)
+        {
+            return String.Equals(str1, str2, StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
         /// Generates a secure and random string of the specified length.
         /// </summary>
         /// <param name="length">Length of the string to generate.</param>

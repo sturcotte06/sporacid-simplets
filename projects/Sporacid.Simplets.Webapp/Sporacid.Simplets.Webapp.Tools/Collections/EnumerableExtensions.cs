@@ -26,6 +26,23 @@
             }
         }
 
+        // /// <summary>
+        // /// Returns enum values of a flag type enum.
+        // /// </summary>
+        // /// <param name="input">A flag type enum.</param>
+        // /// <returns>An enumeration.</returns>
+        // public static IEnumerable<TEnum> GetFlags<TEnum>(this TEnum input) where TEnum : struct, IConvertible
+        // {
+        //     if (!typeof(TEnum).IsEnum)
+        //     {
+        //         throw new ArgumentException("TEnum must be an enumerated type.");
+        //     }
+        // 
+        //     var inputEnum = input as Enum;
+        //     return Enum.GetValues(input.GetType()).Where(inputEnum.HasFlag).Cast<TEnum>()
+        //         ;
+        // }
+
         /// <summary>
         /// Iterates through every objects of an enumeration and apply
         /// an action on it.

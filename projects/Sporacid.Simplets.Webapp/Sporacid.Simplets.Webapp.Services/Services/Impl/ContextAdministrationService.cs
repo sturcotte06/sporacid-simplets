@@ -1,6 +1,10 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Impl
 {
     using System;
+    using System.Data.Linq.SqlClient;
+    using System.Linq;
+    using System.Threading;
+    using System.Web;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
@@ -11,16 +15,34 @@
     [RoutePrefix("api/v1/{context:alpha}/administration")]
     public class ContextAdministrationService : BaseService, IContextAdministrationService
     {
-        private readonly IMembreService membreService;
-        private readonly IRepository<Int32, Core.Security.Database.Principal> principalRepository;
-        private readonly IRepository<Int32, Core.Security.Database.RoleTemplate> roleTemplateRepository;
+        private readonly IRepository<Int32, Context> contextRepository;
+        private readonly IRepository<Int32, Principal> principalRepository;
+        private readonly IRepository<Int32, RoleTemplate> roleTemplateRepository;
 
-        public ContextAdministrationService(IMembreService membreService, IRepository<Int32, Core.Security.Database.Principal> principalRepository,
-            IRepository<Int32, Core.Security.Database.RoleTemplate> roleTemplateRepository)
+        public ContextAdministrationService(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
+            IRepository<Int32, Context> contextRepository)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;
-            this.membreService = membreService;
+            this.contextRepository = contextRepository;
+        }
+
+        /// <summary>
+        /// Creates a security context in the system.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        [HttpPost]
+        [Route("")]
+        public Int32 Create(String context)
+        {
+            // Create the context.
+            var contextEntity = new Context {Name = context};
+            this.contextRepository.Add(contextEntity);
+
+            // Bind admin role to the current user on the newly create context.
+            var principal = HttpContext.Current.User.Identity.Name;
+            this.BindRole(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), principal);
+            return contextEntity.Id;
         }
 
         /// <summary>
@@ -30,36 +52,50 @@
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="role">The role.</param>
-        /// <param name="memberId">The member id.</param>
-        [HttpPost]
-        [Route("bind/{role:alpha}/to/{membreId:int}")]
-        public void BindRole(String context, String role, int memberId)
+        /// <param name="identity">The principal identity.</param>
+        [HttpPut]
+        [Route("bind/{role:alpha}/to/{identity}")]
+        public void BindRole(String context, String role, String identity)
         {
-            var membre = this.membreService.Get(memberId);
-            var principalEntity = this.principalRepository.GetUnique(p => p.Identity == membre.CodeUniversel);
+            // Remove all claims from this user.
+            this.RemoveAllClaims(context, identity);
+
+            // Get all required entities.
+            var contextEntity = this.contextRepository.GetUnique(c => SqlMethods.Like(c.Name, context));
+            var roleTemplate = this.roleTemplateRepository.GetUnique(rt => SqlMethods.Like(rt.Name, role));
+            var principalEntity = this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, identity));
+
+            // Apply the role template on this context.
+            roleTemplate.RoleTemplateModuleClaims.ForEach(rtmc => principalEntity.PrincipalModuleContextClaims.Add(new PrincipalModuleContextClaim
+            {
+                ContextId = contextEntity.Id,
+                ClaimId = rtmc.ClaimId,
+                ModuleId = rtmc.ModuleId
+            }));
+
+            // Update the principal.
+            this.principalRepository.Update(principalEntity);
+        }
+
+        /// <summary>
+        /// Remove all claims from a user on the context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="identity">The principal identity.</param>
+        [HttpDelete]
+        [Route("unbind-claims-from/{identity}")]
+        public void RemoveAllClaims(String context, String identity)
+        {
+            // Get all required entities.
+            var contextEntity = this.contextRepository.GetUnique(c => SqlMethods.Like(c.Name, context));
+            var principalEntity = this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, identity));
 
             // Remove all claims from the principal for this context.
-            var principalClaims = principalEntity.PrincipalResourceClaims;
-            principalClaims.ForEach(prc =>
-            {
-                if (String.Equals(prc.Resource.Module.Name, context, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    principalClaims.Remove(prc);
-                }
-            });
+            var principalClaimsOnContext = principalEntity.PrincipalModuleContextClaims
+                .Where(pc => pc.ContextId == contextEntity.Id).ToList();
+            principalClaimsOnContext.ForEach(pc => principalEntity.PrincipalModuleContextClaims.Remove(pc));
 
-            // Get a role template.
-            var roleTemplate = this.roleTemplateRepository.GetUnique(
-                r => String.Equals(r.Name, role, StringComparison.CurrentCultureIgnoreCase));
-
-            // Bind all claims of the template to the user.
-            roleTemplate.RoleTemplateModuleClaims.ForEach(rtmc => rtmc.Module.Resources.ForEach(r => principalClaims.Add(new PrincipalResourceClaim
-            {
-                ClaimId = rtmc.ClaimId,
-                PrincipalId = principalEntity.Id,
-                ResourceId = r.Id
-            })));
-
+            // Update the principal.
             this.principalRepository.Update(principalEntity);
         }
     }

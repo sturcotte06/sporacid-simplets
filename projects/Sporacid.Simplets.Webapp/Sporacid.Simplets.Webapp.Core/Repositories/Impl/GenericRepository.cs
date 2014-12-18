@@ -4,54 +4,29 @@
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
+    using System.Linq.Expressions;
+    using LinqKit;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class GenericRepository<TEntityId, TEntity> : IRepository<TEntityId, TEntity>
-        where TEntity : class, IHasId<TEntityId>
+    public class GenericRepository<TEntityId, TEntity> : IRepository<TEntityId, TEntity> where TEntity : class, IHasId<TEntityId>
     {
-        private volatile bool isDisposed;
+        private readonly IDataContextStore dataContextStore;
 
-        public GenericRepository(DataContext dataContext)
+        public GenericRepository(IDataContextStore dataContextStore)
         {
-            this.DataContext = dataContext;
-            this.Table = this.DataContext.GetTable<TEntity>();
+            this.dataContextStore = dataContextStore;
         }
-
-        /// <summary>
-        /// The table object from which the repository pulls data.
-        /// </summary>
-        private ITable<TEntity> Table { get; set; }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            if (this.isDisposed) throw new ObjectDisposedException(this.GetType().FullName);
-
-            // Make sure we do not lose any changes. 
-            // This is intended to be called regardless of commit behaviour.
-            this.Commit();
-
-            this.DataContext.Dispose();
-            this.isDisposed = true;
-        }
-
-        /// <summary>
-        /// The linq to sql data context.
-        /// </summary>
-        public DataContext DataContext { get; private set; }
-
+        
         /// <summary>
         /// Returns all entities.
         /// </summary>
         /// <returns>All entities.</returns>
         public IQueryable<TEntity> GetAll()
         {
-            return this.Table;
+            return dataContextStore.DataContext.GetTable<TEntity>();
         }
 
         /// <summary>
@@ -59,9 +34,41 @@
         /// </summary>
         /// <param name="whereClause">Predicate to use as a where clause.</param>
         /// <returns>All entities matching the predicate.</returns>
-        public IQueryable<TEntity> GetAll(Predicate<TEntity> whereClause)
+        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> whereClause)
         {
-            return this.Table.Where(e => whereClause(e));
+            return dataContextStore.DataContext.GetTable<TEntity>().Where(whereClause);
+        }
+
+        /// <summary>
+        /// Whether the entity with id exists or not.
+        /// </summary>
+        /// <param name="entityId">The entity id.</param>
+        /// <returns>Whether the entity with id exists or not</returns>
+        public bool Has(TEntityId entityId)
+        {
+            return dataContextStore.DataContext.GetTable<TEntity>()
+                .Any(e => e.Id.Equals(entityId));
+        }
+
+        /// <summary>
+        /// Whether the entity exists or not.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>Whether the entity exists or not</returns>
+        public bool Has(TEntity entity)
+        {
+            return Has(entity.Id);
+        }
+
+        /// <summary>
+        /// Whether the entity exists or not.
+        /// </summary>
+        /// <param name="whereClause">Predicate to use as a where clause.</param>
+        /// <returns>Whether the entity exists or not</returns>
+        public bool Has(Expression<Func<TEntity, bool>> whereClause)
+        {
+            return dataContextStore.DataContext.GetTable<TEntity>()
+                .AsExpandable().Any(whereClause);
         }
 
         /// <summary>
@@ -71,7 +78,7 @@
         /// <returns>The entity with the given id.</returns>
         public TEntity Get(TEntityId entityId)
         {
-            var entity = this.Table.SingleOrDefault(e => e.Id.Equals(entityId));
+            var entity = dataContextStore.DataContext.GetTable<TEntity>().SingleOrDefault(e => e.Id.Equals(entityId));
             if (entity == null)
             {
                 throw new EntityNotFoundException<TEntity>(entityId);
@@ -85,9 +92,15 @@
         /// </summary>
         /// <param name="whereClause">The entity id.</param>
         /// <returns>The entity that matches the given predicate.</returns>
-        public TEntity GetUnique(Predicate<TEntity> whereClause)
+        public TEntity GetUnique(Expression<Func<TEntity, bool>> whereClause)
         {
-            var entity =  this.GetAll(whereClause).SingleOrDefault();
+            var entities = this.GetAll(whereClause);
+            if (!entities.Any())
+            {
+                throw new EntityNotFoundException<TEntity>();
+            }
+
+            var entity = entities.SingleOrDefault();
             if (entity == null)
             {
                 throw new EntityNotUniqueException();
@@ -103,7 +116,7 @@
         /// <returns>The id of the new entity.</returns>
         public void Add(TEntity entity)
         {
-            this.Table.InsertOnSubmit(entity);
+            dataContextStore.DataContext.GetTable<TEntity>().InsertOnSubmit(entity);
             this.Commit();
         }
 
@@ -114,7 +127,8 @@
         /// <returns>The ids of the new entities.</returns>
         public void AddAll(IEnumerable<TEntity> entities)
         {
-            entities.ForEach(this.Add);
+            dataContextStore.DataContext.GetTable<TEntity>().InsertAllOnSubmit(entities);
+            this.Commit();
         }
 
         /// <summary>
@@ -123,7 +137,7 @@
         /// <param name="entity">The entity.</param>
         public void Delete(TEntity entity)
         {
-            this.Table.DeleteOnSubmit(entity);
+            dataContextStore.DataContext.GetTable<TEntity>().DeleteOnSubmit(entity);
             this.Commit();
         }
 
@@ -132,17 +146,20 @@
         /// </summary>
         public void DeleteAll()
         {
-            this.Table.ForEach(this.Delete);
+            var table = dataContextStore.DataContext.GetTable<TEntity>();
+            dataContextStore.DataContext.GetTable<TEntity>().DeleteAllOnSubmit(table);
+            this.Commit();
         }
 
         /// <summary>
         /// Deletes all entities matching the predicate.
         /// </summary>
         /// <param name="whereClause">Predicate to use as a where clause.</param>
-        public void DeleteAll(Predicate<TEntity> whereClause)
+        public void DeleteAll(Expression<Func<TEntity, bool>> whereClause)
         {
-            this.Table.Where(e => whereClause(e))
-                .ForEach(this.Delete);
+            var table = dataContextStore.DataContext.GetTable<TEntity>();
+            table.DeleteAllOnSubmit(table.AsExpandable().Where(whereClause));
+            this.Commit();
         }
 
         /// <summary>
@@ -151,7 +168,7 @@
         /// <param name="entity">The entity.</param>
         public void Update(TEntity entity)
         {
-            // this.Table.Attach(entity);
+            // dataContextStore.DataContext.GetTable<TEntity>().Attach(entity, true);
             this.Commit();
         }
 
@@ -161,7 +178,8 @@
         /// <param name="entities">The entities.</param>
         public void UpdateAll(IEnumerable<TEntity> entities)
         {
-            entities.ForEach(this.Update);
+            // dataContextStore.DataContext.GetTable<TEntity>().AttachAll(entities, true);
+            this.Commit();
         }
 
         /// <summary>
@@ -179,7 +197,25 @@
         /// </summary>
         private void Commit()
         {
-            this.DataContext.SubmitChanges(ConflictMode.FailOnFirstConflict);
+            var commitSucceeded = false;
+            while (!commitSucceeded)
+            {
+                try
+                {
+                    // Commit.
+                    dataContextStore.DataContext.SubmitChanges(ConflictMode.ContinueOnConflict);
+                    commitSucceeded = true;
+                }
+                catch (ChangeConflictException ex)
+                {
+                    // Handle conflicts.
+                    // We'll take the latest values. Let team members handle conflicts between themselves.
+                    foreach (var conflict in dataContextStore.DataContext.ChangeConflicts)
+                    {
+                        conflict.Resolve(RefreshMode.KeepCurrentValues);
+                    }
+                }
+            }
         }
     }
 }

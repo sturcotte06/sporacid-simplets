@@ -9,6 +9,8 @@
     using System.Web;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -23,6 +25,8 @@
                 {typeof (ArgumentNullException), HttpStatusCode.BadRequest},
                 {typeof (ArgumentOutOfRangeException), HttpStatusCode.BadRequest},
                 {typeof (SecurityException), HttpStatusCode.Unauthorized},
+                {typeof (NotAuthorizedException), HttpStatusCode.Unauthorized},
+                {typeof (WrongCredentialsException), HttpStatusCode.Forbidden},
                 {typeof (EntityNotFoundException<>), HttpStatusCode.NotFound},
                 {typeof (NotSupportedException), HttpStatusCode.NotImplemented},
             };

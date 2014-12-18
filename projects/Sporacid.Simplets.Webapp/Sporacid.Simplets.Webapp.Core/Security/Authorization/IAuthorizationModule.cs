@@ -1,5 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authorization
 {
+    using System;
     using System.Security.Principal;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -7,11 +8,13 @@
     public interface IAuthorizationModule
     {
         /// <summary>
-        /// Authorizes an authenticated session in the given context. If the session, and its associated user, does
-        /// not have the required authorization level, an exception will be raised.
+        /// Authorizes an authenticated principal for the given module and contexts. If the user is not what
+        /// he claims to be, an authorization exception will be raised.
         /// </summary>
         /// <param name="principal">The principal of an authenticated user.</param>
-        /// <param name="resource">The resource the user tries to access.</param>
-        IPrincipal Authorize(IPrincipal principal, IResource resource);
+        /// <param name="claims">What the user claims to be authorized to do on the module and context.</param>
+        /// <param name="module">The module name which the user tries to access.</param>
+        /// <param name="contexts">The context name which the user tries to access.</param>
+        IPrincipal Authorize(IPrincipal principal, Claims claims, String module, params String[] contexts);
     }
 }
