@@ -11,7 +11,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix("api/v1/administration")]
+    [RoutePrefix(BasePath + "/administration")]
     public class AdministrationService : BaseService, IAdministrationService
     {
         private readonly IRepository<Int32, Club> clubRepository;

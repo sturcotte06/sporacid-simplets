@@ -100,7 +100,6 @@
     <Compile Include="Security\Authentication\Impl\TokenAndPrincipal.cs" />
     <Compile Include="Security\Authentication\ITokenAndPrincipal.cs" />
     <Compile Include="Security\Authorization\Claims.cs" />
-    <Compile Include="Security\Authorization\Impl\ClaimsPrincipal.cs" />
     <Compile Include="Repositories\IHasId.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Security\Authentication\Impl\Credentials.cs" />

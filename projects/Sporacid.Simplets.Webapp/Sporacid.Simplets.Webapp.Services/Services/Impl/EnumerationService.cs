@@ -6,7 +6,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix("api/v1/enumerations")]
+    [RoutePrefix(BasePath + "/enumerations")]
     public class EnumerationService : BaseService, IEnumerationService
     {
         /// <summary>

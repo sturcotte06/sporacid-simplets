@@ -63,27 +63,17 @@
             this.roleRepository.Add(roleTemplateEntity);
 
             var moduleEntities = this.moduleRepository.GetAll().ToList();
-            var claimEntities = this.claimRepository.GetAll().ToList();
+            // var claimEntities = this.claimRepository.GetAll().ToList();
 
             this.roleModuleBindings.ForEach(binding =>
             {
                 var bindingModuleEntities = moduleEntities.Where(m => binding.Modules.Contains(m.Name)).ToList();
-                bindingModuleEntities.ForEach(bindingModuleEntity =>
+                bindingModuleEntities.ForEach(bindingModuleEntity => roleTemplateEntity.RoleTemplateModuleClaims.Add(new RoleTemplateModuleClaims
                 {
-                    var claimFlags = binding.Claims.GetFlags().Cast<Claims>().ToList();
-                    claimEntities.ForEach(claimEntity =>
-                    {
-                        if (claimFlags.Any(claimFlag => ((int) claimFlag) == claimEntity.Value))
-                        {
-                            roleTemplateEntity.RoleTemplateModuleClaims.Add(new RoleTemplateModuleClaim
-                            {
-                                ModuleId = bindingModuleEntity.Id,
-                                ClaimId = claimEntity.Id,
-                                RoleTemplate = roleTemplateEntity
-                            });
-                        }
-                    });
-                });
+                    ModuleId = bindingModuleEntity.Id,
+                    RoleTemplate = roleTemplateEntity,
+                    Claims = (int) binding.Claims,
+                }));
             });
 
             // Add the bootstrapped role.

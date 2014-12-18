@@ -10,7 +10,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix("api/v1/{context}/profil")]
+    [RoutePrefix(BasePath + "/{context}/profil")]
     public class ProfilService : BaseService, IProfilService
     {
         private readonly IRepository<Int32, Membre> membreRepository;

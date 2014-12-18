@@ -7,7 +7,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix("api/v1")]
+    [RoutePrefix(BasePath + "/principal")]
     public class PrincipalService : BaseService, IPrincipalService
     {
         private readonly IContextAdministrationService contextAdministrationService;

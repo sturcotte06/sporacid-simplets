@@ -33,9 +33,9 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
     partial void InsertClaim(Claim instance);
     partial void UpdateClaim(Claim instance);
     partial void DeleteClaim(Claim instance);
-    partial void InsertRoleTemplate(RoleTemplate instance);
-    partial void UpdateRoleTemplate(RoleTemplate instance);
-    partial void DeleteRoleTemplate(RoleTemplate instance);
+    partial void InsertRoleTemplateModuleClaims(RoleTemplateModuleClaims instance);
+    partial void UpdateRoleTemplateModuleClaims(RoleTemplateModuleClaims instance);
+    partial void DeleteRoleTemplateModuleClaims(RoleTemplateModuleClaims instance);
     partial void InsertContext(Context instance);
     partial void UpdateContext(Context instance);
     partial void DeleteContext(Context instance);
@@ -48,12 +48,12 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
     partial void InsertPrincipalAudit(PrincipalAudit instance);
     partial void UpdatePrincipalAudit(PrincipalAudit instance);
     partial void DeletePrincipalAudit(PrincipalAudit instance);
-    partial void InsertPrincipalModuleContextClaim(PrincipalModuleContextClaim instance);
-    partial void UpdatePrincipalModuleContextClaim(PrincipalModuleContextClaim instance);
-    partial void DeletePrincipalModuleContextClaim(PrincipalModuleContextClaim instance);
-    partial void InsertRoleTemplateModuleClaim(RoleTemplateModuleClaim instance);
-    partial void UpdateRoleTemplateModuleClaim(RoleTemplateModuleClaim instance);
-    partial void DeleteRoleTemplateModuleClaim(RoleTemplateModuleClaim instance);
+    partial void InsertPrincipalModuleContextClaims(PrincipalModuleContextClaims instance);
+    partial void UpdatePrincipalModuleContextClaims(PrincipalModuleContextClaims instance);
+    partial void DeletePrincipalModuleContextClaims(PrincipalModuleContextClaims instance);
+    partial void InsertRoleTemplate(RoleTemplate instance);
+    partial void UpdateRoleTemplate(RoleTemplate instance);
+    partial void DeleteRoleTemplate(RoleTemplate instance);
     #endregion
 		
 		public SecurityDataContext(string connection) : 
@@ -88,11 +88,11 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<RoleTemplate> RoleTemplates
+		public System.Data.Linq.Table<RoleTemplateModuleClaims> RoleTemplateModuleClaims
 		{
 			get
 			{
-				return this.GetTable<RoleTemplate>();
+				return this.GetTable<RoleTemplateModuleClaims>();
 			}
 		}
 		
@@ -128,19 +128,19 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<PrincipalModuleContextClaim> PrincipalModuleContextClaims
+		public System.Data.Linq.Table<PrincipalModuleContextClaims> PrincipalModuleContextClaims
 		{
 			get
 			{
-				return this.GetTable<PrincipalModuleContextClaim>();
+				return this.GetTable<PrincipalModuleContextClaims>();
 			}
 		}
 		
-		public System.Data.Linq.Table<RoleTemplateModuleClaim> RoleTemplateModuleClaims
+		public System.Data.Linq.Table<RoleTemplate> RoleTemplates
 		{
 			get
 			{
-				return this.GetTable<RoleTemplateModuleClaim>();
+				return this.GetTable<RoleTemplate>();
 			}
 		}
 	}
@@ -157,10 +157,6 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		private int _Value;
 		
-		private EntitySet<PrincipalModuleContextClaim> _PrincipalModuleContextClaims;
-		
-		private EntitySet<RoleTemplateModuleClaim> _RoleTemplateModuleClaims;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -175,8 +171,6 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		public Claim()
 		{
-			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaim>(new Action<PrincipalModuleContextClaim>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaim>(this.detach_PrincipalModuleContextClaims));
-			this._RoleTemplateModuleClaims = new EntitySet<RoleTemplateModuleClaim>(new Action<RoleTemplateModuleClaim>(this.attach_RoleTemplateModuleClaims), new Action<RoleTemplateModuleClaim>(this.detach_RoleTemplateModuleClaims));
 			OnCreated();
 		}
 		
@@ -240,32 +234,6 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Claim_PrincipalModuleContextClaim", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="ClaimId")]
-		public EntitySet<PrincipalModuleContextClaim> PrincipalModuleContextClaims
-		{
-			get
-			{
-				return this._PrincipalModuleContextClaims;
-			}
-			set
-			{
-				this._PrincipalModuleContextClaims.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Claim_RoleTemplateModuleClaim", Storage="_RoleTemplateModuleClaims", ThisKey="Id", OtherKey="ClaimId")]
-		public EntitySet<RoleTemplateModuleClaim> RoleTemplateModuleClaims
-		{
-			get
-			{
-				return this._RoleTemplateModuleClaims;
-			}
-			set
-			{
-				this._RoleTemplateModuleClaims.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -285,110 +253,176 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
-		{
-			this.SendPropertyChanging();
-			entity.Claim = this;
-		}
-		
-		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
-		{
-			this.SendPropertyChanging();
-			entity.Claim = null;
-		}
-		
-		private void attach_RoleTemplateModuleClaims(RoleTemplateModuleClaim entity)
-		{
-			this.SendPropertyChanging();
-			entity.Claim = this;
-		}
-		
-		private void detach_RoleTemplateModuleClaims(RoleTemplateModuleClaim entity)
-		{
-			this.SendPropertyChanging();
-			entity.Claim = null;
-		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="security.RolesTemplates")]
-	public partial class RoleTemplate : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="security.RolesTemplatesModulesClaims")]
+	public partial class RoleTemplateModuleClaims : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
+		private int _RoleTemplateId;
 		
-		private string _Name;
+		private int _ModuleId;
 		
-		private EntitySet<RoleTemplateModuleClaim> _RoleTemplateModuleClaims;
+		private int _Claims;
+		
+		private EntityRef<Module> _Module;
+		
+		private EntityRef<RoleTemplate> _RoleTemplate;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnRoleTemplateIdChanging(int value);
+    partial void OnRoleTemplateIdChanged();
+    partial void OnModuleIdChanging(int value);
+    partial void OnModuleIdChanged();
+    partial void OnClaimsChanging(int value);
+    partial void OnClaimsChanged();
     #endregion
 		
-		public RoleTemplate()
+		public RoleTemplateModuleClaims()
 		{
-			this._RoleTemplateModuleClaims = new EntitySet<RoleTemplateModuleClaim>(new Action<RoleTemplateModuleClaim>(this.attach_RoleTemplateModuleClaims), new Action<RoleTemplateModuleClaim>(this.detach_RoleTemplateModuleClaims));
+			this._Module = default(EntityRef<Module>);
+			this._RoleTemplate = default(EntityRef<RoleTemplate>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleTemplateId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int RoleTemplateId
 		{
 			get
 			{
-				return this._Id;
+				return this._RoleTemplateId;
 			}
 			set
 			{
-				if ((this._Id != value))
+				if ((this._RoleTemplateId != value))
 				{
-					this.OnIdChanging(value);
+					if (this._RoleTemplate.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRoleTemplateIdChanging(value);
 					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
+					this._RoleTemplateId = value;
+					this.SendPropertyChanged("RoleTemplateId");
+					this.OnRoleTemplateIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModuleId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ModuleId
 		{
 			get
 			{
-				return this._Name;
+				return this._ModuleId;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._ModuleId != value))
 				{
-					this.OnNameChanging(value);
+					if (this._Module.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnModuleIdChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._ModuleId = value;
+					this.SendPropertyChanged("ModuleId");
+					this.OnModuleIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoleTemplate_RoleTemplateModuleClaim", Storage="_RoleTemplateModuleClaims", ThisKey="Id", OtherKey="RoleTemplateId")]
-		public EntitySet<RoleTemplateModuleClaim> RoleTemplateModuleClaims
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Claims", DbType="Int NOT NULL")]
+		public int Claims
 		{
 			get
 			{
-				return this._RoleTemplateModuleClaims;
+				return this._Claims;
 			}
 			set
 			{
-				this._RoleTemplateModuleClaims.Assign(value);
+				if ((this._Claims != value))
+				{
+					this.OnClaimsChanging(value);
+					this.SendPropertyChanging();
+					this._Claims = value;
+					this.SendPropertyChanged("Claims");
+					this.OnClaimsChanged();
+				}
+			}
+		}
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Module_RoleTemplateModuleClaims", Storage = "_Module", ThisKey = "ModuleId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+		public Module Module
+		{
+			get
+			{
+				return this._Module.Entity;
+			}
+			set
+			{
+				Module previousValue = this._Module.Entity;
+				if (((previousValue != value) 
+							|| (this._Module.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Module.Entity = null;
+						previousValue.RoleTemplateModuleClaims.Remove(this);
+					}
+					this._Module.Entity = value;
+					if ((value != null))
+					{
+						value.RoleTemplateModuleClaims.Add(this);
+						this._ModuleId = value.Id;
+					}
+					else
+					{
+						this._ModuleId = default(int);
+					}
+					this.SendPropertyChanged("Module");
+				}
+			}
+		}
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "RoleTemplate_RoleTemplateModuleClaims", Storage = "_RoleTemplate", ThisKey = "RoleTemplateId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+		public RoleTemplate RoleTemplate
+		{
+			get
+			{
+				return this._RoleTemplate.Entity;
+			}
+			set
+			{
+				RoleTemplate previousValue = this._RoleTemplate.Entity;
+				if (((previousValue != value) 
+							|| (this._RoleTemplate.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RoleTemplate.Entity = null;
+						previousValue.RoleTemplateModuleClaims.Remove(this);
+					}
+					this._RoleTemplate.Entity = value;
+					if ((value != null))
+					{
+						value.RoleTemplateModuleClaims.Add(this);
+						this._RoleTemplateId = value.Id;
+					}
+					else
+					{
+						this._RoleTemplateId = default(int);
+					}
+					this.SendPropertyChanged("RoleTemplate");
+				}
 			}
 		}
 		
@@ -410,18 +444,6 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_RoleTemplateModuleClaims(RoleTemplateModuleClaim entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleTemplate = this;
-		}
-		
-		private void detach_RoleTemplateModuleClaims(RoleTemplateModuleClaim entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleTemplate = null;
 		}
 	}
 	
@@ -435,7 +457,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		private string _Name;
 		
-		private EntitySet<PrincipalModuleContextClaim> _PrincipalModuleContextClaims;
+		private EntitySet<PrincipalModuleContextClaims> _PrincipalModuleContextClaims;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -449,7 +471,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		public Context()
 		{
-			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaim>(new Action<PrincipalModuleContextClaim>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaim>(this.detach_PrincipalModuleContextClaims));
+			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaims>(new Action<PrincipalModuleContextClaims>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaims>(this.detach_PrincipalModuleContextClaims));
 			OnCreated();
 		}
 		
@@ -493,8 +515,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Context_PrincipalModuleContextClaim", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="ContextId")]
-		public EntitySet<PrincipalModuleContextClaim> PrincipalModuleContextClaims
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Context_PrincipalModuleContextClaims", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="ContextId")]
+		public EntitySet<PrincipalModuleContextClaims> PrincipalModuleContextClaims
 		{
 			get
 			{
@@ -526,13 +548,13 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
+		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Context = this;
 		}
 		
-		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
+		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Context = null;
@@ -549,9 +571,9 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		private string _Name;
 		
-		private EntitySet<PrincipalModuleContextClaim> _PrincipalModuleContextClaims;
+		private EntitySet<RoleTemplateModuleClaims> _RoleTemplateModuleClaims;
 		
-		private EntitySet<RoleTemplateModuleClaim> _RoleTemplateModuleClaims;
+		private EntitySet<PrincipalModuleContextClaims> _PrincipalModuleContextClaims;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -565,8 +587,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		public Module()
 		{
-			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaim>(new Action<PrincipalModuleContextClaim>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaim>(this.detach_PrincipalModuleContextClaims));
-			this._RoleTemplateModuleClaims = new EntitySet<RoleTemplateModuleClaim>(new Action<RoleTemplateModuleClaim>(this.attach_RoleTemplateModuleClaims), new Action<RoleTemplateModuleClaim>(this.detach_RoleTemplateModuleClaims));
+			this._RoleTemplateModuleClaims = new EntitySet<RoleTemplateModuleClaims>(new Action<RoleTemplateModuleClaims>(this.attach_RoleTemplateModuleClaims), new Action<RoleTemplateModuleClaims>(this.detach_RoleTemplateModuleClaims));
+			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaims>(new Action<PrincipalModuleContextClaims>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaims>(this.detach_PrincipalModuleContextClaims));
 			OnCreated();
 		}
 		
@@ -610,21 +632,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_PrincipalModuleContextClaim", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="ModuleId")]
-		public EntitySet<PrincipalModuleContextClaim> PrincipalModuleContextClaims
-		{
-			get
-			{
-				return this._PrincipalModuleContextClaims;
-			}
-			set
-			{
-				this._PrincipalModuleContextClaims.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_RoleTemplateModuleClaim", Storage="_RoleTemplateModuleClaims", ThisKey="Id", OtherKey="ModuleId")]
-		public EntitySet<RoleTemplateModuleClaim> RoleTemplateModuleClaims
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_RoleTemplateModuleClaims", Storage="_RoleTemplateModuleClaims", ThisKey="Id", OtherKey="ModuleId")]
+		public EntitySet<RoleTemplateModuleClaims> RoleTemplateModuleClaims
 		{
 			get
 			{
@@ -633,6 +642,19 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			set
 			{
 				this._RoleTemplateModuleClaims.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_PrincipalModuleContextClaims", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="ModuleId")]
+		public EntitySet<PrincipalModuleContextClaims> PrincipalModuleContextClaims
+		{
+			get
+			{
+				return this._PrincipalModuleContextClaims;
+			}
+			set
+			{
+				this._PrincipalModuleContextClaims.Assign(value);
 			}
 		}
 		
@@ -656,25 +678,25 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
+		private void attach_RoleTemplateModuleClaims(RoleTemplateModuleClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Module = this;
 		}
 		
-		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
+		private void detach_RoleTemplateModuleClaims(RoleTemplateModuleClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Module = null;
 		}
 		
-		private void attach_RoleTemplateModuleClaims(RoleTemplateModuleClaim entity)
+		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Module = this;
 		}
 		
-		private void detach_RoleTemplateModuleClaims(RoleTemplateModuleClaim entity)
+		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Module = null;
@@ -695,7 +717,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		private EntitySet<PrincipalAudit> _PrincipalAudits;
 		
-		private EntitySet<PrincipalModuleContextClaim> _PrincipalModuleContextClaims;
+		private EntitySet<PrincipalModuleContextClaims> _PrincipalModuleContextClaims;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -712,7 +734,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		public Principal()
 		{
 			this._PrincipalAudits = new EntitySet<PrincipalAudit>(new Action<PrincipalAudit>(this.attach_PrincipalAudits), new Action<PrincipalAudit>(this.detach_PrincipalAudits));
-			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaim>(new Action<PrincipalModuleContextClaim>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaim>(this.detach_PrincipalModuleContextClaims));
+			this._PrincipalModuleContextClaims = new EntitySet<PrincipalModuleContextClaims>(new Action<PrincipalModuleContextClaims>(this.attach_PrincipalModuleContextClaims), new Action<PrincipalModuleContextClaims>(this.detach_PrincipalModuleContextClaims));
 			OnCreated();
 		}
 		
@@ -789,8 +811,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Principal_PrincipalModuleContextClaim", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="PrincipalId")]
-		public EntitySet<PrincipalModuleContextClaim> PrincipalModuleContextClaims
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Principal_PrincipalModuleContextClaims", Storage="_PrincipalModuleContextClaims", ThisKey="Id", OtherKey="PrincipalId")]
+		public EntitySet<PrincipalModuleContextClaims> PrincipalModuleContextClaims
 		{
 			get
 			{
@@ -834,13 +856,13 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			entity.Principal = null;
 		}
 		
-		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
+		private void attach_PrincipalModuleContextClaims(PrincipalModuleContextClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Principal = this;
 		}
 		
-		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaim entity)
+		private void detach_PrincipalModuleContextClaims(PrincipalModuleContextClaims entity)
 		{
 			this.SendPropertyChanging();
 			entity.Principal = null;
@@ -1023,7 +1045,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="security.PrincipalsModulesContextsClaims")]
-	public partial class PrincipalModuleContextClaim : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class PrincipalModuleContextClaims : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1034,9 +1056,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		
 		private int _ContextId;
 		
-		private int _ClaimId;
-		
-		private EntityRef<Claim> _Claim;
+		private int _Claims;
 		
 		private EntityRef<Context> _Context;
 		
@@ -1054,13 +1074,12 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
     partial void OnModuleIdChanged();
     partial void OnContextIdChanging(int value);
     partial void OnContextIdChanged();
-    partial void OnClaimIdChanging(int value);
-    partial void OnClaimIdChanged();
+    partial void OnClaimsChanging(int value);
+    partial void OnClaimsChanged();
     #endregion
 		
-		public PrincipalModuleContextClaim()
+		public PrincipalModuleContextClaims()
 		{
-			this._Claim = default(EntityRef<Claim>);
 			this._Context = default(EntityRef<Context>);
 			this._Principal = default(EntityRef<Principal>);
 			this._Module = default(EntityRef<Module>);
@@ -1139,65 +1158,27 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClaimId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ClaimId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Claims", DbType="Int NOT NULL")]
+		public int Claims
 		{
 			get
 			{
-				return this._ClaimId;
+				return this._Claims;
 			}
 			set
 			{
-				if ((this._ClaimId != value))
+				if ((this._Claims != value))
 				{
-					if (this._Claim.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnClaimIdChanging(value);
+					this.OnClaimsChanging(value);
 					this.SendPropertyChanging();
-					this._ClaimId = value;
-					this.SendPropertyChanged("ClaimId");
-					this.OnClaimIdChanged();
+					this._Claims = value;
+					this.SendPropertyChanged("Claims");
+					this.OnClaimsChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Claim_PrincipalModuleContextClaim", Storage="_Claim", ThisKey="ClaimId", OtherKey="Id", IsForeignKey=true, DeleteOnNull = true)]
-		public Claim Claim
-		{
-			get
-			{
-				return this._Claim.Entity;
-			}
-			set
-			{
-				Claim previousValue = this._Claim.Entity;
-				if (((previousValue != value) 
-							|| (this._Claim.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Claim.Entity = null;
-						previousValue.PrincipalModuleContextClaims.Remove(this);
-					}
-					this._Claim.Entity = value;
-					if ((value != null))
-					{
-						value.PrincipalModuleContextClaims.Add(this);
-						this._ClaimId = value.Id;
-					}
-					else
-					{
-						this._ClaimId = default(int);
-					}
-					this.SendPropertyChanged("Claim");
-				}
-			}
-		}
-
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Context_PrincipalModuleContextClaim", Storage = "_Context", ThisKey = "ContextId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Context_PrincipalModuleContextClaims", Storage="_Context", ThisKey="ContextId", OtherKey="Id", IsForeignKey=true, DeleteOnNull = true)]
 		public Context Context
 		{
 			get
@@ -1231,7 +1212,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Principal_PrincipalModuleContextClaim", Storage = "_Principal", ThisKey = "PrincipalId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Principal_PrincipalModuleContextClaims", Storage = "_Principal", ThisKey = "PrincipalId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Principal Principal
 		{
 			get
@@ -1265,7 +1246,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Module_PrincipalModuleContextClaim", Storage = "_Module", ThisKey = "ModuleId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Module_PrincipalModuleContextClaims", Storage = "_Module", ThisKey = "ModuleId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Module Module
 		{
 			get
@@ -1320,215 +1301,84 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="security.RolesTemplatesModulesClaims")]
-	public partial class RoleTemplateModuleClaim : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="security.RolesTemplates")]
+	public partial class RoleTemplate : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _RoleTemplateId;
+		private int _Id;
 		
-		private int _ModuleId;
+		private string _Name;
 		
-		private int _ClaimId;
-		
-		private EntityRef<Module> _Module;
-		
-		private EntityRef<Claim> _Claim;
-		
-		private EntityRef<RoleTemplate> _RoleTemplate;
+		private EntitySet<RoleTemplateModuleClaims> _RoleTemplateModuleClaims;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnRoleTemplateIdChanging(int value);
-    partial void OnRoleTemplateIdChanged();
-    partial void OnModuleIdChanging(int value);
-    partial void OnModuleIdChanged();
-    partial void OnClaimIdChanging(int value);
-    partial void OnClaimIdChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     #endregion
 		
-		public RoleTemplateModuleClaim()
+		public RoleTemplate()
 		{
-			this._Module = default(EntityRef<Module>);
-			this._Claim = default(EntityRef<Claim>);
-			this._RoleTemplate = default(EntityRef<RoleTemplate>);
+			this._RoleTemplateModuleClaims = new EntitySet<RoleTemplateModuleClaims>(new Action<RoleTemplateModuleClaims>(this.attach_RoleTemplateModuleClaims), new Action<RoleTemplateModuleClaims>(this.detach_RoleTemplateModuleClaims));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleTemplateId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int RoleTemplateId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this._RoleTemplateId;
+				return this._Id;
 			}
 			set
 			{
-				if ((this._RoleTemplateId != value))
+				if ((this._Id != value))
 				{
-					if (this._RoleTemplate.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRoleTemplateIdChanging(value);
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
-					this._RoleTemplateId = value;
-					this.SendPropertyChanged("RoleTemplateId");
-					this.OnRoleTemplateIdChanged();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModuleId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ModuleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
-				return this._ModuleId;
+				return this._Name;
 			}
 			set
 			{
-				if ((this._ModuleId != value))
+				if ((this._Name != value))
 				{
-					if (this._Module.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnModuleIdChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
-					this._ModuleId = value;
-					this.SendPropertyChanged("ModuleId");
-					this.OnModuleIdChanged();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClaimId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ClaimId
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoleTemplate_RoleTemplateModuleClaims", Storage="_RoleTemplateModuleClaims", ThisKey="Id", OtherKey="RoleTemplateId")]
+		public EntitySet<RoleTemplateModuleClaims> RoleTemplateModuleClaims
 		{
 			get
 			{
-				return this._ClaimId;
+				return this._RoleTemplateModuleClaims;
 			}
 			set
 			{
-				if ((this._ClaimId != value))
-				{
-					if (this._Claim.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnClaimIdChanging(value);
-					this.SendPropertyChanging();
-					this._ClaimId = value;
-					this.SendPropertyChanged("ClaimId");
-					this.OnClaimIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_RoleTemplateModuleClaim", Storage="_Module", ThisKey="ModuleId", OtherKey="Id", IsForeignKey=true)]
-		public Module Module
-		{
-			get
-			{
-				return this._Module.Entity;
-			}
-			set
-			{
-				Module previousValue = this._Module.Entity;
-				if (((previousValue != value) 
-							|| (this._Module.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Module.Entity = null;
-						previousValue.RoleTemplateModuleClaims.Remove(this);
-					}
-					this._Module.Entity = value;
-					if ((value != null))
-					{
-						value.RoleTemplateModuleClaims.Add(this);
-						this._ModuleId = value.Id;
-					}
-					else
-					{
-						this._ModuleId = default(int);
-					}
-					this.SendPropertyChanged("Module");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Claim_RoleTemplateModuleClaim", Storage="_Claim", ThisKey="ClaimId", OtherKey="Id", IsForeignKey=true)]
-		public Claim Claim
-		{
-			get
-			{
-				return this._Claim.Entity;
-			}
-			set
-			{
-				Claim previousValue = this._Claim.Entity;
-				if (((previousValue != value) 
-							|| (this._Claim.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Claim.Entity = null;
-						previousValue.RoleTemplateModuleClaims.Remove(this);
-					}
-					this._Claim.Entity = value;
-					if ((value != null))
-					{
-						value.RoleTemplateModuleClaims.Add(this);
-						this._ClaimId = value.Id;
-					}
-					else
-					{
-						this._ClaimId = default(int);
-					}
-					this.SendPropertyChanged("Claim");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoleTemplate_RoleTemplateModuleClaim", Storage="_RoleTemplate", ThisKey="RoleTemplateId", OtherKey="Id", IsForeignKey=true)]
-		public RoleTemplate RoleTemplate
-		{
-			get
-			{
-				return this._RoleTemplate.Entity;
-			}
-			set
-			{
-				RoleTemplate previousValue = this._RoleTemplate.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleTemplate.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleTemplate.Entity = null;
-						previousValue.RoleTemplateModuleClaims.Remove(this);
-					}
-					this._RoleTemplate.Entity = value;
-					if ((value != null))
-					{
-						value.RoleTemplateModuleClaims.Add(this);
-						this._RoleTemplateId = value.Id;
-					}
-					else
-					{
-						this._RoleTemplateId = default(int);
-					}
-					this.SendPropertyChanged("RoleTemplate");
-				}
+				this._RoleTemplateModuleClaims.Assign(value);
 			}
 		}
 		
@@ -1550,6 +1400,18 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_RoleTemplateModuleClaims(RoleTemplateModuleClaims entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoleTemplate = this;
+		}
+		
+		private void detach_RoleTemplateModuleClaims(RoleTemplateModuleClaims entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoleTemplate = null;
 		}
 	}
 }

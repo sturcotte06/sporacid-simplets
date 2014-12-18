@@ -65,10 +65,11 @@
             var principalEntity = this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, identity));
 
             // Apply the role template on this context.
-            roleTemplate.RoleTemplateModuleClaims.ForEach(rtmc => principalEntity.PrincipalModuleContextClaims.Add(new PrincipalModuleContextClaim
+            roleTemplate.RoleTemplateModuleClaims.ForEach(rtmc => principalEntity.PrincipalModuleContextClaims.Add(new PrincipalModuleContextClaims
             {
+                Principal = principalEntity,
                 ContextId = contextEntity.Id,
-                ClaimId = rtmc.ClaimId,
+                Claims = rtmc.Claims,
                 ModuleId = rtmc.ModuleId
             }));
 

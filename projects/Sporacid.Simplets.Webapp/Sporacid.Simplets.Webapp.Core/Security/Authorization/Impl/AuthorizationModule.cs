@@ -5,20 +5,22 @@
     using System.Linq;
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Tools;
     using Sporacid.Simplets.Webapp.Tools.Collections;
-    using Sporacid.Simplets.Webapp.Tools.Enumerations;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public class AuthorizationModule : IAuthorizationModule
     {
-        private readonly IRepository<Int32, Database.Context> contextRepository;
-        private readonly IRepository<Int32, Database.Module> moduleRepository;
-        private readonly IRepository<Int32, Database.Principal> principalRepository;
+        private readonly IRepository<Int32, Context> contextRepository;
+        private readonly IRepository<Int32, Module> moduleRepository;
+        private readonly IRepository<Int32, Principal> principalRepository;
 
-        public AuthorizationModule(IRepository<Int32, Database.Principal> principalRepository,
-            IRepository<Int32, Database.Context> contextRepository, IRepository<Int32, Database.Module> moduleRepository)
+        public AuthorizationModule(IRepository<Int32, Principal> principalRepository,
+            IRepository<Int32, Context> contextRepository, IRepository<Int32, Module> moduleRepository)
         {
             this.principalRepository = principalRepository;
             this.contextRepository = contextRepository;
@@ -42,26 +44,44 @@
                 return;
             }
 
-            var principalEntity = this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, principal.Identity.Name));
-            var moduleEntity = this.moduleRepository.GetUnique(m => SqlMethods.Like(m.Name, module));
+            // Get the principal. If this throws, it's probably because the principal does not exist. Cannot authorize.
+            var principalEntity = Snippets.TryCatch<Principal, RepositoryException>(() =>
+                this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, principal.Identity.Name)),
+                ex => { throw new NotAuthorizedException("Principal has no authorization in the system. Create the principal before attempting again."); });
+
+            // Get the module. If this throws, it's probably because the module does not exist. Cannot authorize.
+            var moduleEntity = Snippets.TryCatch<Module, RepositoryException>(() =>
+                this.moduleRepository.GetUnique(m => SqlMethods.Like(m.Name, module)),
+                ex => { throw new NotAuthorizedException("Trying to access non-configured module. Default is unauthorized."); });
+
+            // Get the module. If this throws, it's probably because the module does not exist. Cannot authorize.
             var contextEntities = this.contextRepository.GetAll(c => contexts.Contains(c.Name));
+
+            // Check if we found all contexts. If one is missing, cannot authorize.
+            if (contextEntities.Count() != contexts.Count())
+            {
+                throw new NotAuthorizedException("Trying to access non-configured contexts. Default is unauthorized.");
+            }
 
             contextEntities.ForEach(contextEntity =>
             {
-                // Get all claim of the principal on this context and this module.
-                var principalClaimsOnContextAndModule = principalEntity.PrincipalModuleContextClaims
-                    .Where(pmcc => pmcc.ContextId == contextEntity.Id && pmcc.ModuleId == moduleEntity.Id)
-                    .Select(prc => prc.Claim)
-                    .ToArray();
+                // Check if there is a PrincipalModuleContextClaims entity for this context, this principal and this module.
+                var principalClaimsOnContextAndModuleEntity = principalEntity.PrincipalModuleContextClaims
+                    .SingleOrDefault(pmcc => pmcc.ContextId == contextEntity.Id && pmcc.ModuleId == moduleEntity.Id);
 
-                claims.GetFlags().Cast<Claims>().Cast<int>().ForEach(claim =>
+                if (principalClaimsOnContextAndModuleEntity == null)
                 {
-                    if (principalClaimsOnContextAndModule.All(pccm => pccm.Value != claim))
-                    {
-                        // The principal does not have the required claim.
-                        throw new NotAuthorizedException();
-                    }
-                });
+                    // The principal is not subscribed to this context or this module.
+                    throw new NotAuthorizedException("The principal have no right to access this module in this context.");
+                }
+
+                // Get claims flag from the entity.
+                var principalClaimsOnContextAndModule = (Claims) principalClaimsOnContextAndModuleEntity.Claims;
+                if ((principalClaimsOnContextAndModule & claims) != claims)
+                {
+                    // User does not have every required claims.
+                    throw new NotAuthorizedException("The principal does not have the required claims to act on this module in this context.");
+                }
             });
         }
     }

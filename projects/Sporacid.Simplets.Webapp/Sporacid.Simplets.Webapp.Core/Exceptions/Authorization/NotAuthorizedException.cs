@@ -14,5 +14,10 @@
             : base(message)
         {
         }
+
+        public NotAuthorizedException(String message, Exception cause)
+            : base(message, cause)
+        {
+        }
     }
 }

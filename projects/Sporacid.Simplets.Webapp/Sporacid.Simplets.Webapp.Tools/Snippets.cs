@@ -110,6 +110,24 @@
         }
 
         /// <summary>
+        /// Utility method to express a one-liner try-catch block.
+        /// </summary>
+        /// <param name="try">The action to try</param>
+        /// <param name="catch">The action to do with the exception</param>
+        public static TReturn TryCatch<TReturn, TException>(Func<TReturn> @try, Action<TException> @catch) where TException : Exception
+        {
+            try
+            {
+                return @try();
+            }
+            catch (TException exception)
+            {
+                @catch(exception);
+                return default(TReturn);
+            }
+        }
+
+        /// <summary>
         /// Does an action without return and then return a value.
         /// </summary>
         /// <typeparam name="TReturn">The return type.</typeparam>

@@ -9,7 +9,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix("api/v1/{clubName:alpha}/subscription")]
+    [RoutePrefix(BasePath + "/{clubName:alpha}/subscription")]
     public class SubscriptionService : BaseService, ISubscriptionService
     {
         private readonly IRepository<Int32, Club> clubRepository;
