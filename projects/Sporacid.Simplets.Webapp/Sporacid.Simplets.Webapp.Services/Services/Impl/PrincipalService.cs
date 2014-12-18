@@ -23,15 +23,15 @@
         /// Creates a principal in the system.
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
-        public Int32 Create(String identity)
+        public Int32 CreatePrincipal(String identity)
         {
             // Add the new principal.
             var principalEntity = new Principal {Identity = identity};
             this.principalRepository.Add(principalEntity);
 
             // Create the new personnal context of this principal. The principal has full access over its context.
-            this.contextAdministrationService.Create(principalEntity.Identity);
-            this.contextAdministrationService.BindRole(principalEntity.Identity, SecurityConfig.Role.Administrateur.ToString(), principalEntity.Identity);
+            this.contextAdministrationService.CreateContext(principalEntity.Identity);
+            this.contextAdministrationService.BindRoleToPrincipal(principalEntity.Identity, SecurityConfig.Role.Administrateur.ToString(), principalEntity.Identity);
             return principalEntity.Id;
         }
     }

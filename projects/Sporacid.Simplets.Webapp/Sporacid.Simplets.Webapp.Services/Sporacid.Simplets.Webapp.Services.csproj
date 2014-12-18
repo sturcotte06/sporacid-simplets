@@ -193,13 +193,13 @@
     <Compile Include="WebApi2\Description\XmlDocumentationProvider.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthenticationFilter.cs" />
-    <Compile Include="WebApi2\Filters\Security\AuthenticatedAndAuthorizedAttribute.cs" />
+    <Compile Include="WebApi2\Filters\Security\RequiresAuthorizedPrincipalAttribute.cs" />
+    <Compile Include="WebApi2\Filters\Security\RequiresAuthenticatedPrincipalAttribute.cs" />
     <Compile Include="WebApi2\Filters\Security\Credentials\ICredentialsExtractor.cs" />
     <Compile Include="WebApi2\Filters\Security\Credentials\Impl\TokenCredentialsExtractor.cs" />
     <Compile Include="WebApi2\Filters\Security\Credentials\Impl\KerberosCredentialsExtractor.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\HandlesExceptionAttribute.cs" />
-    <Compile Include="WebApi2\Filters\ExceptionHandling\HandleExceptionAsHttpResponseFilter.cs" />
-    <Compile Include="WebApi2\Filters\Responses\StandardHeaderResponseFilter.cs" />
+    <Compile Include="WebApi2\Filters\ExceptionHandling\ExceptionHandlingFilter.cs" />
     <Compile Include="WebApi2\Resolvers\ServiceHttpControllerTypeResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -10,6 +10,7 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using System.Web.Http.Services;
+    using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Tools.Reflection;
@@ -18,13 +19,23 @@
     /// <version>1.9.0</version>
     public class AuthorizationFilter : IAuthorizationFilter
     {
-        private readonly IAuthorizationModule authorizationModule;
+        // private readonly IAuthorizationModule authorizationModule;
+        // private readonly Dictionary<String, Claims> claimsByAction;
+        // 
+        // public AuthorizationFilter(IAuthorizationModule authorizationModule)
+        // {
+        //     this.authorizationModule = authorizationModule;
+        //     this.claimsByAction = new Dictionary<String, Claims>();
+        //     this.Initialize(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services");
+        // }
+
+        private readonly IKernel kernel;
         private readonly Dictionary<String, Claims> claimsByAction;
 
-        public AuthorizationFilter(IAuthorizationModule authorizationModule)
+        public AuthorizationFilter(IKernel kernel)
         {
-            this.authorizationModule = authorizationModule;
-            this.claimsByAction = new Dictionary<string, Claims>();
+            this.kernel = kernel;
+            this.claimsByAction = new Dictionary<String, Claims>();
             this.Initialize(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services");
         }
 
@@ -43,40 +54,49 @@
             var serviceType = actionContext.ControllerContext.Controller.GetType();
             var serviceMethod = this.GetMethodInfoFromActionContext(actionContext);
 
+            // Get the module attribute. This is a required key of the authorization system.
             var moduleAttr = serviceType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
             if (moduleAttr == null)
             {
                 throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
             }
 
+            // Get the required claims attribute. This is a required key of the authorization system.
             Claims claims;
             var serviceActionName = this.GetServiceActionName(moduleAttr, serviceMethod);
             if (!this.claimsByAction.TryGetValue(serviceActionName, out claims))
             {
                 throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
             }
-            
-            // var fixedCtxAttr = serviceType.GetAllCustomAttributes<FixedContextAttribute>().FirstOrDefault();
-            // if (fixedCtxAttr != null)
-            // {
-            //     this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
-            // }
-            // else
-            // {
-            //     var contextualAttr = serviceType.GetAllCustomAttributes<ContextualAttribute>().FirstOrDefault();
-            //     if (contextualAttr == null)
-            //     {
-            //         throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
-            //     }
-            // 
-            //     var context = actionContext.Request.GetRouteData().Values["context"];
-            //     if (context == null)
-            //     {
-            //         throw new NotAuthorizedException("Contextual action has no context. Cannot authorize.");
-            //     }
-            // 
-            //     this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
-            // }
+
+            // Get an authorization module.
+            var authorizationModule = kernel.Get<IAuthorizationModule>();
+
+            // Get the context attribute. This is a required key of the authorization system.
+            // Context can be fixed, or dynamic. Handle both cases.
+            var fixedCtxAttr = serviceType.GetAllCustomAttributes<FixedContextAttribute>().FirstOrDefault();
+            if (fixedCtxAttr != null)
+            {
+                // Fixed context.
+                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
+            }
+            else
+            {
+                // Dynamic context, get its value.
+                var contextualAttr = serviceType.GetAllCustomAttributes<ContextualAttribute>().FirstOrDefault();
+                if (contextualAttr == null)
+                {
+                    throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+                }
+
+                var context = actionContext.Request.GetRouteData().Values[contextualAttr.ContextParameterName];
+                if (context == null)
+                {
+                    throw new NotAuthorizedException("Contextual action has no context. Cannot authorize.");
+                }
+
+                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
+            }
 
             return continuation.Invoke();
         }
@@ -165,14 +185,6 @@
             }
 
             return reflectedActionDescriptor.MethodInfo;
-        }
-
-        public class ServiceMethodDescription
-        {
-            public ModuleAttribute ModuleAttribute { get; set; }
-            public FixedContextAttribute FixedContextAttribute { get; set; }
-            public ContextualAttribute ContextualAttribute { get; set; }
-            public RequiredClaimsAttribute RequiredClaimsAttribute { get; set; }
         }
     }
 }

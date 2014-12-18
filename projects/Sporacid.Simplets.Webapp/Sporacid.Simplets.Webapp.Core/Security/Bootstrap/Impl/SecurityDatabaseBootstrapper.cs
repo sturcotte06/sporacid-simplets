@@ -18,10 +18,10 @@
         private readonly IDatabaseCreator databaseCreator;
         private readonly IRepository<Int32, Module> moduleRepository;
 
-        public SecurityDatabaseBootstrapper(IDatabaseCreator databaseCreator, IRepository<Int32, Module> moduleRepository,
+        public SecurityDatabaseBootstrapper(/*IDatabaseCreator databaseCreator, */IRepository<Int32, Module> moduleRepository,
             IRepository<Int32, Claim> claimsRepository, IRepository<Int32, Context> contextRepository)
         {
-            this.databaseCreator = databaseCreator;
+            /*this.databaseCreator = databaseCreator;*/
             this.moduleRepository = moduleRepository;
             this.claimsRepository = claimsRepository;
             this.contextRepository = contextRepository;
@@ -50,7 +50,7 @@
         /// However if a new endpoint is configured, the delta between previous bootstrap and current bootstrap will
         /// be committed to the security repository.
         /// </summary>
-        public void Bootstrap(params Type[] configuredEndpoints)
+        private void Bootstrap(params Type[] configuredEndpoints)
         {
             // Create the database. (Idempotent)
             // this.databaseCreator.CreateDatabase();

@@ -6,7 +6,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Module("Administration")]
+    [Module("Profils")]
     [Contextual("context")]
     public interface IProfilService
     {
@@ -16,6 +16,6 @@
         /// <param name="context">The context.</param>
         /// <param name="profil">The profil.</param>
         [RequiredClaims(Claims.Admin | Claims.Update)]
-        void Update(String context, ProfilDto profil);
+        void UpdateProfil(String context, ProfilDto profil);
     }
 }

@@ -15,7 +15,7 @@
         /// </summary>
         /// <param name="context">The context.</param>
         [RequiredClaims(Claims.None)] // TODO can this be a DDOS possible attack?
-        Int32 Create(String context);
+        Int32 CreateContext(String context);
 
         /// <summary>
         /// Binds a role to the current user.
@@ -26,7 +26,7 @@
         /// <param name="role">The role.</param>
         /// <param name="identity">The principal identity.</param>
         [RequiredClaims(Claims.Admin | Claims.Update)]
-        void BindRole([Required] String context, [Required] String role, [Required] String identity);
+        void BindRoleToPrincipal([Required] String context, [Required] String role, [Required] String identity);
 
         /// <summary>
         /// Remove all claims from a user on the context.
@@ -34,6 +34,6 @@
         /// <param name="context">The context.</param>
         /// <param name="identity">The principal identity.</param>
         [RequiredClaims(Claims.Admin | Claims.DeleteAll)]
-        void RemoveAllClaims([Required] String context, [Required] String identity);
+        void RemoveAllClaimsFromPrincipal([Required] String context, [Required] String identity);
     }
 }

@@ -3,7 +3,6 @@
     using System;
     using System.Data.Linq.SqlClient;
     using System.Linq;
-    using System.Threading;
     using System.Web;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -33,7 +32,7 @@
         /// <param name="context">The context.</param>
         [HttpPost]
         [Route("")]
-        public Int32 Create(String context)
+        public Int32 CreateContext(String context)
         {
             // Create the context.
             var contextEntity = new Context {Name = context};
@@ -41,7 +40,7 @@
 
             // Bind admin role to the current user on the newly create context.
             var principal = HttpContext.Current.User.Identity.Name;
-            this.BindRole(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), principal);
+            this.BindRoleToPrincipal(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), principal);
             return contextEntity.Id;
         }
 
@@ -55,10 +54,10 @@
         /// <param name="identity">The principal identity.</param>
         [HttpPut]
         [Route("bind/{role:alpha}/to/{identity}")]
-        public void BindRole(String context, String role, String identity)
+        public void BindRoleToPrincipal(String context, String role, String identity)
         {
-            // Remove all claims from this user.
-            this.RemoveAllClaims(context, identity);
+            // Remove all claims from this user. A tad slow because we need to query the context and principal twice.
+            this.RemoveAllClaimsFromPrincipal(context, identity);
 
             // Get all required entities.
             var contextEntity = this.contextRepository.GetUnique(c => SqlMethods.Like(c.Name, context));
@@ -84,7 +83,7 @@
         /// <param name="identity">The principal identity.</param>
         [HttpDelete]
         [Route("unbind-claims-from/{identity}")]
-        public void RemoveAllClaims(String context, String identity)
+        public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
             // Get all required entities.
             var contextEntity = this.contextRepository.GetUnique(c => SqlMethods.Like(c.Name, context));

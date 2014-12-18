@@ -10,7 +10,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix("api/v1/membre")]
+    [RoutePrefix(BasePath + "/membre")]
     public class MembreService : BaseService, IMembreService
     {
         private readonly IRepository<Int32, Membre> membreRepository;
@@ -28,12 +28,13 @@
         /// <param name="membre">The member entity.</param>
         [HttpPost]
         [Route("")]
-        public Int32 Add(MembreDto membre)
+        public Int32 AddMembre(MembreDto membre)
         {
             var membreEntity = Mapper.Map<MembreDto, Membre>(membre);
             this.membreRepository.Add(membreEntity);
 
-            this.principalService.Create(membreEntity.CodeUniversel);
+            // Create the principal for this membre.
+            this.principalService.CreatePrincipal(membreEntity.CodeUniversel);
             return membreEntity.Id;
         }
 
@@ -43,7 +44,7 @@
         /// <param name="membre">The member entity.</param>
         [HttpPut]
         [Route("")]
-        public void Update(MembreDto membre)
+        public void UpdateMembre(MembreDto membre)
         {
             var membreEntity = this.membreRepository.Get(membre.Id);
             if (membreEntity.CodeUniversel != membre.CodeUniversel)
@@ -61,7 +62,7 @@
         /// <param name="membreId">The id of the member entity.</param>
         [HttpDelete]
         [Route("{membreId:int}")]
-        public void Delete(int membreId)
+        public void DeleteMembre(int membreId)
         {
             var membreEntity = this.membreRepository.Get(membreId);
             this.membreRepository.Delete(membreEntity);
@@ -74,7 +75,7 @@
         /// <returns>The member entity.</returns>
         [HttpGet]
         [Route("{membreId:int}")]
-        public MembreDto Get(int membreId)
+        public MembreDto GetMembre(int membreId)
         {
             var membreEntity = this.membreRepository.Get(membreId);
             return Mapper.Map<Membre, MembreDto>(membreEntity);

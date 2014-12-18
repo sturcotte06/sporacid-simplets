@@ -14,6 +14,6 @@
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
         [RequiredClaims(Claims.Admin | Claims.Create)]
-        Int32 Create(String identity);
+        Int32 CreatePrincipal(String identity);
     }
 }

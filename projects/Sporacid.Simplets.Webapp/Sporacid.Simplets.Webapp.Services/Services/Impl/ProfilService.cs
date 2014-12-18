@@ -27,7 +27,7 @@
         /// <param name="profil">The profil.</param>
         [HttpPut]
         [Route("")]
-        public void Update(String context, ProfilDto profil)
+        public void UpdateProfil(String context, ProfilDto profil)
         {
             var membreEntity = this.membreRepository.GetUnique(m => SqlMethods.Like(context, m.CodeUniversel));
             Mapper.Map(profil, membreEntity);

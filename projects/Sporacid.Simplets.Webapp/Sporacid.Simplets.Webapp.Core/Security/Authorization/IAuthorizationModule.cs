@@ -15,6 +15,6 @@
         /// <param name="claims">What the user claims to be authorized to do on the module and context.</param>
         /// <param name="module">The module name which the user tries to access.</param>
         /// <param name="contexts">The context name which the user tries to access.</param>
-        IPrincipal Authorize(IPrincipal principal, Claims claims, String module, params String[] contexts);
+        void Authorize(IPrincipal principal, Claims claims, String module, params String[] contexts);
     }
 }

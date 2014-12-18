@@ -6,13 +6,14 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    // [AuthenticatedAndAuthorized]
+    [RequiresAuthenticatedPrincipal]
+    [RequiresAuthorizedPrincipal]
     [HandlesException]
     public abstract class BaseService : ApiController
     {
         /// <summary>
         /// The services base path.
         /// </summary>
-        public const string BasePath = "v1/api";
+        protected const string BasePath = "api/v1";
     }
 }

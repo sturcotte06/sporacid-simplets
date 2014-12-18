@@ -1,18 +1,20 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Filters;
+    using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
-    using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
 
@@ -20,24 +22,11 @@
     /// <version>1.9.0</version>
     public class AuthenticationFilter : IAuthenticationFilter
     {
-        [ThreadStatic] private static IToken requestToken;
+        private readonly IKernel kernel;
 
-        private readonly IAuthenticationModule[] supportedAuthenticationModules;
-        private readonly ICredentialsExtractor[] supportedCredentialsExtractors;
-
-        public AuthenticationFilter(IAuthenticationModule[] supportedAuthenticationModules, ICredentialsExtractor[] supportedCredentialsExtractors)
+        public AuthenticationFilter(IKernel kernel)
         {
-            this.supportedAuthenticationModules = supportedAuthenticationModules;
-            this.supportedCredentialsExtractors = supportedCredentialsExtractors;
-        }
-
-        /// <summary>
-        /// The thread's request token.
-        /// </summary>
-        public static IToken RequestToken
-        {
-            get { return requestToken; }
-            private set { requestToken = value; }
+            this.kernel = kernel;
         }
 
         /// <summary>
@@ -80,13 +69,13 @@
                 throw new SecurityException(String.Format("Scheme {0} is not supported.", authorization.Scheme));
             }
 
-            var authenticationModule = this.supportedAuthenticationModules.FirstOrDefault(a => a.IsSupported(scheme));
+            var authenticationModule = this.kernel.Get<IEnumerable<IAuthenticationModule>>().FirstOrDefault(a => a.IsSupported(scheme));
             if (authenticationModule == null)
             {
                 throw new SecurityException(String.Format("Scheme {0} is not supported.", scheme));
             }
 
-            var credentialsExtractor = this.supportedCredentialsExtractors.FirstOrDefault(e => e.IsSupported(scheme));
+            var credentialsExtractor = this.kernel.Get<IEnumerable<ICredentialsExtractor>>().FirstOrDefault(e => e.IsSupported(scheme));
             if (credentialsExtractor == null)
             {
                 throw new SecurityException(String.Format("Credentials for scheme {0} cannot be extracted.", scheme));
@@ -103,7 +92,13 @@
 
             // Make sure this stupid principal is set everywhere.
             HttpContext.Current.User = Thread.CurrentPrincipal = context.Principal = tokenAndPrincipal.Principal;
-            RequestToken = tokenAndPrincipal.Token;
+
+            // Add token authorization informations on the response.
+            var response = HttpContext.Current.Response;
+            var base64Token = Convert.ToBase64String(Encoding.ASCII.GetBytes(tokenAndPrincipal.Token.Key));
+            response.Headers.Add("Authorization-Token", base64Token);
+            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("G"));
+            response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.ToString());
 
             return Task.FromResult(0);
         }

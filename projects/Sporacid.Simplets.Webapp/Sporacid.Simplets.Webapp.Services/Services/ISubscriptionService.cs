@@ -6,7 +6,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Module("Subscription")]
+    [Module("Inscriptions")]
     [Contextual("clubName")]
     public interface ISubscriptionService
     {

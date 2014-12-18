@@ -1,9 +1,11 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl
 {
+    using System.Collections.Generic;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens.Impl;
+    using Sporacid.Simplets.Webapp.Tools.Collections;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -13,9 +15,10 @@
         private static readonly AuthenticationScheme[] SupportedSchemes = {AuthenticationScheme.Token};
         private readonly ICache<IToken, ITokenAndPrincipal> tokenCache;
 
-        public TokenAuthenticationModule(ICache<IToken, ITokenAndPrincipal> tokenCache, params IAuthenticationObservable[] authenticationObservables)
+        public TokenAuthenticationModule(ICache<IToken, ITokenAndPrincipal> tokenCache, IEnumerable<IAuthenticationObservable> authenticationObservables)
         {
             this.tokenCache = tokenCache;
+            authenticationObservables.ForEach(o => o.AddObserver(this));
         }
 
         /// <summary>

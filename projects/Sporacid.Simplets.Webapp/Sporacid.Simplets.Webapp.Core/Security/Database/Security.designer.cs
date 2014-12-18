@@ -1163,7 +1163,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Claim_PrincipalModuleContextClaim", Storage="_Claim", ThisKey="ClaimId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Claim_PrincipalModuleContextClaim", Storage="_Claim", ThisKey="ClaimId", OtherKey="Id", IsForeignKey=true, DeleteOnNull = true)]
 		public Claim Claim
 		{
 			get
@@ -1196,8 +1196,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Context_PrincipalModuleContextClaim", Storage="_Context", ThisKey="ContextId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Context_PrincipalModuleContextClaim", Storage = "_Context", ThisKey = "ContextId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Context Context
 		{
 			get
@@ -1230,8 +1230,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Principal_PrincipalModuleContextClaim", Storage="_Principal", ThisKey="PrincipalId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Principal_PrincipalModuleContextClaim", Storage = "_Principal", ThisKey = "PrincipalId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Principal Principal
 		{
 			get
@@ -1264,8 +1264,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_PrincipalModuleContextClaim", Storage="_Module", ThisKey="ModuleId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Module_PrincipalModuleContextClaim", Storage = "_Module", ThisKey = "ModuleId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Module Module
 		{
 			get

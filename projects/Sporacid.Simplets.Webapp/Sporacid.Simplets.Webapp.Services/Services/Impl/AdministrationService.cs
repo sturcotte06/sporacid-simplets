@@ -44,7 +44,7 @@
             this.clubRepository.Add(clubEntity);
 
             // Add a new context for the club.
-            this.contextService.Create(clubEntity.Nom);
+            this.contextService.CreateContext(clubEntity.Nom);
             return clubEntity.Id;
         }
     }

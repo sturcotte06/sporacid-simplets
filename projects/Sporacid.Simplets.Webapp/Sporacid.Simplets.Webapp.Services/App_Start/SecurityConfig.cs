@@ -18,7 +18,7 @@
 
         private static readonly String[] AllModules =
         {
-            "Anonyme", "Administration", "Enumerations", "Membre", "Subscription"
+            "Administration", "Default", "Enumerations", "Profils", "Inscriptions"
         };
 
         private static void BootstrapSecurityContext()
@@ -38,15 +38,15 @@
                 .BootstrapTo(Role.Administrateur.ToString());
             roleBootstrapper
                 .BindClaims(ReadOnlyClaims)
-                .ToModules("Enumerations", "Anonyme")
+                .ToModules("Enumerations", "Default")
                 .BindClaims(AllClaims)
-                .ToModules("Subscription", "Membre")
+                .ToModules("Inscriptions")
                 .BindClaims(FullModifyClaims)
                 .ToModules("Administration")
                 .BootstrapTo(Role.Capitaine.ToString());
             roleBootstrapper
                 .BindClaims(ReadOnlyClaims)
-                .ToModules("Enumerations", "Membre", "Anonyme")
+                .ToModules("Enumerations", "Default")
                 .BootstrapTo(Role.Noob.ToString());
         }
 
