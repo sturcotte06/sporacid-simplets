@@ -50,13 +50,12 @@ CREATE TABLE [security].[PrincipalsModulesContextsClaims](
 	[PrincipalId] [int] NOT NULL,
 	[ModuleId] [int] NOT NULL,
 	[ContextId] [int] NOT NULL,
-	[ClaimId] [int] NOT NULL,
+	[Claims] [int] NOT NULL,
 PRIMARY KEY CLUSTERED
 (
 	[PrincipalId] ASC,
 	[ModuleId] ASC,
-	[ContextId] ASC,
-	[ClaimId] ASC
+	[ContextId] ASC
 )) ON [PRIMARY]
 GO
 
@@ -97,12 +96,11 @@ GO
 CREATE TABLE [security].[RolesTemplatesModulesClaims](
 	[RoleTemplateId] [int] NOT NULL,
 	[ModuleId] [int] NOT NULL,
-	[ClaimId] [int] NOT NULL
+	[Claims] [int] NOT NULL
 PRIMARY KEY CLUSTERED
 (
 	[RoleTemplateId] ASC,
-	[ModuleId] ASC,
-	[ClaimId] ASC
+	[ModuleId] ASC
 )) ON [PRIMARY]
 GO
 
@@ -126,11 +124,11 @@ GO
 ALTER TABLE [security].[PrincipalsModulesContextsClaims] CHECK CONSTRAINT [FKPrincipalsModulesContextsClaimsContexts]
 GO
 
-ALTER TABLE [security].[PrincipalsModulesContextsClaims]  WITH CHECK ADD CONSTRAINT [FKPrincipalsModulesContextsClaimsClaims] FOREIGN KEY([ClaimId])
-REFERENCES [security].[Claims] ([Id])
-GO
-ALTER TABLE [security].[PrincipalsModulesContextsClaims] CHECK CONSTRAINT [FKPrincipalsModulesContextsClaimsClaims]
-GO
+-- ALTER TABLE [security].[PrincipalsModulesContextsClaims]  WITH CHECK ADD CONSTRAINT [FKPrincipalsModulesContextsClaimsClaims] FOREIGN KEY([ClaimId])
+-- REFERENCES [security].[Claims] ([Id])
+-- GO
+-- ALTER TABLE [security].[PrincipalsModulesContextsClaims] CHECK CONSTRAINT [FKPrincipalsModulesContextsClaimsClaims]
+-- GO
 
 ALTER TABLE [security].[PrincipalsAudits]  WITH CHECK ADD CONSTRAINT [FKPrincipalsAuditsPrincipals] FOREIGN KEY([PrincipalId])
 REFERENCES [security].[Principals] ([Id])
@@ -150,11 +148,11 @@ GO
 ALTER TABLE [security].[RolesTemplatesModulesClaims] CHECK CONSTRAINT [FKRolesTemplatesModulesModules]
 GO
 
-ALTER TABLE [security].[RolesTemplatesModulesClaims]  WITH CHECK ADD CONSTRAINT [FKRolesTemplatesModulesModulesClaims] FOREIGN KEY([ClaimId])
-REFERENCES [security].[Claims] ([Id])
-GO
-ALTER TABLE [security].[RolesTemplatesModulesClaims] CHECK CONSTRAINT [FKRolesTemplatesModulesModulesClaims]
-GO
+-- ALTER TABLE [security].[RolesTemplatesModulesClaims]  WITH CHECK ADD CONSTRAINT [FKRolesTemplatesModulesModulesClaims] FOREIGN KEY([ClaimId])
+-- REFERENCES [security].[Claims] ([Id])
+-- GO
+-- ALTER TABLE [security].[RolesTemplatesModulesClaims] CHECK CONSTRAINT [FKRolesTemplatesModulesModulesClaims]
+-- GO
 
 SET ANSI_NULLS OFF
 GO
