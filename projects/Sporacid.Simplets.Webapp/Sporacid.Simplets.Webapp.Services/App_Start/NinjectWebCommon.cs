@@ -24,6 +24,7 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Services.Services;
     using Sporacid.Simplets.Webapp.Services.Services.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Localization;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials.Impl;
@@ -257,6 +258,9 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Action)
                 .WhenActionMethodHas<HandlesExceptionAttribute>()
                 .InRequestScope();
+
+            // Bind the localization filter.
+            kernel.BindHttpFilter<LocalizationFilter>(FilterScope.Global);
         }
     }
 }

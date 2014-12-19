@@ -1,6 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Repositories
 {
     using System;
+    using Sporacid.Simplets.Webapp.Core.Resources.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -8,7 +9,7 @@
     public class EntityNotUniqueException : RepositoryException
     {
         public EntityNotUniqueException()
-            : base("The entity is not unique. Where clause must point to a unique entity.")
+            : base(ExceptionStrings.Core_Exceptions_Repository_EntityNotUnique)
         {
         }
     }

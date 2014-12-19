@@ -1,6 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Repositories
 {
     using System;
+    using Sporacid.Simplets.Webapp.Core.Resources.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -8,12 +9,12 @@
     public class EntityNotFoundException<TEntity> : RepositoryException
     {
         public EntityNotFoundException()
-            : base(String.Format("The entity of type {0} cannot be found.", typeof (TEntity).Name))
+            : base(String.Format(ExceptionStrings.Core_Exceptions_Repository_EntityNotFound_Name, typeof (TEntity).Name))
         {
         }
 
         public EntityNotFoundException(object entityId)
-            : base(String.Format("The entity of type {0} with id {1} cannot be found.", typeof (TEntity), entityId))
+            : base(String.Format(ExceptionStrings.Core_Exceptions_Repository_EntityNotFound_NameAndId, typeof (TEntity), entityId))
         {
         }
     }

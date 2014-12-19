@@ -189,8 +189,9 @@
     <Compile Include="Services\IPrincipalService.cs" />
     <Compile Include="Services\IProfilService.cs" />
     <Compile Include="Services\ISubscriptionService.cs" />
-    <Compile Include="WebApi2\Binders\Ipv4AddressModelBinder.cs" />
     <Compile Include="WebApi2\Description\XmlDocumentationProvider.cs" />
+    <Compile Include="WebApi2\Filters\Localization\LocalizationFilter.cs" />
+    <Compile Include="WebApi2\Filters\Localization\LocalizedAttribute.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthenticationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\RequiresAuthorizedPrincipalAttribute.cs" />
@@ -253,9 +254,6 @@
     <None Include="Database\Database.dbml.layout">
       <DependentUpon>Database.dbml</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Messages\simplets.services.messages.en.resx" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
