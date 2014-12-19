@@ -6,13 +6,13 @@ GO
 -- INSERT INTO [dbo].[Clubs] VALUES ('Evolution','Véhicule à faible consommation', DEFAULT);
 -- INSERT INTO [dbo].[Clubs] VALUES ('Baja','Véhicule amphibie tout terrain', DEFAULT);
 
-INSERT INTO [dbo].[Concentrations] VALUES ('CTN','Génie de la construction', DEFAULT);
-INSERT INTO [dbo].[Concentrations] VALUES ('ELE','Génie électrique', DEFAULT);
-INSERT INTO [dbo].[Concentrations] VALUES ('GOL','Génie des opérations et de la logistique', DEFAULT);
-INSERT INTO [dbo].[Concentrations] VALUES ('GPA','Génie de production automatisée', DEFAULT);
-INSERT INTO [dbo].[Concentrations] VALUES ('LOG','Génie logiciel', DEFAULT);
-INSERT INTO [dbo].[Concentrations] VALUES ('MEC','Génie mécanique', DEFAULT);
-INSERT INTO [dbo].[Concentrations] VALUES ('TI','Génie des technologies de l`information', DEFAULT);
+INSERT INTO [dbo].[Concentrations] VALUES ('CTN','Génie de la construction');
+INSERT INTO [dbo].[Concentrations] VALUES ('ELE','Génie électrique');
+INSERT INTO [dbo].[Concentrations] VALUES ('GOL','Génie des opérations et de la logistique');
+INSERT INTO [dbo].[Concentrations] VALUES ('GPA','Génie de production automatisée');
+INSERT INTO [dbo].[Concentrations] VALUES ('LOG','Génie logiciel');
+INSERT INTO [dbo].[Concentrations] VALUES ('MEC','Génie mécanique');
+INSERT INTO [dbo].[Concentrations] VALUES ('TI','Génie des technologies de l`information');
 
 -- INSERT INTO [dbo].[Membres] VALUES (1,'AJ00689','Olsen','Patrick','nibh.Aliquam@tristiquesenectus.co.uk','3716562099',1, DEFAULT);
 -- INSERT INTO [dbo].[Membres] VALUES (2,'AZ92060','Melendez','Moses','Donec.consectetuer.mauris@mattisvelit.edu','1881189845',1, DEFAULT);
@@ -20,11 +20,11 @@ INSERT INTO [dbo].[Concentrations] VALUES ('TI','Génie des technologies de l`in
 -- INSERT INTO [dbo].[Membres] VALUES (4,'AX85616','Ford','Jade','sem.ut.dolor@nonbibendum.co.uk','8522879201',1, DEFAULT);
 -- INSERT INTO [dbo].[Membres] VALUES (5,'AJ32898','Mccarty','Chandler','in.dolor@atpretiumaliquet.org','3055537869',1, DEFAULT);
 
-INSERT INTO [dbo].[Unites] VALUES ('Mètre','SI', DEFAULT);
-INSERT INTO [dbo].[Unites] VALUES ('Centimètre','SI', DEFAULT);
-INSERT INTO [dbo].[Unites] VALUES ('Kilomètre','SI', DEFAULT);
-INSERT INTO [dbo].[Unites] VALUES ('Gramme','SI', DEFAULT);
-INSERT INTO [dbo].[Unites] VALUES ('Kilogramme','SI', DEFAULT);
+INSERT INTO [dbo].[Unites] VALUES ('Mètre','SI');
+INSERT INTO [dbo].[Unites] VALUES ('Centimètre','SI');
+INSERT INTO [dbo].[Unites] VALUES ('Kilomètre','SI');
+INSERT INTO [dbo].[Unites] VALUES ('Gramme','SI');
+INSERT INTO [dbo].[Unites] VALUES ('Kilogramme','SI');
 
 -- INSERT INTO [dbo].[Items] VALUES (1,'urna justo faucibus lectus, a',1,3,1,15, DEFAULT);
 -- INSERT INTO [dbo].[Items] VALUES (2,'vehicula aliquet libero. Integer in',2,4,1,14, DEFAULT);
@@ -60,12 +60,12 @@ INSERT INTO [dbo].[Unites] VALUES ('Kilogramme','SI', DEFAULT);
 -- INSERT INTO [dbo].[Commandites] VALUES (3,3,3,1628,'feugiat placerat velit. Quisque varius.', DEFAULT);
 -- INSERT INTO [dbo].[Commandites] VALUES (4,4,4,5702,'molestie dapibus ligula. Aliquam erat', DEFAULT);
 
-INSERT INTO [dbo].[TypesRelations] VALUES ('Mère', DEFAULT);
-INSERT INTO [dbo].[TypesRelations] VALUES ('Père', DEFAULT);
-INSERT INTO [dbo].[TypesRelations] VALUES ('Enfant', DEFAULT);
-INSERT INTO [dbo].[TypesRelations] VALUES ('Ami', DEFAULT);
-INSERT INTO [dbo].[TypesRelations] VALUES ('Client', DEFAULT);
-INSERT INTO [dbo].[TypesRelations] VALUES ('Autre', DEFAULT);
+INSERT INTO [dbo].[TypesContact] VALUES ('Mère');
+INSERT INTO [dbo].[TypesContact] VALUES ('Père');
+INSERT INTO [dbo].[TypesContact] VALUES ('Enfant');
+INSERT INTO [dbo].[TypesContact] VALUES ('Ami');
+INSERT INTO [dbo].[TypesContact] VALUES ('Client');
+INSERT INTO [dbo].[TypesContact] VALUES ('Autre');
 
 -- INSERT INTO [dbo].[ContactsUrgence] VALUES (1,1,'Hoover','Zephania','1-772-913-2130', DEFAULT);
 -- INSERT INTO [dbo].[ContactsUrgence] VALUES (2,1,'Gibson','Wynne','1-727-710-9565', DEFAULT);
@@ -92,10 +92,10 @@ INSERT INTO [dbo].[TypesRelations] VALUES ('Autre', DEFAULT);
 -- INSERT INTO [dbo].[FournisseursItems] VALUES (3,3,'CODE3', DEFAULT);
 -- INSERT INTO [dbo].[FournisseursItems] VALUES (4,4,'CODE4', DEFAULT);
 
-INSERT INTO [clubs].[StatutsSuivie] VALUES ('OUVERT', 'Ouvert', DEFAULT);
-INSERT INTO [clubs].[StatutsSuivie] VALUES ('PROSPECT', 'Prospect', DEFAULT);
-INSERT INTO [clubs].[StatutsSuivie] VALUES ('CONFIRME', 'Confirmé', DEFAULT);
-INSERT INTO [clubs].[StatutsSuivie] VALUES ('FERME', 'Fermé', DEFAULT);
+INSERT INTO [clubs].[StatutsSuivie] VALUES ('OUVERT', 'Ouvert');
+INSERT INTO [clubs].[StatutsSuivie] VALUES ('PROSPECT', 'Prospect');
+INSERT INTO [clubs].[StatutsSuivie] VALUES ('CONFIRME', 'Confirmé');
+INSERT INTO [clubs].[StatutsSuivie] VALUES ('FERME', 'Fermé');
 
 -- INSERT INTO [dbo].[Suivies] VALUES (1,1,1,'2012-10-03','erat, in conserectagiluca dsauhifds fgrakfoh fdeuihtur massa. Restibilum', DEFAULT);
 -- INSERT INTO [dbo].[Suivies] VALUES (2,2,2,'2013-11-09','erat, in consectetuer ipsum nunc id enim. Curabitur massa. Vestibulum', DEFAULT);

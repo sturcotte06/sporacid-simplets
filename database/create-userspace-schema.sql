@@ -37,7 +37,7 @@ GO
 
 CREATE TABLE [userspace].[ProfilsAvances](
 	[ProfilId] [int] NOT NULL,
-	[CodePermanent] [varchar](10) NULL,
+	[CodePermanent] [varchar](12) NULL,
 	[DateNaissance] [datetime] NULL,
 	[Courriel] [varchar](250) NULL,
 	[Telephone] [varchar](20) NULL,
@@ -50,7 +50,7 @@ PRIMARY KEY CLUSTERED
 GO
 
 /****** Object:  Table [dbo].[Membres_Preferences]    Script Date: 12/12/2014 2:40:31 PM ******/
-CREATE TABLE [userspace].[ProfilsPreferences](
+CREATE TABLE [userspace].[Preferences](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ProfilId] [int] NOT NULL,
 	[Name] [varchar](50) NOT NULL,
@@ -62,7 +62,7 @@ PRIMARY KEY CLUSTERED
 GO
 
 /****** Object:  Table [userspace].[ProfilsFormations]  Script Date: 12/12/2014 2:40:31 PM ******/
-CREATE TABLE [userspace].[ProfilsFormations](
+CREATE TABLE [userspace].[Formations](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[ProfilId] [int] NOT NULL,
 	[Titre] [varchar](50) NOT NULL,
@@ -76,7 +76,7 @@ PRIMARY KEY CLUSTERED
 GO
 
 /****** Object:  Table [userspace].[ProfilsContactsUrgence]  Script Date: 12/12/2014 2:40:31 PM ******/
-CREATE TABLE [userspace].[ProfilsContactsUrgence](
+CREATE TABLE [userspace].[ContactsUrgence](
 	[ProfilId] [int] NOT NULL,
 	[ContactId] [int] NOT NULL,
 	[Public] [bit] NOT NULL,
@@ -88,7 +88,7 @@ PRIMARY KEY CLUSTERED
 GO
 
 /****** Object:  Table [userspace].[MembresAllergies]  Script Date: 12/12/2014 2:40:31 PM ******/
-CREATE TABLE [userspace].[ProfilsAllergies](
+CREATE TABLE [userspace].[Allergies](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[ProfilId] [int] NOT NULL,
 	[Nom] [varchar](50) NOT NULL,
@@ -114,34 +114,34 @@ GO
 ALTER TABLE [userspace].[ProfilsAvances] CHECK CONSTRAINT [FKProfilsAvancesProfils]
 GO
 
-ALTER TABLE [userspace].[ProfilsPreferences]  WITH CHECK ADD CONSTRAINT [FKProfilsPreferencesProfils] FOREIGN KEY([ProfilId])
+ALTER TABLE [userspace].[Preferences]  WITH CHECK ADD CONSTRAINT [FKPreferencesProfils] FOREIGN KEY([ProfilId])
 REFERENCES [userspace].[Profils] ([Id])
 GO
-ALTER TABLE [userspace].[ProfilsPreferences] CHECK CONSTRAINT [FKProfilsPreferencesProfils]
+ALTER TABLE [userspace].[Preferences] CHECK CONSTRAINT [FKPreferencesProfils]
 GO
 
-ALTER TABLE [userspace].[ProfilsFormations]  WITH CHECK ADD CONSTRAINT [FKProfilsFormationsProfils] FOREIGN KEY([ProfilId])
+ALTER TABLE [userspace].[Formations]  WITH CHECK ADD CONSTRAINT [FKFormationsProfils] FOREIGN KEY([ProfilId])
 REFERENCES [userspace].[Profils] ([Id])
 GO
-ALTER TABLE [userspace].[ProfilsFormations] CHECK CONSTRAINT [FKProfilsFormationsProfils]
+ALTER TABLE [userspace].[Formations] CHECK CONSTRAINT [FKFormationsProfils]
 GO
 
-ALTER TABLE [userspace].[ProfilsContactsUrgence]  WITH CHECK ADD CONSTRAINT [FKProfilsContactsUrgenceProfils] FOREIGN KEY([ProfilId])
+ALTER TABLE [userspace].[ContactsUrgence]  WITH CHECK ADD CONSTRAINT [FKContactsUrgenceProfils] FOREIGN KEY([ProfilId])
 REFERENCES [userspace].[Profils] ([Id])
 GO
-ALTER TABLE [userspace].[ProfilsContactsUrgence] CHECK CONSTRAINT [FKProfilsContactsUrgenceProfils]
+ALTER TABLE [userspace].[ContactsUrgence] CHECK CONSTRAINT [FKContactsUrgenceProfils]
 GO
 
-ALTER TABLE [userspace].[ProfilsContactsUrgence]  WITH CHECK ADD CONSTRAINT [FKProfilsContactsUrgenceContacts] FOREIGN KEY([ContactId])
+ALTER TABLE [userspace].[ContactsUrgence]  WITH CHECK ADD CONSTRAINT [FKContactsUrgenceContacts] FOREIGN KEY([ContactId])
 REFERENCES [dbo].[Contacts] ([Id])
 GO
-ALTER TABLE [userspace].[ProfilsContactsUrgence] CHECK CONSTRAINT [FKProfilsContactsUrgenceContacts]
+ALTER TABLE [userspace].[ContactsUrgence] CHECK CONSTRAINT [FKContactsUrgenceContacts]
 GO
 
-ALTER TABLE [userspace].[ProfilsAllergies]  WITH CHECK ADD CONSTRAINT [FKProfilsAllergies] FOREIGN KEY([ProfilId])
+ALTER TABLE [userspace].[Allergies]  WITH CHECK ADD CONSTRAINT [FKProfilsAllergies] FOREIGN KEY([ProfilId])
 REFERENCES [userspace].[Profils] ([Id])
 GO
-ALTER TABLE [userspace].[ProfilsAllergies] CHECK CONSTRAINT [FKProfilsAllergies]
+ALTER TABLE [userspace].[Allergies] CHECK CONSTRAINT [FKProfilsAllergies]
 GO
 
 SET ANSI_NULLS OFF
