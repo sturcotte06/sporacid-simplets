@@ -13,11 +13,11 @@
     {
     }
 
-    partial class Allergie : IHasId<Int32>
+    partial class Club : IHasId<Int32>
     {
     }
 
-    partial class Club : IHasId<Int32>
+    partial class Membre : IHasId<Int32>
     {
     }
 
@@ -29,15 +29,11 @@
     {
     }
 
-    partial class ContactUrgence : IHasId<Int32>
+    partial class Contact : IHasId<Int32>
     {
     }
 
     partial class Evenement : IHasId<Int32>
-    {
-    }
-
-    partial class Formation : IHasId<Int32>
     {
     }
 
@@ -49,15 +45,7 @@
     {
     }
 
-    partial class LienParente : IHasId<Int32>
-    {
-    }
-
-    partial class MembrePreference : IHasId<Int32>
-    {
-    }
-
-    partial class Membre : IHasId<Int32>
+    partial class TypeContact : IHasId<Int32>
     {
     }
 
@@ -66,6 +54,28 @@
     }
 
     partial class Unite : IHasId<Int32>
+    {
+    }
+
+    partial class Profil : IHasId<Int32>
+    {
+
+    }
+
+    partial class ProfilAvance : IHasId<Int32>
+    {
+        public int Id { get { return ProfilId; } }
+    }
+
+    partial class Allergie : IHasId<Int32>
+    {
+    }
+
+    partial class Formation : IHasId<Int32>
+    {
+    }
+
+    partial class Preference : IHasId<Int32>
     {
     }
 }

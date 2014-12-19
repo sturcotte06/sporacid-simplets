@@ -167,31 +167,42 @@
       <DependentUpon>Database.dbml</DependentUpon>
     </Compile>
     <Compile Include="Database\Dto\ApiMethodDescriptionDto.cs" />
-    <Compile Include="Database\Dto\ClubDto.cs" />
-    <Compile Include="Database\Dto\AllergieDto.cs" />
-    <Compile Include="Database\Dto\LienParenteDto.cs" />
-    <Compile Include="Database\Dto\ProfilDto.cs" />
-    <Compile Include="Database\Dto\StatutSuivieDto.cs" />
+    <Compile Include="Database\Dto\ApiMethodParameterDescriptionDto.cs" />
+    <Compile Include="Database\Dto\Clubs\ClubDto.cs" />
+    <Compile Include="Database\Dto\Clubs\CommanditeDto.cs" />
+    <Compile Include="Database\Dto\Clubs\EvenementDto.cs" />
+    <Compile Include="Database\Dto\Clubs\FournisseurDto.cs" />
+    <Compile Include="Database\Dto\Clubs\ItemDto.cs" />
+    <Compile Include="Database\Dto\Clubs\SuivieDto.cs" />
+    <Compile Include="Database\Dto\Dbo\AdresseDto.cs" />
+    <Compile Include="Database\Dto\Dbo\ContactDto.cs" />
+    <Compile Include="Database\Dto\Dbo\TypeContactDto.cs" />
+    <Compile Include="Database\Dto\Dbo\UniteDto.cs" />
+    <Compile Include="Database\Dto\Userspace\AllergieDto.cs" />
+    <Compile Include="Database\Dto\Userspace\FormationDto.cs" />
+    <Compile Include="Database\Dto\Userspace\PreferenceDto.cs" />
+    <Compile Include="Database\Dto\Userspace\ProfilAvanceDto.cs" />
+    <Compile Include="Database\Dto\Userspace\ProfilDto.cs" />
+    <Compile Include="Database\Dto\Clubs\StatutSuivieDto.cs" />
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
-    <Compile Include="Database\Dto\ConcentrationDto.cs" />
-    <Compile Include="Database\Dto\MembreDto.cs" />
-    <Compile Include="Services\IAdministrationService.cs" />
-    <Compile Include="Services\IAnonymousService.cs" />
-    <Compile Include="Services\IEnumerationService.cs" />
-    <Compile Include="Services\Impl\AdministrationService.cs" />
-    <Compile Include="Services\Impl\AnonymousService.cs" />
-    <Compile Include="Services\Impl\ContextAdministrationService.cs" />
-    <Compile Include="Services\Impl\ProfilService.cs" />
-    <Compile Include="Services\Impl\EnumerationService.cs" />
-    <Compile Include="Services\Impl\PrincipalService.cs" />
-    <Compile Include="Services\Impl\SubscriptionService.cs" />
-    <Compile Include="Services\IContextAdministrationService.cs" />
-    <Compile Include="Services\IPrincipalService.cs" />
-    <Compile Include="Services\IProfilService.cs" />
-    <Compile Include="Services\ISubscriptionService.cs" />
+    <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
+    <Compile Include="Database\Dto\Clubs\MembreDto.cs" />
+    <Compile Include="Services\Administration\ISystemAdministrationService.cs" />
+    <Compile Include="Services\Public\IAnonymousService.cs" />
+    <Compile Include="Services\Public\IEnumerationService.cs" />
+    <Compile Include="Services\Administration\Impl\SystemAdministrationService.cs" />
+    <Compile Include="Services\Public\Impl\AnonymousService.cs" />
+    <Compile Include="Services\Administration\Impl\ContextAdministrationService.cs" />
+    <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
+    <Compile Include="Services\Public\Impl\EnumerationService.cs" />
+    <Compile Include="Services\Administration\Impl\PrincipalAdministrationService.cs" />
+    <Compile Include="Services\Clubs\Impl\InscriptionService.cs" />
+    <Compile Include="Services\Administration\IContextAdministrationService.cs" />
+    <Compile Include="Services\Administration\IPrincipalAdministrationService.cs" />
+    <Compile Include="Services\Userspace\IProfilService.cs" />
+    <Compile Include="Services\Clubs\IInscriptionService.cs" />
     <Compile Include="WebApi2\Description\XmlDocumentationProvider.cs" />
     <Compile Include="WebApi2\Filters\Localization\LocalizationFilter.cs" />
-    <Compile Include="WebApi2\Filters\Localization\LocalizedAttribute.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthenticationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\RequiresAuthorizedPrincipalAttribute.cs" />
@@ -207,8 +218,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\IMembreService.cs" />
-    <Compile Include="Services\Impl\MembreService.cs" />
+    <Compile Include="Services\Administration\IProfilAdministrationService.cs" />
+    <Compile Include="Services\Administration\Impl\ProfilAdministrationService.cs" />
     <Compile Include="WebApi2\Trace\Log4NetTraceWriter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -32,11 +32,11 @@
         private readonly IKernel kernel;
         private readonly Dictionary<String, Claims> claimsByAction;
 
-        public AuthorizationFilter(IKernel kernel)
+        public AuthorizationFilter(IKernel kernel, String[] endpointsNamespaces)
         {
             this.kernel = kernel;
             this.claimsByAction = new Dictionary<String, Claims>();
-            this.Initialize(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services");
+            this.Initialize(Assembly.GetExecutingAssembly(), endpointsNamespaces);
         }
 
         /// <summary>

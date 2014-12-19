@@ -21,8 +21,14 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Services.Database;
-    using Sporacid.Simplets.Webapp.Services.Services;
-    using Sporacid.Simplets.Webapp.Services.Services.Impl;
+    using Sporacid.Simplets.Webapp.Services.Services.Administration;
+    using Sporacid.Simplets.Webapp.Services.Services.Administration.Impl;
+    using Sporacid.Simplets.Webapp.Services.Services.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Impl;
+    using Sporacid.Simplets.Webapp.Services.Services.Public;
+    using Sporacid.Simplets.Webapp.Services.Services.Public.Impl;
+    using Sporacid.Simplets.Webapp.Services.Services.Userspace;
+    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Localization;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
@@ -200,13 +206,18 @@ namespace Sporacid.Simplets.Webapp.Services
         private static void RegisterServiceProject(IKernel kernel)
         {
             // Services configuration.
-            kernel.Bind<IAdministrationService>().To<AdministrationService>().InRequestScope();
-            kernel.Bind<IAnonymousService>().To<AnonymousService>().InRequestScope();
+            // Administration services.
             kernel.Bind<IContextAdministrationService>().To<ContextAdministrationService>().InRequestScope();
+            kernel.Bind<IProfilAdministrationService>().To<ProfilAdministrationService>().InRequestScope();
+            kernel.Bind<IPrincipalAdministrationService>().To<PrincipalAdministrationService>().InRequestScope();
+            kernel.Bind<ISystemAdministrationService>().To<SystemAdministrationService>().InRequestScope();
+            // Club services.
+            kernel.Bind<IInscriptionService>().To<InscriptionService>().InRequestScope();
+            // Public services.
+            kernel.Bind<IAnonymousService>().To<AnonymousService>().InRequestScope();
             kernel.Bind<IEnumerationService>().To<EnumerationService>().InRequestScope();
-            kernel.Bind<IMembreService>().To<MembreService>().InRequestScope();
-            kernel.Bind<IPrincipalService>().To<PrincipalService>().InRequestScope();
-            kernel.Bind<ISubscriptionService>().To<SubscriptionService>().InRequestScope();
+            // Userspace services.
+            kernel.Bind<IProfilService>().To<ProfilService>().InRequestScope();
 
             // Data contexts configuration.
             kernel.Bind<SecurityDataContext>().ToSelf()
@@ -239,24 +250,22 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
                 .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>()
                 .InRequestScope();
-            kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Action)
-                .WhenActionMethodHas<RequiresAuthenticatedPrincipalAttribute>()
-                .InRequestScope();
 
             // Bind the authentication filter on services that have the RequiresAuthorizedPrincipal attribute
             kernel.BindHttpFilter<AuthorizationFilter>(FilterScope.Controller)
                 .WhenControllerHas<RequiresAuthorizedPrincipalAttribute>()
-                .InRequestScope();
-            kernel.BindHttpFilter<AuthorizationFilter>(FilterScope.Action)
-                .WhenActionMethodHas<RequiresAuthorizedPrincipalAttribute>()
-                .InRequestScope();
+                .InRequestScope()
+                .WithConstructorArgument("endpointsNamespaces", ctx => new[]
+                {
+                    "Sporacid.Simplets.Webapp.Services.Services.Administration",
+                    "Sporacid.Simplets.Webapp.Services.Services.Clubs",
+                    "Sporacid.Simplets.Webapp.Services.Services.Public",
+                    "Sporacid.Simplets.Webapp.Services.Services.Userspace"
+                });
 
             // Bind the exception hadling filter on services that have the HandlesException attribute
             kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Controller)
                 .WhenControllerHas<HandlesExceptionAttribute>()
-                .InRequestScope();
-            kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Action)
-                .WhenActionMethodHas<HandlesExceptionAttribute>()
                 .InRequestScope();
 
             // Bind the localization filter.

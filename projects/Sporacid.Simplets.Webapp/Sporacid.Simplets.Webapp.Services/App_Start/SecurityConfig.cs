@@ -28,7 +28,11 @@
             
             // Bootstrap the security database.
             kernel.Get<ISecurityDatabaseBootstrapper>()
-                .Bootstrap(assembly, "Sporacid.Simplets.Webapp.Services.Services");
+                .Bootstrap(assembly, 
+                "Sporacid.Simplets.Webapp.Services.Services.Administration",
+                "Sporacid.Simplets.Webapp.Services.Services.Clubs",
+                "Sporacid.Simplets.Webapp.Services.Services.Public",
+                "Sporacid.Simplets.Webapp.Services.Services.Userspace");
             
             // Bootstrap the user roles of the application.
             var roleBootstrapper = kernel.Get<IRoleBootstrapper>();

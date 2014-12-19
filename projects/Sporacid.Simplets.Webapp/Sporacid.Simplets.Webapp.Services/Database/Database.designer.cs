@@ -31,33 +31,18 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAdresse(Adresse instance);
-    partial void UpdateAdresse(Adresse instance);
-    partial void DeleteAdresse(Adresse instance);
-    partial void InsertUnite(Unite instance);
-    partial void UpdateUnite(Unite instance);
-    partial void DeleteUnite(Unite instance);
-    partial void InsertAllergie(Allergie instance);
-    partial void UpdateAllergie(Allergie instance);
-    partial void DeleteAllergie(Allergie instance);
     partial void InsertClub(Club instance);
     partial void UpdateClub(Club instance);
     partial void DeleteClub(Club instance);
+    partial void InsertSuivie(Suivie instance);
+    partial void UpdateSuivie(Suivie instance);
+    partial void DeleteSuivie(Suivie instance);
     partial void InsertCommandite(Commandite instance);
     partial void UpdateCommandite(Commandite instance);
     partial void DeleteCommandite(Commandite instance);
-    partial void InsertConcentration(Concentration instance);
-    partial void UpdateConcentration(Concentration instance);
-    partial void DeleteConcentration(Concentration instance);
-    partial void InsertContactUrgence(ContactUrgence instance);
-    partial void UpdateContactUrgence(ContactUrgence instance);
-    partial void DeleteContactUrgence(ContactUrgence instance);
     partial void InsertEvenement(Evenement instance);
     partial void UpdateEvenement(Evenement instance);
     partial void DeleteEvenement(Evenement instance);
-    partial void InsertFormation(Formation instance);
-    partial void UpdateFormation(Formation instance);
-    partial void DeleteFormation(Formation instance);
     partial void InsertFournisseur(Fournisseur instance);
     partial void UpdateFournisseur(Fournisseur instance);
     partial void DeleteFournisseur(Fournisseur instance);
@@ -67,30 +52,45 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void InsertItem(Item instance);
     partial void UpdateItem(Item instance);
     partial void DeleteItem(Item instance);
-    partial void InsertLienParente(LienParente instance);
-    partial void UpdateLienParente(LienParente instance);
-    partial void DeleteLienParente(LienParente instance);
-    partial void InsertMembrePreference(MembrePreference instance);
-    partial void UpdateMembrePreference(MembrePreference instance);
-    partial void DeleteMembrePreference(MembrePreference instance);
     partial void InsertMembre(Membre instance);
     partial void UpdateMembre(Membre instance);
     partial void DeleteMembre(Membre instance);
-    partial void InsertMembreAllergie(MembreAllergie instance);
-    partial void UpdateMembreAllergie(MembreAllergie instance);
-    partial void DeleteMembreAllergie(MembreAllergie instance);
-    partial void InsertMembreClub(MembreClub instance);
-    partial void UpdateMembreClub(MembreClub instance);
-    partial void DeleteMembreClub(MembreClub instance);
-    partial void InsertMembreFormation(MembreFormation instance);
-    partial void UpdateMembreFormation(MembreFormation instance);
-    partial void DeleteMembreFormation(MembreFormation instance);
     partial void InsertStatutSuivie(StatutSuivie instance);
     partial void UpdateStatutSuivie(StatutSuivie instance);
     partial void DeleteStatutSuivie(StatutSuivie instance);
-    partial void InsertSuivie(Suivie instance);
-    partial void UpdateSuivie(Suivie instance);
-    partial void DeleteSuivie(Suivie instance);
+    partial void InsertUnite(Unite instance);
+    partial void UpdateUnite(Unite instance);
+    partial void DeleteUnite(Unite instance);
+    partial void InsertAdresse(Adresse instance);
+    partial void UpdateAdresse(Adresse instance);
+    partial void DeleteAdresse(Adresse instance);
+    partial void InsertConcentration(Concentration instance);
+    partial void UpdateConcentration(Concentration instance);
+    partial void DeleteConcentration(Concentration instance);
+    partial void InsertContact(Contact instance);
+    partial void UpdateContact(Contact instance);
+    partial void DeleteContact(Contact instance);
+    partial void InsertTypeContact(TypeContact instance);
+    partial void UpdateTypeContact(TypeContact instance);
+    partial void DeleteTypeContact(TypeContact instance);
+    partial void InsertAllergie(Allergie instance);
+    partial void UpdateAllergie(Allergie instance);
+    partial void DeleteAllergie(Allergie instance);
+    partial void InsertProfilAvance(ProfilAvance instance);
+    partial void UpdateProfilAvance(ProfilAvance instance);
+    partial void DeleteProfilAvance(ProfilAvance instance);
+    partial void InsertContactUrgence(ContactUrgence instance);
+    partial void UpdateContactUrgence(ContactUrgence instance);
+    partial void DeleteContactUrgence(ContactUrgence instance);
+    partial void InsertFormation(Formation instance);
+    partial void UpdateFormation(Formation instance);
+    partial void DeleteFormation(Formation instance);
+    partial void InsertPreference(Preference instance);
+    partial void UpdatePreference(Preference instance);
+    partial void DeletePreference(Preference instance);
+    partial void InsertProfil(Profil instance);
+    partial void UpdateProfil(Profil instance);
+    partial void DeleteProfil(Profil instance);
     #endregion
 		
 		public DatabaseDataContext() : 
@@ -123,35 +123,19 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Adresse> Adresses
-		{
-			get
-			{
-				return this.GetTable<Adresse>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Unite> Unites
-		{
-			get
-			{
-				return this.GetTable<Unite>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Allergie> Allergies
-		{
-			get
-			{
-				return this.GetTable<Allergie>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Club> Clubs
 		{
 			get
 			{
 				return this.GetTable<Club>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Suivie> Suivies
+		{
+			get
+			{
+				return this.GetTable<Suivie>();
 			}
 		}
 		
@@ -163,35 +147,11 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<Concentration> Concentrations
-		{
-			get
-			{
-				return this.GetTable<Concentration>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ContactUrgence> ContactUrgences
-		{
-			get
-			{
-				return this.GetTable<ContactUrgence>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Evenement> Evenements
 		{
 			get
 			{
 				return this.GetTable<Evenement>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Formation> Formations
-		{
-			get
-			{
-				return this.GetTable<Formation>();
 			}
 		}
 		
@@ -219,51 +179,11 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<LienParente> LienParentes
-		{
-			get
-			{
-				return this.GetTable<LienParente>();
-			}
-		}
-		
-		public System.Data.Linq.Table<MembrePreference> MembrePreferences
-		{
-			get
-			{
-				return this.GetTable<MembrePreference>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Membre> Membres
 		{
 			get
 			{
 				return this.GetTable<Membre>();
-			}
-		}
-		
-		public System.Data.Linq.Table<MembreAllergie> MembreAllergies
-		{
-			get
-			{
-				return this.GetTable<MembreAllergie>();
-			}
-		}
-		
-		public System.Data.Linq.Table<MembreClub> MembreClubs
-		{
-			get
-			{
-				return this.GetTable<MembreClub>();
-			}
-		}
-		
-		public System.Data.Linq.Table<MembreFormation> MembreFormations
-		{
-			get
-			{
-				return this.GetTable<MembreFormation>();
 			}
 		}
 		
@@ -275,669 +195,96 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<Suivie> Suivies
+		public System.Data.Linq.Table<Unite> Unites
 		{
 			get
 			{
-				return this.GetTable<Suivie>();
+				return this.GetTable<Unite>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Adresse> Adresses
+		{
+			get
+			{
+				return this.GetTable<Adresse>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Concentration> Concentrations
+		{
+			get
+			{
+				return this.GetTable<Concentration>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Contact> Contacts
+		{
+			get
+			{
+				return this.GetTable<Contact>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TypeContact> TypeContacts
+		{
+			get
+			{
+				return this.GetTable<TypeContact>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Allergie> Allergies
+		{
+			get
+			{
+				return this.GetTable<Allergie>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ProfilAvance> ProfilAvances
+		{
+			get
+			{
+				return this.GetTable<ProfilAvance>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ContactUrgence> ContactUrgences
+		{
+			get
+			{
+				return this.GetTable<ContactUrgence>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Formation> Formations
+		{
+			get
+			{
+				return this.GetTable<Formation>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Preference> Preferences
+		{
+			get
+			{
+				return this.GetTable<Preference>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Profil> Profils
+		{
+			get
+			{
+				return this.GetTable<Profil>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Adresses")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Adresse : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _NoCivique;
-		
-		private string _Rue;
-		
-		private string _Appartement;
-		
-		private string _Ville;
-		
-		private string _CodePostal;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<Fournisseur> _Fournisseurs;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNoCiviqueChanging(int value);
-    partial void OnNoCiviqueChanged();
-    partial void OnRueChanging(string value);
-    partial void OnRueChanged();
-    partial void OnAppartementChanging(string value);
-    partial void OnAppartementChanged();
-    partial void OnVilleChanging(string value);
-    partial void OnVilleChanged();
-    partial void OnCodePostalChanging(string value);
-    partial void OnCodePostalChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public Adresse()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoCivique", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int NoCivique
-		{
-			get
-			{
-				return this._NoCivique;
-			}
-			set
-			{
-				if ((this._NoCivique != value))
-				{
-					this.OnNoCiviqueChanging(value);
-					this.SendPropertyChanging();
-					this._NoCivique = value;
-					this.SendPropertyChanged("NoCivique");
-					this.OnNoCiviqueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rue", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Rue
-		{
-			get
-			{
-				return this._Rue;
-			}
-			set
-			{
-				if ((this._Rue != value))
-				{
-					this.OnRueChanging(value);
-					this.SendPropertyChanging();
-					this._Rue = value;
-					this.SendPropertyChanged("Rue");
-					this.OnRueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Appartement", DbType="VarChar(10)", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Appartement
-		{
-			get
-			{
-				return this._Appartement;
-			}
-			set
-			{
-				if ((this._Appartement != value))
-				{
-					this.OnAppartementChanging(value);
-					this.SendPropertyChanging();
-					this._Appartement = value;
-					this.SendPropertyChanged("Appartement");
-					this.OnAppartementChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ville", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Ville
-		{
-			get
-			{
-				return this._Ville;
-			}
-			set
-			{
-				if ((this._Ville != value))
-				{
-					this.OnVilleChanging(value);
-					this.SendPropertyChanging();
-					this._Ville = value;
-					this.SendPropertyChanged("Ville");
-					this.OnVilleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodePostal", DbType="VarChar(16) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string CodePostal
-		{
-			get
-			{
-				return this._CodePostal;
-			}
-			set
-			{
-				if ((this._CodePostal != value))
-				{
-					this.OnCodePostalChanging(value);
-					this.SendPropertyChanging();
-					this._CodePostal = value;
-					this.SendPropertyChanged("CodePostal");
-					this.OnCodePostalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Adresse_Fournisseur", Storage="_Fournisseurs", ThisKey="Id", OtherKey="AdresseId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
-		public EntitySet<Fournisseur> Fournisseurs
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Fournisseurs.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Fournisseurs;
-			}
-			set
-			{
-				this._Fournisseurs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Fournisseurs(Fournisseur entity)
-		{
-			this.SendPropertyChanging();
-			entity.Adresse = this;
-		}
-		
-		private void detach_Fournisseurs(Fournisseur entity)
-		{
-			this.SendPropertyChanging();
-			entity.Adresse = null;
-		}
-		
-		private void Initialize()
-		{
-			this._Fournisseurs = new EntitySet<Fournisseur>(new Action<Fournisseur>(this.attach_Fournisseurs), new Action<Fournisseur>(this.detach_Fournisseurs));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Unites")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Unite : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Code;
-		
-		private string _Systeme;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<Item> _Items;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCodeChanging(string value);
-    partial void OnCodeChanged();
-    partial void OnSystemeChanging(string value);
-    partial void OnSystemeChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public Unite()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Code
-		{
-			get
-			{
-				return this._Code;
-			}
-			set
-			{
-				if ((this._Code != value))
-				{
-					this.OnCodeChanging(value);
-					this.SendPropertyChanging();
-					this._Code = value;
-					this.SendPropertyChanged("Code");
-					this.OnCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Systeme", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Systeme
-		{
-			get
-			{
-				return this._Systeme;
-			}
-			set
-			{
-				if ((this._Systeme != value))
-				{
-					this.OnSystemeChanging(value);
-					this.SendPropertyChanging();
-					this._Systeme = value;
-					this.SendPropertyChanged("Systeme");
-					this.OnSystemeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Unite_Item", Storage="_Items", ThisKey="Id", OtherKey="UniteId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
-		public EntitySet<Item> Items
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Items.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Items;
-			}
-			set
-			{
-				this._Items.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Items(Item entity)
-		{
-			this.SendPropertyChanging();
-			entity.Unite = this;
-		}
-		
-		private void detach_Items(Item entity)
-		{
-			this.SendPropertyChanging();
-			entity.Unite = null;
-		}
-		
-		private void Initialize()
-		{
-			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Allergies")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Allergie : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Description;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<MembreAllergie> _MembresAllergies;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public Allergie()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Allergie_MembreAllergie", Storage="_MembresAllergies", ThisKey="Id", OtherKey="AllergieId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
-		public EntitySet<MembreAllergie> MembreAllergies
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._MembresAllergies.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._MembresAllergies;
-			}
-			set
-			{
-				this._MembresAllergies.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_MembresAllergies(MembreAllergie entity)
-		{
-			this.SendPropertyChanging();
-			entity.Allergie = this;
-		}
-		
-		private void detach_MembresAllergies(MembreAllergie entity)
-		{
-			this.SendPropertyChanging();
-			entity.Allergie = null;
-		}
-		
-		private void Initialize()
-		{
-			this._MembresAllergies = new EntitySet<MembreAllergie>(new Action<MembreAllergie>(this.attach_MembresAllergies), new Action<MembreAllergie>(this.detach_MembresAllergies));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clubs")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Clubs")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Club : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -956,7 +303,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private EntitySet<Evenement> _Evenements;
 		
-		private EntitySet<MembreClub> _MembresClubs;
+		private EntitySet<Membre> _Membres;
 		
 		private bool serializing;
 		
@@ -1101,22 +448,22 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_MembreClub", Storage="_MembresClubs", ThisKey="Id", OtherKey="ClubId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_Membre", Storage="_Membres", ThisKey="Id", OtherKey="ClubId")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
-		public EntitySet<MembreClub> MembreClubs
+		public EntitySet<Membre> Membres
 		{
 			get
 			{
 				if ((this.serializing 
-							&& (this._MembresClubs.HasLoadedOrAssignedValues == false)))
+							&& (this._Membres.HasLoadedOrAssignedValues == false)))
 				{
 					return null;
 				}
-				return this._MembresClubs;
+				return this._Membres;
 			}
 			set
 			{
-				this._MembresClubs.Assign(value);
+				this._Membres.Assign(value);
 			}
 		}
 		
@@ -1164,13 +511,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			entity.Club = null;
 		}
 		
-		private void attach_MembresClubs(MembreClub entity)
+		private void attach_Membres(Membre entity)
 		{
 			this.SendPropertyChanging();
 			entity.Club = this;
 		}
 		
-		private void detach_MembresClubs(MembreClub entity)
+		private void detach_Membres(Membre entity)
 		{
 			this.SendPropertyChanging();
 			entity.Club = null;
@@ -1180,7 +527,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		{
 			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
 			this._Evenements = new EntitySet<Evenement>(new Action<Evenement>(this.attach_Evenements), new Action<Evenement>(this.detach_Evenements));
-			this._MembresClubs = new EntitySet<MembreClub>(new Action<MembreClub>(this.attach_MembresClubs), new Action<MembreClub>(this.detach_MembresClubs));
+			this._Membres = new EntitySet<Membre>(new Action<Membre>(this.attach_Membres), new Action<Membre>(this.detach_Membres));
 			OnCreated();
 		}
 		
@@ -1206,7 +553,356 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Commandites")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Suivies")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Suivie : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _CommanditeId;
+		
+		private System.Nullable<int> _MembreId;
+		
+		private int _StatutSuivieId;
+		
+		private System.DateTime _DateSuivie;
+		
+		private string _Commentaire;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntityRef<Commandite> _Commandite;
+		
+		private EntityRef<Membre> _Membre;
+		
+		private EntityRef<StatutSuivie> _StatutSuivie;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCommanditeIdChanging(int value);
+    partial void OnCommanditeIdChanged();
+    partial void OnMembreIdChanging(System.Nullable<int> value);
+    partial void OnMembreIdChanged();
+    partial void OnStatutSuivieIdChanging(int value);
+    partial void OnStatutSuivieIdChanged();
+    partial void OnDateSuivieChanging(System.DateTime value);
+    partial void OnDateSuivieChanged();
+    partial void OnCommentaireChanging(string value);
+    partial void OnCommentaireChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public Suivie()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommanditeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int CommanditeId
+		{
+			get
+			{
+				return this._CommanditeId;
+			}
+			set
+			{
+				if ((this._CommanditeId != value))
+				{
+					if (this._Commandite.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCommanditeIdChanging(value);
+					this.SendPropertyChanging();
+					this._CommanditeId = value;
+					this.SendPropertyChanged("CommanditeId");
+					this.OnCommanditeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Nullable<int> MembreId
+		{
+			get
+			{
+				return this._MembreId;
+			}
+			set
+			{
+				if ((this._MembreId != value))
+				{
+					if (this._Membre.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMembreIdChanging(value);
+					this.SendPropertyChanging();
+					this._MembreId = value;
+					this.SendPropertyChanged("MembreId");
+					this.OnMembreIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatutSuivieId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public int StatutSuivieId
+		{
+			get
+			{
+				return this._StatutSuivieId;
+			}
+			set
+			{
+				if ((this._StatutSuivieId != value))
+				{
+					if (this._StatutSuivie.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStatutSuivieIdChanging(value);
+					this.SendPropertyChanging();
+					this._StatutSuivieId = value;
+					this.SendPropertyChanged("StatutSuivieId");
+					this.OnStatutSuivieIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSuivie", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public System.DateTime DateSuivie
+		{
+			get
+			{
+				return this._DateSuivie;
+			}
+			set
+			{
+				if ((this._DateSuivie != value))
+				{
+					this.OnDateSuivieChanging(value);
+					this.SendPropertyChanging();
+					this._DateSuivie = value;
+					this.SendPropertyChanged("DateSuivie");
+					this.OnDateSuivieChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string Commentaire
+		{
+			get
+			{
+				return this._Commentaire;
+			}
+			set
+			{
+				if ((this._Commentaire != value))
+				{
+					this.OnCommentaireChanging(value);
+					this.SendPropertyChanging();
+					this._Commentaire = value;
+					this.SendPropertyChanged("Commentaire");
+					this.OnCommentaireChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Commandite_Suivy", Storage = "_Commandite", ThisKey = "CommanditeId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+		public Commandite Commandite
+		{
+			get
+			{
+				return this._Commandite.Entity;
+			}
+			set
+			{
+				Commandite previousValue = this._Commandite.Entity;
+				if (((previousValue != value) 
+							|| (this._Commandite.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Commandite.Entity = null;
+						previousValue.Suivies.Remove(this);
+					}
+					this._Commandite.Entity = value;
+					if ((value != null))
+					{
+						value.Suivies.Add(this);
+						this._CommanditeId = value.Id;
+					}
+					else
+					{
+						this._CommanditeId = default(int);
+					}
+					this.SendPropertyChanged("Commandite");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
+		public Membre Membre
+		{
+			get
+			{
+				return this._Membre.Entity;
+			}
+			set
+			{
+				Membre previousValue = this._Membre.Entity;
+				if (((previousValue != value) 
+							|| (this._Membre.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Membre.Entity = null;
+						previousValue.Suivies.Remove(this);
+					}
+					this._Membre.Entity = value;
+					if ((value != null))
+					{
+						value.Suivies.Add(this);
+						this._MembreId = value.Id;
+					}
+					else
+					{
+						this._MembreId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Membre");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutsSuivie_Suivy", Storage="_StatutSuivie", ThisKey="StatutSuivieId", OtherKey="Id", IsForeignKey=true)]
+		public StatutSuivie StatutSuivie
+		{
+			get
+			{
+				return this._StatutSuivie.Entity;
+			}
+			set
+			{
+				StatutSuivie previousValue = this._StatutSuivie.Entity;
+				if (((previousValue != value) 
+							|| (this._StatutSuivie.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StatutSuivie.Entity = null;
+						previousValue.Suivies.Remove(this);
+					}
+					this._StatutSuivie.Entity = value;
+					if ((value != null))
+					{
+						value.Suivies.Add(this);
+						this._StatutSuivieId = value.Id;
+					}
+					else
+					{
+						this._StatutSuivieId = default(int);
+					}
+					this.SendPropertyChanged("StatutSuivie");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._Commandite = default(EntityRef<Commandite>);
+			this._Membre = default(EntityRef<Membre>);
+			this._StatutSuivie = default(EntityRef<StatutSuivie>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Commandites")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Commandite : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1215,11 +911,11 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private int _FournisseurId;
-		
-		private int _ItemId;
-		
 		private int _ClubId;
+		
+		private System.Nullable<int> _FournisseurId;
+		
+		private System.Nullable<int> _ItemId;
 		
 		private decimal _Valeur;
 		
@@ -1243,12 +939,12 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnFournisseurIdChanging(int value);
-    partial void OnFournisseurIdChanged();
-    partial void OnItemIdChanging(int value);
-    partial void OnItemIdChanged();
     partial void OnClubIdChanging(int value);
     partial void OnClubIdChanged();
+    partial void OnFournisseurIdChanging(System.Nullable<int> value);
+    partial void OnFournisseurIdChanged();
+    partial void OnItemIdChanging(System.Nullable<int> value);
+    partial void OnItemIdChanged();
     partial void OnValeurChanging(decimal value);
     partial void OnValeurChanged();
     partial void OnNatureChanging(string value);
@@ -1283,9 +979,34 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FournisseurId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int FournisseurId
+		public int ClubId
+		{
+			get
+			{
+				return this._ClubId;
+			}
+			set
+			{
+				if ((this._ClubId != value))
+				{
+					if (this._Club.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnClubIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClubId = value;
+					this.SendPropertyChanged("ClubId");
+					this.OnClubIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FournisseurId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Nullable<int> FournisseurId
 		{
 			get
 			{
@@ -1308,9 +1029,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public int ItemId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public System.Nullable<int> ItemId
 		{
 			get
 			{
@@ -1329,31 +1050,6 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 					this._ItemId = value;
 					this.SendPropertyChanged("ItemId");
 					this.OnItemIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public int ClubId
-		{
-			get
-			{
-				return this._ClubId;
-			}
-			set
-			{
-				if ((this._ClubId != value))
-				{
-					if (this._Club.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnClubIdChanging(value);
-					this.SendPropertyChanging();
-					this._ClubId = value;
-					this.SendPropertyChanged("ClubId");
-					this.OnClubIdChanged();
 				}
 			}
 		}
@@ -1501,7 +1197,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 					}
 					else
 					{
-						this._FournisseurId = default(int);
+						this._FournisseurId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Fournisseur");
 				}
@@ -1535,7 +1231,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 					}
 					else
 					{
-						this._ItemId = default(int);
+						this._ItemId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Item");
 				}
@@ -1605,516 +1301,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Concentrations")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Concentration : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Acronyme;
-		
-		private string _Description;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<Membre> _Membres;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnAcronymeChanging(string value);
-    partial void OnAcronymeChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public Concentration()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Acronyme", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Acronyme
-		{
-			get
-			{
-				return this._Acronyme;
-			}
-			set
-			{
-				if ((this._Acronyme != value))
-				{
-					this.OnAcronymeChanging(value);
-					this.SendPropertyChanging();
-					this._Acronyme = value;
-					this.SendPropertyChanged("Acronyme");
-					this.OnAcronymeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Concentration_Membre", Storage="_Membres", ThisKey="Id", OtherKey="ConcentrationId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
-		public EntitySet<Membre> Membres
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Membres.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Membres;
-			}
-			set
-			{
-				this._Membres.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Membres(Membre entity)
-		{
-			this.SendPropertyChanging();
-			entity.Concentration = this;
-		}
-		
-		private void detach_Membres(Membre entity)
-		{
-			this.SendPropertyChanging();
-			entity.Concentration = null;
-		}
-		
-		private void Initialize()
-		{
-			this._Membres = new EntitySet<Membre>(new Action<Membre>(this.attach_Membres), new Action<Membre>(this.detach_Membres));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ContactsUrgence")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class ContactUrgence : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _MembreId;
-		
-		private int _LienParenteId;
-		
-		private string _Nom;
-		
-		private string _Prenom;
-		
-		private string _Telephone;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntityRef<LienParente> _LiensParente;
-		
-		private EntityRef<Membre> _Membre;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnMembreIdChanging(int value);
-    partial void OnMembreIdChanged();
-    partial void OnLienParenteIdChanging(int value);
-    partial void OnLienParenteIdChanged();
-    partial void OnNomChanging(string value);
-    partial void OnNomChanged();
-    partial void OnPrenomChanging(string value);
-    partial void OnPrenomChanged();
-    partial void OnTelephoneChanging(string value);
-    partial void OnTelephoneChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public ContactUrgence()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int MembreId
-		{
-			get
-			{
-				return this._MembreId;
-			}
-			set
-			{
-				if ((this._MembreId != value))
-				{
-					if (this._Membre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMembreIdChanging(value);
-					this.SendPropertyChanging();
-					this._MembreId = value;
-					this.SendPropertyChanged("MembreId");
-					this.OnMembreIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LienParenteId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public int LienParenteId
-		{
-			get
-			{
-				return this._LienParenteId;
-			}
-			set
-			{
-				if ((this._LienParenteId != value))
-				{
-					if (this._LiensParente.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnLienParenteIdChanging(value);
-					this.SendPropertyChanging();
-					this._LienParenteId = value;
-					this.SendPropertyChanged("LienParenteId");
-					this.OnLienParenteIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Nom
-		{
-			get
-			{
-				return this._Nom;
-			}
-			set
-			{
-				if ((this._Nom != value))
-				{
-					this.OnNomChanging(value);
-					this.SendPropertyChanging();
-					this._Nom = value;
-					this.SendPropertyChanged("Nom");
-					this.OnNomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Prenom
-		{
-			get
-			{
-				return this._Prenom;
-			}
-			set
-			{
-				if ((this._Prenom != value))
-				{
-					this.OnPrenomChanging(value);
-					this.SendPropertyChanging();
-					this._Prenom = value;
-					this.SendPropertyChanged("Prenom");
-					this.OnPrenomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Telephone
-		{
-			get
-			{
-				return this._Telephone;
-			}
-			set
-			{
-				if ((this._Telephone != value))
-				{
-					this.OnTelephoneChanging(value);
-					this.SendPropertyChanging();
-					this._Telephone = value;
-					this.SendPropertyChanged("Telephone");
-					this.OnTelephoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LienParente_ContactUrgence", Storage="_LiensParente", ThisKey="LienParenteId", OtherKey="Id", IsForeignKey=true)]
-		public LienParente LienParente
-		{
-			get
-			{
-				return this._LiensParente.Entity;
-			}
-			set
-			{
-				LienParente previousValue = this._LiensParente.Entity;
-				if (((previousValue != value) 
-							|| (this._LiensParente.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._LiensParente.Entity = null;
-						previousValue.ContactUrgences.Remove(this);
-					}
-					this._LiensParente.Entity = value;
-					if ((value != null))
-					{
-						value.ContactUrgences.Add(this);
-						this._LienParenteId = value.Id;
-					}
-					else
-					{
-						this._LienParenteId = default(int);
-					}
-					this.SendPropertyChanged("LienParente");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_ContactUrgence", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
-		public Membre Membre
-		{
-			get
-			{
-				return this._Membre.Entity;
-			}
-			set
-			{
-				Membre previousValue = this._Membre.Entity;
-				if (((previousValue != value) 
-							|| (this._Membre.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Membre.Entity = null;
-						previousValue.ContactUrgences.Remove(this);
-					}
-					this._Membre.Entity = value;
-					if ((value != null))
-					{
-						value.ContactUrgences.Add(this);
-						this._MembreId = value.Id;
-					}
-					else
-					{
-						this._MembreId = default(int);
-					}
-					this.SendPropertyChanged("Membre");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._LiensParente = default(EntityRef<LienParente>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Evenements")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Evenements")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Evenement : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2381,208 +1568,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Formations")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Formation : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Titre;
-		
-		private string _Description;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<MembreFormation> _MembresFormations;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnTitreChanging(string value);
-    partial void OnTitreChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public Formation()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titre", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Titre
-		{
-			get
-			{
-				return this._Titre;
-			}
-			set
-			{
-				if ((this._Titre != value))
-				{
-					this.OnTitreChanging(value);
-					this.SendPropertyChanging();
-					this._Titre = value;
-					this.SendPropertyChanged("Titre");
-					this.OnTitreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Formation_MembreFormation", Storage="_MembresFormations", ThisKey="Id", OtherKey="FormationId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
-		public EntitySet<MembreFormation> MembreFormations
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._MembresFormations.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._MembresFormations;
-			}
-			set
-			{
-				this._MembresFormations.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_MembresFormations(MembreFormation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Formation = this;
-		}
-		
-		private void detach_MembresFormations(MembreFormation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Formation = null;
-		}
-		
-		private void Initialize()
-		{
-			this._MembresFormations = new EntitySet<MembreFormation>(new Action<MembreFormation>(this.attach_MembresFormations), new Action<MembreFormation>(this.detach_MembresFormations));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fournisseurs")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Fournisseurs")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Fournisseur : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2591,23 +1577,19 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private int _AdresseId;
+		private System.Nullable<int> _AdresseId;
+		
+		private System.Nullable<int> _ContactId;
 		
 		private string _Nom;
-		
-		private string _Contact;
-		
-		private string _Telephone;
-		
-		private string _Courriel;
 		
 		private System.Data.Linq.Binary _Version;
 		
 		private EntitySet<Commandite> _Commandites;
 		
-		private EntitySet<FournisseurItem> _FournisseursItems;
+		private EntitySet<FournisseurItem> _FournisseurItems;
 		
-		private EntityRef<Adresse> _Adress;
+		private EntityRef<Adresse> _Adresse;
 		
 		private bool serializing;
 		
@@ -2617,16 +1599,12 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnAdresseIdChanging(int value);
+    partial void OnAdresseIdChanging(System.Nullable<int> value);
     partial void OnAdresseIdChanged();
+    partial void OnContactIdChanging(System.Nullable<int> value);
+    partial void OnContactIdChanged();
     partial void OnNomChanging(string value);
     partial void OnNomChanged();
-    partial void OnContactChanging(string value);
-    partial void OnContactChanged();
-    partial void OnTelephoneChanging(string value);
-    partial void OnTelephoneChanged();
-    partial void OnCourrielChanging(string value);
-    partial void OnCourrielChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
     #endregion
@@ -2657,9 +1635,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdresseId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdresseId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int AdresseId
+		public System.Nullable<int> AdresseId
 		{
 			get
 			{
@@ -2669,7 +1647,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			{
 				if ((this._AdresseId != value))
 				{
-					if (this._Adress.HasLoadedOrAssignedValue)
+					if (this._Adresse.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2682,8 +1660,29 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Nullable<int> ContactId
+		{
+			get
+			{
+				return this._ContactId;
+			}
+			set
+			{
+				if ((this._ContactId != value))
+				{
+					this.OnContactIdChanging(value);
+					this.SendPropertyChanging();
+					this._ContactId = value;
+					this.SendPropertyChanged("ContactId");
+					this.OnContactIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Nom
 		{
 			get
@@ -2703,71 +1702,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Contact
-		{
-			get
-			{
-				return this._Contact;
-			}
-			set
-			{
-				if ((this._Contact != value))
-				{
-					this.OnContactChanging(value);
-					this.SendPropertyChanging();
-					this._Contact = value;
-					this.SendPropertyChanged("Contact");
-					this.OnContactChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Telephone
-		{
-			get
-			{
-				return this._Telephone;
-			}
-			set
-			{
-				if ((this._Telephone != value))
-				{
-					this.OnTelephoneChanging(value);
-					this.SendPropertyChanging();
-					this._Telephone = value;
-					this.SendPropertyChanged("Telephone");
-					this.OnTelephoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Courriel
-		{
-			get
-			{
-				return this._Courriel;
-			}
-			set
-			{
-				if ((this._Courriel != value))
-				{
-					this.OnCourrielChanging(value);
-					this.SendPropertyChanging();
-					this._Courriel = value;
-					this.SendPropertyChanged("Courriel");
-					this.OnCourrielChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2788,7 +1724,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_Commandite", Storage="_Commandites", ThisKey="Id", OtherKey="FournisseurId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6, EmitDefaultValue=false)]
 		public EntitySet<Commandite> Commandites
 		{
 			get
@@ -2806,45 +1742,45 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_FournisseurItem", Storage="_FournisseursItems", ThisKey="Id", OtherKey="FournisseurId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_FournisseursItem", Storage="_FournisseurItems", ThisKey="Id", OtherKey="FournisseurId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
 		public EntitySet<FournisseurItem> FournisseurItems
 		{
 			get
 			{
 				if ((this.serializing 
-							&& (this._FournisseursItems.HasLoadedOrAssignedValues == false)))
+							&& (this._FournisseurItems.HasLoadedOrAssignedValues == false)))
 				{
 					return null;
 				}
-				return this._FournisseursItems;
+				return this._FournisseurItems;
 			}
 			set
 			{
-				this._FournisseursItems.Assign(value);
+				this._FournisseurItems.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Adresse_Fournisseur", Storage="_Adress", ThisKey="AdresseId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Adress_Fournisseur", Storage="_Adresse", ThisKey="AdresseId", OtherKey="Id", IsForeignKey=true)]
 		public Adresse Adresse
 		{
 			get
 			{
-				return this._Adress.Entity;
+				return this._Adresse.Entity;
 			}
 			set
 			{
-				Adresse previousValue = this._Adress.Entity;
+				Adresse previousValue = this._Adresse.Entity;
 				if (((previousValue != value) 
-							|| (this._Adress.HasLoadedOrAssignedValue == false)))
+							|| (this._Adresse.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Adress.Entity = null;
+						this._Adresse.Entity = null;
 						previousValue.Fournisseurs.Remove(this);
 					}
-					this._Adress.Entity = value;
+					this._Adresse.Entity = value;
 					if ((value != null))
 					{
 						value.Fournisseurs.Add(this);
@@ -2852,7 +1788,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 					}
 					else
 					{
-						this._AdresseId = default(int);
+						this._AdresseId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Adresse");
 				}
@@ -2891,13 +1827,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			entity.Fournisseur = null;
 		}
 		
-		private void attach_FournisseursItems(FournisseurItem entity)
+		private void attach_FournisseurItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Fournisseur = this;
 		}
 		
-		private void detach_FournisseursItems(FournisseurItem entity)
+		private void detach_FournisseurItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Fournisseur = null;
@@ -2906,8 +1842,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		private void Initialize()
 		{
 			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
-			this._FournisseursItems = new EntitySet<FournisseurItem>(new Action<FournisseurItem>(this.attach_FournisseursItems), new Action<FournisseurItem>(this.detach_FournisseursItems));
-			this._Adress = default(EntityRef<Adresse>);
+			this._FournisseurItems = new EntitySet<FournisseurItem>(new Action<FournisseurItem>(this.attach_FournisseurItems), new Action<FournisseurItem>(this.detach_FournisseurItems));
+			this._Adresse = default(EntityRef<Adresse>);
 			OnCreated();
 		}
 		
@@ -2933,7 +1869,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FournisseursItems")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.FournisseursItems")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class FournisseurItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3063,7 +1999,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_FournisseurItem", Storage="_Fournisseur", ThisKey="FournisseurId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fournisseur_FournisseursItem", Storage="_Fournisseur", ThisKey="FournisseurId", OtherKey="Id", IsForeignKey=true, DeleteOnNull = true)]
 		public Fournisseur Fournisseur
 		{
 			get
@@ -3096,8 +2032,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_FournisseurItem", Storage="_Item", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Item_FournisseursItem", Storage = "_Item", ThisKey = "ItemId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Item Item
 		{
 			get
@@ -3166,7 +2102,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Items")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Items")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3183,7 +2119,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private decimal _QuantiteCourante;
 		
-		private System.Nullable<decimal> _QunatiteMin;
+		private System.Nullable<decimal> _QuantiteMin;
 		
 		private System.Nullable<decimal> _QuantiteMax;
 		
@@ -3191,7 +2127,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private EntitySet<Commandite> _Commandites;
 		
-		private EntitySet<FournisseurItem> _FournisseursItems;
+		private EntitySet<FournisseurItem> _FournisseurItems;
 		
 		private EntityRef<Unite> _Unite;
 		
@@ -3211,8 +2147,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCodeClubChanged();
     partial void OnQuantiteCouranteChanging(decimal value);
     partial void OnQuantiteCouranteChanged();
-    partial void OnQunatiteMinChanging(System.Nullable<decimal> value);
-    partial void OnQunatiteMinChanged();
+    partial void OnQuantiteMinChanging(System.Nullable<decimal> value);
+    partial void OnQuantiteMinChanged();
     partial void OnQuantiteMaxChanging(System.Nullable<decimal> value);
     partial void OnQuantiteMaxChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
@@ -3333,23 +2269,23 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QunatiteMin", DbType="Decimal(6,3)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantiteMin", DbType="Decimal(6,3)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public System.Nullable<decimal> QunatiteMin
+		public System.Nullable<decimal> QuantiteMin
 		{
 			get
 			{
-				return this._QunatiteMin;
+				return this._QuantiteMin;
 			}
 			set
 			{
-				if ((this._QunatiteMin != value))
+				if ((this._QuantiteMin != value))
 				{
-					this.OnQunatiteMinChanging(value);
+					this.OnQuantiteMinChanging(value);
 					this.SendPropertyChanging();
-					this._QunatiteMin = value;
-					this.SendPropertyChanged("QunatiteMin");
-					this.OnQunatiteMinChanged();
+					this._QuantiteMin = value;
+					this.SendPropertyChanged("QuantiteMin");
+					this.OnQuantiteMinChanged();
 				}
 			}
 		}
@@ -3415,22 +2351,22 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_FournisseurItem", Storage="_FournisseursItems", ThisKey="Id", OtherKey="ItemId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_FournisseursItem", Storage="_FournisseurItems", ThisKey="Id", OtherKey="ItemId")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
 		public EntitySet<FournisseurItem> FournisseurItems
 		{
 			get
 			{
 				if ((this.serializing 
-							&& (this._FournisseursItems.HasLoadedOrAssignedValues == false)))
+							&& (this._FournisseurItems.HasLoadedOrAssignedValues == false)))
 				{
 					return null;
 				}
-				return this._FournisseursItems;
+				return this._FournisseurItems;
 			}
 			set
 			{
-				this._FournisseursItems.Assign(value);
+				this._FournisseurItems.Assign(value);
 			}
 		}
 		
@@ -3500,13 +2436,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			entity.Item = null;
 		}
 		
-		private void attach_FournisseursItems(FournisseurItem entity)
+		private void attach_FournisseurItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Item = this;
 		}
 		
-		private void detach_FournisseursItems(FournisseurItem entity)
+		private void detach_FournisseurItems(FournisseurItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Item = null;
@@ -3515,7 +2451,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		private void Initialize()
 		{
 			this._Commandites = new EntitySet<Commandite>(new Action<Commandite>(this.attach_Commandites), new Action<Commandite>(this.detach_Commandites));
-			this._FournisseursItems = new EntitySet<FournisseurItem>(new Action<FournisseurItem>(this.attach_FournisseursItems), new Action<FournisseurItem>(this.detach_FournisseursItems));
+			this._FournisseurItems = new EntitySet<FournisseurItem>(new Action<FournisseurItem>(this.attach_FournisseurItems), new Action<FournisseurItem>(this.detach_FournisseurItems));
 			this._Unite = default(EntityRef<Unite>);
 			OnCreated();
 		}
@@ -3542,400 +2478,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LiensParente")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class LienParente : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Description;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<ContactUrgence> _ContactsUrgences;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public LienParente()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LienParente_ContactUrgence", Storage="_ContactsUrgences", ThisKey="Id", OtherKey="LienParenteId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
-		public EntitySet<ContactUrgence> ContactUrgences
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._ContactsUrgences.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._ContactsUrgences;
-			}
-			set
-			{
-				this._ContactsUrgences.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ContactsUrgences(ContactUrgence entity)
-		{
-			this.SendPropertyChanging();
-			entity.LienParente = this;
-		}
-		
-		private void detach_ContactsUrgences(ContactUrgence entity)
-		{
-			this.SendPropertyChanging();
-			entity.LienParente = null;
-		}
-		
-		private void Initialize()
-		{
-			this._ContactsUrgences = new EntitySet<ContactUrgence>(new Action<ContactUrgence>(this.attach_ContactsUrgences), new Action<ContactUrgence>(this.detach_ContactsUrgences));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembrePreferences")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class MembrePreference : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _MembreId;
-		
-		private string _PreferenceKey;
-		
-		private string _PreferenceValue;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntityRef<Membre> _Membre;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnMembreIdChanging(int value);
-    partial void OnMembreIdChanged();
-    partial void OnPreferenceKeyChanging(string value);
-    partial void OnPreferenceKeyChanged();
-    partial void OnPreferenceValueChanging(string value);
-    partial void OnPreferenceValueChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public MembrePreference()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int MembreId
-		{
-			get
-			{
-				return this._MembreId;
-			}
-			set
-			{
-				if ((this._MembreId != value))
-				{
-					if (this._Membre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMembreIdChanging(value);
-					this.SendPropertyChanging();
-					this._MembreId = value;
-					this.SendPropertyChanged("MembreId");
-					this.OnMembreIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreferenceKey", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string PreferenceKey
-		{
-			get
-			{
-				return this._PreferenceKey;
-			}
-			set
-			{
-				if ((this._PreferenceKey != value))
-				{
-					this.OnPreferenceKeyChanging(value);
-					this.SendPropertyChanging();
-					this._PreferenceKey = value;
-					this.SendPropertyChanged("PreferenceKey");
-					this.OnPreferenceKeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreferenceValue", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string PreferenceValue
-		{
-			get
-			{
-				return this._PreferenceValue;
-			}
-			set
-			{
-				if ((this._PreferenceValue != value))
-				{
-					this.OnPreferenceValueChanging(value);
-					this.SendPropertyChanging();
-					this._PreferenceValue = value;
-					this.SendPropertyChanged("PreferenceValue");
-					this.OnPreferenceValueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembrePreference", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
-		public Membre Membre
-		{
-			get
-			{
-				return this._Membre.Entity;
-			}
-			set
-			{
-				Membre previousValue = this._Membre.Entity;
-				if (((previousValue != value) 
-							|| (this._Membre.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Membre.Entity = null;
-						previousValue.MembrePreferences.Remove(this);
-					}
-					this._Membre.Entity = value;
-					if ((value != null))
-					{
-						value.MembrePreferences.Add(this);
-						this._MembreId = value.Id;
-					}
-					else
-					{
-						this._MembreId = default(int);
-					}
-					this.SendPropertyChanged("Membre");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Membres")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.Membres")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Membre : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3944,35 +2487,21 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private System.Nullable<int> _ConcentrationId;
+		private int _ClubId;
 		
 		private string _CodeUniversel;
 		
-		private string _Nom;
+		private string _Titre;
 		
-		private string _Prenom;
+		private System.DateTime _DateDebut;
 		
-		private string _Courriel;
-		
-		private string _Telephone;
+		private System.DateTime _DateFin;
 		
 		private bool _Actif;
 		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntitySet<ContactUrgence> _ContactsUrgences;
-		
-		private EntitySet<MembrePreference> _MembrePreferences;
-		
-		private EntitySet<MembreAllergie> _MembresAllergies;
-		
-		private EntitySet<MembreClub> _MembresClubs;
-		
-		private EntitySet<MembreFormation> _MembresFormations;
-		
 		private EntitySet<Suivie> _Suivies;
 		
-		private EntityRef<Concentration> _Concentration;
+		private EntityRef<Club> _Club;
 		
 		private bool serializing;
 		
@@ -3982,22 +2511,18 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnConcentrationIdChanging(System.Nullable<int> value);
-    partial void OnConcentrationIdChanged();
+    partial void OnClubIdChanging(int value);
+    partial void OnClubIdChanged();
     partial void OnCodeUniverselChanging(string value);
     partial void OnCodeUniverselChanged();
-    partial void OnNomChanging(string value);
-    partial void OnNomChanged();
-    partial void OnPrenomChanging(string value);
-    partial void OnPrenomChanged();
-    partial void OnCourrielChanging(string value);
-    partial void OnCourrielChanged();
-    partial void OnTelephoneChanging(string value);
-    partial void OnTelephoneChanged();
+    partial void OnTitreChanging(string value);
+    partial void OnTitreChanged();
+    partial void OnDateDebutChanging(System.DateTime value);
+    partial void OnDateDebutChanged();
+    partial void OnDateFinChanging(System.DateTime value);
+    partial void OnDateFinChanged();
     partial void OnActifChanging(bool value);
     partial void OnActifChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
     #endregion
 		
 		public Membre()
@@ -4005,7 +2530,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			this.Initialize();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
@@ -4026,704 +2551,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConcentrationId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public System.Nullable<int> ConcentrationId
-		{
-			get
-			{
-				return this._ConcentrationId;
-			}
-			set
-			{
-				if ((this._ConcentrationId != value))
-				{
-					if (this._Concentration.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnConcentrationIdChanging(value);
-					this.SendPropertyChanging();
-					this._ConcentrationId = value;
-					this.SendPropertyChanged("ConcentrationId");
-					this.OnConcentrationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string CodeUniversel
-		{
-			get
-			{
-				return this._CodeUniversel;
-			}
-			set
-			{
-				if ((this._CodeUniversel != value))
-				{
-					this.OnCodeUniverselChanging(value);
-					this.SendPropertyChanging();
-					this._CodeUniversel = value;
-					this.SendPropertyChanged("CodeUniversel");
-					this.OnCodeUniverselChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Nom
-		{
-			get
-			{
-				return this._Nom;
-			}
-			set
-			{
-				if ((this._Nom != value))
-				{
-					this.OnNomChanging(value);
-					this.SendPropertyChanging();
-					this._Nom = value;
-					this.SendPropertyChanged("Nom");
-					this.OnNomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Prenom
-		{
-			get
-			{
-				return this._Prenom;
-			}
-			set
-			{
-				if ((this._Prenom != value))
-				{
-					this.OnPrenomChanging(value);
-					this.SendPropertyChanging();
-					this._Prenom = value;
-					this.SendPropertyChanged("Prenom");
-					this.OnPrenomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Courriel
-		{
-			get
-			{
-				return this._Courriel;
-			}
-			set
-			{
-				if ((this._Courriel != value))
-				{
-					this.OnCourrielChanging(value);
-					this.SendPropertyChanging();
-					this._Courriel = value;
-					this.SendPropertyChanged("Courriel");
-					this.OnCourrielChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public string Telephone
-		{
-			get
-			{
-				return this._Telephone;
-			}
-			set
-			{
-				if ((this._Telephone != value))
-				{
-					this.OnTelephoneChanging(value);
-					this.SendPropertyChanging();
-					this._Telephone = value;
-					this.SendPropertyChanged("Telephone");
-					this.OnTelephoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Actif", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-		public bool Actif
-		{
-			get
-			{
-				return this._Actif;
-			}
-			set
-			{
-				if ((this._Actif != value))
-				{
-					this.OnActifChanging(value);
-					this.SendPropertyChanging();
-					this._Actif = value;
-					this.SendPropertyChanged("Actif");
-					this.OnActifChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_ContactUrgence", Storage="_ContactsUrgences", ThisKey="Id", OtherKey="MembreId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
-		public EntitySet<ContactUrgence> ContactUrgences
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._ContactsUrgences.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._ContactsUrgences;
-			}
-			set
-			{
-				this._ContactsUrgences.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembrePreference", Storage="_MembrePreferences", ThisKey="Id", OtherKey="MembreId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
-		public EntitySet<MembrePreference> MembrePreferences
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._MembrePreferences.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._MembrePreferences;
-			}
-			set
-			{
-				this._MembrePreferences.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembreAllergie", Storage="_MembresAllergies", ThisKey="Id", OtherKey="MembreId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
-		public EntitySet<MembreAllergie> MembreAllergies
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._MembresAllergies.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._MembresAllergies;
-			}
-			set
-			{
-				this._MembresAllergies.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembreClub", Storage="_MembresClubs", ThisKey="Id", OtherKey="MembreId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
-		public EntitySet<MembreClub> MembreClubs
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._MembresClubs.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._MembresClubs;
-			}
-			set
-			{
-				this._MembresClubs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembreFormation", Storage="_MembresFormations", ThisKey="Id", OtherKey="MembreId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
-		public EntitySet<MembreFormation> MembreFormations
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._MembresFormations.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._MembresFormations;
-			}
-			set
-			{
-				this._MembresFormations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="MembreId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
-		public EntitySet<Suivie> Suivies
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Suivies.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Suivies;
-			}
-			set
-			{
-				this._Suivies.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Concentration_Membre", Storage="_Concentration", ThisKey="ConcentrationId", OtherKey="Id", IsForeignKey=true)]
-		public Concentration Concentration
-		{
-			get
-			{
-				return this._Concentration.Entity;
-			}
-			set
-			{
-				Concentration previousValue = this._Concentration.Entity;
-				if (((previousValue != value) 
-							|| (this._Concentration.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Concentration.Entity = null;
-						previousValue.Membres.Remove(this);
-					}
-					this._Concentration.Entity = value;
-					if ((value != null))
-					{
-						value.Membres.Add(this);
-						this._ConcentrationId = value.Id;
-					}
-					else
-					{
-						this._ConcentrationId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Concentration");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ContactsUrgences(ContactUrgence entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = this;
-		}
-		
-		private void detach_ContactsUrgences(ContactUrgence entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = null;
-		}
-		
-		private void attach_MembrePreferences(MembrePreference entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = this;
-		}
-		
-		private void detach_MembrePreferences(MembrePreference entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = null;
-		}
-		
-		private void attach_MembresAllergies(MembreAllergie entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = this;
-		}
-		
-		private void detach_MembresAllergies(MembreAllergie entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = null;
-		}
-		
-		private void attach_MembresClubs(MembreClub entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = this;
-		}
-		
-		private void detach_MembresClubs(MembreClub entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = null;
-		}
-		
-		private void attach_MembresFormations(MembreFormation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = this;
-		}
-		
-		private void detach_MembresFormations(MembreFormation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = null;
-		}
-		
-		private void attach_Suivies(Suivie entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = this;
-		}
-		
-		private void detach_Suivies(Suivie entity)
-		{
-			this.SendPropertyChanging();
-			entity.Membre = null;
-		}
-		
-		private void Initialize()
-		{
-			this._ContactsUrgences = new EntitySet<ContactUrgence>(new Action<ContactUrgence>(this.attach_ContactsUrgences), new Action<ContactUrgence>(this.detach_ContactsUrgences));
-			this._MembrePreferences = new EntitySet<MembrePreference>(new Action<MembrePreference>(this.attach_MembrePreferences), new Action<MembrePreference>(this.detach_MembrePreferences));
-			this._MembresAllergies = new EntitySet<MembreAllergie>(new Action<MembreAllergie>(this.attach_MembresAllergies), new Action<MembreAllergie>(this.detach_MembresAllergies));
-			this._MembresClubs = new EntitySet<MembreClub>(new Action<MembreClub>(this.attach_MembresClubs), new Action<MembreClub>(this.detach_MembresClubs));
-			this._MembresFormations = new EntitySet<MembreFormation>(new Action<MembreFormation>(this.attach_MembresFormations), new Action<MembreFormation>(this.detach_MembresFormations));
-			this._Suivies = new EntitySet<Suivie>(new Action<Suivie>(this.attach_Suivies), new Action<Suivie>(this.detach_Suivies));
-			this._Concentration = default(EntityRef<Concentration>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembresAllergies")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class MembreAllergie : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MembreId;
-		
-		private int _AllergieId;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntityRef<Allergie> _Allergy;
-		
-		private EntityRef<Membre> _Membre;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMembreIdChanging(int value);
-    partial void OnMembreIdChanged();
-    partial void OnAllergieIdChanging(int value);
-    partial void OnAllergieIdChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public MembreAllergie()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int MembreId
-		{
-			get
-			{
-				return this._MembreId;
-			}
-			set
-			{
-				if ((this._MembreId != value))
-				{
-					if (this._Membre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMembreIdChanging(value);
-					this.SendPropertyChanging();
-					this._MembreId = value;
-					this.SendPropertyChanged("MembreId");
-					this.OnMembreIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllergieId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int AllergieId
-		{
-			get
-			{
-				return this._AllergieId;
-			}
-			set
-			{
-				if ((this._AllergieId != value))
-				{
-					if (this._Allergy.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAllergieIdChanging(value);
-					this.SendPropertyChanging();
-					this._AllergieId = value;
-					this.SendPropertyChanged("AllergieId");
-					this.OnAllergieIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Allergie_MembreAllergie", Storage="_Allergy", ThisKey="AllergieId", OtherKey="Id", IsForeignKey=true)]
-		public Allergie Allergie
-		{
-			get
-			{
-				return this._Allergy.Entity;
-			}
-			set
-			{
-				Allergie previousValue = this._Allergy.Entity;
-				if (((previousValue != value) 
-							|| (this._Allergy.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Allergy.Entity = null;
-						previousValue.MembreAllergies.Remove(this);
-					}
-					this._Allergy.Entity = value;
-					if ((value != null))
-					{
-						value.MembreAllergies.Add(this);
-						this._AllergieId = value.Id;
-					}
-					else
-					{
-						this._AllergieId = default(int);
-					}
-					this.SendPropertyChanged("Allergie");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembreAllergie", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
-		public Membre Membre
-		{
-			get
-			{
-				return this._Membre.Entity;
-			}
-			set
-			{
-				Membre previousValue = this._Membre.Entity;
-				if (((previousValue != value) 
-							|| (this._Membre.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Membre.Entity = null;
-						previousValue.MembreAllergies.Remove(this);
-					}
-					this._Membre.Entity = value;
-					if ((value != null))
-					{
-						value.MembreAllergies.Add(this);
-						this._MembreId = value.Id;
-					}
-					else
-					{
-						this._MembreId = default(int);
-					}
-					this.SendPropertyChanged("Membre");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._Allergy = default(EntityRef<Allergie>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembresClubs")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class MembreClub : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ClubId;
-		
-		private int _MembreId;
-		
-		private System.DateTime _DateDebut;
-		
-		private System.Nullable<System.DateTime> _DateFin;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntityRef<Club> _Club;
-		
-		private EntityRef<Membre> _Membre;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnClubIdChanging(int value);
-    partial void OnClubIdChanged();
-    partial void OnMembreIdChanging(int value);
-    partial void OnMembreIdChanged();
-    partial void OnDateDebutChanging(System.DateTime value);
-    partial void OnDateDebutChanged();
-    partial void OnDateFinChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateFinChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public MembreClub()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClubId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int ClubId
 		{
 			get
@@ -4747,33 +2576,50 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int MembreId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string CodeUniversel
 		{
 			get
 			{
-				return this._MembreId;
+				return this._CodeUniversel;
 			}
 			set
 			{
-				if ((this._MembreId != value))
+				if ((this._CodeUniversel != value))
 				{
-					if (this._Membre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMembreIdChanging(value);
+					this.OnCodeUniverselChanging(value);
 					this.SendPropertyChanging();
-					this._MembreId = value;
-					this.SendPropertyChanged("MembreId");
-					this.OnMembreIdChanged();
+					this._CodeUniversel = value;
+					this.SendPropertyChanged("CodeUniversel");
+					this.OnCodeUniverselChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDebut", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Titre
+		{
+			get
+			{
+				return this._Titre;
+			}
+			set
+			{
+				if ((this._Titre != value))
+				{
+					this.OnTitreChanging(value);
+					this.SendPropertyChanging();
+					this._Titre = value;
+					this.SendPropertyChanged("Titre");
+					this.OnTitreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDebut", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.DateTime DateDebut
 		{
 			get
@@ -4793,9 +2639,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateFin", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Nullable<System.DateTime> DateFin
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateFin", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.DateTime DateFin
 		{
 			get
 			{
@@ -4814,28 +2660,47 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.Data.Linq.Binary Version
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Actif", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public bool Actif
 		{
 			get
 			{
-				return this._Version;
+				return this._Actif;
 			}
 			set
 			{
-				if ((this._Version != value))
+				if ((this._Actif != value))
 				{
-					this.OnVersionChanging(value);
+					this.OnActifChanging(value);
 					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
+					this._Actif = value;
+					this.SendPropertyChanged("Actif");
+					this.OnActifChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_MembreClub", Storage="_Club", ThisKey="ClubId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="MembreId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		public EntitySet<Suivie> Suivies
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Suivies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Suivies;
+			}
+			set
+			{
+				this._Suivies.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Club_Membre", Storage="_Club", ThisKey="ClubId", OtherKey="Id", IsForeignKey=true)]
 		public Club Club
 		{
 			get
@@ -4852,12 +2717,12 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 					if ((previousValue != null))
 					{
 						this._Club.Entity = null;
-						previousValue.MembreClubs.Remove(this);
+						previousValue.Membres.Remove(this);
 					}
 					this._Club.Entity = value;
 					if ((value != null))
 					{
-						value.MembreClubs.Add(this);
+						value.Membres.Add(this);
 						this._ClubId = value.Id;
 					}
 					else
@@ -4869,40 +2734,6 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembreClub", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
-		public Membre Membre
-		{
-			get
-			{
-				return this._Membre.Entity;
-			}
-			set
-			{
-				Membre previousValue = this._Membre.Entity;
-				if (((previousValue != value) 
-							|| (this._Membre.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Membre.Entity = null;
-						previousValue.MembreClubs.Remove(this);
-					}
-					this._Membre.Entity = value;
-					if ((value != null))
-					{
-						value.MembreClubs.Add(this);
-						this._MembreId = value.Id;
-					}
-					else
-					{
-						this._MembreId = default(int);
-					}
-					this.SendPropertyChanged("Membre");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -4923,10 +2754,22 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
+		private void attach_Suivies(Suivie entity)
+		{
+			this.SendPropertyChanging();
+			entity.Membre = this;
+		}
+		
+		private void detach_Suivies(Suivie entity)
+		{
+			this.SendPropertyChanging();
+			entity.Membre = null;
+		}
+		
 		private void Initialize()
 		{
+			this._Suivies = new EntitySet<Suivie>(new Action<Suivie>(this.attach_Suivies), new Action<Suivie>(this.detach_Suivies));
 			this._Club = default(EntityRef<Club>);
-			this._Membre = default(EntityRef<Membre>);
 			OnCreated();
 		}
 		
@@ -4936,267 +2779,23 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		{
 			this.Initialize();
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MembresFormations")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class MembreFormation : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MembreId;
-		
-		private int _FormationId;
-		
-		private System.DateTime _DateSuivie;
-		
-		private System.Nullable<System.DateTime> _DateEcheance;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntityRef<Formation> _Formation;
-		
-		private EntityRef<Membre> _Membre;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMembreIdChanging(int value);
-    partial void OnMembreIdChanged();
-    partial void OnFormationIdChanging(int value);
-    partial void OnFormationIdChanged();
-    partial void OnDateSuivieChanging(System.DateTime value);
-    partial void OnDateSuivieChanged();
-    partial void OnDateEcheanceChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateEcheanceChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    #endregion
-		
-		public MembreFormation()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int MembreId
-		{
-			get
-			{
-				return this._MembreId;
-			}
-			set
-			{
-				if ((this._MembreId != value))
-				{
-					if (this._Membre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMembreIdChanging(value);
-					this.SendPropertyChanging();
-					this._MembreId = value;
-					this.SendPropertyChanged("MembreId");
-					this.OnMembreIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormationId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int FormationId
-		{
-			get
-			{
-				return this._FormationId;
-			}
-			set
-			{
-				if ((this._FormationId != value))
-				{
-					if (this._Formation.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFormationIdChanging(value);
-					this.SendPropertyChanging();
-					this._FormationId = value;
-					this.SendPropertyChanged("FormationId");
-					this.OnFormationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSuivie", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public System.DateTime DateSuivie
-		{
-			get
-			{
-				return this._DateSuivie;
-			}
-			set
-			{
-				if ((this._DateSuivie != value))
-				{
-					this.OnDateSuivieChanging(value);
-					this.SendPropertyChanging();
-					this._DateSuivie = value;
-					this.SendPropertyChanged("DateSuivie");
-					this.OnDateSuivieChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateEcheance", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Nullable<System.DateTime> DateEcheance
-		{
-			get
-			{
-				return this._DateEcheance;
-			}
-			set
-			{
-				if ((this._DateEcheance != value))
-				{
-					this.OnDateEcheanceChanging(value);
-					this.SendPropertyChanging();
-					this._DateEcheance = value;
-					this.SendPropertyChanged("DateEcheance");
-					this.OnDateEcheanceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Formation_MembreFormation", Storage="_Formation", ThisKey="FormationId", OtherKey="Id", IsForeignKey=true)]
-		public Formation Formation
-		{
-			get
-			{
-				return this._Formation.Entity;
-			}
-			set
-			{
-				Formation previousValue = this._Formation.Entity;
-				if (((previousValue != value) 
-							|| (this._Formation.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Formation.Entity = null;
-						previousValue.MembreFormations.Remove(this);
-					}
-					this._Formation.Entity = value;
-					if ((value != null))
-					{
-						value.MembreFormations.Add(this);
-						this._FormationId = value.Id;
-					}
-					else
-					{
-						this._FormationId = default(int);
-					}
-					this.SendPropertyChanged("Formation");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_MembreFormation", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
-		public Membre Membre
-		{
-			get
-			{
-				return this._Membre.Entity;
-			}
-			set
-			{
-				Membre previousValue = this._Membre.Entity;
-				if (((previousValue != value) 
-							|| (this._Membre.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Membre.Entity = null;
-						previousValue.MembreFormations.Remove(this);
-					}
-					this._Membre.Entity = value;
-					if ((value != null))
-					{
-						value.MembreFormations.Add(this);
-						this._MembreId = value.Id;
-					}
-					else
-					{
-						this._MembreId = default(int);
-					}
-					this.SendPropertyChanged("Membre");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._Formation = default(EntityRef<Formation>);
-			this._Membre = default(EntityRef<Membre>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
 		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
+		public void OnSerializing(StreamingContext context)
 		{
-			this.Initialize();
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StatutsSuivie")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="clubs.StatutsSuivie")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class StatutSuivie : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5208,8 +2807,6 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		private string _Code;
 		
 		private string _Description;
-		
-		private System.Data.Linq.Binary _Version;
 		
 		private EntitySet<Suivie> _Suivies;
 		
@@ -5225,8 +2822,6 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCodeChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
     #endregion
 		
 		public StatutSuivie()
@@ -5234,7 +2829,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			this.Initialize();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int Id
 		{
@@ -5255,7 +2850,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Code
 		{
@@ -5276,7 +2871,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Description
 		{
@@ -5297,29 +2892,8 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutSuivie_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="StatutSuivieId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutsSuivie_Suivy", Storage="_Suivies", ThisKey="Id", OtherKey="StatutSuivieId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
 		public EntitySet<Suivie> Suivies
 		{
 			get
@@ -5397,32 +2971,22 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Suivies")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Unites")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Suivie : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Unite : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private int _CommanditeId;
+		private string _Code;
 		
-		private int _MembreId;
+		private string _Systeme;
 		
-		private int _StatutSuivieId;
+		private EntitySet<Item> _Items;
 		
-		private System.DateTime _DateSuivie;
-		
-		private string _Commentaire;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private EntityRef<Commandite> _Commandite;
-		
-		private EntityRef<Membre> _Membre;
-		
-		private EntityRef<StatutSuivie> _StatutSuivie;
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5430,21 +2994,205 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnCommanditeIdChanging(int value);
-    partial void OnCommanditeIdChanged();
-    partial void OnMembreIdChanging(int value);
-    partial void OnMembreIdChanged();
-    partial void OnStatutSuivieIdChanging(int value);
-    partial void OnStatutSuivieIdChanged();
-    partial void OnDateSuivieChanging(System.DateTime value);
-    partial void OnDateSuivieChanged();
-    partial void OnCommentaireChanging(string value);
-    partial void OnCommentaireChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnSystemeChanging(string value);
+    partial void OnSystemeChanged();
+    #endregion
+		
+		public Unite()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Systeme", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Systeme
+		{
+			get
+			{
+				return this._Systeme;
+			}
+			set
+			{
+				if ((this._Systeme != value))
+				{
+					this.OnSystemeChanging(value);
+					this.SendPropertyChanging();
+					this._Systeme = value;
+					this.SendPropertyChanged("Systeme");
+					this.OnSystemeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Unite_Item", Storage="_Items", ThisKey="Id", OtherKey="UniteId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
+		public EntitySet<Item> Items
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Items.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Items;
+			}
+			set
+			{
+				this._Items.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Unite = this;
+		}
+		
+		private void detach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Unite = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Adresses")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Adresse : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.Nullable<int> _NoCivique;
+		
+		private string _Rue;
+		
+		private string _Appartement;
+		
+		private string _Ville;
+		
+		private string _CodePostal;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntitySet<Fournisseur> _Fournisseurs;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNoCiviqueChanging(System.Nullable<int> value);
+    partial void OnNoCiviqueChanged();
+    partial void OnRueChanging(string value);
+    partial void OnRueChanged();
+    partial void OnAppartementChanging(string value);
+    partial void OnAppartementChanged();
+    partial void OnVilleChanging(string value);
+    partial void OnVilleChanged();
+    partial void OnCodePostalChanging(string value);
+    partial void OnCodePostalChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
     #endregion
 		
-		public Suivie()
+		public Adresse()
 		{
 			this.Initialize();
 		}
@@ -5470,119 +3218,107 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommanditeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoCivique", DbType="Int", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int CommanditeId
+		public System.Nullable<int> NoCivique
 		{
 			get
 			{
-				return this._CommanditeId;
+				return this._NoCivique;
 			}
 			set
 			{
-				if ((this._CommanditeId != value))
+				if ((this._NoCivique != value))
 				{
-					if (this._Commandite.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCommanditeIdChanging(value);
+					this.OnNoCiviqueChanging(value);
 					this.SendPropertyChanging();
-					this._CommanditeId = value;
-					this.SendPropertyChanged("CommanditeId");
-					this.OnCommanditeIdChanged();
+					this._NoCivique = value;
+					this.SendPropertyChanged("NoCivique");
+					this.OnNoCiviqueChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MembreId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rue", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public int MembreId
+		public string Rue
 		{
 			get
 			{
-				return this._MembreId;
+				return this._Rue;
 			}
 			set
 			{
-				if ((this._MembreId != value))
+				if ((this._Rue != value))
 				{
-					if (this._Membre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMembreIdChanging(value);
+					this.OnRueChanging(value);
 					this.SendPropertyChanging();
-					this._MembreId = value;
-					this.SendPropertyChanged("MembreId");
-					this.OnMembreIdChanged();
+					this._Rue = value;
+					this.SendPropertyChanged("Rue");
+					this.OnRueChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatutSuivieId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Appartement", DbType="VarChar(10)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public int StatutSuivieId
+		public string Appartement
 		{
 			get
 			{
-				return this._StatutSuivieId;
+				return this._Appartement;
 			}
 			set
 			{
-				if ((this._StatutSuivieId != value))
+				if ((this._Appartement != value))
 				{
-					if (this._StatutSuivie.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnStatutSuivieIdChanging(value);
+					this.OnAppartementChanging(value);
 					this.SendPropertyChanging();
-					this._StatutSuivieId = value;
-					this.SendPropertyChanged("StatutSuivieId");
-					this.OnStatutSuivieIdChanged();
+					this._Appartement = value;
+					this.SendPropertyChanged("Appartement");
+					this.OnAppartementChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSuivie", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ville", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.DateTime DateSuivie
+		public string Ville
 		{
 			get
 			{
-				return this._DateSuivie;
+				return this._Ville;
 			}
 			set
 			{
-				if ((this._DateSuivie != value))
+				if ((this._Ville != value))
 				{
-					this.OnDateSuivieChanging(value);
+					this.OnVilleChanging(value);
 					this.SendPropertyChanging();
-					this._DateSuivie = value;
-					this.SendPropertyChanged("DateSuivie");
-					this.OnDateSuivieChanged();
+					this._Ville = value;
+					this.SendPropertyChanged("Ville");
+					this.OnVilleChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodePostal", DbType="VarChar(16)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Commentaire
+		public string CodePostal
 		{
 			get
 			{
-				return this._Commentaire;
+				return this._CodePostal;
 			}
 			set
 			{
-				if ((this._Commentaire != value))
+				if ((this._CodePostal != value))
 				{
-					this.OnCommentaireChanging(value);
+					this.OnCodePostalChanging(value);
 					this.SendPropertyChanging();
-					this._Commentaire = value;
-					this.SendPropertyChanged("Commentaire");
-					this.OnCommentaireChanged();
+					this._CodePostal = value;
+					this.SendPropertyChanged("CodePostal");
+					this.OnCodePostalChanged();
 				}
 			}
 		}
@@ -5608,104 +3344,933 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Commandite_Suivy", Storage="_Commandite", ThisKey="CommanditeId", OtherKey="Id", IsForeignKey=true)]
-		public Commandite Commandite
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Adress_Fournisseur", Storage="_Fournisseurs", ThisKey="Id", OtherKey="AdresseId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		public EntitySet<Fournisseur> Fournisseurs
 		{
 			get
 			{
-				return this._Commandite.Entity;
+				if ((this.serializing 
+							&& (this._Fournisseurs.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Fournisseurs;
 			}
 			set
 			{
-				Commandite previousValue = this._Commandite.Entity;
-				if (((previousValue != value) 
-							|| (this._Commandite.HasLoadedOrAssignedValue == false)))
+				this._Fournisseurs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Fournisseurs(Fournisseur entity)
+		{
+			this.SendPropertyChanging();
+			entity.Adresse = this;
+		}
+		
+		private void detach_Fournisseurs(Fournisseur entity)
+		{
+			this.SendPropertyChanging();
+			entity.Adresse = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Fournisseurs = new EntitySet<Fournisseur>(new Action<Fournisseur>(this.attach_Fournisseurs), new Action<Fournisseur>(this.detach_Fournisseurs));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Concentrations")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Concentration : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Acronyme;
+		
+		private string _Description;
+		
+		private EntitySet<Profil> _Profils;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnAcronymeChanging(string value);
+    partial void OnAcronymeChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    #endregion
+		
+		public Concentration()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
 				{
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Commandite.Entity = null;
-						previousValue.Suivies.Remove(this);
-					}
-					this._Commandite.Entity = value;
-					if ((value != null))
-					{
-						value.Suivies.Add(this);
-						this._CommanditeId = value.Id;
-					}
-					else
-					{
-						this._CommanditeId = default(int);
-					}
-					this.SendPropertyChanged("Commandite");
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membre_Suivy", Storage="_Membre", ThisKey="MembreId", OtherKey="Id", IsForeignKey=true)]
-		public Membre Membre
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Acronyme", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Acronyme
 		{
 			get
 			{
-				return this._Membre.Entity;
+				return this._Acronyme;
 			}
 			set
 			{
-				Membre previousValue = this._Membre.Entity;
-				if (((previousValue != value) 
-							|| (this._Membre.HasLoadedOrAssignedValue == false)))
+				if ((this._Acronyme != value))
 				{
+					this.OnAcronymeChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Membre.Entity = null;
-						previousValue.Suivies.Remove(this);
-					}
-					this._Membre.Entity = value;
-					if ((value != null))
-					{
-						value.Suivies.Add(this);
-						this._MembreId = value.Id;
-					}
-					else
-					{
-						this._MembreId = default(int);
-					}
-					this.SendPropertyChanged("Membre");
+					this._Acronyme = value;
+					this.SendPropertyChanged("Acronyme");
+					this.OnAcronymeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatutSuivie_Suivy", Storage="_StatutSuivie", ThisKey="StatutSuivieId", OtherKey="Id", IsForeignKey=true)]
-		public StatutSuivie StatutSuivie
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Description
 		{
 			get
 			{
-				return this._StatutSuivie.Entity;
+				return this._Description;
 			}
 			set
 			{
-				StatutSuivie previousValue = this._StatutSuivie.Entity;
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Concentration_Profil", Storage="_Profils", ThisKey="Id", OtherKey="ConcentrationId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
+		public EntitySet<Profil> Profils
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Profils.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Profils;
+			}
+			set
+			{
+				this._Profils.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Profils(Profil entity)
+		{
+			this.SendPropertyChanging();
+			entity.Concentration = this;
+		}
+		
+		private void detach_Profils(Profil entity)
+		{
+			this.SendPropertyChanging();
+			entity.Concentration = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Profils = new EntitySet<Profil>(new Action<Profil>(this.attach_Profils), new Action<Profil>(this.detach_Profils));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contacts")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Contact : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _TypeContactId;
+		
+		private string _Nom;
+		
+		private string _Prenom;
+		
+		private string _Telephone;
+		
+		private string _Courriel;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntitySet<ContactUrgence> _ContactUrgences;
+		
+		private EntityRef<TypeContact> _TypeContact;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTypeContactIdChanging(int value);
+    partial void OnTypeContactIdChanged();
+    partial void OnNomChanging(string value);
+    partial void OnNomChanged();
+    partial void OnPrenomChanging(string value);
+    partial void OnPrenomChanged();
+    partial void OnTelephoneChanging(string value);
+    partial void OnTelephoneChanged();
+    partial void OnCourrielChanging(string value);
+    partial void OnCourrielChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public Contact()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeContactId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int TypeContactId
+		{
+			get
+			{
+				return this._TypeContactId;
+			}
+			set
+			{
+				if ((this._TypeContactId != value))
+				{
+					if (this._TypeContact.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeContactIdChanging(value);
+					this.SendPropertyChanging();
+					this._TypeContactId = value;
+					this.SendPropertyChanged("TypeContactId");
+					this.OnTypeContactIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Nom
+		{
+			get
+			{
+				return this._Nom;
+			}
+			set
+			{
+				if ((this._Nom != value))
+				{
+					this.OnNomChanging(value);
+					this.SendPropertyChanging();
+					this._Nom = value;
+					this.SendPropertyChanged("Nom");
+					this.OnNomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Prenom
+		{
+			get
+			{
+				return this._Prenom;
+			}
+			set
+			{
+				if ((this._Prenom != value))
+				{
+					this.OnPrenomChanging(value);
+					this.SendPropertyChanging();
+					this._Prenom = value;
+					this.SendPropertyChanged("Prenom");
+					this.OnPrenomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string Telephone
+		{
+			get
+			{
+				return this._Telephone;
+			}
+			set
+			{
+				if ((this._Telephone != value))
+				{
+					this.OnTelephoneChanging(value);
+					this.SendPropertyChanging();
+					this._Telephone = value;
+					this.SendPropertyChanged("Telephone");
+					this.OnTelephoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string Courriel
+		{
+			get
+			{
+				return this._Courriel;
+			}
+			set
+			{
+				if ((this._Courriel != value))
+				{
+					this.OnCourrielChanging(value);
+					this.SendPropertyChanging();
+					this._Courriel = value;
+					this.SendPropertyChanged("Courriel");
+					this.OnCourrielChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contact_ContactsUrgence", Storage="_ContactUrgences", ThisKey="Id", OtherKey="ContactId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		public EntitySet<ContactUrgence> ContactUrgences
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._ContactUrgences.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._ContactUrgences;
+			}
+			set
+			{
+				this._ContactUrgences.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TypesContact_Contact", Storage="_TypeContact", ThisKey="TypeContactId", OtherKey="Id", IsForeignKey=true)]
+		public TypeContact TypeContact
+		{
+			get
+			{
+				return this._TypeContact.Entity;
+			}
+			set
+			{
+				TypeContact previousValue = this._TypeContact.Entity;
 				if (((previousValue != value) 
-							|| (this._StatutSuivie.HasLoadedOrAssignedValue == false)))
+							|| (this._TypeContact.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._StatutSuivie.Entity = null;
-						previousValue.Suivies.Remove(this);
+						this._TypeContact.Entity = null;
+						previousValue.Contacts.Remove(this);
 					}
-					this._StatutSuivie.Entity = value;
+					this._TypeContact.Entity = value;
 					if ((value != null))
 					{
-						value.Suivies.Add(this);
-						this._StatutSuivieId = value.Id;
+						value.Contacts.Add(this);
+						this._TypeContactId = value.Id;
 					}
 					else
 					{
-						this._StatutSuivieId = default(int);
+						this._TypeContactId = default(int);
 					}
-					this.SendPropertyChanged("StatutSuivie");
+					this.SendPropertyChanged("TypeContact");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ContactUrgences(ContactUrgence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contact = this;
+		}
+		
+		private void detach_ContactUrgences(ContactUrgence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contact = null;
+		}
+		
+		private void Initialize()
+		{
+			this._ContactUrgences = new EntitySet<ContactUrgence>(new Action<ContactUrgence>(this.attach_ContactUrgences), new Action<ContactUrgence>(this.detach_ContactUrgences));
+			this._TypeContact = default(EntityRef<TypeContact>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TypesContact")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class TypeContact : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Nom;
+		
+		private EntitySet<Contact> _Contacts;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNomChanging(string value);
+    partial void OnNomChanged();
+    #endregion
+		
+		public TypeContact()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Nom
+		{
+			get
+			{
+				return this._Nom;
+			}
+			set
+			{
+				if ((this._Nom != value))
+				{
+					this.OnNomChanging(value);
+					this.SendPropertyChanging();
+					this._Nom = value;
+					this.SendPropertyChanged("Nom");
+					this.OnNomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TypesContact_Contact", Storage="_Contacts", ThisKey="Id", OtherKey="TypeContactId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3, EmitDefaultValue=false)]
+		public EntitySet<Contact> Contacts
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Contacts.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Contacts;
+			}
+			set
+			{
+				this._Contacts.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Contacts(Contact entity)
+		{
+			this.SendPropertyChanging();
+			entity.TypeContact = this;
+		}
+		
+		private void detach_Contacts(Contact entity)
+		{
+			this.SendPropertyChanging();
+			entity.TypeContact = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Contacts = new EntitySet<Contact>(new Action<Contact>(this.attach_Contacts), new Action<Contact>(this.detach_Contacts));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="userspace.Allergies")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Allergie : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _ProfilId;
+		
+		private string _Nom;
+		
+		private string _Description;
+		
+		private bool _Public;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntityRef<Profil> _Profil;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnProfilIdChanging(int value);
+    partial void OnProfilIdChanged();
+    partial void OnNomChanging(string value);
+    partial void OnNomChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnPublicChanging(bool value);
+    partial void OnPublicChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public Allergie()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int ProfilId
+		{
+			get
+			{
+				return this._ProfilId;
+			}
+			set
+			{
+				if ((this._ProfilId != value))
+				{
+					if (this._Profil.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProfilIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProfilId = value;
+					this.SendPropertyChanged("ProfilId");
+					this.OnProfilIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Nom
+		{
+			get
+			{
+				return this._Nom;
+			}
+			set
+			{
+				if ((this._Nom != value))
+				{
+					this.OnNomChanging(value);
+					this.SendPropertyChanging();
+					this._Nom = value;
+					this.SendPropertyChanged("Nom");
+					this.OnNomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Public]", Storage="_Public", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public bool Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_Allergy", Storage="_Profil", ThisKey="ProfilId", OtherKey="Id", IsForeignKey=true)]
+		public Profil Profil
+		{
+			get
+			{
+				return this._Profil.Entity;
+			}
+			set
+			{
+				Profil previousValue = this._Profil.Entity;
+				if (((previousValue != value) 
+							|| (this._Profil.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Profil.Entity = null;
+						previousValue.Allergies.Remove(this);
+					}
+					this._Profil.Entity = value;
+					if ((value != null))
+					{
+						value.Allergies.Add(this);
+						this._ProfilId = value.Id;
+					}
+					else
+					{
+						this._ProfilId = default(int);
+					}
+					this.SendPropertyChanged("Profil");
 				}
 			}
 		}
@@ -5732,9 +4297,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private void Initialize()
 		{
-			this._Commandite = default(EntityRef<Commandite>);
-			this._Membre = default(EntityRef<Membre>);
-			this._StatutSuivie = default(EntityRef<StatutSuivie>);
+			this._Profil = default(EntityRef<Profil>);
 			OnCreated();
 		}
 		
@@ -5743,6 +4306,1422 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		public void OnDeserializing(StreamingContext context)
 		{
 			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="userspace.ProfilsAvances")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class ProfilAvance : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ProfilId;
+		
+		private string _CodePermanent;
+		
+		private System.Nullable<System.DateTime> _DateNaissance;
+		
+		private string _Courriel;
+		
+		private string _Telephone;
+		
+		private bool _Public;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntityRef<Profil> _Profil;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProfilIdChanging(int value);
+    partial void OnProfilIdChanged();
+    partial void OnCodePermanentChanging(string value);
+    partial void OnCodePermanentChanged();
+    partial void OnDateNaissanceChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateNaissanceChanged();
+    partial void OnCourrielChanging(string value);
+    partial void OnCourrielChanged();
+    partial void OnTelephoneChanging(string value);
+    partial void OnTelephoneChanged();
+    partial void OnPublicChanging(bool value);
+    partial void OnPublicChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public ProfilAvance()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilId", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int ProfilId
+		{
+			get
+			{
+				return this._ProfilId;
+			}
+			set
+			{
+				if ((this._ProfilId != value))
+				{
+					if (this._Profil.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProfilIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProfilId = value;
+					this.SendPropertyChanged("ProfilId");
+					this.OnProfilIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodePermanent", DbType="VarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string CodePermanent
+		{
+			get
+			{
+				return this._CodePermanent;
+			}
+			set
+			{
+				if ((this._CodePermanent != value))
+				{
+					this.OnCodePermanentChanging(value);
+					this.SendPropertyChanging();
+					this._CodePermanent = value;
+					this.SendPropertyChanged("CodePermanent");
+					this.OnCodePermanentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateNaissance", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Nullable<System.DateTime> DateNaissance
+		{
+			get
+			{
+				return this._DateNaissance;
+			}
+			set
+			{
+				if ((this._DateNaissance != value))
+				{
+					this.OnDateNaissanceChanging(value);
+					this.SendPropertyChanging();
+					this._DateNaissance = value;
+					this.SendPropertyChanged("DateNaissance");
+					this.OnDateNaissanceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Courriel
+		{
+			get
+			{
+				return this._Courriel;
+			}
+			set
+			{
+				if ((this._Courriel != value))
+				{
+					this.OnCourrielChanging(value);
+					this.SendPropertyChanging();
+					this._Courriel = value;
+					this.SendPropertyChanged("Courriel");
+					this.OnCourrielChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string Telephone
+		{
+			get
+			{
+				return this._Telephone;
+			}
+			set
+			{
+				if ((this._Telephone != value))
+				{
+					this.OnTelephoneChanging(value);
+					this.SendPropertyChanging();
+					this._Telephone = value;
+					this.SendPropertyChanged("Telephone");
+					this.OnTelephoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Public]", Storage="_Public", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public bool Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_ProfilsAvance", Storage="_Profil", ThisKey="ProfilId", OtherKey="Id", IsForeignKey=true)]
+		public Profil Profil
+		{
+			get
+			{
+				return this._Profil.Entity;
+			}
+			set
+			{
+				Profil previousValue = this._Profil.Entity;
+				if (((previousValue != value) 
+							|| (this._Profil.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Profil.Entity = null;
+						previousValue.ProfilAvance = null;
+					}
+					this._Profil.Entity = value;
+					if ((value != null))
+					{
+						value.ProfilAvance = this;
+						this._ProfilId = value.Id;
+					}
+					else
+					{
+						this._ProfilId = default(int);
+					}
+					this.SendPropertyChanged("Profil");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._Profil = default(EntityRef<Profil>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="userspace.ContactsUrgence")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class ContactUrgence : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ProfilId;
+		
+		private int _ContactId;
+		
+		private bool _Public;
+		
+		private EntityRef<Contact> _Contact;
+		
+		private EntityRef<Profil> _Profil;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProfilIdChanging(int value);
+    partial void OnProfilIdChanged();
+    partial void OnContactIdChanging(int value);
+    partial void OnContactIdChanged();
+    partial void OnPublicChanging(bool value);
+    partial void OnPublicChanged();
+    #endregion
+		
+		public ContactUrgence()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int ProfilId
+		{
+			get
+			{
+				return this._ProfilId;
+			}
+			set
+			{
+				if ((this._ProfilId != value))
+				{
+					if (this._Profil.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProfilIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProfilId = value;
+					this.SendPropertyChanged("ProfilId");
+					this.OnProfilIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int ContactId
+		{
+			get
+			{
+				return this._ContactId;
+			}
+			set
+			{
+				if ((this._ContactId != value))
+				{
+					if (this._Contact.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnContactIdChanging(value);
+					this.SendPropertyChanging();
+					this._ContactId = value;
+					this.SendPropertyChanged("ContactId");
+					this.OnContactIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Public]", Storage="_Public", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public bool Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Contact_ContactsUrgence", Storage = "_Contact", ThisKey = "ContactId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+		public Contact Contact
+		{
+			get
+			{
+				return this._Contact.Entity;
+			}
+			set
+			{
+				Contact previousValue = this._Contact.Entity;
+				if (((previousValue != value) 
+							|| (this._Contact.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Contact.Entity = null;
+						previousValue.ContactUrgences.Remove(this);
+					}
+					this._Contact.Entity = value;
+					if ((value != null))
+					{
+						value.ContactUrgences.Add(this);
+						this._ContactId = value.Id;
+					}
+					else
+					{
+						this._ContactId = default(int);
+					}
+					this.SendPropertyChanged("Contact");
+				}
+			}
+		}
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Profil_ContactsUrgence", Storage = "_Profil", ThisKey = "ProfilId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
+		public Profil Profil
+		{
+			get
+			{
+				return this._Profil.Entity;
+			}
+			set
+			{
+				Profil previousValue = this._Profil.Entity;
+				if (((previousValue != value) 
+							|| (this._Profil.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Profil.Entity = null;
+						previousValue.ContactUrgences.Remove(this);
+					}
+					this._Profil.Entity = value;
+					if ((value != null))
+					{
+						value.ContactUrgences.Add(this);
+						this._ProfilId = value.Id;
+					}
+					else
+					{
+						this._ProfilId = default(int);
+					}
+					this.SendPropertyChanged("Profil");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._Contact = default(EntityRef<Contact>);
+			this._Profil = default(EntityRef<Profil>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="userspace.Formations")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Formation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _ProfilId;
+		
+		private string _Titre;
+		
+		private string _Description;
+		
+		private bool _Public;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntityRef<Profil> _Profil;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnProfilIdChanging(int value);
+    partial void OnProfilIdChanged();
+    partial void OnTitreChanging(string value);
+    partial void OnTitreChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnPublicChanging(bool value);
+    partial void OnPublicChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public Formation()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int ProfilId
+		{
+			get
+			{
+				return this._ProfilId;
+			}
+			set
+			{
+				if ((this._ProfilId != value))
+				{
+					if (this._Profil.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProfilIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProfilId = value;
+					this.SendPropertyChanged("ProfilId");
+					this.OnProfilIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titre", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Titre
+		{
+			get
+			{
+				return this._Titre;
+			}
+			set
+			{
+				if ((this._Titre != value))
+				{
+					this.OnTitreChanging(value);
+					this.SendPropertyChanging();
+					this._Titre = value;
+					this.SendPropertyChanged("Titre");
+					this.OnTitreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Public]", Storage="_Public", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public bool Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_Formation", Storage="_Profil", ThisKey="ProfilId", OtherKey="Id", IsForeignKey=true)]
+		public Profil Profil
+		{
+			get
+			{
+				return this._Profil.Entity;
+			}
+			set
+			{
+				Profil previousValue = this._Profil.Entity;
+				if (((previousValue != value) 
+							|| (this._Profil.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Profil.Entity = null;
+						previousValue.Formations.Remove(this);
+					}
+					this._Profil.Entity = value;
+					if ((value != null))
+					{
+						value.Formations.Add(this);
+						this._ProfilId = value.Id;
+					}
+					else
+					{
+						this._ProfilId = default(int);
+					}
+					this.SendPropertyChanged("Profil");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._Profil = default(EntityRef<Profil>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="userspace.Preferences")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Preference : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _ProfilId;
+		
+		private string _Name;
+		
+		private string _Value;
+		
+		private EntityRef<Profil> _Profil;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnProfilIdChanging(int value);
+    partial void OnProfilIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    #endregion
+		
+		public Preference()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int ProfilId
+		{
+			get
+			{
+				return this._ProfilId;
+			}
+			set
+			{
+				if ((this._ProfilId != value))
+				{
+					if (this._Profil.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProfilIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProfilId = value;
+					this.SendPropertyChanged("ProfilId");
+					this.OnProfilIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_Preference", Storage="_Profil", ThisKey="ProfilId", OtherKey="Id", IsForeignKey=true)]
+		public Profil Profil
+		{
+			get
+			{
+				return this._Profil.Entity;
+			}
+			set
+			{
+				Profil previousValue = this._Profil.Entity;
+				if (((previousValue != value) 
+							|| (this._Profil.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Profil.Entity = null;
+						previousValue.Preferences.Remove(this);
+					}
+					this._Profil.Entity = value;
+					if ((value != null))
+					{
+						value.Preferences.Add(this);
+						this._ProfilId = value.Id;
+					}
+					else
+					{
+						this._ProfilId = default(int);
+					}
+					this.SendPropertyChanged("Profil");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._Profil = default(EntityRef<Profil>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="userspace.Profils")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Profil : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.Nullable<int> _ConcentrationId;
+		
+		private string _CodeUniversel;
+		
+		private string _Nom;
+		
+		private string _Prenom;
+		
+		private System.Data.Linq.Binary _Avatar;
+		
+		private bool _Actif;
+		
+		private bool _Public;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntitySet<Allergie> _Allergies;
+		
+		private EntityRef<ProfilAvance> _ProfilAvance;
+		
+		private EntitySet<ContactUrgence> _ContactUrgences;
+		
+		private EntitySet<Formation> _Formations;
+		
+		private EntitySet<Preference> _Preferences;
+		
+		private EntityRef<Concentration> _Concentration;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnConcentrationIdChanging(System.Nullable<int> value);
+    partial void OnConcentrationIdChanged();
+    partial void OnCodeUniverselChanging(string value);
+    partial void OnCodeUniverselChanged();
+    partial void OnNomChanging(string value);
+    partial void OnNomChanged();
+    partial void OnPrenomChanging(string value);
+    partial void OnPrenomChanged();
+    partial void OnAvatarChanging(System.Data.Linq.Binary value);
+    partial void OnAvatarChanged();
+    partial void OnActifChanging(bool value);
+    partial void OnActifChanged();
+    partial void OnPublicChanging(bool value);
+    partial void OnPublicChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public Profil()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConcentrationId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public System.Nullable<int> ConcentrationId
+		{
+			get
+			{
+				return this._ConcentrationId;
+			}
+			set
+			{
+				if ((this._ConcentrationId != value))
+				{
+					if (this._Concentration.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnConcentrationIdChanging(value);
+					this.SendPropertyChanging();
+					this._ConcentrationId = value;
+					this.SendPropertyChanged("ConcentrationId");
+					this.OnConcentrationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string CodeUniversel
+		{
+			get
+			{
+				return this._CodeUniversel;
+			}
+			set
+			{
+				if ((this._CodeUniversel != value))
+				{
+					this.OnCodeUniverselChanging(value);
+					this.SendPropertyChanging();
+					this._CodeUniversel = value;
+					this.SendPropertyChanged("CodeUniversel");
+					this.OnCodeUniverselChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Nom
+		{
+			get
+			{
+				return this._Nom;
+			}
+			set
+			{
+				if ((this._Nom != value))
+				{
+					this.OnNomChanging(value);
+					this.SendPropertyChanging();
+					this._Nom = value;
+					this.SendPropertyChanged("Nom");
+					this.OnNomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string Prenom
+		{
+			get
+			{
+				return this._Prenom;
+			}
+			set
+			{
+				if ((this._Prenom != value))
+				{
+					this.OnPrenomChanging(value);
+					this.SendPropertyChanging();
+					this._Prenom = value;
+					this.SendPropertyChanged("Prenom");
+					this.OnPrenomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarBinary(4000)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Data.Linq.Binary Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this.OnAvatarChanging(value);
+					this.SendPropertyChanging();
+					this._Avatar = value;
+					this.SendPropertyChanged("Avatar");
+					this.OnAvatarChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Actif", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public bool Actif
+		{
+			get
+			{
+				return this._Actif;
+			}
+			set
+			{
+				if ((this._Actif != value))
+				{
+					this.OnActifChanging(value);
+					this.SendPropertyChanging();
+					this._Actif = value;
+					this.SendPropertyChanged("Actif");
+					this.OnActifChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Public]", Storage="_Public", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public bool Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_Allergy", Storage="_Allergies", ThisKey="Id", OtherKey="ProfilId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		public EntitySet<Allergie> Allergies
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Allergies.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Allergies;
+			}
+			set
+			{
+				this._Allergies.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_ProfilsAvance", Storage="_ProfilAvance", ThisKey="Id", OtherKey="ProfilId", IsUnique=true, IsForeignKey=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
+		public ProfilAvance ProfilAvance
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._ProfilAvance.HasLoadedOrAssignedValue == false)))
+				{
+					return null;
+				}
+				return this._ProfilAvance.Entity;
+			}
+			set
+			{
+				ProfilAvance previousValue = this._ProfilAvance.Entity;
+				if (((previousValue != value) 
+							|| (this._ProfilAvance.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ProfilAvance.Entity = null;
+						previousValue.Profil = null;
+					}
+					this._ProfilAvance.Entity = value;
+					if ((value != null))
+					{
+						value.Profil = this;
+					}
+					this.SendPropertyChanged("ProfilAvance");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_ContactsUrgence", Storage="_ContactUrgences", ThisKey="Id", OtherKey="ProfilId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
+		public EntitySet<ContactUrgence> ContactUrgences
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._ContactUrgences.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._ContactUrgences;
+			}
+			set
+			{
+				this._ContactUrgences.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_Formation", Storage="_Formations", ThisKey="Id", OtherKey="ProfilId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
+		public EntitySet<Formation> Formations
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Formations.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Formations;
+			}
+			set
+			{
+				this._Formations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profil_Preference", Storage="_Preferences", ThisKey="Id", OtherKey="ProfilId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
+		public EntitySet<Preference> Preferences
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Preferences.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Preferences;
+			}
+			set
+			{
+				this._Preferences.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Concentration_Profil", Storage="_Concentration", ThisKey="ConcentrationId", OtherKey="Id", IsForeignKey=true)]
+		public Concentration Concentration
+		{
+			get
+			{
+				return this._Concentration.Entity;
+			}
+			set
+			{
+				Concentration previousValue = this._Concentration.Entity;
+				if (((previousValue != value) 
+							|| (this._Concentration.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Concentration.Entity = null;
+						previousValue.Profils.Remove(this);
+					}
+					this._Concentration.Entity = value;
+					if ((value != null))
+					{
+						value.Profils.Add(this);
+						this._ConcentrationId = value.Id;
+					}
+					else
+					{
+						this._ConcentrationId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Concentration");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Allergies(Allergie entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = this;
+		}
+		
+		private void detach_Allergies(Allergie entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = null;
+		}
+		
+		private void attach_ContactUrgences(ContactUrgence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = this;
+		}
+		
+		private void detach_ContactUrgences(ContactUrgence entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = null;
+		}
+		
+		private void attach_Formations(Formation entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = this;
+		}
+		
+		private void detach_Formations(Formation entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = null;
+		}
+		
+		private void attach_Preferences(Preference entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = this;
+		}
+		
+		private void detach_Preferences(Preference entity)
+		{
+			this.SendPropertyChanging();
+			entity.Profil = null;
+		}
+		
+		private void Initialize()
+		{
+			this._Allergies = new EntitySet<Allergie>(new Action<Allergie>(this.attach_Allergies), new Action<Allergie>(this.detach_Allergies));
+			this._ProfilAvance = default(EntityRef<ProfilAvance>);
+			this._ContactUrgences = new EntitySet<ContactUrgence>(new Action<ContactUrgence>(this.attach_ContactUrgences), new Action<ContactUrgence>(this.detach_ContactUrgences));
+			this._Formations = new EntitySet<Formation>(new Action<Formation>(this.attach_Formations), new Action<Formation>(this.detach_Formations));
+			this._Preferences = new EntitySet<Preference>(new Action<Preference>(this.attach_Preferences), new Action<Preference>(this.detach_Preferences));
+			this._Concentration = default(EntityRef<Concentration>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 }
