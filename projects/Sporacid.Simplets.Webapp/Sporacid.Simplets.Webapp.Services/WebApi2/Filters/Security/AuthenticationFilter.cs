@@ -15,6 +15,7 @@
     using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
+    using Sporacid.Simplets.Webapp.Services.Services.Administration;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
 
@@ -99,6 +100,15 @@
             response.Headers.Add("Authorization-Token", base64Token);
             response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("G"));
             response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.ToString());
+
+            // Check if the user is logged in for the first time.
+            var identity = tokenAndPrincipal.Principal.Identity.Name;
+            var principalAdministrationService = kernel.Get<IPrincipalAdministrationService>();
+            if (!principalAdministrationService.PrincipalExists(identity))
+            {
+                // Suer logged in for first time. Create its principal.
+                principalAdministrationService.CreatePrincipal(identity);
+            }
 
             return Task.FromResult(0);
         }

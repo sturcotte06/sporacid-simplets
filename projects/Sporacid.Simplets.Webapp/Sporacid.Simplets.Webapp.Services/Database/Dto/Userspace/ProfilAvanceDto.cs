@@ -9,13 +9,10 @@
     public class ProfilAvanceDto
     {
         [StringLength(12)]
-        public string CodePermanent { get; set; }
+        public String CodePermanent { get; set; }
 
-        public DateTime DateNaissance { get; set; }
-
-        [StringLength(50)]
-        public string Prenom { get; set; }
-
+        public DateTime? DateNaissance { get; set; }
+        
         [RegularExpression("[0-9]{10}")]
         public String Telephone { get; set; }
 

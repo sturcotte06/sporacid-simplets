@@ -21,6 +21,19 @@
         }
 
         /// <summary>
+        /// Gets the profil object from the system.
+        /// </summary>
+        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
+        /// <returns>The profil.</returns>
+        [HttpGet]
+        [Route("")]
+        public ProfilDto GetProfil(String codeUniversel)
+        {
+            var profilEntity = this.profilRepository.GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel));
+            return Mapper.Map<Profil, ProfilDto>(profilEntity);
+        }
+
+        /// <summary>
         /// Updates the profil object in the system.
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>

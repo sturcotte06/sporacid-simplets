@@ -88,6 +88,11 @@
     <Compile Include="Localization\ILocalizable.cs" />
     <Compile Include="Localization\IMessageLocalizer.cs" />
     <Compile Include="Localization\MessageLocalizer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IDatabaseCreator.cs" />
     <Compile Include="Repositories\IDataContextStore.cs" />
     <Compile Include="Repositories\Impl\DataContextStore.cs" />
@@ -138,9 +143,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Security.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Security\Ldap\ILdapSearcher.cs" />
+    <Compile Include="Security\Ldap\ILdapUser.cs" />
+    <Compile Include="Security\Ldap\Impl\ActiveDirectorySearcher.cs" />
+    <Compile Include="Security\Ldap\Impl\ActiveDirectoryUser.cs" />
+    <Compile Include="Security\Ldap\SearchBy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Security\Database\Security.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Security.designer.cs</LastGenOutput>

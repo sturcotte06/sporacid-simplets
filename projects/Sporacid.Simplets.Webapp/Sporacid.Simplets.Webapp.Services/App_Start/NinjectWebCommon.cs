@@ -20,6 +20,8 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Core.Security.Ldap;
+    using Sporacid.Simplets.Webapp.Core.Security.Ldap.Impl;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Services.Administration;
     using Sporacid.Simplets.Webapp.Services.Services.Administration.Impl;
@@ -141,14 +143,14 @@ namespace Sporacid.Simplets.Webapp.Services
             // 1. bind security module defaults.
             kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
                 .InRequestScope()
-                .WithConstructorArgument("ENS.AD.ETSMTL.CA");
+                .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
             kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>()
                 .InRequestScope();
             // 2. bind implementation to themselves. 
             // There is cases where we specifically need a given module.
             kernel.Bind<KerberosAuthenticationModule>().ToSelf()
                 .InRequestScope()
-                .WithConstructorArgument("ENS.AD.ETSMTL.CA");
+                .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
             kernel.Bind<TokenAuthenticationModule>().ToSelf()
                 .InRequestScope()
                 // Bind observables like this, because it doesn't work another way.
@@ -178,6 +180,10 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
                 .WithConstructorArgument(TimeSpan.FromHours(6))
                 .WithConstructorArgument((uint) 64);
+
+            // Ldap configuration.
+            kernel.Bind<ILdapSearcher>().To<ActiveDirectorySearcher>()
+                .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
         }
 
         /// <summary>
@@ -208,7 +214,7 @@ namespace Sporacid.Simplets.Webapp.Services
             // Services configuration.
             // Administration services.
             kernel.Bind<IContextAdministrationService>().To<ContextAdministrationService>().InRequestScope();
-            kernel.Bind<IProfilAdministrationService>().To<ProfilAdministrationService>().InRequestScope();
+            kernel.Bind<IUserspaceAdministrationService>().To<UserspaceAdministrationService>().InRequestScope();
             kernel.Bind<IPrincipalAdministrationService>().To<PrincipalAdministrationService>().InRequestScope();
             kernel.Bind<ISystemAdministrationService>().To<SystemAdministrationService>().InRequestScope();
             // Club services.

@@ -11,6 +11,14 @@
     public interface IProfilService
     {
         /// <summary>
+        /// Gets the profil object from the system.
+        /// </summary>
+        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
+        /// <returns>The profil.</returns>
+        [RequiredClaims(Claims.Admin | Claims.Read)]
+        ProfilDto GetProfil(String codeUniversel);
+
+        /// <summary>
         /// Updates the profil object in the system.
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>

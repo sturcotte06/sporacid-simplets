@@ -6,13 +6,11 @@
       <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="security.RolesTemplatesModulesClaims" Member="RoleTemplateModuleClaims">
-    <Type Name="RoleTemplateModuleClaims">
-      <Column Name="RoleTemplateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ModuleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Claims" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Module_RoleTemplateModuleClaims" Member="Module" ThisKey="ModuleId" OtherKey="Id" Type="Module" IsForeignKey="true" />
-      <Association Name="RoleTemplate_RoleTemplateModuleClaims" Member="RoleTemplate" ThisKey="RoleTemplateId" OtherKey="Id" Type="RoleTemplate" IsForeignKey="true" />
+  <Table Name="security.RolesTemplates" Member="RoleTemplates">
+    <Type Name="RoleTemplate">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="RoleTemplate_RoleTemplateModuleClaims" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="RoleTemplateId" Type="RoleTemplateModuleClaims" />
     </Type>
   </Table>
   <Table Name="security.Contexts" Member="Contexts">
@@ -26,15 +24,14 @@
     <Type Name="Module">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Association Name="Module_RoleTemplateModuleClaims" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="ModuleId" Type="RoleTemplateModuleClaims" />
       <Association Name="Module_PrincipalModuleContextClaims" Member="PrincipalModuleContextClaims" ThisKey="Id" OtherKey="ModuleId" Type="PrincipalModuleContextClaims" />
+      <Association Name="Module_RoleTemplateModuleClaims" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="ModuleId" Type="RoleTemplateModuleClaims" />
     </Type>
   </Table>
   <Table Name="security.Principals" Member="Principals">
     <Type Name="Principal">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="[Identity]" Member="Identity" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Association Name="Principal_PrincipalAudit" Member="PrincipalAudits" ThisKey="Id" OtherKey="PrincipalId" Type="PrincipalAudit" />
       <Association Name="Principal_PrincipalModuleContextClaims" Member="PrincipalModuleContextClaims" ThisKey="Id" OtherKey="PrincipalId" Type="PrincipalModuleContextClaims" />
     </Type>
@@ -59,11 +56,13 @@
       <Association Name="Module_PrincipalModuleContextClaims" Member="Module" ThisKey="ModuleId" OtherKey="Id" Type="Module" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="security.RolesTemplates" Member="RoleTemplates">
-    <Type Name="RoleTemplate">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Association Name="RoleTemplate_RoleTemplateModuleClaims" Member="RoleTemplateModuleClaims" ThisKey="Id" OtherKey="RoleTemplateId" Type="RoleTemplateModuleClaims" />
+  <Table Name="security.RolesTemplatesModulesClaims" Member="RoleTemplateModuleClaims">
+    <Type Name="RoleTemplateModuleClaims">
+      <Column Name="RoleTemplateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Claims" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Module_RoleTemplateModuleClaims" Member="Module" ThisKey="ModuleId" OtherKey="Id" Type="Module" IsForeignKey="true" />
+      <Association Name="RoleTemplate_RoleTemplateModuleClaims" Member="RoleTemplate" ThisKey="RoleTemplateId" OtherKey="Id" Type="RoleTemplate" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -9,7 +9,7 @@
     [Serializable]
     public class ProfilDto
     {
-        public ConcentrationDto Concentration { get; set; }
+        public Int32 ConcentrationId { get; set; }
 
         [StringLength(50)]
         public string Nom { get; set; }
@@ -24,5 +24,13 @@
         public bool Public { get; set; }
 
         // public byte[] Avatar { get; set; }
+
+        [Required]
+        public ProfilAvanceDto ProfilAvance { get; set; }
+
+        // public FormationDto[] Formations { get; set; }
+        // public PreferenceDto[] Preferences { get; set; }
+        // public AllergieDto[] Allergies { get; set; }
+        // public ContactDto[] ContactsUrgence { get; set; }
     }
 }

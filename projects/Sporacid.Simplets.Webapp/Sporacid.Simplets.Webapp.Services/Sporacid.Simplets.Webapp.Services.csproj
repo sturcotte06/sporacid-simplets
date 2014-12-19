@@ -188,6 +188,12 @@
     <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
     <Compile Include="Database\Dto\Clubs\MembreDto.cs" />
     <Compile Include="Services\Administration\ISystemAdministrationService.cs" />
+    <Compile Include="Services\Clubs\ICommanditeService.cs" />
+    <Compile Include="Services\Clubs\IFournisseurService.cs" />
+    <Compile Include="Services\Clubs\IInventaireService.cs" />
+    <Compile Include="Services\Clubs\Impl\CommanditeService.cs" />
+    <Compile Include="Services\Clubs\Impl\FournisseurService.cs" />
+    <Compile Include="Services\Clubs\Impl\InventaireService.cs" />
     <Compile Include="Services\Public\IAnonymousService.cs" />
     <Compile Include="Services\Public\IEnumerationService.cs" />
     <Compile Include="Services\Administration\Impl\SystemAdministrationService.cs" />
@@ -218,8 +224,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\Administration\IProfilAdministrationService.cs" />
-    <Compile Include="Services\Administration\Impl\ProfilAdministrationService.cs" />
+    <Compile Include="Services\Administration\IUserspaceAdministrationService.cs" />
+    <Compile Include="Services\Administration\Impl\UserspaceAdministrationService.cs" />
     <Compile Include="WebApi2\Trace\Log4NetTraceWriter.cs" />
   </ItemGroup>
   <ItemGroup>
