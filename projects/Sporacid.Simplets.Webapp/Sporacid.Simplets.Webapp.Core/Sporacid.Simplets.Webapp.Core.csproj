@@ -78,25 +78,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aspects\Contracts\IContract.cs" />
     <Compile Include="Aspects\Logging\LoggingLevel.cs" />
     <Compile Include="Aspects\Logging\TraceAttribute.cs" />
-    <Compile Include="Aspects\Validation\ValidAttribute.cs" />
     <Compile Include="Exceptions\Authorization\NotAuthorizedException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotUniqueException.cs" />
     <Compile Include="Exceptions\Repositories\RepositoryException.cs" />
-    <Compile Include="Localization\ILocalizable.cs" />
-    <Compile Include="Localization\IMessageLocalizer.cs" />
-    <Compile Include="Localization\MessageLocalizer.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Repositories\IDatabaseCreator.cs" />
     <Compile Include="Repositories\IDataContextStore.cs" />
     <Compile Include="Repositories\Impl\DataContextStore.cs" />
-    <Compile Include="Repositories\Impl\DatabaseCreator.cs" />
     <Compile Include="Repositories\Impl\GenericRepository.cs" />
     <Compile Include="Resources\Exceptions\ExceptionStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -150,12 +140,7 @@
     <Compile Include="Security\Ldap\SearchBy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Security\Database\Security.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Security.designer.cs</LastGenOutput>
@@ -176,7 +161,9 @@
       <DependentUpon>Security.dbml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Aspects\Contracts\Impl\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Exceptions\ExceptionStrings.fr.resx" />
     <EmbeddedResource Include="Resources\Exceptions\ExceptionStrings.resx">

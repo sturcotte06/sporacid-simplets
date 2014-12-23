@@ -1,0 +1,47 @@
+﻿.metro-icon.metro-add {
+    background-image: url("../img/metro-icons/metro-add.png");
+}
+
+.metro-icon.metro-context-change {
+    background-image: url("../img/metro-icons/metro-context-change.png");
+}
+
+.metro-icon.metro-dashboard {
+    background-image: url("../img/metro-icons/metro-dashboard.png");
+}
+
+.metro-icon.metro-delete {
+    background-image: url("../img/metro-icons/metro-delete.png");
+}
+
+.metro-icon.metro-edit {
+    background-image: url("../img/metro-icons/metro-edit.png");
+}
+
+.metro-icon.metro-export {
+    background-image: url("../img/metro-icons/metro-export.png");
+}
+
+.metro-icon.metro-exportpdf {
+    background-image: url("../img/metro-icons/metro-exportpdf.png");
+}
+
+.metro-icon.metro-identity {
+    background-image: url("../img/metro-icons/metro-identity.png");
+}
+
+.metro-icon.metro-logout {
+    background-image: url("../img/metro-icons/metro-logout.png");
+}
+
+.metro-icon.metro-refresh {
+    background-image: url("../img/metro-icons/metro-refresh.png");
+}
+
+.metro-icon.metro-search {
+    background-image: url("../img/metro-icons/metro-search.png");
+}
+
+.metro-icon.metro-settings {
+    background-image: url("../img/metro-icons/metro-settings.png");
+}

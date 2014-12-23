@@ -15,7 +15,7 @@
             {
                 throw new RepositoryException(String.Format("{0} is not a DataContext type.", dataContextType));
             }
-            
+
             // No data context. Create a new one.
             this.DataContext = kernel.Get(dataContextType) as DataContext;
 
@@ -29,5 +29,13 @@
         /// The data context. It should not be disposed by users of this interface.
         /// </summary>
         public DataContext DataContext { get; private set; }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.DataContext.Dispose();
+        }
     }
 }

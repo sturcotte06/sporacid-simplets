@@ -126,8 +126,26 @@
   <data name="Core_Exceptions_Repository_EntityNotUnique" xml:space="preserve">
     <value>L'entité n'est pas unique. La clause where doit pointer sur une entité unique.</value>
   </data>
+  <data name="Core_Exceptions_Security_ContextsDoNotAllExist" xml:space="preserve">
+    <value>Tentative d'accès à un ou plusieurs contextes non configuré(s). Autorisation refusée par défauut.</value>
+  </data>
+  <data name="Core_Exceptions_Security_KererosDown" xml:space="preserve">
+    <value>Impossible de contacterle serveur Kerberos. Si vous n'êtes pas dans le domaine de l'application, veuillez-vous assurer que vous soyez connecté par vpn.</value>
+  </data>
+  <data name="Core_Exceptions_Security_ModuleDoesNotExist" xml:space="preserve">
+    <value>Tentative d'accès à un module non configuré. Autorisation refusée par défauut.</value>
+  </data>
+  <data name="Core_Exceptions_Security_PrincipalDoesNotExist" xml:space="preserve">
+    <value>L'usager n'a aucun droit dans le système. Veuillez créer l'usager avant de réessayer.</value>
+  </data>
+  <data name="Core_Exceptions_Security_PrincipalModuleContextsClaimsInsufficient" xml:space="preserve">
+    <value>L'usager n'a pas les droits nécessaire afin d'accéder à ce module dans ces contextes.</value>
+  </data>
   <data name="Core_Exceptions_Security_Unauthorized" xml:space="preserve">
     <value>L'action ne peut être autorisée.</value>
+  </data>
+  <data name="Core_Exceptions_Security_UnauthorizedModuleContextsAccess" xml:space="preserve">
+    <value>L'usager n'a pas le droit d'accéder à ce module dans ces contextes.</value>
   </data>
   <data name="Core_Exceptions_Security_WrongCredentials" xml:space="preserve">
     <value>Les informations de l'usager n'existent pas.</value>

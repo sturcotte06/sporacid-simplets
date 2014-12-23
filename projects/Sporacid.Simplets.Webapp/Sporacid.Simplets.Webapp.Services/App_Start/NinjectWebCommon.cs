@@ -44,9 +44,11 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Tools.Factories;
     using Sporacid.Simplets.Webapp.Tools.Threading.Pooling;
 
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
     public static class NinjectWebCommon
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -55,7 +57,7 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             DynamicModuleUtility.RegisterModule(typeof (OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof (NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace Sporacid.Simplets.Webapp.Services
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
 
         /// <summary>
@@ -113,26 +115,26 @@ namespace Sporacid.Simplets.Webapp.Services
                 .WhenAnyAncestorMatches(ctx =>
                     !typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) &&
                     !typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
-                .InRequestScope()
-                .OnDeactivation(repository => ((IDisposable) repository).Dispose());
+                .InRequestScope();
             // Bind repositories used in the bootstrapping of security database in thread scope,
             // because it's not running as a web request.
             kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
                 .WhenAnyAncestorMatches(ctx =>
                     typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) ||
                     typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
-                .InThreadScope()
-                .OnDeactivation(repository => ((IDisposable) repository).Dispose());
+                .InThreadScope();
 
             // Data context stores configuration
             kernel.Bind<IDataContextStore>().To<DataContextStore>()
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
                 .InRequestScope()
-                .WithConstructorArgument(typeof (SecurityDataContext));
+                .WithConstructorArgument(typeof (SecurityDataContext))
+                .OnDeactivation(store => ((IDisposable) store).Dispose());
             kernel.Bind<IDataContextStore>().To<DataContextStore>()
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
                 .InRequestScope()
-                .WithConstructorArgument(typeof (DatabaseDataContext));
+                .WithConstructorArgument(typeof (DatabaseDataContext))
+                .OnDeactivation(store => ((IDisposable) store).Dispose());
 
             // Security database boostrap configuration.
             kernel.Bind<ISecurityDatabaseBootstrapper>().To<SecurityDatabaseBootstrapper>();
@@ -166,7 +168,7 @@ namespace Sporacid.Simplets.Webapp.Services
                 .ToMethod(ctx => new IAuthenticationModule[]
                 {
                     kernel.Get<KerberosAuthenticationModule>(),
-                    kernel.Get<TokenAuthenticationModule>(),
+                    kernel.Get<TokenAuthenticationModule>()
                 })
                 .InRequestScope();
             kernel.Bind<IEnumerable<IAuthorizationModule>>()
@@ -242,7 +244,7 @@ namespace Sporacid.Simplets.Webapp.Services
                 .ToMethod(ctx => new ICredentialsExtractor[]
                 {
                     kernel.Get<KerberosCredentialsExtractor>(),
-                    kernel.Get<TokenCredentialsExtractor>(),
+                    kernel.Get<TokenCredentialsExtractor>()
                 });
         }
 
@@ -269,13 +271,16 @@ namespace Sporacid.Simplets.Webapp.Services
                     "Sporacid.Simplets.Webapp.Services.Services.Userspace"
                 });
 
-            // Bind the exception hadling filter on services that have the HandlesException attribute
+            // Bind the exception handling filter on services that have the HandlesException attribute
             kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Controller)
                 .WhenControllerHas<HandlesExceptionAttribute>()
                 .InRequestScope();
 
             // Bind the localization filter.
             kernel.BindHttpFilter<LocalizationFilter>(FilterScope.Global);
+
+            // Bind the anti-forgery validation filter.
+            // kernel.BindHttpFilter<ValidateAntiForgeryTokenFilter>(FilterScope.Global);
         }
     }
 }

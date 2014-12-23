@@ -22,6 +22,7 @@
         /// Creates a principal in the system.
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
+        /// <returns>The created principal id.</returns>
         [RequiredClaims(Claims.Admin | Claims.Create)]
         Int32 CreatePrincipal([Required] String identity);
     }

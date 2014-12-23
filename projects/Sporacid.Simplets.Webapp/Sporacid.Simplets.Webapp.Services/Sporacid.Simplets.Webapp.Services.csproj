@@ -15,7 +15,7 @@
     <AssemblyName>Sporacid.Simplets.Webapp.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -184,6 +184,7 @@
     <Compile Include="Database\Dto\Userspace\ProfilAvanceDto.cs" />
     <Compile Include="Database\Dto\Userspace\ProfilDto.cs" />
     <Compile Include="Database\Dto\Clubs\StatutSuivieDto.cs" />
+    <Compile Include="Database\Dto\WithId.cs" />
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
     <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
     <Compile Include="Database\Dto\Clubs\MembreDto.cs" />
@@ -194,6 +195,8 @@
     <Compile Include="Services\Clubs\Impl\CommanditeService.cs" />
     <Compile Include="Services\Clubs\Impl\FournisseurService.cs" />
     <Compile Include="Services\Clubs\Impl\InventaireService.cs" />
+    <Compile Include="Services\Clubs\Impl\SuivieService.cs" />
+    <Compile Include="Services\Clubs\ISuivieService.cs" />
     <Compile Include="Services\Public\IAnonymousService.cs" />
     <Compile Include="Services\Public\IEnumerationService.cs" />
     <Compile Include="Services\Administration\Impl\SystemAdministrationService.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="WebApi2\Filters\Security\Credentials\Impl\KerberosCredentialsExtractor.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\HandlesExceptionAttribute.cs" />
     <Compile Include="WebApi2\Filters\ExceptionHandling\ExceptionHandlingFilter.cs" />
+    <Compile Include="WebApi2\Filters\Security\ValidateAntiForgeryTokenFilter.cs" />
     <Compile Include="WebApi2\Resolvers\ServiceHttpControllerTypeResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -291,7 +295,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>9315</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9315/</IISUrl>
+          <IISUrl>http://localhost/services</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

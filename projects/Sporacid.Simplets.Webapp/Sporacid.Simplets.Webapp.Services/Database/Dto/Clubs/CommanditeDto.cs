@@ -8,11 +8,8 @@
     [Serializable]
     public class CommanditeDto
     {
-        [Required]
-        public FournisseurDto Fournisseur { get; set; }
-
-        [Required]
-        public ItemDto Item { get; set; }
+        public Int32? FournisseurId { get; set; }
+        public Int32? ItemId { get; set; }
 
         [Required]
         [Range(0, 1000000)]

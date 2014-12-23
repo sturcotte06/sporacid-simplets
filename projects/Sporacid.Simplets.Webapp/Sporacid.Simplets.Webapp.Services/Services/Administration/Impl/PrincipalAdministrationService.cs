@@ -37,6 +37,7 @@
         /// Creates a principal in the system.
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
+        /// <returns>The created principal id.</returns>
         public Int32 CreatePrincipal(String identity)
         {
             // Add the new principal.

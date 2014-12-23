@@ -11,6 +11,8 @@
     using Sporacid.Simplets.Webapp.Services.WebApi2.Resolvers;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Trace;
 
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
@@ -27,7 +29,7 @@
             }
 
             // Use log4net for logging
-            config.Services.Replace(typeof(ITraceWriter), new Log4NetTraceWriter());
+            config.Services.Replace(typeof (ITraceWriter), new Log4NetTraceWriter());
             Trace.AutoFlush = true;
 
             config.Services.Replace(typeof (IDocumentationProvider),

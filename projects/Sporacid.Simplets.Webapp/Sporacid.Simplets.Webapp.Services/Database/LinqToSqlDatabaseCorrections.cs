@@ -78,4 +78,8 @@
     partial class Preference : IHasId<Int32>
     {
     }
+
+    partial class Suivie : IHasId<Int32>
+    {
+    }
 }

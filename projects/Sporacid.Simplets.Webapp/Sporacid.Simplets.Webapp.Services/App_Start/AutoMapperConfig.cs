@@ -24,29 +24,66 @@
 
             // Create all mappings.
             // Clubs dtos.
-            Mapper.CreateMap<Club, ClubDto>().ReverseMap();
-            Mapper.CreateMap<Commandite, CommanditeDto>().ReverseMap();
-            Mapper.CreateMap<Evenement, EvenementDto>().ReverseMap();
-            Mapper.CreateMap<Fournisseur, FournisseurDto>().ReverseMap();
-            Mapper.CreateMap<Item, ItemDto>().ReverseMap();
-            Mapper.CreateMap<Membre, MembreDto>().ReverseMap();
-            Mapper.CreateMap<StatutSuivie, StatutSuivieDto>().ReverseMap();
-            Mapper.CreateMap<Suivie, SuivieDto>().ReverseMap();
+            Mapper.CreateMap<Club, ClubDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Commandite, CommanditeDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Evenement, EvenementDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Fournisseur, FournisseurDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Item, ItemDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Membre, MembreDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<StatutSuivie, StatutSuivieDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Suivie, SuivieDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
             // Dbo dtos.
-            Mapper.CreateMap<Adresse, AdresseDto>().ReverseMap();
-            Mapper.CreateMap<Concentration, ConcentrationDto>().ReverseMap();
-            Mapper.CreateMap<Contact, ContactDto>().ReverseMap();
-            Mapper.CreateMap<TypeContact, TypeContactDto>().ReverseMap();
-            Mapper.CreateMap<Unite, UniteDto>().ReverseMap();
+            Mapper.CreateMap<Adresse, AdresseDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Concentration, ConcentrationDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Contact, ContactDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<TypeContact, TypeContactDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Unite, UniteDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
             // Userspace dtos.
-            Mapper.CreateMap<Allergie, AllergieDto>().ReverseMap();
-            Mapper.CreateMap<Formation, FormationDto>().ReverseMap();
-            Mapper.CreateMap<Preference, PreferenceDto>().ReverseMap();
-            Mapper.CreateMap<ProfilAvance, ProfilAvanceDto>().ReverseMap();
-            Mapper.CreateMap<Profil, ProfilDto>().ReverseMap();
+            Mapper.CreateMap<Allergie, AllergieDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Formation, FormationDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Preference, PreferenceDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<ProfilAvance, ProfilAvanceDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Profil, ProfilDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
 
             // Assert that we have not screwed up.
-            //Mapper.AssertConfigurationIsValid();
+            Mapper.AssertConfigurationIsValid();
+        }
+    }
+
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    internal static class AutoMapperExtensions
+    {
+        public static IMappingExpression<TSource, TDestination> IgnoreUnmappedProperties<TSource, TDestination>(this IMappingExpression<TSource, TDestination> expression)
+        {
+            var typeMap = Mapper.FindTypeMapFor<TSource, TDestination>();
+            if (typeMap != null)
+            {
+                foreach (var unmappedPropertyName in typeMap.GetUnmappedPropertyNames())
+                {
+                    expression.ForMember(unmappedPropertyName, opt => opt.Ignore());
+                }
+            }
+
+            return expression;
         }
     }
 }

@@ -9,11 +9,8 @@
     public class MembreDto
     {
         [Required]
-        public int Id { get; set; }
-
-        [Required]
         [StringLength(50)]
-        public string Titre { get; set; }
+        public String Titre { get; set; }
 
         [Required]
         public DateTime DateDebut { get; set; }
@@ -21,6 +18,6 @@
         public DateTime DateFin { get; set; }
 
         [Required]
-        public bool Actif { get; set; }
+        public Boolean Actif { get; set; }
     }
 }

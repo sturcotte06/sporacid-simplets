@@ -1,12 +1,14 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authorization.Impl
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Tools;
     using Sporacid.Simplets.Webapp.Tools.Collections;
@@ -35,7 +37,7 @@
         /// <param name="claims">What the user claims to be authorized to do on the module and context.</param>
         /// <param name="module">The module name which the user tries to access.</param>
         /// <param name="contexts">The context name which the user tries to access.</param>
-        public void Authorize(IPrincipal principal, Claims claims, string module, params string[] contexts)
+        public void Authorize(IPrincipal principal, Claims claims, string module, params String[] contexts)
         {
             if (claims == Claims.None)
             {
@@ -47,12 +49,12 @@
             // Get the principal. If this throws, it's probably because the principal does not exist. Cannot authorize.
             var principalEntity = Snippets.TryCatch<Principal, RepositoryException>(() =>
                 this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, principal.Identity.Name)),
-                ex => { throw new NotAuthorizedException("Principal has no authorization in the system. Create the principal before attempting again."); });
+                ex => { throw new NotAuthorizedException(ExceptionStrings.Core_Exceptions_Security_PrincipalDoesNotExist); });
 
             // Get the module. If this throws, it's probably because the module does not exist. Cannot authorize.
             var moduleEntity = Snippets.TryCatch<Module, RepositoryException>(() =>
                 this.moduleRepository.GetUnique(m => SqlMethods.Like(m.Name, module)),
-                ex => { throw new NotAuthorizedException("Trying to access non-configured module. Default is unauthorized."); });
+                ex => { throw new NotAuthorizedException(ExceptionStrings.Core_Exceptions_Security_ModuleDoesNotExist); });
 
             // Get the module. If this throws, it's probably because the module does not exist. Cannot authorize.
             var contextEntities = this.contextRepository.GetAll(c => contexts.Contains(c.Name));
@@ -60,7 +62,7 @@
             // Check if we found all contexts. If one is missing, cannot authorize.
             if (contextEntities.Count() != contexts.Count())
             {
-                throw new NotAuthorizedException("Trying to access non-configured contexts. Default is unauthorized.");
+                throw new NotAuthorizedException(ExceptionStrings.Core_Exceptions_Security_ContextsDoNotAllExist);
             }
 
             contextEntities.ForEach(contextEntity =>
@@ -72,7 +74,7 @@
                 if (principalClaimsOnContextAndModuleEntity == null)
                 {
                     // The principal is not subscribed to this context or this module.
-                    throw new NotAuthorizedException("The principal have no right to access this module in this context.");
+                    throw new NotAuthorizedException(ExceptionStrings.Core_Exceptions_Security_UnauthorizedModuleContextsAccess);
                 }
 
                 // Get claims flag from the entity.
@@ -80,7 +82,7 @@
                 if ((principalClaimsOnContextAndModule & claims) != claims)
                 {
                     // User does not have every required claims.
-                    throw new NotAuthorizedException("The principal does not have the required claims to act on this module in this context.");
+                    throw new NotAuthorizedException(ExceptionStrings.Core_Exceptions_Security_PrincipalModuleContextsClaimsInsufficient);
                 }
             });
         }

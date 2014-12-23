@@ -1,6 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl
 {
     using System.Collections.Generic;
+    using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens;

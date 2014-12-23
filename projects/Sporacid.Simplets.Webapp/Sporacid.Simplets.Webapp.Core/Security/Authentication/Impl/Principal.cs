@@ -22,13 +22,6 @@
         /// <param name="role">The name of the role for which to check membership. </param>
         public bool IsInRole(string role)
         {
-            // AuthorizationLevel authorizationLevel2;
-            // if (!Enum.TryParse(role, out authorizationLevel2))
-            // {
-            //     return false;
-            // }
-            // 
-            // return this.authorizationLevel == authorizationLevel2;
             return false;
         }
 

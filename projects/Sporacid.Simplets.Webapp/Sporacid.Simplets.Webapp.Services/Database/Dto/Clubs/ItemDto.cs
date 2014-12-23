@@ -10,12 +10,12 @@
     public class ItemDto
     {
         [Required]
-        public UniteDto Unite { get; set; }
+        public Int32 UniteId { get; set; }
 
         [Required]
         [StringLength(250)]
         public String Description { get; set; }
-        
+
         [StringLength(20)]
         public String CodeClub { get; set; }
 

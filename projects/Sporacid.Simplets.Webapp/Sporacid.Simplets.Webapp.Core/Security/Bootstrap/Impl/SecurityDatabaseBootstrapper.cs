@@ -15,10 +15,9 @@
     {
         private readonly IRepository<Int32, Claim> claimsRepository;
         private readonly IRepository<Int32, Context> contextRepository;
-        private readonly IDatabaseCreator databaseCreator;
         private readonly IRepository<Int32, Module> moduleRepository;
 
-        public SecurityDatabaseBootstrapper(/*IDatabaseCreator databaseCreator, */IRepository<Int32, Module> moduleRepository,
+        public SecurityDatabaseBootstrapper(IRepository<Int32, Module> moduleRepository,
             IRepository<Int32, Claim> claimsRepository, IRepository<Int32, Context> contextRepository)
         {
             /*this.databaseCreator = databaseCreator;*/
@@ -52,9 +51,6 @@
         /// </summary>
         private void Bootstrap(params Type[] configuredEndpoints)
         {
-            // Create the database. (Idempotent)
-            // this.databaseCreator.CreateDatabase();
-
             // Add a module and the fixed context, if applicable, for each configured endpoints.
             foreach (var configuredEndpoint in configuredEndpoints)
             {

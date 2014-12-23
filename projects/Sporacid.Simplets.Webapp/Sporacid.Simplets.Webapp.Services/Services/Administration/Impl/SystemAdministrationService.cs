@@ -34,7 +34,7 @@
         public int AddClub(ClubDto club)
         {
             // Cannot add the same club twice.
-            if (this.clubRepository.GetUnique(c => SqlMethods.Like(c.Nom, club.Nom)) != null)
+            if (this.clubRepository.Has(c => SqlMethods.Like(c.Nom, club.Nom)))
             {
                 throw new NotAuthorizedException(String.Format("Club '{0}' already exists and duplicates are not allowed.", club.Nom));
             }

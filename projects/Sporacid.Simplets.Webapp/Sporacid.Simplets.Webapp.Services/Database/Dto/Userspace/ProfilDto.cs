@@ -2,15 +2,15 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
     public class ProfilDto
     {
-        public Int32 ConcentrationId { get; set; }
+        public Int32? ConcentrationId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Nom { get; set; }
 

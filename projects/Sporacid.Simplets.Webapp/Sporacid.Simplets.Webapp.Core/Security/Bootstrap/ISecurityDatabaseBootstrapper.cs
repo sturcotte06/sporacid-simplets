@@ -1,6 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Bootstrap
 {
     using System.Reflection;
+    using PostSharp.Patterns.Contracts;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -14,6 +15,6 @@
         /// </summary>
         /// <param name="assembly">Assembly to scan for endpoints.</param>
         /// <param name="endpointsNamespaces">Namespaces to scan for endpoints.</param>
-        void Bootstrap(Assembly assembly, params string[] endpointsNamespaces);
+        void Bootstrap([Required] Assembly assembly, params string[] endpointsNamespaces);
     }
 }

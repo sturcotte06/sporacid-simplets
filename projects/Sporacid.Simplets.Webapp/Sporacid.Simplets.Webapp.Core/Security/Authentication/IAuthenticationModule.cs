@@ -1,5 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication
 {
+    using PostSharp.Patterns.Contracts;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
 
@@ -14,14 +15,14 @@
         /// <param name="credentials">The credentials of the user.</param>
         /// <exception cref="SecurityException" />
         /// <exception cref="WrongCredentialsException">If user does not exist or the password does not match.</exception>
-        ITokenAndPrincipal Authenticate(ICredentials credentials);
+        ITokenAndPrincipal Authenticate([Required] ICredentials credentials);
 
         /// <summary>
         /// Whether the authentication scheme is supported.
         /// </summary>
         /// <param name="scheme">The authentication scheme.</param>
         /// <returns> Whether the authentication scheme is supported.</returns>
-        bool IsSupported(AuthenticationScheme scheme);
+        bool IsSupported([Required] AuthenticationScheme scheme);
 
         /// <summary>
         /// The supported authentication schemes, as flags.

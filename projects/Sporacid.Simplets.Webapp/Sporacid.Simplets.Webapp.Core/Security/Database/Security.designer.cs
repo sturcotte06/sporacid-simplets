@@ -1075,8 +1075,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Context_PrincipalModuleContextClaims", Storage="_Context", ThisKey="ContextId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Context_PrincipalModuleContextClaims", Storage = "_Context", ThisKey = "ContextId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Context Context
 		{
 			get
@@ -1109,8 +1109,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Principal_PrincipalModuleContextClaims", Storage="_Principal", ThisKey="PrincipalId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Principal_PrincipalModuleContextClaims", Storage = "_Principal", ThisKey = "PrincipalId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Principal Principal
 		{
 			get
@@ -1143,8 +1143,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_PrincipalModuleContextClaims", Storage="_Module", ThisKey="ModuleId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Module_PrincipalModuleContextClaims", Storage = "_Module", ThisKey = "ModuleId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public Module Module
 		{
 			get
@@ -1302,7 +1302,7 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_RoleTemplateModuleClaims", Storage="_Module", ThisKey="ModuleId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_RoleTemplateModuleClaims", Storage="_Module", ThisKey="ModuleId", OtherKey="Id", IsForeignKey=true, DeleteOnNull = true)]
 		public Module Module
 		{
 			get
@@ -1335,8 +1335,8 @@ namespace Sporacid.Simplets.Webapp.Core.Security.Database
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoleTemplate_RoleTemplateModuleClaims", Storage="_RoleTemplate", ThisKey="RoleTemplateId", OtherKey="Id", IsForeignKey=true)]
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "RoleTemplate_RoleTemplateModuleClaims", Storage = "_RoleTemplate", ThisKey = "RoleTemplateId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true)]
 		public RoleTemplate RoleTemplate
 		{
 			get

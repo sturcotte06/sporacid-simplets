@@ -15,7 +15,7 @@
         /// </summary>
         /// <param name="context">The context.</param>
         [RequiredClaims(Claims.None)] // TODO can this be a DDOS possible attack?
-        Int32 CreateContext(String context);
+        Int32 CreateContext([Required] String context);
 
         /// <summary>
         /// Binds a role to the current user.

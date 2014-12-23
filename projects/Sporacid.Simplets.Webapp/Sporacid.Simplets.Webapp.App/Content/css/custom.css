@@ -1,0 +1,31 @@
+﻿.navbar-right .metro-icon {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    height: 36px;
+    width: 36px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.navbar-right > li > a {
+    padding-left: 58px;
+}
+
+.navbar-right > li > ul.dropdown-menu > li > a {
+    padding: 4px 10px;
+    padding-left: 48px;
+    position: relative;
+    text-align: right;
+}
+
+.navbar-right > li > ul.dropdown-menu > li > a > i.context-icon {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    height: 24px;
+    width: 24px;
+    background-size: 100% auto;
+    background-position: left center;
+    background-repeat: no-repeat;
+}

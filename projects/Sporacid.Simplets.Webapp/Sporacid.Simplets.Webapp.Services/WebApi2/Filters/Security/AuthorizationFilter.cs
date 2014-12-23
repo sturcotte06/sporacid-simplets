@@ -29,8 +29,8 @@
         //     this.Initialize(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services");
         // }
 
-        private readonly IKernel kernel;
         private readonly Dictionary<String, Claims> claimsByAction;
+        private readonly IKernel kernel;
 
         public AuthorizationFilter(IKernel kernel, String[] endpointsNamespaces)
         {
@@ -70,7 +70,7 @@
             }
 
             // Get an authorization module.
-            var authorizationModule = kernel.Get<IAuthorizationModule>();
+            var authorizationModule = this.kernel.Get<IAuthorizationModule>();
 
             // Get the context attribute. This is a required key of the authorization system.
             // Context can be fixed, or dynamic. Handle both cases.
@@ -98,7 +98,7 @@
                 authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
             }
 
-            return continuation.Invoke();
+            return continuation();
         }
 
         /// <summary>
@@ -108,7 +108,10 @@
         /// <returns>
         /// true if more than one instance is allowed to be specified; otherwise, false. The default is false.
         /// </returns>
-        public bool AllowMultiple { get; private set; }
+        public bool AllowMultiple
+        {
+            get { return false; }
+        }
 
         /// <summary>
         /// </summary>

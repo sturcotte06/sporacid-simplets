@@ -9,10 +9,16 @@
     public class SuivieDto
     {
         [Required]
-        public MembreDto Membre { get; set; }
+        public Int32 MembreId { get; set; }
 
         [Required]
-        public StatutSuivieDto StatutSuivie { get; set; }
+        public Int32 StatutSuivieId { get; set; }
+
+        //[Required]
+        //public MembreDto Membre { get; set; }
+
+        //[Required]
+        //public StatutSuivieDto StatutSuivie { get; set; }
 
         [Required]
         public DateTime DateSuivie { get; set; }

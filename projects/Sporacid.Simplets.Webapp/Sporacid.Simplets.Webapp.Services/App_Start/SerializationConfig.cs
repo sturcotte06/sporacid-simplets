@@ -1,11 +1,14 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
     using System;
+    using System.Globalization;
     using System.Web.Http;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
 
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
     public class SerializationConfig
     {
         public static void Register(HttpConfiguration config)
@@ -21,12 +24,14 @@
         }
     }
 
-    class PascalCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    public class PascalCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
     {
         protected override string ResolvePropertyName(string propertyName)
         {
-            var pascalCase = base.ResolvePropertyName(propertyName);
-            return pascalCase.Remove(0, 1).Insert(0, Char.ToUpper(pascalCase[0]).ToString());
+            var camelCase = base.ResolvePropertyName(propertyName);
+            return camelCase.Remove(0, 1).Insert(0, Char.ToUpper(camelCase[0]).ToString(CultureInfo.CurrentCulture));
         }
     }
 }
