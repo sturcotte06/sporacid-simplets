@@ -1,9 +1,21 @@
 ﻿<div id="page-wrapper">
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-4">
       <h1>Votre profil</h1>
       <br/>
+    </div>
+    <div class="col-lg-8" >
+      <h4>Votre niveau</h4>
+      <div style="position: relative;">
+      <div style="position:absolute; height: 40px; font-size:30px;">33</div>
+      <div class="progress" style="height: 40px; margin-left: 60px; margin-right: 60px; ">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+          <h4>Xp: 5174 / 8000</h4>
+        </div>
+      </div>
+      <div style="position:absolute; height: 40px; font-size:30px; right: 0px; top: 0px;">34</div>
+      </div>
     </div>
   </div>
 
@@ -46,8 +58,8 @@
                 <input type="checkbox" class="form-control text-left" style="width: 40px;"/>
                 <p class="help-block">Si coché, les utilisateurs de plateforme SimplETS pourront visionner cette section de votre profil.</p>
               </div>
-              <button type="submit" class="btn btn-primary">Sauvegarder</button>
-              <button class="btn btn-default">Annuler</button>
+              <button type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>Sauvegarder</button>
+              <button class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>Annuler</button>
             </form>
           </div>
         </div>
@@ -81,8 +93,8 @@
             <input type="checkbox" class="form-control text-left" style="width: 40px;"/>
             <p class="help-block">Si coché, les utilisateurs de plateforme SimplETS pourront visionner cette section de votre profil.</p>
           </div>
-          <button type="submit" class="btn btn-primary"><i class="metro-icon"></i>Sauvegarder</button>
-          <button class="btn btn-default">Annuler</button>
+          <button type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>Sauvegarder</button>
+          <button class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>Annuler</button>
         </form>
       </div>
     </div>
@@ -125,7 +137,7 @@
       </div>
     </div>
     
-        <div class="col-md-6">
+    <div class="col-md-6">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">Vos allergies</h3>
@@ -165,7 +177,17 @@
 @section InlineStyles
 {
   .btn {
+  position: relative;
+  padding-left:44px;
+  }
 
+  .btn .metro-icon {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 1px;
+  left: 1px;
+  border-radius:4px;
   }
 
   .table > tbody > tr > td > .metro-icon {

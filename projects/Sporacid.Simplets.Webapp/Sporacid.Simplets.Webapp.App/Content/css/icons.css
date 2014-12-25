@@ -45,3 +45,19 @@
 .metro-icon.metro-settings {
     background-image: url("../img/metro-icons/metro-settings.png");
 }
+
+.metro-icon.metro-save {
+    background-image: url("../img/metro-icons/metro-save.png");
+}
+
+.metro-icon.metro-save-trans {
+    background-image: url("../img/metro-icons/metro-save-trans.png");
+}
+
+.metro-icon.metro-cancel {
+    background-image: url("../img/metro-icons/metro-cancel.png");
+}
+
+.metro-icon.metro-cancel-trans {
+    background-image: url("../img/metro-icons/metro-cancel-trans.png");
+}
