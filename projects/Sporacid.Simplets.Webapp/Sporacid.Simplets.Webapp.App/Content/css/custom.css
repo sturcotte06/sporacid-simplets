@@ -1,11 +1,15 @@
-﻿.navbar-right .metro-icon {
+﻿.metro-icon {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+
+.navbar-right .metro-icon {
     position: absolute;
     top: 7px;
     left: 7px;
     height: 36px;
     width: 36px;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
 }
 
 .navbar-right > li > a {

@@ -278,10 +278,10 @@
     <Content Include="Content\font-awesome\scss\font-awesome.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\Partials\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_Profil.cshtml" />
+    <Content Include="Views\Shared\Fulls\Profil.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

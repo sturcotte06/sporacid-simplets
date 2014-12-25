@@ -6,7 +6,7 @@
     {
         public ActionResult Index()
         {
-            return this.View("Partials/_Profil");
+            return this.View("Fulls/Profil");
         }
     }
 }
