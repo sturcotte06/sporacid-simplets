@@ -104,3 +104,13 @@ INSERT INTO [clubs].[StatutsSuivie] VALUES ('FERME', 'Fermé');
 
 -- INSERT INTO [dbo].[MembresAllergies] VALUES (1,1, DEFAULT);
 -- INSERT INTO [dbo].[MembresAllergies] VALUES (1,2, DEFAULT);
+
+
+DECLARE @level [int] = 1;
+WHILE @level <= 50
+BEGIN
+	DECLARE @requiredXp [int];
+	SELECT @requiredXp = (@level * 500) + POWER(CAST((@level - 1) AS float), 2) * 250;
+	INSERT INTO [userspace].[XpTable] VALUES (@level, @requiredXp);
+	SET @level = @level + 1;
+END

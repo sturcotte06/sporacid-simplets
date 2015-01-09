@@ -26,12 +26,22 @@ CREATE TABLE [userspace].[Profils](
 	[Nom] [varchar](50) NULL,
 	[Prenom] [varchar](50) NULL,
 	[Avatar] [varbinary](4000) NULL,
+	[Xp] [int] NOT NULL,
 	[Actif] [bit] NOT NULL,
 	[Public] [bit] NOT NULL,
 	[Version] [rowversion] NOT NULL,
 PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
+)) ON [PRIMARY]
+GO
+
+CREATE TABLE [userspace].[XpTable](
+	[Level] [int] NOT NULL,
+	[RequiredXp] [int] NOT NULL
+PRIMARY KEY CLUSTERED
+(
+	[Level] ASC
 )) ON [PRIMARY]
 GO
 
