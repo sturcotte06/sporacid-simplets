@@ -20,7 +20,7 @@
             jsonFormatterSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             jsonFormatterSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             jsonFormatterSettings.Converters.Add(new StringEnumConverter());
-            jsonFormatterSettings.ContractResolver = new PascalCasePropertyNamesContractResolver();
+            jsonFormatterSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 

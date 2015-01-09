@@ -188,6 +188,8 @@
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
     <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
     <Compile Include="Database\Dto\Clubs\MembreDto.cs" />
+    <Compile Include="Events\ContextCreated.cs" />
+    <Compile Include="Events\ClubCreated.cs" />
     <Compile Include="Services\Administration\ISystemAdministrationService.cs" />
     <Compile Include="Services\Clubs\ICommanditeService.cs" />
     <Compile Include="Services\Clubs\IFournisseurService.cs" />

@@ -9,6 +9,8 @@ namespace Sporacid.Simplets.Webapp.Services
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.WebApi.FilterBindingSyntax;
+    using Sporacid.Simplets.Webapp.Core.Events.Bus;
+    using Sporacid.Simplets.Webapp.Core.Events.Bus.Impl;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
@@ -186,6 +188,9 @@ namespace Sporacid.Simplets.Webapp.Services
             // Ldap configuration.
             kernel.Bind<ILdapSearcher>().To<ActiveDirectorySearcher>()
                 .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
+
+            // Event bus configuration.
+            // kernel.Bind(typeof (IEventBus<>)).To(typeof (EventBus<>));
         }
 
         /// <summary>

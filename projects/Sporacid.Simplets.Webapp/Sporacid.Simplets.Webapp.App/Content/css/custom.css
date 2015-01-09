@@ -33,3 +33,29 @@
     background-position: left center;
     background-repeat: no-repeat;
 }
+
+.btn {
+    position: relative;
+    padding-left: 44px;
+}
+
+.btn .metro-icon {
+    position: absolute;
+    height: 35px;
+    width: 35px;
+    top: 1px;
+    left: 1px;
+    border-radius: 4px;
+}
+
+.form-control {
+    color: black;
+}
+
+#wrapper.blurred {
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    /*-ms-filter: blur(7px);*/
+    filter: blur(15px);
+}

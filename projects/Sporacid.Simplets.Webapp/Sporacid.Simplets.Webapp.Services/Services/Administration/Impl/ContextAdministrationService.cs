@@ -5,14 +5,16 @@
     using System.Linq;
     using System.Web;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Events.Bus;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{context:alpha}/administration")]
-    public class ContextAdministrationService : BaseService, IContextAdministrationService
+    public class ContextAdministrationService : BaseService, IContextAdministrationService, IEventPublisher<ContextCreated>
     {
         private readonly IRepository<Int32, Context> contextRepository;
         private readonly IRepository<Int32, Principal> principalRepository;

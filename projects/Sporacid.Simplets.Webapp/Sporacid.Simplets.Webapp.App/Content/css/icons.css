@@ -18,6 +18,10 @@
     background-image: url("../img/metro-icons/metro-edit.png");
 }
 
+.metro-icon.metro-edit-trans {
+    background-image: url("../img/metro-icons/metro-edit-trans.png");
+}
+
 .metro-icon.metro-export {
     background-image: url("../img/metro-icons/metro-export.png");
 }
@@ -28,6 +32,14 @@
 
 .metro-icon.metro-identity {
     background-image: url("../img/metro-icons/metro-identity.png");
+}
+
+.metro-icon.metro-login {
+    background-image: url("../img/metro-icons/metro-login.png");
+}
+
+.metro-icon.metro-login-trans {
+    background-image: url("../img/metro-icons/metro-login-trans.png");
 }
 
 .metro-icon.metro-logout {

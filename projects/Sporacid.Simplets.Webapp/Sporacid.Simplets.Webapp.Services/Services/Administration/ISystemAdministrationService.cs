@@ -3,7 +3,6 @@
     using System;
     using PostSharp.Patterns.Contracts;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>

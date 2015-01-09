@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -98,8 +99,10 @@
             var response = HttpContext.Current.Response;
             var base64Token = Convert.ToBase64String(Encoding.ASCII.GetBytes(tokenAndPrincipal.Token.Key));
             response.Headers.Add("Authorization-Token", base64Token);
-            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("G"));
-            response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.ToString());
+            // response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("G"));
+            // response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.ToString());
+            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.Ticks.ToString(CultureInfo.CurrentCulture));
+            response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.Ticks.ToString(CultureInfo.CurrentCulture));
 
             // Check if the user is logged in for the first time.
             var identity = tokenAndPrincipal.Principal.Identity.Name;

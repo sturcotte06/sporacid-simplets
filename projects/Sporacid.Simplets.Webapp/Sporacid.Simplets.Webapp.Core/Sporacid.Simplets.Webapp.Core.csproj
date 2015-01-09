@@ -81,6 +81,11 @@
     <Compile Include="Aspects\Contracts\IContract.cs" />
     <Compile Include="Aspects\Logging\LoggingLevel.cs" />
     <Compile Include="Aspects\Logging\TraceAttribute.cs" />
+    <Compile Include="Events\Bus\IEventBus.cs" />
+    <Compile Include="Events\Bus\IEventPublisher.cs" />
+    <Compile Include="Events\Bus\IEventSubscriber.cs" />
+    <Compile Include="Events\Bus\Impl\EventBus.cs" />
+    <Compile Include="Events\IEvent.cs" />
     <Compile Include="Exceptions\Authorization\NotAuthorizedException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotUniqueException.cs" />

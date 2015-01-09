@@ -10,7 +10,11 @@
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 "~/Content/bootstrap/js/bootstrap.js",
                 "~/Content/js/jquery-1.11.2.js",
-                "~/Content/js/core/simplets-rest-client-0.9.js",
+                "~/Content/js/jquery.cookie.js",
+                "~/Content/js/sprintf.js",
+                "~/Content/js/knockout-3.2.0.js",
+                //"~/Content/js/core/simplets-helpers-0.9.js",
+                //"~/Content/js/core/simplets-rest-client-0.9.js",
                 "~/Content/js/core/simplets-core-0.9.js"));
 
             bundles.Add(new StyleBundle("~/bundles/styles").Include(

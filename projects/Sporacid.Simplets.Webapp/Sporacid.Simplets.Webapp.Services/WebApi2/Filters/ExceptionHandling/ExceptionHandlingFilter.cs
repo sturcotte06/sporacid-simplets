@@ -25,8 +25,8 @@
                 {typeof (ArgumentNullException), HttpStatusCode.BadRequest},
                 {typeof (ArgumentOutOfRangeException), HttpStatusCode.BadRequest},
                 {typeof (SecurityException), HttpStatusCode.Unauthorized},
-                {typeof (NotAuthorizedException), HttpStatusCode.Unauthorized},
-                {typeof (WrongCredentialsException), HttpStatusCode.Forbidden},
+                {typeof (WrongCredentialsException), HttpStatusCode.Unauthorized},
+                {typeof (NotAuthorizedException), HttpStatusCode.Forbidden},
                 {typeof (EntityNotFoundException<>), HttpStatusCode.NotFound},
                 {typeof (NotSupportedException), HttpStatusCode.NotImplemented},
             };

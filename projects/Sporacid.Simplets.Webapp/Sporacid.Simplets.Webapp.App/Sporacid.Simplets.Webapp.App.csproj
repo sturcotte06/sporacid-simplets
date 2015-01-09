@@ -149,20 +149,28 @@
     <Content Include="Content\img\metro-icons\metro-context-change.png" />
     <Content Include="Content\img\metro-icons\metro-dashboard.png" />
     <Content Include="Content\img\metro-icons\metro-delete.png" />
+    <Content Include="Content\img\metro-icons\metro-edit-trans.png" />
     <Content Include="Content\img\metro-icons\metro-edit.png" />
     <Content Include="Content\img\metro-icons\metro-export.png" />
     <Content Include="Content\img\metro-icons\metro-exportpdf.png" />
     <Content Include="Content\img\metro-icons\metro-identity.png" />
+    <Content Include="Content\img\metro-icons\metro-login-trans.png" />
+    <Content Include="Content\img\metro-icons\metro-login.png" />
     <Content Include="Content\img\metro-icons\metro-logout.png" />
     <Content Include="Content\img\metro-icons\metro-refresh.png" />
     <Content Include="Content\img\metro-icons\metro-save-trans.png" />
     <Content Include="Content\img\metro-icons\metro-save.png" />
     <Content Include="Content\img\metro-icons\metro-search.png" />
     <Content Include="Content\img\metro-icons\metro-settings.png" />
+    <Content Include="Content\js\sprintf.js" />
+    <Content Include="Content\js\jquery.cookie.min.js" />
     <Content Include="Content\js\core\simplets-core-0.9.js" />
-    <Content Include="Content\js\core\simplets-rest-client-0.9.js" />
     <Content Include="Content\js\jquery-1.11.2.js" />
     <Content Include="Content\js\jquery-1.11.2.min.js" />
+    <Content Include="Content\js\jquery.cookie.js" />
+    <Content Include="Content\js\knockout-3.2.0.js" />
+    <Content Include="Content\js\knockout-3.2.0.min.js" />
+    <Content Include="Content\js\sprintf.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -286,6 +294,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Fulls\Profil.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\_ViewProfil.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\_Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\_Profil.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\_ProfilAvance.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
