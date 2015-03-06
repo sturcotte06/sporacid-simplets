@@ -4,8 +4,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using log4net.Config;
-using PostSharp.Extensibility;
-using Sporacid.Simplets.Webapp.Core.Aspects.Logging;
 using Sporacid.Simplets.Webapp.Services;
 
 [assembly: AssemblyTitle("Sporacid.Simplets.Webapp.Services")]
@@ -42,10 +40,10 @@ using Sporacid.Simplets.Webapp.Services;
 [assembly: XmlConfigurator(ConfigFile = @".\Resources\log4net.xml", Watch = true)]
 
 // Postsharp aspects.
-[assembly: Trace(AttributeTargetAssemblies = "Sporacid.Simplets.Webapp.Core|Sporacid.Simplets.Webapp.Services",
-    AttributeTargetTypeAttributes = MulticastAttributes.Public,
-    AttributeTargetMemberAttributes = MulticastAttributes.Public,
-    AttributeTargetElements = MulticastTargets.Method)]
+// [assembly: Trace(AttributeTargetAssemblies = "Sporacid.Simplets.Webapp.Core|Sporacid.Simplets.Webapp.Services",
+//    AttributeTargetTypeAttributes = MulticastAttributes.Public,
+//    AttributeTargetMemberAttributes = MulticastAttributes.Public,
+//    AttributeTargetElements = MulticastTargets.Method)]
 
 // Bootstrap activator methods.
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start", Order = 0)]

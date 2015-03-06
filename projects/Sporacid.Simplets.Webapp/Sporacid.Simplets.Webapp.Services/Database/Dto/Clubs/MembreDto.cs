@@ -2,22 +2,30 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
     public class MembreDto
     {
-        [Required]
-        [StringLength(50)]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "MembreDto_Titre_Required")]
+        [StringLength(50,
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "MembreDto_Titre_StringLength")]
         public String Titre { get; set; }
 
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "MembreDto_DateDebut_Required")]
         public DateTime DateDebut { get; set; }
 
         public DateTime DateFin { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "MembreDto_Actif_Required")]
         public Boolean Actif { get; set; }
     }
 }

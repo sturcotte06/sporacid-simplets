@@ -62,11 +62,11 @@
 
     }
 
-    partial class ProfilAvance : IHasId<Int32>
-    {
-        public int Id { get { return ProfilId; } }
-    }
-
+    // partial class ProfilAvance : IHasId<Int32>
+    // {
+    //     public int Id { get { return ProfilId; } }
+    // }
+    // 
     partial class Allergie : IHasId<Int32>
     {
     }
@@ -80,6 +80,14 @@
     }
 
     partial class Suivie : IHasId<Int32>
+    {
+    }
+
+    partial class Groupe : IHasId<Int32>
+    {
+    }
+
+    partial class Meeting : IHasId<Int32>
     {
     }
 }

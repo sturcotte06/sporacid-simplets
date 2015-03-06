@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Authorization
+﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization
 {
     using System;
     using Sporacid.Simplets.Webapp.Core.Resources.Exceptions;
@@ -8,7 +8,7 @@
     public class NotAuthorizedException : SecurityException
     {
         public NotAuthorizedException()
-            : base(ExceptionStrings.Core_Exceptions_Security_Unauthorized)
+            : base(ExceptionStrings.Core_Security_Unauthorized)
         {
         }
 

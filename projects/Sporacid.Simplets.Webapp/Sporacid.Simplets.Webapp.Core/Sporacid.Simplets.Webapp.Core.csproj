@@ -11,7 +11,9 @@
     <AssemblyName>Sporacid.Simplets.Webapp.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <DontImportPostSharp>True</DontImportPostSharp>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +23,49 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,20 +94,6 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp, Version=4.0.37.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PostSharp.4.0.37\lib\net35-client\PostSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PostSharp.Patterns.Common">
-      <HintPath>..\packages\PostSharp.Patterns.Common.4.0.37\lib\net40\PostSharp.Patterns.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="PostSharp.Patterns.Model">
-      <HintPath>..\packages\PostSharp.Patterns.Model.4.0.37\lib\net40\PostSharp.Patterns.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="PostSharp.Patterns.Model.Controls">
-      <HintPath>..\packages\PostSharp.Patterns.Model.Controls.4.0.37\lib\net40\PostSharp.Patterns.Model.Controls.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -78,21 +109,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aspects\Contracts\IContract.cs" />
-    <Compile Include="Aspects\Logging\LoggingLevel.cs" />
-    <Compile Include="Aspects\Logging\TraceAttribute.cs" />
     <Compile Include="Events\Bus\IEventBus.cs" />
     <Compile Include="Events\Bus\IEventPublisher.cs" />
     <Compile Include="Events\Bus\IEventSubscriber.cs" />
     <Compile Include="Events\Bus\Impl\EventBus.cs" />
     <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Exceptions\Authorization\NotAuthorizedException.cs" />
+    <Compile Include="Exceptions\CoreException.cs" />
+    <Compile Include="Exceptions\Security\Authorization\NotAuthorizedException.cs" />
+    <Compile Include="Exceptions\Contracts\ContractException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotUniqueException.cs" />
     <Compile Include="Exceptions\Repositories\RepositoryException.cs" />
-    <Compile Include="Repositories\IDataContextStore.cs" />
-    <Compile Include="Repositories\Impl\DataContextStore.cs" />
     <Compile Include="Repositories\Impl\GenericRepository.cs" />
+    <Compile Include="Resources\Contracts\ContractStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContractStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Exceptions\ExceptionStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,8 +151,8 @@
     <Compile Include="Security\Authentication\Impl\KerberosAuthenticationModule.cs" />
     <Compile Include="Security\Authentication\Impl\TokenAuthenticationModule.cs" />
     <Compile Include="Security\Authorization\IAuthorizationModule.cs" />
-    <Compile Include="Exceptions\Authentication\WrongCredentialsException.cs" />
-    <Compile Include="Exceptions\SecurityException.cs" />
+    <Compile Include="Exceptions\Security\Authentication\WrongCredentialsException.cs" />
+    <Compile Include="Exceptions\Security\SecurityException.cs" />
     <Compile Include="Security\Authorization\Impl\AuthorizationModule.cs" />
     <Compile Include="Security\Authentication\Tokens\Impl\AuthenticationToken.cs" />
     <Compile Include="Security\Authentication\Tokens\IToken.cs" />
@@ -131,7 +164,6 @@
     <Compile Include="Security\Authorization\FixedContextAttribute.cs" />
     <Compile Include="Security\Bootstrap\IRoleBootstrapper.cs" />
     <Compile Include="Security\Bootstrap\ISecurityDatabaseBootstrapper.cs" />
-    <Compile Include="Security\Database\Dto\RoleDto.cs" />
     <Compile Include="Security\Database\LinqToSqlSecurityCorrections.cs" />
     <Compile Include="Security\Database\Security.designer.cs">
       <AutoGen>True</AutoGen>
@@ -166,10 +198,13 @@
       <DependentUpon>Security.dbml</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Aspects\Contracts\Impl\" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="Resources\Contracts\ContractStrings.fr.resx" />
+    <EmbeddedResource Include="Resources\Contracts\ContractStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContractStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Exceptions\ExceptionStrings.fr.resx" />
     <EmbeddedResource Include="Resources\Exceptions\ExceptionStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -177,10 +212,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\PostSharp.4.0.37\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.0.37\tools\PostSharp.targets')" />
-  <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">
-    <Error Condition="!Exists('..\packages\PostSharp.4.0.37\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
-    <Error Condition="Exists('..\packages\PostSharp.4.0.37\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

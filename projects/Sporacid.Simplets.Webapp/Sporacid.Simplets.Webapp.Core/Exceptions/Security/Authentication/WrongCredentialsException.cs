@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Authentication
+﻿namespace Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication
 {
     using System;
     using Sporacid.Simplets.Webapp.Core.Resources.Exceptions;
@@ -8,7 +8,7 @@
     [Serializable]
     public class WrongCredentialsException : SecurityException
     {
-        public WrongCredentialsException() : base(ExceptionStrings.Core_Exceptions_Security_WrongCredentials)
+        public WrongCredentialsException() : base(ExceptionStrings.Core_Security_WrongCredentials)
         {
 
         }

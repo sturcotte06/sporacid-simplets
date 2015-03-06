@@ -3,14 +3,13 @@ namespace Sporacid.Simplets.Webapp.Services
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Data.Linq;
     using System.Web;
     using System.Web.Http.Filters;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.WebApi.FilterBindingSyntax;
-    using Sporacid.Simplets.Webapp.Core.Events.Bus;
-    using Sporacid.Simplets.Webapp.Core.Events.Bus.Impl;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
@@ -33,11 +32,12 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Services.Services.Public.Impl;
     using Sporacid.Simplets.Webapp.Services.Services.Userspace;
     using Sporacid.Simplets.Webapp.Services.Services.Userspace.Impl;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Localization;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials.Impl;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Validation;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;
@@ -117,31 +117,40 @@ namespace Sporacid.Simplets.Webapp.Services
                 .WhenAnyAncestorMatches(ctx =>
                     !typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) &&
                     !typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
-                .InRequestScope();
+                .InRequestScope()
+                .OnDeactivation(ctx => ((IDisposable)ctx).Dispose());
             // Bind repositories used in the bootstrapping of security database in thread scope,
             // because it's not running as a web request.
             kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
                 .WhenAnyAncestorMatches(ctx =>
                     typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) ||
                     typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
-                .InThreadScope();
+                .InThreadScope()
+                .OnDeactivation(ctx => ((IDisposable)ctx).Dispose());
 
-            // Data context stores configuration
-            kernel.Bind<IDataContextStore>().To<DataContextStore>()
+            // Data context configuration.
+            kernel.Bind<DataContext>().To<SecurityDataContext>()
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
-                .InRequestScope()
-                .WithConstructorArgument(typeof (SecurityDataContext))
-                .OnDeactivation(store => ((IDisposable) store).Dispose());
-            kernel.Bind<IDataContextStore>().To<DataContextStore>()
+                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
+                // .OnDeactivation(context => context.Dispose())
+            kernel.Bind<DataContext>().To<DatabaseDataContext>()
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
-                .InRequestScope()
-                .WithConstructorArgument(typeof (DatabaseDataContext))
-                .OnDeactivation(store => ((IDisposable) store).Dispose());
+                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
+                // .OnDeactivation(context => context.Dispose())
+            // kernel.Bind<IDataContextStore>().To<DataContextStore>()
+            //     .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
+            //     .InRequestScope()
+            //     .WithConstructorArgument(typeof (SecurityDataContext))
+            //     .OnDeactivation(store => ((IDisposable) store).Dispose());
+            // kernel.Bind<IDataContextStore>().To<DataContextStore>()
+            //     .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
+            //     .InRequestScope()
+            //     .WithConstructorArgument(typeof (DatabaseDataContext))
+            //     .OnDeactivation(store => ((IDisposable) store).Dispose());
 
             // Security database boostrap configuration.
             kernel.Bind<ISecurityDatabaseBootstrapper>().To<SecurityDatabaseBootstrapper>();
             kernel.Bind<IRoleBootstrapper>().To<RoleBootstrapper>();
-            // kernel.Bind<IDatabaseCreator>().To<DatabaseCreator>();
 
             // Security modules configuration.
             // 1. bind security module defaults.
@@ -188,9 +197,6 @@ namespace Sporacid.Simplets.Webapp.Services
             // Ldap configuration.
             kernel.Bind<ILdapSearcher>().To<ActiveDirectorySearcher>()
                 .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
-
-            // Event bus configuration.
-            // kernel.Bind(typeof (IEventBus<>)).To(typeof (EventBus<>));
         }
 
         /// <summary>
@@ -233,12 +239,12 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind<IProfilService>().To<ProfilService>().InRequestScope();
 
             // Data contexts configuration.
-            kernel.Bind<SecurityDataContext>().ToSelf()
-                .InRequestScope()
-                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
-            kernel.Bind<DatabaseDataContext>().ToSelf()
-                .InRequestScope()
-                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
+            // kernel.Bind<SecurityDataContext>().ToSelf()
+            //     .InRequestScope()
+            //     .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
+            // kernel.Bind<DatabaseDataContext>().ToSelf()
+            //     .InRequestScope()
+            //     .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
 
             // Credential extractor configuration.
             // See security module section to know why we bind like thid.
@@ -259,6 +265,9 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServiceProjectFilters(IKernel kernel)
         {
+            // Bind the localization filter.
+            kernel.BindHttpFilter<LocalizationFilter>(FilterScope.Global);
+
             // Bind the authentication filter on services that have the RequiresAuthenticatedPrincipal attribute
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
                 .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>()
@@ -281,8 +290,8 @@ namespace Sporacid.Simplets.Webapp.Services
                 .WhenControllerHas<HandlesExceptionAttribute>()
                 .InRequestScope();
 
-            // Bind the localization filter.
-            kernel.BindHttpFilter<LocalizationFilter>(FilterScope.Global);
+            // Bind the model validation filter.
+            kernel.BindHttpFilter<ValidationFilter>(FilterScope.Global);
 
             // Bind the anti-forgery validation filter.
             // kernel.BindHttpFilter<ValidateAntiForgeryTokenFilter>(FilterScope.Global);

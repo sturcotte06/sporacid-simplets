@@ -28,7 +28,7 @@
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
         /// <returns>Ehether the principal exists.</returns>
-        public bool PrincipalExists(String identity)
+        public Boolean PrincipalExists(String identity)
         {
             return this.principalRepository.Has(p => SqlMethods.Like(identity, p.Identity));
         }

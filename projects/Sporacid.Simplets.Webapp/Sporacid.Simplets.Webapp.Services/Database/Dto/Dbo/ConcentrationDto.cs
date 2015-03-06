@@ -2,18 +2,27 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
     public class ConcentrationDto
     {
-        [Required]
-        [StringLength(10)]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "ConcentrationDto_Acronyme_Required")]
+        [StringLength(10,
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "ConcentrationDto_Acronyme_StringLength")]
         public string Acronyme { get; set; }
 
-        [Required]
-        [StringLength(150)]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "ConcentrationDto_Description_Required")]
+        [StringLength(150,
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "ConcentrationDto_Description_StringLength")]
         public string Description { get; set; }
     }
 }

@@ -9,12 +9,12 @@
     public class EntityNotFoundException<TEntity> : RepositoryException
     {
         public EntityNotFoundException()
-            : base(String.Format(ExceptionStrings.Core_Exceptions_Repository_EntityNotFound_Name, typeof (TEntity).Name))
+            : base(String.Format(ExceptionStrings.Core_Repository_EntityNotFound_Name, typeof (TEntity).Name))
         {
         }
 
         public EntityNotFoundException(object entityId)
-            : base(String.Format(ExceptionStrings.Core_Exceptions_Repository_EntityNotFound_NameAndId, typeof (TEntity), entityId))
+            : base(String.Format(ExceptionStrings.Core_Repository_EntityNotFound_NameAndId, typeof (TEntity), entityId))
         {
         }
     }

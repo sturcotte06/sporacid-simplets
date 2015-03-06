@@ -16,7 +16,7 @@
         private readonly IContextAdministrationService contextAdministrationService;
         private readonly IRepository<Int32, Membre> membreRepository;
 
-        public InscriptionService(IContextAdministrationService contextAdministrationService, 
+        public InscriptionService(IContextAdministrationService contextAdministrationService,
             IRepository<Int32, Club> clubRepository, IRepository<Int32, Membre> membreRepository)
         {
             this.contextAdministrationService = contextAdministrationService;

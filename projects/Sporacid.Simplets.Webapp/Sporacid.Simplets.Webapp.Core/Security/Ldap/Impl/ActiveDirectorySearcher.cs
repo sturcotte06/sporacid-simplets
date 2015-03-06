@@ -2,7 +2,7 @@
 {
     using System;
     using System.DirectoryServices.AccountManagement;
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

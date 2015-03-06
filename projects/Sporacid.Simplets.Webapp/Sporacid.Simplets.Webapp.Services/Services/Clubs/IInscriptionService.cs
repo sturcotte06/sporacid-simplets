@@ -1,16 +1,16 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Clubs
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using PostSharp.Patterns.Contracts;
+    using System.Diagnostics.Contracts;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
+    using Sporacid.Simplets.Webapp.Tools.Strings;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Module("Inscriptions")]
     [Contextual("clubName")]
+    [ContractClass(typeof (InscriptionServiceContract))]
     public interface IInscriptionService
     {
         /// <summary>
@@ -19,7 +19,7 @@
         /// <param name="clubName">The id of the club entity.</param>
         /// <param name="codeUniversel">The universal code that represents the user.</param>
         [RequiredClaims(Claims.Admin | Claims.Create)]
-        void SubscribeToClub([Required] String clubName, [Required] String codeUniversel);
+        void SubscribeToClub(String clubName, String codeUniversel);
 
         /// <summary>
         /// Unsubscribes a member entity from a club entity.
@@ -27,6 +27,36 @@
         /// <param name="clubName">The id of the club entity.</param>
         /// <param name="codeUniversel">The universal code that represents the user.</param>
         [RequiredClaims(Claims.Admin | Claims.Delete)]
-        void UnsubscribeFromClub([Required] String clubName, [Required] String codeUniversel);
+        void UnsubscribeFromClub(String clubName, String codeUniversel);
+    }
+
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    [ContractClassFor(typeof (IInscriptionService))]
+    internal abstract class InscriptionServiceContract : IInscriptionService
+    {
+        /// <summary>
+        /// Subscribes a member entity to a club entity.
+        /// </summary>
+        /// <param name="clubName">The id of the club entity.</param>
+        /// <param name="codeUniversel">The universal code that represents the user.</param>
+        public void SubscribeToClub(String clubName, String codeUniversel)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.InscriptionService_SubscribeToClub_RequiresClubName);
+            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.InscriptionService_SubscribeToClub_RequiresCodeUniversel);
+        }
+
+        /// <summary>
+        /// Unsubscribes a member entity from a club entity.
+        /// </summary>
+        /// <param name="clubName">The id of the club entity.</param>
+        /// <param name="codeUniversel">The universal code that represents the user.</param>
+        public void UnsubscribeFromClub(String clubName, String codeUniversel)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.InscriptionService_UnsubscribeFromClub_RequiresClubName);
+            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.InscriptionService_UnsubscribeFromClub_RequiresCodeUniversel);
+        }
     }
 }

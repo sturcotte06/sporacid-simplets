@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Linq;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Linq.Expressions;
     using LinqKit;
@@ -12,11 +13,11 @@
     /// <version>1.9.0</version>
     public class GenericRepository<TEntityId, TEntity> : IRepository<TEntityId, TEntity> where TEntity : class, IHasId<TEntityId>
     {
-        private readonly IDataContextStore dataContextStore;
+        private readonly DataContext dataContext;
 
-        public GenericRepository(IDataContextStore dataContextStore)
+        public GenericRepository(DataContext dataContext)
         {
-            this.dataContextStore = dataContextStore;
+            this.dataContext = dataContext;
         }
 
         /// <summary>
@@ -25,7 +26,7 @@
         /// <returns>All entities.</returns>
         public IQueryable<TEntity> GetAll()
         {
-            return this.dataContextStore.DataContext.GetTable<TEntity>();
+            return this.dataContext.GetTable<TEntity>();
         }
 
         /// <summary>
@@ -33,9 +34,9 @@
         /// </summary>
         /// <param name="whereClause">Predicate to use as a where clause.</param>
         /// <returns>All entities matching the predicate.</returns>
-        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> whereClause)
+        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, Boolean>> whereClause)
         {
-            return this.dataContextStore.DataContext.GetTable<TEntity>().Where(whereClause);
+            return this.dataContext.GetTable<TEntity>().Where(whereClause);
         }
 
         /// <summary>
@@ -43,9 +44,9 @@
         /// </summary>
         /// <param name="entityId">The entity id.</param>
         /// <returns>Whether the entity with id exists or not</returns>
-        public bool Has(TEntityId entityId)
+        public Boolean Has(TEntityId entityId)
         {
-            return this.dataContextStore.DataContext.GetTable<TEntity>()
+            return this.dataContext.GetTable<TEntity>()
                 .Any(e => e.Id.Equals(entityId));
         }
 
@@ -54,7 +55,7 @@
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns>Whether the entity exists or not</returns>
-        public bool Has(TEntity entity)
+        public Boolean Has(TEntity entity)
         {
             return Has(entity.Id);
         }
@@ -64,9 +65,9 @@
         /// </summary>
         /// <param name="whereClause">Predicate to use as a where clause.</param>
         /// <returns>Whether the entity exists or not</returns>
-        public bool Has(Expression<Func<TEntity, bool>> whereClause)
+        public Boolean Has(Expression<Func<TEntity, Boolean>> whereClause)
         {
-            return this.dataContextStore.DataContext.GetTable<TEntity>()
+            return this.dataContext.GetTable<TEntity>()
                 .AsExpandable().Any(whereClause);
         }
 
@@ -77,7 +78,7 @@
         /// <returns>The entity with the given id.</returns>
         public TEntity Get(TEntityId entityId)
         {
-            var entity = this.dataContextStore.DataContext.GetTable<TEntity>().SingleOrDefault(e => e.Id.Equals(entityId));
+            var entity = this.dataContext.GetTable<TEntity>().SingleOrDefault(e => e.Id.Equals(entityId));
             if (entity == null)
             {
                 throw new EntityNotFoundException<TEntity>(entityId);
@@ -91,7 +92,7 @@
         /// </summary>
         /// <param name="whereClause">The entity id.</param>
         /// <returns>The entity that matches the given predicate.</returns>
-        public TEntity GetUnique(Expression<Func<TEntity, bool>> whereClause)
+        public TEntity GetUnique(Expression<Func<TEntity, Boolean>> whereClause)
         {
             var entities = this.GetAll(whereClause);
             if (!entities.Any())
@@ -115,7 +116,7 @@
         /// <returns>The id of the new entity.</returns>
         public void Add(TEntity entity)
         {
-            this.dataContextStore.DataContext.GetTable<TEntity>().InsertOnSubmit(entity);
+            this.dataContext.GetTable<TEntity>().InsertOnSubmit(entity);
             this.Commit();
         }
 
@@ -126,7 +127,7 @@
         /// <returns>The ids of the new entities.</returns>
         public void AddAll(IEnumerable<TEntity> entities)
         {
-            this.dataContextStore.DataContext.GetTable<TEntity>().InsertAllOnSubmit(entities);
+            this.dataContext.GetTable<TEntity>().InsertAllOnSubmit(entities);
             this.Commit();
         }
 
@@ -136,7 +137,7 @@
         /// <param name="entity">The entity.</param>
         public void Delete(TEntity entity)
         {
-            this.dataContextStore.DataContext.GetTable<TEntity>().DeleteOnSubmit(entity);
+            this.dataContext.GetTable<TEntity>().DeleteOnSubmit(entity);
             this.Commit();
         }
 
@@ -145,8 +146,8 @@
         /// </summary>
         public void DeleteAll()
         {
-            var table = this.dataContextStore.DataContext.GetTable<TEntity>();
-            this.dataContextStore.DataContext.GetTable<TEntity>().DeleteAllOnSubmit(table);
+            var table = this.dataContext.GetTable<TEntity>();
+            this.dataContext.GetTable<TEntity>().DeleteAllOnSubmit(table);
             this.Commit();
         }
 
@@ -154,9 +155,9 @@
         /// Deletes all entities matching the predicate.
         /// </summary>
         /// <param name="whereClause">Predicate to use as a where clause.</param>
-        public void DeleteAll(Expression<Func<TEntity, bool>> whereClause)
+        public void DeleteAll(Expression<Func<TEntity, Boolean>> whereClause)
         {
-            var table = this.dataContextStore.DataContext.GetTable<TEntity>();
+            var table = this.dataContext.GetTable<TEntity>();
             table.DeleteAllOnSubmit(table.AsExpandable().Where(whereClause));
             this.Commit();
         }
@@ -167,7 +168,6 @@
         /// <param name="entity">The entity.</param>
         public void Update(TEntity entity)
         {
-            // dataContextStore.DataContext.GetTable<TEntity>().Attach(entity, true);
             this.Commit();
         }
 
@@ -192,6 +192,14 @@
         }
 
         /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.dataContext.Dispose();
+        }
+
+        /// <summary>
         /// Commits all pending changes.
         /// </summary>
         private void Commit()
@@ -202,14 +210,14 @@
                 try
                 {
                     // Commit.
-                    this.dataContextStore.DataContext.SubmitChanges(ConflictMode.ContinueOnConflict);
+                    this.dataContext.SubmitChanges(ConflictMode.ContinueOnConflict);
                     commitSucceeded = true;
                 }
                 catch (ChangeConflictException)
                 {
                     // Handle conflicts.
                     // We'll take the latest values. Let team members handle conflicts between themselves.
-                    foreach (var conflict in this.dataContextStore.DataContext.ChangeConflicts)
+                    foreach (var conflict in this.dataContext.ChangeConflicts)
                     {
                         conflict.Resolve(RefreshMode.KeepCurrentValues);
                     }

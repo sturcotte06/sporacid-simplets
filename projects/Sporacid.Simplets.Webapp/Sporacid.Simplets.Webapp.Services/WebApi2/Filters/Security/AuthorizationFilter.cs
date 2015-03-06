@@ -11,8 +11,9 @@
     using System.Web.Http.Filters;
     using System.Web.Http.Services;
     using Ninject;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
+    using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Reflection;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -58,7 +59,7 @@
             var moduleAttr = serviceType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
             if (moduleAttr == null)
             {
-                throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+                throw new NotAuthorizedException(ExceptionStrings.Services_Security_NotConfiguredAction);
             }
 
             // Get the required claims attribute. This is a required key of the authorization system.
@@ -66,7 +67,7 @@
             var serviceActionName = this.GetServiceActionName(moduleAttr, serviceMethod);
             if (!this.claimsByAction.TryGetValue(serviceActionName, out claims))
             {
-                throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+                throw new NotAuthorizedException(ExceptionStrings.Services_Security_NotConfiguredAction);
             }
 
             // Get an authorization module.
@@ -86,13 +87,13 @@
                 var contextualAttr = serviceType.GetAllCustomAttributes<ContextualAttribute>().FirstOrDefault();
                 if (contextualAttr == null)
                 {
-                    throw new NotAuthorizedException("The action is not configured. Cannot authorize.");
+                    throw new NotAuthorizedException(ExceptionStrings.Services_Security_NotConfiguredAction);
                 }
 
                 var context = actionContext.Request.GetRouteData().Values[contextualAttr.ContextParameterName];
                 if (context == null)
                 {
-                    throw new NotAuthorizedException("Contextual action has no context. Cannot authorize.");
+                    throw new NotAuthorizedException(ExceptionStrings.Services_Security_NoContextualActionCOntext);
                 }
 
                 authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());

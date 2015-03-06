@@ -117,37 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Core_Exceptions_Repository_EntityNotFound_Name" xml:space="preserve">
+  <data name="Core_Repository_EntityNotFound_Name" xml:space="preserve">
     <value>The entity of type {0} cannot be found.</value>
   </data>
-  <data name="Core_Exceptions_Repository_EntityNotFound_NameAndId" xml:space="preserve">
+  <data name="Core_Repository_EntityNotFound_NameAndId" xml:space="preserve">
     <value>The entity of type {0} with id {1} cannot be found.</value>
   </data>
-  <data name="Core_Exceptions_Repository_EntityNotUnique" xml:space="preserve">
+  <data name="Core_Repository_EntityNotUnique" xml:space="preserve">
     <value>The entity is not unique. Where clause must point to a unique entity.</value>
   </data>
-  <data name="Core_Exceptions_Security_ContextsDoNotAllExist" xml:space="preserve">
+  <data name="Core_Security_ContextsDoNotAllExist" xml:space="preserve">
     <value>Trying to access non-configured contexts. Default is unauthorized.</value>
   </data>
-  <data name="Core_Exceptions_Security_KerberosDown" xml:space="preserve">
+  <data name="Core_Security_KerberosDown" xml:space="preserve">
     <value>Unable to contact kerberos server. If you're not in the application domain, make sure you are connected through a vpn.</value>
   </data>
-  <data name="Core_Exceptions_Security_ModuleDoesNotExist" xml:space="preserve">
+  <data name="Core_Security_ModuleDoesNotExist" xml:space="preserve">
     <value>Trying to access non-configured module. Default is unauthorized.</value>
   </data>
-  <data name="Core_Exceptions_Security_PrincipalDoesNotExist" xml:space="preserve">
+  <data name="Core_Security_PrincipalDoesNotExist" xml:space="preserve">
     <value>Principal has no authorization in the system. Create the principal before attempting again.</value>
   </data>
-  <data name="Core_Exceptions_Security_PrincipalModuleContextsClaimsInsufficient" xml:space="preserve">
+  <data name="Core_Security_PrincipalModuleContextsClaimsInsufficient" xml:space="preserve">
     <value>The principal does not have the required claims to act on this module in these contexts.</value>
   </data>
-  <data name="Core_Exceptions_Security_Unauthorized" xml:space="preserve">
+  <data name="Core_Security_Unauthorized" xml:space="preserve">
     <value>The action cannot be authorized.</value>
   </data>
-  <data name="Core_Exceptions_Security_UnauthorizedModuleContextsAccess" xml:space="preserve">
+  <data name="Core_Security_UnauthorizedModuleContextsAccess" xml:space="preserve">
     <value>The principal have no right to access this module in these contexts.</value>
   </data>
-  <data name="Core_Exceptions_Security_WrongCredentials" xml:space="preserve">
+  <data name="Core_Security_WrongCredentials" xml:space="preserve">
     <value>The given credentials does not exist.</value>
   </data>
 </root>

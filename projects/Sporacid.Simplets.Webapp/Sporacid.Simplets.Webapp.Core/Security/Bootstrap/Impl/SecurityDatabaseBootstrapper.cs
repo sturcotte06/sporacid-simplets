@@ -17,10 +17,9 @@
         private readonly IRepository<Int32, Context> contextRepository;
         private readonly IRepository<Int32, Module> moduleRepository;
 
-        public SecurityDatabaseBootstrapper(IRepository<Int32, Module> moduleRepository,
-            IRepository<Int32, Claim> claimsRepository, IRepository<Int32, Context> contextRepository)
+        public SecurityDatabaseBootstrapper(IRepository<Int32, Module> moduleRepository, IRepository<Int32, Claim> claimsRepository,
+            IRepository<Int32, Context> contextRepository)
         {
-            /*this.databaseCreator = databaseCreator;*/
             this.moduleRepository = moduleRepository;
             this.claimsRepository = claimsRepository;
             this.contextRepository = contextRepository;

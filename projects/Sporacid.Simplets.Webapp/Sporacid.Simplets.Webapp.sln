@@ -9,6 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sporacid.Simplets.Webapp.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sporacid.Simplets.Webapp.App", "Sporacid.Simplets.Webapp.App\Sporacid.Simplets.Webapp.App.csproj", "{922471F1-3C8D-49E9-89C6-B3954ACA3D11}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{714F0977-5582-4225-90C0-C28BC773A786}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sporacid.Simplets.Webapp.Services.Tests", "Sporacid.Simplets.Webapp.Services.Tests\Sporacid.Simplets.Webapp.Services.Tests.csproj", "{146796A3-AF9C-43E1-AA7D-055E8CB0D578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +40,10 @@ Global
 		{922471F1-3C8D-49E9-89C6-B3954ACA3D11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{922471F1-3C8D-49E9-89C6-B3954ACA3D11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{922471F1-3C8D-49E9-89C6-B3954ACA3D11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{146796A3-AF9C-43E1-AA7D-055E8CB0D578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{146796A3-AF9C-43E1-AA7D-055E8CB0D578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{146796A3-AF9C-43E1-AA7D-055E8CB0D578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{146796A3-AF9C-43E1-AA7D-055E8CB0D578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

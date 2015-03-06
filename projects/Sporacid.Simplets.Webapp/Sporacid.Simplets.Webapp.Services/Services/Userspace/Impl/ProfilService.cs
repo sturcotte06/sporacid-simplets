@@ -33,7 +33,7 @@
         /// <returns>The profil.</returns>
         [HttpGet]
         [Route("")]
-        public ProfilDto GetProfil(String codeUniversel)
+        public ProfilDto Get(String codeUniversel)
         {
             var profilEntity = this.profilRepository.GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel));
             return Mapper.Map<Profil, ProfilDto>(profilEntity);
@@ -46,7 +46,7 @@
         /// <param name="profil">The profil.</param>
         [HttpPut]
         [Route("")]
-        public void UpdateProfil(String codeUniversel, ProfilDto profil)
+        public void Update(String codeUniversel, ProfilDto profil)
         {
             var profilEntity = this.profilRepository.GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel));
             Mapper.Map(profil, profilEntity);
@@ -64,8 +64,6 @@
         {
             var clubEntities = this.clubRepository.GetAll(
                 c => c.Membres.Any(m => SqlMethods.Like(m.CodeUniversel, codeUniversel)));
-            var a = clubEntities.Select(c => new WithId<Int32, ClubDto>(c.Id, Mapper.Map<Club, ClubDto>(c)));
-
             return clubEntities.Select(c => new WithId<Int32, ClubDto>(c.Id, Mapper.Map<Club, ClubDto>(c)));
         }
     }

@@ -23,7 +23,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private List<KeyValuePair<String, Func<object>>> propertyEvaluators;
+        private readonly List<KeyValuePair<String, Func<object>>> propertyEvaluators = new List<KeyValuePair<string, Func<object>>>();
 
         /// <summary>
         /// Whether Configure() was called on this object or not.

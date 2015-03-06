@@ -63,99 +63,99 @@ namespace Sporacid.Simplets.Webapp.Core.Resources.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The entity of type {0} cannot be found..
         /// </summary>
-        internal static string Core_Exceptions_Repository_EntityNotFound_Name {
+        internal static string Core_Repository_EntityNotFound_Name {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Repository_EntityNotFound_Name", resourceCulture);
+                return ResourceManager.GetString("Core_Repository_EntityNotFound_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The entity of type {0} with id {1} cannot be found..
         /// </summary>
-        internal static string Core_Exceptions_Repository_EntityNotFound_NameAndId {
+        internal static string Core_Repository_EntityNotFound_NameAndId {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Repository_EntityNotFound_NameAndId", resourceCulture);
+                return ResourceManager.GetString("Core_Repository_EntityNotFound_NameAndId", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The entity is not unique. Where clause must point to a unique entity..
         /// </summary>
-        internal static string Core_Exceptions_Repository_EntityNotUnique {
+        internal static string Core_Repository_EntityNotUnique {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Repository_EntityNotUnique", resourceCulture);
+                return ResourceManager.GetString("Core_Repository_EntityNotUnique", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Trying to access non-configured contexts. Default is unauthorized..
         /// </summary>
-        internal static string Core_Exceptions_Security_ContextsDoNotAllExist {
+        internal static string Core_Security_ContextsDoNotAllExist {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_ContextsDoNotAllExist", resourceCulture);
+                return ResourceManager.GetString("Core_Security_ContextsDoNotAllExist", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Unable to contact kerberos server. If you&apos;re not in the application domain, make sure you are connected through a vpn..
         /// </summary>
-        internal static string Core_Exceptions_Security_KerberosDown {
+        internal static string Core_Security_KerberosDown {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_KerberosDown", resourceCulture);
+                return ResourceManager.GetString("Core_Security_KerberosDown", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Trying to access non-configured module. Default is unauthorized..
         /// </summary>
-        internal static string Core_Exceptions_Security_ModuleDoesNotExist {
+        internal static string Core_Security_ModuleDoesNotExist {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_ModuleDoesNotExist", resourceCulture);
+                return ResourceManager.GetString("Core_Security_ModuleDoesNotExist", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Principal has no authorization in the system. Create the principal before attempting again..
         /// </summary>
-        internal static string Core_Exceptions_Security_PrincipalDoesNotExist {
+        internal static string Core_Security_PrincipalDoesNotExist {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_PrincipalDoesNotExist", resourceCulture);
+                return ResourceManager.GetString("Core_Security_PrincipalDoesNotExist", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The principal does not have the required claims to act on this module in these contexts..
         /// </summary>
-        internal static string Core_Exceptions_Security_PrincipalModuleContextsClaimsInsufficient {
+        internal static string Core_Security_PrincipalModuleContextsClaimsInsufficient {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_PrincipalModuleContextsClaimsInsufficient", resourceCulture);
+                return ResourceManager.GetString("Core_Security_PrincipalModuleContextsClaimsInsufficient", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The action cannot be authorized..
         /// </summary>
-        internal static string Core_Exceptions_Security_Unauthorized {
+        internal static string Core_Security_Unauthorized {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_Unauthorized", resourceCulture);
+                return ResourceManager.GetString("Core_Security_Unauthorized", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The principal have no right to access this module in these contexts..
         /// </summary>
-        internal static string Core_Exceptions_Security_UnauthorizedModuleContextsAccess {
+        internal static string Core_Security_UnauthorizedModuleContextsAccess {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_UnauthorizedModuleContextsAccess", resourceCulture);
+                return ResourceManager.GetString("Core_Security_UnauthorizedModuleContextsAccess", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The given credentials does not exist..
         /// </summary>
-        internal static string Core_Exceptions_Security_WrongCredentials {
+        internal static string Core_Security_WrongCredentials {
             get {
-                return ResourceManager.GetString("Core_Exceptions_Security_WrongCredentials", resourceCulture);
+                return ResourceManager.GetString("Core_Security_WrongCredentials", resourceCulture);
             }
         }
     }

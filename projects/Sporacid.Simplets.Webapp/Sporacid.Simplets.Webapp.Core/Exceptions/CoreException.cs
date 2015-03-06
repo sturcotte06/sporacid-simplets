@@ -5,13 +5,14 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
-    public class SecurityException : SystemException
+    public abstract class CoreException : SystemException
     {
-        public SecurityException(String message) : base(message)
+        protected CoreException(String message) : base(message)
         {
         }
 
-        public SecurityException(String message, Exception cause) : base(message, cause)
+        protected CoreException(String message, Exception cause)
+            : base(message, cause)
         {
         }
     }

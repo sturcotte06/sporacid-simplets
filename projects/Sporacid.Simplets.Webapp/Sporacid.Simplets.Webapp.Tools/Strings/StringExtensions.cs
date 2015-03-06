@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
-    using PostSharp.Patterns.Contracts;
 
     /// <summary>
     /// Extension method library for strings.
@@ -34,7 +33,7 @@
         /// <param name="str1">The first string to test.</param>
         /// <param name="str2">The second string to test.</param>
         /// <returns>Whether two strings are equals, regardless of case or culture.</returns>
-        public static bool EqualsIgnoreCase([NotNull] this string str1, string str2)
+        public static bool EqualsIgnoreCase(this string str1, string str2)
         {
             return String.Equals(str1, str2, StringComparison.CurrentCultureIgnoreCase);
         }
@@ -69,8 +68,13 @@
         /// </summary>
         /// <param name="str">The string to break</param>
         /// <returns>The arary of lines for the string</returns>
-        public static string[] GetLines([NotNull] this string str)
+        public static string[] GetLines(this string str)
         {
+            if (str == null)
+            {
+                throw new ArgumentNullException("str");
+            }
+
             return str.Split(NewLineChars, StringSplitOptions.RemoveEmptyEntries);
         }
 
@@ -80,7 +84,7 @@
         /// </summary>
         /// <param name="str">The string to test</param>
         /// <returns>Whether the string is null or empty.</returns>
-        public static bool IsNullOrEmpty([NotNull] this string str)
+        public static bool IsNullOrEmpty(this string str)
         {
             return String.IsNullOrEmpty(str);
         }
@@ -90,8 +94,13 @@
         /// </summary>
         /// <param name="hexadecimalString">An hexadecimal string containing only 0-9 and A-F characters</param>
         /// <returns>The byte array corresponding to the the hexadecimal string</returns>
-        public static byte[] FromHexString([NotNull] this string hexadecimalString)
+        public static byte[] FromHexString(this string hexadecimalString)
         {
+            if (hexadecimalString == null)
+            {
+                throw new ArgumentNullException("hexadecimalString");
+            }
+
             return Enumerable.Range(0, hexadecimalString.Length)
                 .Where(x => x%2 == 0)
                 .Select(x => Convert.ToByte(hexadecimalString.Substring(x, 2), 16))

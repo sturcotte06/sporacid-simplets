@@ -4,10 +4,11 @@
     using System.Data.Linq.SqlClient;
     using System.Web.Http;
     using AutoMapper;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -31,12 +32,12 @@
         /// <returns>The id of the newly created club entity.</returns>
         [HttpPost]
         [Route("club")]
-        public int AddClub(ClubDto club)
+        public int CreateClub(ClubDto club)
         {
             // Cannot add the same club twice.
             if (this.clubRepository.Has(c => SqlMethods.Like(c.Nom, club.Nom)))
             {
-                throw new NotAuthorizedException(String.Format("Club '{0}' already exists and duplicates are not allowed.", club.Nom));
+                throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_ClubDuplicate, club.Nom));
             }
 
             // Add the new club entity.

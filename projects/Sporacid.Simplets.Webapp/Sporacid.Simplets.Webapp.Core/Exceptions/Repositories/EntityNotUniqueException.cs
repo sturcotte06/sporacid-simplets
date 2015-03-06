@@ -9,7 +9,7 @@
     public class EntityNotUniqueException : RepositoryException
     {
         public EntityNotUniqueException()
-            : base(ExceptionStrings.Core_Exceptions_Repository_EntityNotUnique)
+            : base(ExceptionStrings.Core_Repository_EntityNotUnique)
         {
         }
     }

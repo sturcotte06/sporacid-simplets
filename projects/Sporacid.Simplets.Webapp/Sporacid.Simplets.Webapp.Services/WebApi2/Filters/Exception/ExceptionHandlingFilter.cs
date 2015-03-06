@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception
 {
     using System;
     using System.Collections.Generic;
@@ -9,9 +9,10 @@
     using System.Web;
     using System.Web.Http.Filters;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authorization;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -21,6 +22,7 @@
         {
             this.Mappings = new Dictionary<Type, HttpStatusCode>
             {
+                // {Type.GetType("System.Diagnostics.Contracts.__ContractsRuntime.ContractException"), HttpStatusCode.BadRequest},
                 {typeof (ArgumentException), HttpStatusCode.BadRequest},
                 {typeof (ArgumentNullException), HttpStatusCode.BadRequest},
                 {typeof (ArgumentOutOfRangeException), HttpStatusCode.BadRequest},

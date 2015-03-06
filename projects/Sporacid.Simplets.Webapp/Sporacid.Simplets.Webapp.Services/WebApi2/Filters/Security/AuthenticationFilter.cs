@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -14,8 +13,9 @@
     using System.Web.Http;
     using System.Web.Http.Filters;
     using Ninject;
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
+    using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Services.Services.Administration;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
@@ -60,7 +60,7 @@
             // If there are no credentials, throw.
             if (authorization == null)
             {
-                throw new SecurityException("Authorization headers required.");
+                throw new SecurityException(ExceptionStrings.Services_Security_AuthHeaderRequired);
             }
 
             // If there are credentials but the filter does not recognize the 
@@ -68,25 +68,25 @@
             AuthenticationScheme scheme;
             if (!Enum.TryParse(authorization.Scheme, out scheme))
             {
-                throw new SecurityException(String.Format("Scheme {0} is not supported.", authorization.Scheme));
+                throw new SecurityException(String.Format(ExceptionStrings.Services_Security_UnsupportedScheme, authorization.Scheme));
             }
 
             var authenticationModule = this.kernel.Get<IEnumerable<IAuthenticationModule>>().FirstOrDefault(a => a.IsSupported(scheme));
             if (authenticationModule == null)
             {
-                throw new SecurityException(String.Format("Scheme {0} is not supported.", scheme));
+                throw new SecurityException(String.Format(ExceptionStrings.Services_Security_UnsupportedScheme, scheme));
             }
 
             var credentialsExtractor = this.kernel.Get<IEnumerable<ICredentialsExtractor>>().FirstOrDefault(e => e.IsSupported(scheme));
             if (credentialsExtractor == null)
             {
-                throw new SecurityException(String.Format("Credentials for scheme {0} cannot be extracted.", scheme));
+                throw new SecurityException(String.Format(ExceptionStrings.Services_Security_CannotExtractScheme, scheme));
             }
 
             var credentials = credentialsExtractor.Extract(authorization.Parameter);
             if (credentials == null)
             {
-                throw new SecurityException("Credentials are in an invalid format.");
+                throw new SecurityException(ExceptionStrings.Services_Security_InvalidCredentialsFormat);
             }
 
             // Authenticate the principal.
@@ -99,17 +99,15 @@
             var response = HttpContext.Current.Response;
             var base64Token = Convert.ToBase64String(Encoding.ASCII.GetBytes(tokenAndPrincipal.Token.Key));
             response.Headers.Add("Authorization-Token", base64Token);
-            // response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("G"));
-            // response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.ToString());
-            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.Ticks.ToString(CultureInfo.CurrentCulture));
-            response.Headers.Add("Authorization-Token-Valid-For", tokenAndPrincipal.Token.ValidFor.Ticks.ToString(CultureInfo.CurrentCulture));
+            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("O"));
+            response.Headers.Add("Authorization-Token-Expires-At", tokenAndPrincipal.Token.EmittedAt.Add(tokenAndPrincipal.Token.ValidFor).ToString("O"));
 
             // Check if the user is logged in for the first time.
             var identity = tokenAndPrincipal.Principal.Identity.Name;
-            var principalAdministrationService = kernel.Get<IPrincipalAdministrationService>();
+            var principalAdministrationService = this.kernel.Get<IPrincipalAdministrationService>();
             if (!principalAdministrationService.PrincipalExists(identity))
             {
-                // Suer logged in for first time. Create its principal.
+                // User logged in for first time. Create its principal.
                 principalAdministrationService.CreatePrincipal(identity);
             }
 

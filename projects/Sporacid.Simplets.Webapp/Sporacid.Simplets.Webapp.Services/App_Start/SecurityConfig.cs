@@ -54,7 +54,6 @@
             // Bootstrap the user roles of the application.
             var roleBootstrapper = kernel.Get<IRoleBootstrapper>();
 
-
             roleBootstrapper
                 .BindClaims(AllClaims)
                 .ToModules(AllModules)

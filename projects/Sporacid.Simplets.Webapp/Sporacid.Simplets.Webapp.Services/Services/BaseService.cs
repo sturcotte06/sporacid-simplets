@@ -1,7 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services
 {
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>

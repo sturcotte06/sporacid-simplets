@@ -2,8 +2,8 @@
 {
     using System;
     using System.DirectoryServices.AccountManagement;
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens.Factories;
 
@@ -43,7 +43,7 @@
             }
             catch (PrincipalServerDownException ex)
             {
-                throw new SecurityException(ExceptionStrings.Core_Exceptions_Security_KerberosDown, ex);
+                throw new SecurityException(ExceptionStrings.Core_Security_KerberosDown, ex);
             }
 
             // User authenticated.

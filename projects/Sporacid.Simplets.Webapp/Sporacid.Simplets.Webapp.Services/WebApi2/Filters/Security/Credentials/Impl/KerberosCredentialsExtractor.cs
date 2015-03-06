@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text;
-    using Sporacid.Simplets.Webapp.Core.Exceptions.Authentication;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl;
     using Sporacid.Simplets.Webapp.Tools.Strings;

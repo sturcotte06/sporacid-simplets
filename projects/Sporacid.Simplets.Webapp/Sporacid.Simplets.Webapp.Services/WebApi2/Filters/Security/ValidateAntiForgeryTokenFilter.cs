@@ -12,6 +12,7 @@
     using System.Web.Http.Controllers;
     using System.Web.Mvc;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using IAuthorizationFilter = System.Web.Http.Filters.IAuthorizationFilter;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>

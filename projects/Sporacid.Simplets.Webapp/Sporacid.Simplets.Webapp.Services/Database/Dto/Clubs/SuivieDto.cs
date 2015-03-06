@@ -2,29 +2,40 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
     public class SuivieDto
     {
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_MembreId_Required")]
+        [Range(1, Int32.MaxValue,
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_MembreId_Range")]
         public Int32 MembreId { get; set; }
 
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_StatutSuivieId_Required")]
+        [Range(1, Int32.MaxValue,
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_StatutSuivieId_Range")]
         public Int32 StatutSuivieId { get; set; }
 
-        //[Required]
-        //public MembreDto Membre { get; set; }
-
-        //[Required]
-        //public StatutSuivieDto StatutSuivie { get; set; }
-
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_DateSuivie_Required")]
         public DateTime DateSuivie { get; set; }
 
-        [Required]
-        [StringLength(250)]
+        [Required(
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_Commentaire_Required")]
+        [StringLength(250,
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "SuivieDto_Commentaire_StringLength")]
         public String Commentaire { get; set; }
     }
 }

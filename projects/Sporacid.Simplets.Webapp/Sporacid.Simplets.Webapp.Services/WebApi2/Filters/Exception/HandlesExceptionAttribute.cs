@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.ExceptionHandling
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception
 {
     using System;
     using System.Web.Http.Filters;

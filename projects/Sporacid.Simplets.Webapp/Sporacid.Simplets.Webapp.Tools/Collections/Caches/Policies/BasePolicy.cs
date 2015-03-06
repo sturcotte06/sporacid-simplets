@@ -1,25 +1,29 @@
 ﻿namespace Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies
 {
     using System;
-    using PostSharp.Patterns.Contracts;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public abstract class BasePolicy<TKey, TValue> : ICachePolicy<TKey, TValue>
     {
+        private volatile bool isApplied;
         protected ICache<TKey, TValue> Cache { get; private set; }
-        private volatile bool isApplied = false;
 
         /// <summary>
         /// Applies the policy on the given cache.
         /// </summary>
         /// <param name="cache"></param>
-        public void ApplyOn([Required] ICache<TKey, TValue> cache)
+        public void ApplyOn(ICache<TKey, TValue> cache)
         {
+            if (cache == null)
+            {
+                throw new ArgumentNullException("cache");
+            }
+
             // Policy can be applied.
             this.Cache = cache;
-            isApplied = true;
+            this.isApplied = true;
         }
 
         /// <summary>
@@ -29,7 +33,7 @@
         /// <returns>Whether an object is cached for the given key.</returns>
         public virtual void BeforeHas(TKey key)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with BeforeHas().");
             }
@@ -42,7 +46,7 @@
         /// <returns>Whether an object is cached for the given key.</returns>
         public virtual void AfterHas(TKey key)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with AfterHas().");
             }
@@ -55,7 +59,7 @@
         /// <param name="value">The object to cache.</param>
         public virtual void BeforePut(TKey key, TValue value)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with BeforePut().");
             }
@@ -68,7 +72,7 @@
         /// <param name="value">The object to cache.</param>
         public virtual void AfterPut(TKey key, TValue value)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with AfterPut().");
             }
@@ -81,7 +85,7 @@
         /// <param name="do">The action to take</param>
         public virtual void BeforeWithValueDo(TKey key, Action<TValue> @do)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with BeforeWithValueDo().");
             }
@@ -94,7 +98,7 @@
         /// <param name="do">The action to take</param>
         public virtual void AfterWithValueDo(TKey key, Action<TValue> @do)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with AfterWithValueDo().");
             }
@@ -107,7 +111,7 @@
         /// <returns>Whether the removal was successful.</returns>
         public virtual bool BeforeRemove(TKey key)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with BeforeRemove().");
             }
@@ -122,7 +126,7 @@
         /// <returns>Whether the removal was successful.</returns>
         public virtual bool AfterRemove(TKey key)
         {
-            if (!isApplied)
+            if (!this.isApplied)
             {
                 throw new CachingException("Policy was not applied. Cannot proceed with AfterRemove().");
             }
