@@ -31,7 +31,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("")]
-        public IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName, [FromUri] UInt32? skip, [FromUri] UInt32? take)
+        public IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.fournisseurRepository
                 .GetAll(fournisseur => SqlMethods.Like(clubName, fournisseur.Club.Nom))

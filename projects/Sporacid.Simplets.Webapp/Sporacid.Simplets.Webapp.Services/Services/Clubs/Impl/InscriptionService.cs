@@ -32,6 +32,7 @@
         [HttpPost, Route("{codeUniversel}")]
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
+            // Todo if inactif -> reactiver
             var defaultRole = SecurityConfig.Role.Noob.ToString();
             var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(club.Nom, clubName));
             clubEntity.Membres.Add(new Membre
@@ -39,7 +40,8 @@
                 Club = clubEntity,
                 Titre = defaultRole,
                 CodeUniversel = codeUniversel,
-                DateDebut = DateTime.UtcNow
+                DateDebut = DateTime.UtcNow,
+                Actif = true
             });
 
             // Set the most basic rights on the club context for this principal.

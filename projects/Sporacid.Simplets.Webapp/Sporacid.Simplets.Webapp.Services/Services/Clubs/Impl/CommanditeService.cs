@@ -31,7 +31,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("")]
-        public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, [FromUri] UInt32? skip, [FromUri] UInt32? take)
+        public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditeRepository
                 .GetAll(commandite => SqlMethods.Like(clubName, commandite.Club.Nom))

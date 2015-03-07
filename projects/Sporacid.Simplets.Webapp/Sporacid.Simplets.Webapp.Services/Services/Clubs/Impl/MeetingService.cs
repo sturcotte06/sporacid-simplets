@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Linq.SqlClient;
+    using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -31,10 +32,11 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The meeting entities.</returns>
         [HttpGet, Route("")]
-        public IEnumerable<WithId<Int32, MeetingDto>> GetAll(String clubName, [FromUri] UInt32? skip, [FromUri] UInt32? take)
+        public IEnumerable<WithId<Int32, MeetingDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.meetingRepository
                 .GetAll(meeting => SqlMethods.Like(clubName, meeting.Club.Nom))
+                .OrderByDescending(meeting => meeting.DateDebut)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Meeting, MeetingDto>();
         }

@@ -42,6 +42,8 @@
             var clubEntity = club.MapTo<ClubDto, Club>();
             this.clubRepository.Add(clubEntity);
 
+            // Todo add creator as membre.
+
             // Add a new context for the club.
             this.contextService.CreateContext(clubEntity.Nom);
             return clubEntity.Id;

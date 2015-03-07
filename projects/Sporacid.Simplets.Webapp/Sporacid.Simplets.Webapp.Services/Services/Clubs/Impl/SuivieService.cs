@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Linq.SqlClient;
+    using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -14,14 +15,11 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/commandite/{commanditeId:int}/suivie")]
     public class SuivieService : BaseService, ISuivieService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Commandite> commanditeRepository;
         private readonly IRepository<Int32, Suivie> suivieRepository;
 
-        public SuivieService(IRepository<Int32, Club> clubRepository, IRepository<Int32, Commandite> commanditeRepository,
-            IRepository<Int32, Suivie> suivieRepository)
+        public SuivieService(IRepository<Int32, Commandite> commanditeRepository, IRepository<Int32, Suivie> suivieRepository)
         {
-            this.clubRepository = clubRepository;
             this.commanditeRepository = commanditeRepository;
             this.suivieRepository = suivieRepository;
         }
@@ -35,10 +33,11 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The suivie entities.</returns>
         [HttpGet, Route("")]
-        public IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId, [FromUri] UInt32? skip, [FromUri] UInt32? take)
+        public IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.suivieRepository
                 .GetAll(suivie => SqlMethods.Like(clubName, suivie.Commandite.Club.Nom))
+                .OrderByDescending(suivie => suivie.DateSuivie)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Suivie, SuivieDto>();
         }

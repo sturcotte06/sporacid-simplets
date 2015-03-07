@@ -136,16 +136,6 @@ namespace Sporacid.Simplets.Webapp.Services
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
                 .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
                 // .OnDeactivation(context => context.Dispose())
-            // kernel.Bind<IDataContextStore>().To<DataContextStore>()
-            //     .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
-            //     .InRequestScope()
-            //     .WithConstructorArgument(typeof (SecurityDataContext))
-            //     .OnDeactivation(store => ((IDisposable) store).Dispose());
-            // kernel.Bind<IDataContextStore>().To<DataContextStore>()
-            //     .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
-            //     .InRequestScope()
-            //     .WithConstructorArgument(typeof (DatabaseDataContext))
-            //     .OnDeactivation(store => ((IDisposable) store).Dispose());
 
             // Security database boostrap configuration.
             kernel.Bind<ISecurityDatabaseBootstrapper>().To<SecurityDatabaseBootstrapper>();
@@ -207,7 +197,7 @@ namespace Sporacid.Simplets.Webapp.Services
             // Cache configurations.
             kernel.Bind(typeof (ICache<,>)).To(typeof (ConfigurableCache<,>))
                 .InSingletonScope();
-            kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (ExclusiveLockingPolicy<,>));
+            kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (ReaderWriterLockingPolicy<,>));
             kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (TimeBasedInvalidationPolicy<,>))
                 .WithConstructorArgument(TimeSpan.FromHours(6));
 
