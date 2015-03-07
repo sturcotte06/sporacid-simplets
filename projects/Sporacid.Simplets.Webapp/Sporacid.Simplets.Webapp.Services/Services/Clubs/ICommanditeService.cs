@@ -7,7 +7,6 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
-    using Sporacid.Simplets.Webapp.Tools.Strings;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -17,15 +16,17 @@
     public interface ICommanditeService
     {
         /// <summary>
-        /// Get all commandite from a club context.
+        /// Get all commandite entities from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commandite.</returns>
         [RequiredClaims(Claims.ReadAll)]
-        IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName);
+        IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, UInt32? skip, UInt32? take);
 
         /// <summary>
-        /// Get a commandite from a club context.
+        /// Get a commandite entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
@@ -34,7 +35,7 @@
         CommanditeDto Get(String clubName, Int32 commanditeId);
 
         /// <summary>
-        /// Creates a commandite in a club context.
+        /// Creates a commandite entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commandite">The commandite.</param>
@@ -43,7 +44,7 @@
         Int32 Create(String clubName, CommanditeDto commandite);
 
         /// <summary>
-        /// Udates a commandite in a club context.
+        /// Updates a commandite entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
@@ -52,7 +53,7 @@
         void Update(String clubName, Int32 commanditeId, CommanditeDto commandite);
 
         /// <summary>
-        /// Deletes a commandite from a club context.
+        /// Deletes a commandite entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
@@ -66,14 +67,17 @@
     internal abstract class CommanditeServiceContract : ICommanditeService
     {
         /// <summary>
-        /// Get all commandite from a club context.
+        /// Get all commandite entities from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commandite.</returns>
-        public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName)
+        public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, UInt32? skip, UInt32? take)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.CommanditeService_GetAll_RequiresClubName);
+            Contract.Requires(take == null || take > 0, ContractStrings.CommanditeService_GetAll_RequiresUndefinedOrPositiveTake);
 
             // Postconditions.
             Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, CommanditeDto>>>() != null,
@@ -84,7 +88,7 @@
         }
 
         /// <summary>
-        /// Get a commandite from a club context.
+        /// Get a commandite entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
@@ -103,7 +107,7 @@
         }
 
         /// <summary>
-        /// Creates a commandite in a club context.
+        /// Creates a commandite entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commandite">The commandite.</param>
@@ -122,7 +126,7 @@
         }
 
         /// <summary>
-        /// Udates a commandite in a club context.
+        /// Udates a commandite entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
@@ -136,7 +140,7 @@
         }
 
         /// <summary>
-        /// Deletes a commandite from a club context.
+        /// Deletes a commandite entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>

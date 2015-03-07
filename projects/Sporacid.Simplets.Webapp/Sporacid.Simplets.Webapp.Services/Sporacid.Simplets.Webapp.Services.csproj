@@ -205,7 +205,9 @@
     <Compile Include="Database\Dto\Clubs\CommanditeDto.cs" />
     <Compile Include="Database\Dto\Clubs\EvenementDto.cs" />
     <Compile Include="Database\Dto\Clubs\FournisseurDto.cs" />
+    <Compile Include="Database\Dto\Clubs\GroupeDto.cs" />
     <Compile Include="Database\Dto\Clubs\ItemDto.cs" />
+    <Compile Include="Database\Dto\Clubs\MeetingDto.cs" />
     <Compile Include="Database\Dto\Clubs\SuivieDto.cs" />
     <Compile Include="Database\Dto\Dbo\AdresseDto.cs" />
     <Compile Include="Database\Dto\Dbo\ContactDto.cs" />
@@ -221,8 +223,6 @@
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
     <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
     <Compile Include="Database\Dto\Clubs\MembreDto.cs" />
-    <Compile Include="Events\ContextCreated.cs" />
-    <Compile Include="Events\ClubCreated.cs" />
     <Compile Include="Resources\Contracts\ContractStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -242,9 +242,11 @@
     <Compile Include="Services\Clubs\ICommanditeService.cs" />
     <Compile Include="Services\Clubs\IFournisseurService.cs" />
     <Compile Include="Services\Clubs\IInventaireService.cs" />
+    <Compile Include="Services\Clubs\IMeetingService.cs" />
     <Compile Include="Services\Clubs\Impl\CommanditeService.cs" />
     <Compile Include="Services\Clubs\Impl\FournisseurService.cs" />
     <Compile Include="Services\Clubs\Impl\InventaireService.cs" />
+    <Compile Include="Services\Clubs\Impl\MeetingService.cs" />
     <Compile Include="Services\Clubs\Impl\SuivieService.cs" />
     <Compile Include="Services\Clubs\ISuivieService.cs" />
     <Compile Include="Services\Public\IAnonymousService.cs" />
@@ -252,6 +254,7 @@
     <Compile Include="Services\Administration\Impl\SystemAdministrationService.cs" />
     <Compile Include="Services\Public\Impl\AnonymousService.cs" />
     <Compile Include="Services\Administration\Impl\ContextAdministrationService.cs" />
+    <Compile Include="Services\ServiceExtensions.cs" />
     <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
     <Compile Include="Services\Public\Impl\EnumerationService.cs" />
     <Compile Include="Services\Administration\Impl\PrincipalAdministrationService.cs" />
@@ -261,7 +264,6 @@
     <Compile Include="Services\Userspace\IProfilService.cs" />
     <Compile Include="Services\Clubs\IInscriptionService.cs" />
     <Compile Include="WebApi2\Description\XmlDocumentationProvider.cs" />
-    <Compile Include="WebApi2\Filters\Localization\LocalizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthorizationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\AuthenticationFilter.cs" />
     <Compile Include="WebApi2\Filters\Security\RequiresAuthorizedPrincipalAttribute.cs" />

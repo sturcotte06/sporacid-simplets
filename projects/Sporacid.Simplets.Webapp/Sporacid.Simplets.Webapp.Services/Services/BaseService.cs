@@ -1,5 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services
 {
+    using System;
+    using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;

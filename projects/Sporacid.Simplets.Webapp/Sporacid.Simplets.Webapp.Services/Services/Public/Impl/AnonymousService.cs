@@ -13,8 +13,7 @@
         /// <summary>
         /// Dummy method that can be called to bootstrap a new user.
         /// </summary>
-        [HttpGet]
-        [Route("noop")]
+        [HttpGet, Route("noop")]
         public void NoOp()
         {
         }
@@ -22,8 +21,7 @@
         /// <summary>
         /// Help method to get the api help.
         /// </summary>
-        [HttpGet]
-        [Route("help")]
+        [HttpGet, Route("help")]
         public IEnumerable<ApiMethodDescriptionDto> Help()
         {
             var apiDescriptions = GlobalConfiguration.Configuration.Services.GetApiExplorer().ApiDescriptions;

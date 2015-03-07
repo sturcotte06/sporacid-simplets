@@ -20,6 +20,11 @@
             Noob
         }
 
+        /// <summary>
+        /// Fixed context for system administration.
+        /// </summary>
+        public const String SystemContext = "Systeme";
+
         private const Claims AllClaims = (Claims) 511;
         private const Claims ReadOnlyClaims = (Claims) 192;
         private const Claims ModifyClaims = (Claims) 207;

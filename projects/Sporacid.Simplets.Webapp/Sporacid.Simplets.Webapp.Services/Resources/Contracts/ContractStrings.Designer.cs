@@ -162,6 +162,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string CommanditeService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("CommanditeService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string CommanditeService_GetClubsSubscribedTo_EnsuresNonNullClubs {
             get {
                 return ResourceManager.GetString("CommanditeService_GetClubsSubscribedTo_EnsuresNonNullClubs", resourceCulture);
@@ -387,6 +396,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string FournisseurService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("FournisseurService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string FournisseurService_Update_RequiresClubName {
             get {
                 return ResourceManager.GetString("FournisseurService_Update_RequiresClubName", resourceCulture);
@@ -444,6 +462,132 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string InscriptionService_UnsubscribeFromClub_RequiresCodeUniversel {
             get {
                 return ResourceManager.GetString("InscriptionService_UnsubscribeFromClub_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Create_RequiresClubName {
+            get {
+                return ResourceManager.GetString("MeetingService_Create_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Create_RequiresMeeting {
+            get {
+                return ResourceManager.GetString("MeetingService_Create_RequiresMeeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Delete_RequiresClubName {
+            get {
+                return ResourceManager.GetString("MeetingService_Delete_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Delete_RequiresPositiveMeetingId {
+            get {
+                return ResourceManager.GetString("MeetingService_Delete_RequiresPositiveMeetingId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Get_EnsuresNonNullMeeting {
+            get {
+                return ResourceManager.GetString("MeetingService_Get_EnsuresNonNullMeeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Get_EnsuresPositiveMeetingId {
+            get {
+                return ResourceManager.GetString("MeetingService_Get_EnsuresPositiveMeetingId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Get_RequiresClubName {
+            get {
+                return ResourceManager.GetString("MeetingService_Get_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Get_RequiresPositiveMeetingId {
+            get {
+                return ResourceManager.GetString("MeetingService_Get_RequiresPositiveMeetingId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_GetAll_EnsuresNonNullMeetings {
+            get {
+                return ResourceManager.GetString("MeetingService_GetAll_EnsuresNonNullMeetings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_GetAll_RequiresClubName {
+            get {
+                return ResourceManager.GetString("MeetingService_GetAll_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("MeetingService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Update_RequiresClubName {
+            get {
+                return ResourceManager.GetString("MeetingService_Update_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Update_RequiresMeeting {
+            get {
+                return ResourceManager.GetString("MeetingService_Update_RequiresMeeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingService_Update_RequiresPositiveMeetingId {
+            get {
+                return ResourceManager.GetString("MeetingService_Update_RequiresPositiveMeetingId", resourceCulture);
             }
         }
         
@@ -642,6 +786,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string SuivieService_GetAll_RequiresPositiveCommanditeId {
             get {
                 return ResourceManager.GetString("SuivieService_GetAll_RequiresPositiveCommanditeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SuivieService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("SuivieService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
             }
         }
         

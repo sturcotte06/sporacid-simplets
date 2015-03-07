@@ -5,7 +5,6 @@
     using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web.Http;
-    using AutoMapper;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
@@ -31,12 +30,12 @@
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <returns>The profil.</returns>
-        [HttpGet]
-        [Route("")]
+        [HttpGet, Route("")]
         public ProfilDto Get(String codeUniversel)
         {
-            var profilEntity = this.profilRepository.GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel));
-            return Mapper.Map<Profil, ProfilDto>(profilEntity);
+            return this.profilRepository
+                .GetUnique(profil => SqlMethods.Like(codeUniversel, profil.CodeUniversel))
+                .MapTo<Profil, ProfilDto>();
         }
 
         /// <summary>
@@ -44,12 +43,12 @@
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <param name="profil">The profil.</param>
-        [HttpPut]
-        [Route("")]
+        [HttpPut, Route("")]
         public void Update(String codeUniversel, ProfilDto profil)
         {
-            var profilEntity = this.profilRepository.GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel));
-            Mapper.Map(profil, profilEntity);
+            var profilEntity = this.profilRepository
+                .GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel))
+                .MapFrom(profil);
             this.profilRepository.Update(profilEntity);
         }
 
@@ -58,13 +57,12 @@
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <returns>All club entities subscribed to.</returns>
-        [HttpGet]
-        [Route("clubs")]
+        [HttpGet, Route("clubs")]
         public IEnumerable<WithId<Int32, ClubDto>> GetClubsSubscribedTo(String codeUniversel)
         {
-            var clubEntities = this.clubRepository.GetAll(
-                c => c.Membres.Any(m => SqlMethods.Like(m.CodeUniversel, codeUniversel)));
-            return clubEntities.Select(c => new WithId<Int32, ClubDto>(c.Id, Mapper.Map<Club, ClubDto>(c)));
+            return this.clubRepository
+                .GetAll(club => club.Membres.Any(membre => SqlMethods.Like(membre.CodeUniversel, codeUniversel)))
+                .MapAllWithIds<Club, ClubDto>();
         }
     }
 }

@@ -531,6 +531,42 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string GroupeDto_Description_Required {
+            get {
+                return ResourceManager.GetString("GroupeDto_Description_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GroupeDto_Description_StringLength {
+            get {
+                return ResourceManager.GetString("GroupeDto_Description_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GroupeDto_Nom_Required {
+            get {
+                return ResourceManager.GetString("GroupeDto_Nom_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GroupeDto_Nom_StringLength {
+            get {
+                return ResourceManager.GetString("GroupeDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ItemDto_Code_StringLength {
             get {
                 return ResourceManager.GetString("ItemDto_Code_StringLength", resourceCulture);
@@ -606,6 +642,51 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         internal static string ItemDto_UniteId_Required {
             get {
                 return ResourceManager.GetString("ItemDto_UniteId_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingDto_Commentaire_Required {
+            get {
+                return ResourceManager.GetString("MeetingDto_Commentaire_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingDto_Commentaire_StringLength {
+            get {
+                return ResourceManager.GetString("MeetingDto_Commentaire_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingDto_ConvocateurId_Range {
+            get {
+                return ResourceManager.GetString("MeetingDto_ConvocateurId_Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingDto_DateDebut_Required {
+            get {
+                return ResourceManager.GetString("MeetingDto_DateDebut_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MeetingDto_DateFin_Required {
+            get {
+                return ResourceManager.GetString("MeetingDto_DateFin_Required", resourceCulture);
             }
         }
         

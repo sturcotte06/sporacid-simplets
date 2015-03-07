@@ -33,7 +33,6 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Services.Services.Userspace;
     using Sporacid.Simplets.Webapp.Services.Services.Userspace.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Localization;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials.Impl;
@@ -265,9 +264,6 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServiceProjectFilters(IKernel kernel)
         {
-            // Bind the localization filter.
-            kernel.BindHttpFilter<LocalizationFilter>(FilterScope.Global);
-
             // Bind the authentication filter on services that have the RequiresAuthenticatedPrincipal attribute
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
                 .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>()

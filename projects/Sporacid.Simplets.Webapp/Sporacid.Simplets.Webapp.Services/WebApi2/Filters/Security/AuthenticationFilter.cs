@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -57,6 +58,17 @@
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
+            // Get the culture header if it exists.
+            var cultureHeader = request.Headers.AcceptLanguage.FirstOrDefault();
+            if (cultureHeader != null)
+            {
+                // Set specific culture requested by client.
+                var cultureInfo = CultureInfo.CreateSpecificCulture(cultureHeader.Value);
+                Thread.CurrentThread.CurrentCulture = cultureInfo;
+                Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            }
+
+
             // If there are no credentials, throw.
             if (authorization == null)
             {
@@ -99,8 +111,8 @@
             var response = HttpContext.Current.Response;
             var base64Token = Convert.ToBase64String(Encoding.ASCII.GetBytes(tokenAndPrincipal.Token.Key));
             response.Headers.Add("Authorization-Token", base64Token);
-            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("O"));
-            response.Headers.Add("Authorization-Token-Expires-At", tokenAndPrincipal.Token.EmittedAt.Add(tokenAndPrincipal.Token.ValidFor).ToString("O"));
+            response.Headers.Add("Authorization-Token-Emitted-At", tokenAndPrincipal.Token.EmittedAt.ToString("u"));
+            response.Headers.Add("Authorization-Token-Expires-At", tokenAndPrincipal.Token.EmittedAt.Add(tokenAndPrincipal.Token.ValidFor).ToString("u"));
 
             // Check if the user is logged in for the first time.
             var identity = tokenAndPrincipal.Principal.Identity.Name;

@@ -5,16 +5,14 @@
     using System.Linq;
     using System.Web;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Events.Bus;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
-    using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{context:alpha}/administration")]
-    public class ContextAdministrationService : BaseService, IContextAdministrationService, IEventPublisher<ContextCreated>
+    public class ContextAdministrationService : BaseService, IContextAdministrationService
     {
         private readonly IRepository<Int32, Context> contextRepository;
         private readonly IRepository<Int32, Principal> principalRepository;
@@ -32,15 +30,14 @@
         /// Creates a security context in the system.
         /// </summary>
         /// <param name="context">The context.</param>
-        [HttpPost]
-        [Route("")]
+        [HttpPost, Route("")]
         public Int32 CreateContext(String context)
         {
             // Create the context.
             var contextEntity = new Context {Name = context};
             this.contextRepository.Add(contextEntity);
 
-            // Bind admin role to the current user on the newly create context.
+            // Bind admin role to the current user on the newly created context.
             var principal = HttpContext.Current.User.Identity.Name;
             this.BindRoleToPrincipal(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), principal);
             return contextEntity.Id;
@@ -54,8 +51,7 @@
         /// <param name="context">The context.</param>
         /// <param name="role">The role.</param>
         /// <param name="identity">The principal identity.</param>
-        [HttpPut]
-        [Route("bind/{role:alpha}/to/{identity}")]
+        [HttpPut, Route("bind/{role:alpha}/to/{identity}")]
         public void BindRoleToPrincipal(String context, String role, String identity)
         {
             // Remove all claims from this user. A tad slow because we need to query the context and principal twice.
@@ -84,8 +80,7 @@
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="identity">The principal identity.</param>
-        [HttpDelete]
-        [Route("unbind-claims-from/{identity}")]
+        [HttpDelete, Route("unbind-claims-from/{identity}")]
         public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
             // Get all required entities.

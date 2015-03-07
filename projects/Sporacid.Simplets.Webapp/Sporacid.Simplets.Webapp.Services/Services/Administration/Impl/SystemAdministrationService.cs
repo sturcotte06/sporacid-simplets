@@ -3,7 +3,6 @@
     using System;
     using System.Data.Linq.SqlClient;
     using System.Web.Http;
-    using AutoMapper;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -30,8 +29,7 @@
         /// </summary>
         /// <param name="club">The club entity.</param>
         /// <returns>The id of the newly created club entity.</returns>
-        [HttpPost]
-        [Route("club")]
+        [HttpPost, Route("club")]
         public int CreateClub(ClubDto club)
         {
             // Cannot add the same club twice.
@@ -41,7 +39,7 @@
             }
 
             // Add the new club entity.
-            var clubEntity = Mapper.Map<ClubDto, Club>(club);
+            var clubEntity = club.MapTo<ClubDto, Club>();
             this.clubRepository.Add(clubEntity);
 
             // Add a new context for the club.

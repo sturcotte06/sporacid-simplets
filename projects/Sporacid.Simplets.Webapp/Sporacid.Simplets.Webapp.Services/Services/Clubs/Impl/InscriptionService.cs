@@ -16,8 +16,8 @@
         private readonly IContextAdministrationService contextAdministrationService;
         private readonly IRepository<Int32, Membre> membreRepository;
 
-        public InscriptionService(IContextAdministrationService contextAdministrationService,
-            IRepository<Int32, Club> clubRepository, IRepository<Int32, Membre> membreRepository)
+        public InscriptionService(IContextAdministrationService contextAdministrationService, IRepository<Int32, Club> clubRepository,
+            IRepository<Int32, Membre> membreRepository)
         {
             this.contextAdministrationService = contextAdministrationService;
             this.clubRepository = clubRepository;
@@ -29,20 +29,21 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The id of the member entity.</param>
-        [HttpPost]
-        [Route("{codeUniversel}")]
+        [HttpPost, Route("{codeUniversel}")]
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
-            var clubEntity = this.clubRepository.GetUnique(c => SqlMethods.Like(c.Nom, clubName));
+            var defaultRole = SecurityConfig.Role.Noob.ToString();
+            var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(club.Nom, clubName));
             clubEntity.Membres.Add(new Membre
             {
                 Club = clubEntity,
+                Titre = defaultRole,
                 CodeUniversel = codeUniversel,
                 DateDebut = DateTime.UtcNow
             });
 
             // Set the most basic rights on the club context for this principal.
-            this.contextAdministrationService.BindRoleToPrincipal(clubName, SecurityConfig.Role.Noob.ToString(), codeUniversel);
+            this.contextAdministrationService.BindRoleToPrincipal(clubName, defaultRole, codeUniversel);
             this.clubRepository.Update(clubEntity);
         }
 
@@ -51,12 +52,11 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The universal code that represents the user.</param>
-        [HttpDelete]
-        [Route("{membreId:int}")]
+        [HttpDelete, Route("{membreId:int}")]
         public void UnsubscribeFromClub(String clubName, String codeUniversel)
         {
-            var membreEntity = this.membreRepository.GetUnique(m =>
-                SqlMethods.Like(m.CodeUniversel, codeUniversel) && SqlMethods.Like(m.Club.Nom, clubName));
+            var membreEntity = this.membreRepository
+                .GetUnique(membre => SqlMethods.Like(membre.CodeUniversel, codeUniversel) && SqlMethods.Like(membre.Club.Nom, clubName));
 
             // Do not really delete the membre entity. Just set it to inactive.
             membreEntity.Actif = false;

@@ -35,12 +35,7 @@
             traceAction(record);
             this.Log(record);
         }
-
-        public bool IsEnabled(string category, TraceLevel level)
-        {
-            return true;
-        }
-
+        
         private void Log(TraceRecord record)
         {
             var message = new StringBuilder();

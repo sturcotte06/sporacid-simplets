@@ -129,8 +129,8 @@
   <data name="Core_Security_ContextsDoNotAllExist" xml:space="preserve">
     <value>Tentative d'accès à un ou plusieurs contextes non configuré(s). Autorisation refusée par défaut.</value>
   </data>
-  <data name="Core_Security_KererosDown" xml:space="preserve">
-    <value>Impossible de contacterle serveur Kerberos. Si vous n'êtes pas dans le domaine de l'application, veuillez-vous assurer que vous soyez connecté par vpn.</value>
+  <data name="Core_Security_KerberosDown" xml:space="preserve">
+    <value>Impossible de contacter le serveur Kerberos. Si vous n'êtes pas dans le domaine de l'application, veuillez-vous assurer que vous soyez connecté par vpn.</value>
   </data>
   <data name="Core_Security_ModuleDoesNotExist" xml:space="preserve">
     <value>Tentative d'accès à un module non configuré. Autorisation refusée par défauut.</value>

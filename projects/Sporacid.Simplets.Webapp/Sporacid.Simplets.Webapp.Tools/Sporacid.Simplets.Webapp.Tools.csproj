@@ -116,7 +116,6 @@
     <Compile Include="Collections\Pooling\IObjectManager.cs" />
     <Compile Include="Collections\Pooling\IObjectPool.cs" />
     <Compile Include="Collections\Pooling\ObjectPool.cs" />
-    <Compile Include="Enumerations\EnumerationsExtensions.cs" />
     <Compile Include="Events\EventExtensions.cs" />
     <Compile Include="Events\GenericEventArgs.cs" />
     <Compile Include="Factories\ConstructorArgumentAttribute.cs" />

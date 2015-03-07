@@ -4,13 +4,12 @@
     using System.Diagnostics.Contracts;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
-    using Sporacid.Simplets.Webapp.Tools.Strings;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Module("Administration")]
-    [FixedContext("Systeme")]
-    [ContractClass(typeof(PrincipalAdministrationServiceContract))]
+    [FixedContext(SecurityConfig.SystemContext)]
+    [ContractClass(typeof (PrincipalAdministrationServiceContract))]
     public interface IPrincipalAdministrationService
     {
         /// <summary>
@@ -32,8 +31,8 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [ContractClassFor(typeof(IPrincipalAdministrationService))]
-    abstract class PrincipalAdministrationServiceContract : IPrincipalAdministrationService
+    [ContractClassFor(typeof (IPrincipalAdministrationService))]
+    internal abstract class PrincipalAdministrationServiceContract : IPrincipalAdministrationService
     {
         /// <summary>
         /// Returns whether the principal exists.

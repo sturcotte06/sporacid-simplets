@@ -7,7 +7,6 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
-    using Sporacid.Simplets.Webapp.Tools.Strings;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -21,9 +20,11 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The suivie entities.</returns>
         [RequiredClaims(Claims.ReadAll)]
-        IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId);
+        IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId, UInt32? skip, UInt32? take);
 
         /// <summary>
         /// Gets a suivie from a commandite in a club context.
@@ -75,12 +76,15 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The suivie entities.</returns>
-        public IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId)
+        public IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId, UInt32? skip, UInt32? take)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.SuivieService_GetAll_RequiresClubName);
             Contract.Requires(commanditeId > 0, ContractStrings.SuivieService_GetAll_RequiresPositiveCommanditeId);
+            Contract.Requires(take == null || take > 0, ContractStrings.SuivieService_GetAll_RequiresUndefinedOrPositiveTake);
 
             // Postconditions.
             Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, SuivieDto>>>() != null,

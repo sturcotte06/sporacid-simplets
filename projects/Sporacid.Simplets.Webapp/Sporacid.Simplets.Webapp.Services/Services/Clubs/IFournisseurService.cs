@@ -17,19 +17,21 @@
     public interface IFournisseurService
     {
         /// <summary>
-        /// Get all fournisseurs from a club context.
+        /// Get all fournisseurs entities from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
         [RequiredClaims(Claims.ReadAll)]
-        IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName);
+        IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName, UInt32? skip, UInt32? take);
 
         /// <summary>
-        /// Get a fournisseur from a club context.
+        /// Get a fournisseur entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="fournisseurId">The fournisseur id.</param>
-        /// <returns>The fournisseur.</returns>
+        /// <returns>The fournisseur entity.</returns>
         [RequiredClaims(Claims.Read)]
         FournisseurDto Get(String clubName, Int32 fournisseurId);
 
@@ -69,11 +71,14 @@
         /// Get all fournisseurs from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
-        public IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName)
+        public IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName, UInt32? skip, UInt32? take)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.FournisseurService_GetAll_RequiresClubName);
+            Contract.Requires(take == null || take > 0, ContractStrings.FournisseurService_GetAll_RequiresUndefinedOrPositiveTake);
 
             // Postconditions.
             Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, FournisseurDto>>>() != null,

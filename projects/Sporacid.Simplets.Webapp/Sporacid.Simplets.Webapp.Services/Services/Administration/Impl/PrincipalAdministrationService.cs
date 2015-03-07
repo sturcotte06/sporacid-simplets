@@ -50,7 +50,6 @@
 
             // Create the base profil for the new principal.
             this.profilAdministrationService.CreateBaseProfil(identity);
-
             return principalEntity.Id;
         }
     }

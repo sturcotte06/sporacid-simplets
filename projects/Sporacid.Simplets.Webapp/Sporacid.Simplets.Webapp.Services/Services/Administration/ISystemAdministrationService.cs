@@ -9,7 +9,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Module("Administration")]
-    [FixedContext("Systeme")]
+    [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof(SystemAdministrationServiceContract))]
     public interface ISystemAdministrationService
     {

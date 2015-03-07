@@ -138,6 +138,9 @@
   <data name="CommanditeService_GetAll_RequiresClubName" xml:space="preserve">
     <value>A club name is requried to get its sponsors.</value>
   </data>
+  <data name="CommanditeService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
   <data name="CommanditeService_GetClubsSubscribedTo_EnsuresNonNullClubs" xml:space="preserve">
     <value />
   </data>
@@ -216,6 +219,9 @@
   <data name="FournisseurService_GetAll_RequiresClubName" xml:space="preserve">
     <value />
   </data>
+  <data name="FournisseurService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
   <data name="FournisseurService_Get_EnsuresNonNullFournisseur" xml:space="preserve">
     <value />
   </data>
@@ -244,6 +250,48 @@
     <value />
   </data>
   <data name="InscriptionService_UnsubscribeFromClub_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Create_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Create_RequiresMeeting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Delete_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Delete_RequiresPositiveMeetingId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_GetAll_EnsuresNonNullMeetings" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_GetAll_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Get_EnsuresNonNullMeeting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Get_EnsuresPositiveMeetingId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Get_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Get_RequiresPositiveMeetingId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Update_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Update_RequiresMeeting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingService_Update_RequiresPositiveMeetingId" xml:space="preserve">
     <value />
   </data>
   <data name="PrincipalAdministrationService_CreatePrincipal_EnsuresPositivePrincipalId" xml:space="preserve">
@@ -298,6 +346,9 @@
     <value />
   </data>
   <data name="SuivieService_GetAll_RequiresPositiveCommanditeId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SuivieService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
     <value />
   </data>
   <data name="SuivieService_Get_EnsuresNonNullSuivie" xml:space="preserve">

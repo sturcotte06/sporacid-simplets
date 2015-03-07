@@ -273,6 +273,18 @@
   <data name="FournisseurDto_Nom_StringLength" xml:space="preserve">
     <value />
   </data>
+  <data name="GroupeDto_Description_Required" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupeDto_Description_StringLength" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupeDto_Nom_Required" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupeDto_Nom_StringLength" xml:space="preserve">
+    <value />
+  </data>
   <data name="ItemDto_Code_StringLength" xml:space="preserve">
     <value />
   </data>
@@ -298,6 +310,21 @@
     <value />
   </data>
   <data name="ItemDto_UniteId_Required" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingDto_Commentaire_Required" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingDto_Commentaire_StringLength" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingDto_ConvocateurId_Range" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingDto_DateDebut_Required" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MeetingDto_DateFin_Required" xml:space="preserve">
     <value />
   </data>
   <data name="MembreDto_Actif_Required" xml:space="preserve">
