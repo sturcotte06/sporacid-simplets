@@ -36,6 +36,9 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX UIXProfilsCodeUniversel ON [userspace].[Profils] ([CodeUniversel])
+GO
+
 CREATE TABLE [userspace].[XpTable](
 	[Level] [int] NOT NULL,
 	[RequiredXp] [int] NOT NULL
@@ -71,6 +74,9 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+CREATE NONCLUSTERED INDEX UIXPreferencesProfilId ON [userspace].[Preferences] ([ProfilId])
+GO
+
 /****** Object:  Table [userspace].[ProfilsFormations]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[Formations](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
@@ -83,6 +89,9 @@ PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )) ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX UIXFormationsProfilId ON [userspace].[Formations] ([ProfilId])
 GO
 
 /****** Object:  Table [userspace].[ProfilsContactsUrgence]  Script Date: 12/12/2014 2:40:31 PM ******/
@@ -109,6 +118,9 @@ PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )) ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX UIXAllergiesProfilId ON [userspace].[Allergies] ([ProfilId])
 GO
 
 /****** Foreign keys ******/

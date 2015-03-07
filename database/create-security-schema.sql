@@ -39,9 +39,6 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-CREATE NONCLUSTERED INDEX IXClaimValue ON [security].[Claims] ([Value])
-GO
-
 /****** Object:  Table [security].[Contexts]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[Contexts](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
