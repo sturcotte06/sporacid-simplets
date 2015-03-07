@@ -9,6 +9,7 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -33,6 +34,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The suivie entities.</returns>
         [HttpGet, Route("")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.suivieRepository
@@ -50,6 +52,7 @@
         /// <param name="suivieId">The suivie id.</param>
         /// <returns>The suivie entity.</returns>
         [HttpGet, Route("{suivieId:int}")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public SuivieDto Get(String clubName, Int32 commanditeId, Int32 suivieId)
         {
             return this.suivieRepository
@@ -65,6 +68,7 @@
         /// <param name="suivie">The suivie.</param>
         /// <returns>The created suivie id.</returns>
         [HttpPost, Route("")]
+        [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, Int32 commanditeId, SuivieDto suivie)
         {
             var commanditeEntity = this.commanditeRepository
@@ -85,6 +89,7 @@
         /// <param name="suivieId">The suivie id.</param>
         /// <param name="suivie">The suivie.</param>
         [HttpPut, Route("{suivieId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Update(String clubName, Int32 commanditeId, Int32 suivieId, SuivieDto suivie)
         {
             var suivieEntity = this.suivieRepository
@@ -100,6 +105,7 @@
         /// <param name="commanditeId">The commandite id.</param>
         /// <param name="suivieId">The suivie id.</param>
         [HttpDelete, Route("{suivieId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Delete(String clubName, Int32 commanditeId, Int32 suivieId)
         {
             // Somewhat trash call to make sure the suivie is in this context. 

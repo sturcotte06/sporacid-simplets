@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data.Linq.SqlClient;
+    using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -32,17 +33,28 @@
         [HttpPost, Route("{codeUniversel}")]
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
-            // Todo if inactif -> reactiver
             var defaultRole = SecurityConfig.Role.Noob.ToString();
             var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(club.Nom, clubName));
-            clubEntity.Membres.Add(new Membre
+            var membreEntity = clubEntity.Membres.SingleOrDefault(membre => SqlMethods.Like(membre.CodeUniversel, codeUniversel));
+
+            if (membreEntity != null)
             {
-                Club = clubEntity,
-                Titre = defaultRole,
-                CodeUniversel = codeUniversel,
-                DateDebut = DateTime.UtcNow,
-                Actif = true
-            });
+                // Membre entity already exist. Reactivate it.
+                membreEntity.Actif = true;
+                membreEntity.DateFin = null;
+            }
+            else
+            {
+                // Membre entity does not exist. Create it.
+                clubEntity.Membres.Add(new Membre
+                {
+                    Club = clubEntity,
+                    Titre = defaultRole,
+                    CodeUniversel = codeUniversel,
+                    DateDebut = DateTime.UtcNow,
+                    Actif = true
+                });
+            }
 
             // Set the most basic rights on the club context for this principal.
             this.contextAdministrationService.BindRoleToPrincipal(clubName, defaultRole, codeUniversel);
@@ -64,6 +76,8 @@
             membreEntity.Actif = false;
             membreEntity.DateFin = new DateTime();
 
+            // Remove all claims of the principal on the club.
+            this.contextAdministrationService.RemoveAllClaimsFromPrincipal(clubName, codeUniversel);
             this.membreRepository.Update(membreEntity);
         }
     }

@@ -8,6 +8,7 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -31,6 +32,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditeRepository
@@ -46,6 +48,7 @@
         /// <param name="commanditeId">The commandite id.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("{commanditeId:int}")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public CommanditeDto Get(String clubName, Int32 commanditeId)
         {
             return this.commanditeRepository
@@ -60,6 +63,7 @@
         /// <param name="commandite">The commandite.</param>
         /// <returns>The created commandite id.</returns>
         [HttpPost, Route("")]
+        [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, CommanditeDto commandite)
         {
             var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(clubName, club.Nom));
@@ -79,6 +83,7 @@
         /// <param name="commanditeId">The commandite id.</param>
         /// <param name="commandite">The commandite.</param>
         [HttpPut, Route("{commanditeId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Update(String clubName, Int32 commanditeId, CommanditeDto commandite)
         {
             var commanditeEntity = this.commanditeRepository
@@ -93,6 +98,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditeId">The commandite id.</param>
         [HttpDelete, Route("{commanditeId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Delete(String clubName, Int32 commanditeId)
         {
             // Somewhat trash call to make sure the commandite is in this context. 

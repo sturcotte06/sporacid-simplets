@@ -9,6 +9,7 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -32,6 +33,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The meeting entities.</returns>
         [HttpGet, Route("")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, MeetingDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.meetingRepository
@@ -48,6 +50,7 @@
         /// <param name="meetingId">The meeting id.</param>
         /// <returns>The meeting entity.</returns>
         [HttpGet, Route("{meetingId:int}")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public MeetingDto Get(String clubName, Int32 meetingId)
         {
             return this.meetingRepository
@@ -62,6 +65,7 @@
         /// <param name="meeting">The meeting entity.</param>
         /// <returns>The created meeting id.</returns>
         [HttpPost, Route("")]
+        [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, MeetingDto meeting)
         {
             var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(clubName, club.Nom));
@@ -81,6 +85,7 @@
         /// <param name="meetingId">The commandite id.</param>
         /// <param name="meeting">The meeting entity.</param>
         [HttpPut, Route("{meetingId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Update(String clubName, Int32 meetingId, MeetingDto meeting)
         {
             var meetingEntity = this.meetingRepository
@@ -95,6 +100,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="meetingId">The meeting id.</param>
         [HttpDelete, Route("{meetingId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Delete(String clubName, Int32 meetingId)
         {
             // Somewhat trash call to make sure the meeting is in this context. 

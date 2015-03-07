@@ -21,7 +21,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
-        /// <returns>The commandite.</returns>
+        /// <returns>The commandite entities.</returns>
         [RequiredClaims(Claims.ReadAll)]
         IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, UInt32? skip, UInt32? take);
 
@@ -29,8 +29,8 @@
         /// Get a commandite entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="commanditeId">The commandite id.</param>
-        /// <returns>The commandite.</returns>
+        /// <param name="commanditeId">The commandite entity id.</param>
+        /// <returns>The commandite entity.</returns>
         [RequiredClaims(Claims.Read)]
         CommanditeDto Get(String clubName, Int32 commanditeId);
 
@@ -38,8 +38,8 @@
         /// Creates a commandite entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="commandite">The commandite.</param>
-        /// <returns>The created commandite id.</returns>
+        /// <param name="commandite">The commandite entity.</param>
+        /// <returns>The created commandite entity id.</returns>
         [RequiredClaims(Claims.Create)]
         Int32 Create(String clubName, CommanditeDto commandite);
 
@@ -47,8 +47,8 @@
         /// Updates a commandite entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="commanditeId">The commandite id.</param>
-        /// <param name="commandite">The commandite.</param>
+        /// <param name="commanditeId">The commandite entity id.</param>
+        /// <param name="commandite">The commandite entity.</param>
         [RequiredClaims(Claims.Update)]
         void Update(String clubName, Int32 commanditeId, CommanditeDto commandite);
 
@@ -56,7 +56,7 @@
         /// Deletes a commandite entity from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="commanditeId">The commandite id.</param>
+        /// <param name="commanditeId">The commandite entity id.</param>
         [RequiredClaims(Claims.Delete)]
         void Delete(String clubName, Int32 commanditeId);
     }

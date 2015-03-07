@@ -8,6 +8,7 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -33,6 +34,7 @@
         /// </summary>
         /// <returns>Enumeration of all type contact entities.</returns>
         [HttpGet, Route("types-contacts")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.VeryLong)]
         public IEnumerable<WithId<Int32, TypeContactDto>> GetAllTypesContacts()
         {
             return this.typeContactRepository
@@ -45,6 +47,7 @@
         /// </summary>
         /// <returns>Enumeration of all statuts suivie entities.</returns>
         [HttpGet, Route("statuts-suivies")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.VeryLong)]
         public IEnumerable<WithId<Int32, StatutSuivieDto>> GetAllStatutsSuivie()
         {
             return this.statutSuivieRepository
@@ -57,6 +60,7 @@
         /// </summary>
         /// <returns>Enumeration of all concentration entities.</returns>
         [HttpGet, Route("concentrations")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.VeryLong)]
         public IEnumerable<WithId<Int32, ConcentrationDto>> GetAllConcentrations()
         {
             return this.concentrationRepository
@@ -69,6 +73,7 @@
         /// </summary>
         /// <returns>Enumeration of all unite entities.</returns>
         [HttpGet, Route("unites")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.VeryLong)]
         public IEnumerable<WithId<Int32, UniteDto>> GetAllUnites()
         {
             return this.uniteRepository

@@ -8,6 +8,7 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -31,6 +32,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.fournisseurRepository
@@ -46,6 +48,7 @@
         /// <param name="fournisseurId">The fournisseur id.</param>
         /// <returns>The fournisseur.</returns>
         [HttpGet, Route("{fournisseurId:int}")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public FournisseurDto Get(String clubName, Int32 fournisseurId)
         {
             return this.fournisseurRepository
@@ -60,6 +63,7 @@
         /// <param name="fournisseur">The fournisseur.</param>
         /// <returns>The created fournisseur id.</returns>
         [HttpPost, Route("")]
+        [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, FournisseurDto fournisseur)
         {
             var clubEntity = this.clubRepository.GetUnique(c => SqlMethods.Like(clubName, c.Nom));
@@ -79,6 +83,7 @@
         /// <param name="fournisseurId">The fournisseur id.</param>
         /// <param name="fournisseur">The fournisseur.</param>
         [HttpPut, Route("{fournisseurId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Update(String clubName, Int32 fournisseurId, FournisseurDto fournisseur)
         {
             var fournisseurEntity = this.fournisseurRepository
@@ -93,6 +98,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="fournisseurId">The fournisseur id.</param>
         [HttpDelete, Route("{fournisseurId:int}")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
         public void Delete(String clubName, Int32 fournisseurId)
         {
             // Somewhat trash call to make sure the fournisseur is in this context. 

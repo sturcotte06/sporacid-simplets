@@ -252,6 +252,48 @@
   <data name="InscriptionService_UnsubscribeFromClub_RequiresCodeUniversel" xml:space="preserve">
     <value />
   </data>
+  <data name="InventaireService_Create_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Create_RequiresItem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Delete_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Delete_RequiresPositiveItemId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_GetAll_EnsuresNonNullItems" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_GetAll_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Get_EnsuresNonNullItem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Get_EnsuresPositiveItemId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Get_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Get_RequiresPositiveItemId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Update_RequiresClubName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Update_RequiresItem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InventaireService_Update_RequiresPositiveItemId" xml:space="preserve">
+    <value />
+  </data>
   <data name="MeetingService_Create_RequiresClubName" xml:space="preserve">
     <value />
   </data>

@@ -468,6 +468,132 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string InventaireService_Create_RequiresClubName {
+            get {
+                return ResourceManager.GetString("InventaireService_Create_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Create_RequiresItem {
+            get {
+                return ResourceManager.GetString("InventaireService_Create_RequiresItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Delete_RequiresClubName {
+            get {
+                return ResourceManager.GetString("InventaireService_Delete_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Delete_RequiresPositiveItemId {
+            get {
+                return ResourceManager.GetString("InventaireService_Delete_RequiresPositiveItemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Get_EnsuresNonNullItem {
+            get {
+                return ResourceManager.GetString("InventaireService_Get_EnsuresNonNullItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Get_EnsuresPositiveItemId {
+            get {
+                return ResourceManager.GetString("InventaireService_Get_EnsuresPositiveItemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Get_RequiresClubName {
+            get {
+                return ResourceManager.GetString("InventaireService_Get_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Get_RequiresPositiveItemId {
+            get {
+                return ResourceManager.GetString("InventaireService_Get_RequiresPositiveItemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_GetAll_EnsuresNonNullItems {
+            get {
+                return ResourceManager.GetString("InventaireService_GetAll_EnsuresNonNullItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_GetAll_RequiresClubName {
+            get {
+                return ResourceManager.GetString("InventaireService_GetAll_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("InventaireService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Update_RequiresClubName {
+            get {
+                return ResourceManager.GetString("InventaireService_Update_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Update_RequiresItem {
+            get {
+                return ResourceManager.GetString("InventaireService_Update_RequiresItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InventaireService_Update_RequiresPositiveItemId {
+            get {
+                return ResourceManager.GetString("InventaireService_Update_RequiresPositiveItemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MeetingService_Create_RequiresClubName {
             get {
                 return ResourceManager.GetString("MeetingService_Create_RequiresClubName", resourceCulture);

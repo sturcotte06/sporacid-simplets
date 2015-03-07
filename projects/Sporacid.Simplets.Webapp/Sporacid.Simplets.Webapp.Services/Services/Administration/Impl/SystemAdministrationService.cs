@@ -30,7 +30,7 @@
         /// <param name="club">The club entity.</param>
         /// <returns>The id of the newly created club entity.</returns>
         [HttpPost, Route("club")]
-        public int CreateClub(ClubDto club)
+        public Int32 CreateClub(ClubDto club)
         {
             // Cannot add the same club twice.
             if (this.clubRepository.Has(c => SqlMethods.Like(c.Nom, club.Nom)))
