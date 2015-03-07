@@ -104,6 +104,7 @@
     <Compile Include="Collections\Caches\Policies\Invalidation\ICacheInvalidationPolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Invalidation\TimeBasedInvalidationPolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Locking\BaseLockingPolicy.cs" />
+    <Compile Include="Collections\Caches\Policies\Locking\ReaderWriterLockingPolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Locking\ExclusiveLockingPolicy.cs" />
     <Compile Include="Collections\Caches\Policies\Locking\ICacheLockingPolicy.cs" />
     <Compile Include="Collections\Concurrent\BlockingBoundedQueue.cs" />
