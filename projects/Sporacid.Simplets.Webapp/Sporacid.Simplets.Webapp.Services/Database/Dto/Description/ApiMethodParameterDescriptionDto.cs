@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Database.Dto
+﻿namespace Sporacid.Simplets.Webapp.Services.Database.Dto.Description
 {
     using System;
 

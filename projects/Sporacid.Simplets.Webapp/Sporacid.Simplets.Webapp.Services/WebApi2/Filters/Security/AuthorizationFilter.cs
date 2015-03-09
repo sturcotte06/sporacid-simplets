@@ -93,7 +93,7 @@
                 var context = actionContext.Request.GetRouteData().Values[contextualAttr.ContextParameterName];
                 if (context == null)
                 {
-                    throw new NotAuthorizedException(ExceptionStrings.Services_Security_NoContextualActionCOntext);
+                    throw new NotAuthorizedException(ExceptionStrings.Services_Security_NoContextualActionContext);
                 }
 
                 authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());

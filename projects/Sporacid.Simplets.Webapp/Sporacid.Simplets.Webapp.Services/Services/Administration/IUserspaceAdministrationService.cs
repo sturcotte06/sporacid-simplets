@@ -2,6 +2,9 @@
 {
     using System;
     using System.Diagnostics.Contracts;
+    using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
 
@@ -13,12 +16,22 @@
     public interface IUserspaceAdministrationService
     {
         /// <summary>
-        /// Creates the base profil for agiven universal code.
+        /// Creates the base profil entity for a given principal's identity.
+        /// Every available informations for the principal will be extracted and included in the profil entity.
         /// </summary>
-        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
-        /// <returns>The id of the newly created profil entity.</returns>
+        /// <param name="identity">The principal's identity.</param>
+        /// <exception cref="NotAuthorizedException">
+        /// If the profil entity already exists.
+        /// </exception>
+        /// <exception cref="RepositoryException">
+        /// If something unexpected occurs while creating the base profil entity.
+        /// </exception>
+        /// <exception cref="CoreException">
+        /// If something unexpected occurs.
+        /// </exception>
+        /// <returns>The id of the created profil entity.</returns>
         [RequiredClaims(Claims.Admin | Claims.Create)]
-        Int32 CreateBaseProfil(String codeUniversel);
+        Int32 CreateBaseProfil(String identity);
     }
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>

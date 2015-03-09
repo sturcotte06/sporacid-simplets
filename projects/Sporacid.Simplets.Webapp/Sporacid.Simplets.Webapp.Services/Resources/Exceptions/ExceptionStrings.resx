@@ -126,14 +126,23 @@
   <data name="Services_Security_ClubDuplicate" xml:space="preserve">
     <value>Club "{0}" already exists and duplicates are not allowed.</value>
   </data>
+  <data name="Services_Security_ContextDuplicate" xml:space="preserve">
+    <value>Context "{0}" already exists and duplicates are not allowed.</value>
+  </data>
   <data name="Services_Security_InvalidCredentialsFormat" xml:space="preserve">
     <value>Credentials are in an invalid format.</value>
   </data>
-  <data name="Services_Security_NoContextualActionCOntext" xml:space="preserve">
+  <data name="Services_Security_NoContextualActionContext" xml:space="preserve">
     <value>Contextual action has no context. Cannot authorize.</value>
   </data>
   <data name="Services_Security_NotConfiguredAction" xml:space="preserve">
     <value>The action is not configured. Cannot authorize.</value>
+  </data>
+  <data name="Services_Security_PrincipalDuplicate" xml:space="preserve">
+    <value>Principal "{0}" already exists and duplicates are not allowed.</value>
+  </data>
+  <data name="Services_Security_ProfilDuplicate" xml:space="preserve">
+    <value>Profil for "{0}" already exists and duplicates are not allowed.</value>
   </data>
   <data name="Services_Security_UnsupportedScheme" xml:space="preserve">
     <value>Scheme "{0}" is not supported.</value>

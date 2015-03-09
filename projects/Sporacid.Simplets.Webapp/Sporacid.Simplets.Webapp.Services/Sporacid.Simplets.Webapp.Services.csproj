@@ -208,8 +208,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Database\Dto\ApiMethodDescriptionDto.cs" />
-    <Compile Include="Database\Dto\ApiMethodParameterDescriptionDto.cs" />
+    <Compile Include="Database\Dto\Description\ApiEntityDescriptionDto.cs" />
+    <Compile Include="Database\Dto\Description\ApiEntityPropertyDescriptionDto.cs" />
+    <Compile Include="Database\Dto\Description\ApiMethodDescriptionDto.cs" />
+    <Compile Include="Database\Dto\Description\ApiMethodParameterDescriptionDto.cs" />
     <Compile Include="Database\Dto\Clubs\ClubDto.cs" />
     <Compile Include="Database\Dto\Clubs\CommanditeDto.cs" />
     <Compile Include="Database\Dto\Clubs\EvenementDto.cs" />
@@ -218,6 +220,7 @@
     <Compile Include="Database\Dto\Clubs\ItemDto.cs" />
     <Compile Include="Database\Dto\Clubs\MeetingDto.cs" />
     <Compile Include="Database\Dto\Clubs\SuivieDto.cs" />
+    <Compile Include="Database\Dto\Description\ApiResponseDescriptionDto.cs" />
     <Compile Include="Database\Dto\Dbo\AdresseDto.cs" />
     <Compile Include="Database\Dto\Dbo\ContactDto.cs" />
     <Compile Include="Database\Dto\Dbo\TypeContactDto.cs" />

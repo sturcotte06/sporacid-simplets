@@ -4,7 +4,6 @@
     using System.Diagnostics.Contracts;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
-    using Sporacid.Simplets.Webapp.Tools.Strings;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

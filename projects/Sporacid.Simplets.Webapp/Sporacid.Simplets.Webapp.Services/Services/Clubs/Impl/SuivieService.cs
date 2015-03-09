@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -38,7 +37,7 @@
         public IEnumerable<WithId<Int32, SuivieDto>> GetAll(String clubName, Int32 commanditeId, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.suivieRepository
-                .GetAll(suivie => SqlMethods.Like(clubName, suivie.Commandite.Club.Nom))
+                .GetAll(suivie => clubName == suivie.Commandite.Club.Nom)
                 .OrderByDescending(suivie => suivie.DateSuivie)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Suivie, SuivieDto>();
@@ -56,7 +55,7 @@
         public SuivieDto Get(String clubName, Int32 commanditeId, Int32 suivieId)
         {
             return this.suivieRepository
-                .GetUnique(suivie => SqlMethods.Like(clubName, suivie.Commandite.Club.Nom) && suivie.CommanditeId == commanditeId && suivie.Id == suivieId)
+                .GetUnique(suivie => clubName == suivie.Commandite.Club.Nom && suivie.CommanditeId == commanditeId && suivie.Id == suivieId)
                 .MapTo<Suivie, SuivieDto>();
         }
 
@@ -72,7 +71,7 @@
         public Int32 Create(String clubName, Int32 commanditeId, SuivieDto suivie)
         {
             var commanditeEntity = this.commanditeRepository
-                .GetUnique(club => SqlMethods.Like(clubName, club.Club.Nom) && club.Id == commanditeId);
+                .GetUnique(club => clubName == club.Club.Nom && club.Id == commanditeId);
 
             var suivieEntity = suivie.MapTo<SuivieDto, Suivie>();
             commanditeEntity.Suivies.Add(suivieEntity);
@@ -93,7 +92,7 @@
         public void Update(String clubName, Int32 commanditeId, Int32 suivieId, SuivieDto suivie)
         {
             var suivieEntity = this.suivieRepository
-                .GetUnique(suivie2 => SqlMethods.Like(clubName, suivie2.Commandite.Club.Nom) && suivie2.CommanditeId == commanditeId && suivie2.Id == suivieId)
+                .GetUnique(suivie2 => clubName == suivie2.Commandite.Club.Nom && suivie2.CommanditeId == commanditeId && suivie2.Id == suivieId)
                 .MapFrom(suivie);
             this.suivieRepository.Update(suivieEntity);
         }
@@ -110,7 +109,7 @@
         {
             // Somewhat trash call to make sure the suivie is in this context. 
             var suivieEntity = this.suivieRepository
-                .GetUnique(suivie => SqlMethods.Like(clubName, suivie.Commandite.Club.Nom) && suivie.CommanditeId == commanditeId && suivie.Id == suivieId);
+                .GetUnique(suivie => clubName == suivie.Commandite.Club.Nom && suivie.CommanditeId == commanditeId && suivie.Id == suivieId);
             this.suivieRepository.Delete(suivieEntity);
         }
     }

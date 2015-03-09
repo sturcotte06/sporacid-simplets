@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Http.Filters;
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication;
@@ -83,11 +82,32 @@
                 exceptionType = exceptionType.GetGenericTypeDefinition();
             }
 
+#if DEBUG
             HttpStatusCode httpStatusCode;
             actionExecutedContext.Response = request.CreateErrorResponse(
                 this.Mappings.TryGetValue(exceptionType, out httpStatusCode) ? httpStatusCode : HttpStatusCode.InternalServerError, exception);
+#else
+            HttpStatusCode httpStatusCode;
+            actionExecutedContext.Response = request.CreateResponse(
+                this.Mappings.TryGetValue(exceptionType, out httpStatusCode) ? httpStatusCode : HttpStatusCode.InternalServerError, 
+                CreateErrorObject(exception));
+#endif
 
             return Task.FromResult(0);
+        }
+
+        /// <summary>
+        /// Creates an error object from an exception.
+        /// </summary>
+        /// <param name="exception">The source exception.</param>
+        /// <returns>An error object.</returns>
+        private object CreateErrorObject(Exception exception)
+        {
+            return new
+            {
+                Message = exception.Message,
+                Cause = exception.InnerException != null ? this.CreateErrorObject(exception.InnerException) : null
+            };
         }
     }
 }

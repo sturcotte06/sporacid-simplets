@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Clubs.Impl
 {
     using System;
-    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -34,8 +33,8 @@
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
             var defaultRole = SecurityConfig.Role.Noob.ToString();
-            var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(club.Nom, clubName));
-            var membreEntity = clubEntity.Membres.SingleOrDefault(membre => SqlMethods.Like(membre.CodeUniversel, codeUniversel));
+            var clubEntity = this.clubRepository.GetUnique(club => club.Nom == clubName);
+            var membreEntity = clubEntity.Membres.SingleOrDefault(membre => membre.CodeUniversel == codeUniversel);
 
             if (membreEntity != null)
             {
@@ -66,15 +65,15 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The universal code that represents the user.</param>
-        [HttpDelete, Route("{membreId:int}")]
+        [HttpDelete, Route("{codeUniversel}")]
         public void UnsubscribeFromClub(String clubName, String codeUniversel)
         {
             var membreEntity = this.membreRepository
-                .GetUnique(membre => SqlMethods.Like(membre.CodeUniversel, codeUniversel) && SqlMethods.Like(membre.Club.Nom, clubName));
+                .GetUnique(membre => membre.CodeUniversel == codeUniversel && membre.Club.Nom == clubName);
 
             // Do not really delete the membre entity. Just set it to inactive.
             membreEntity.Actif = false;
-            membreEntity.DateFin = new DateTime();
+            membreEntity.DateFin = DateTime.UtcNow;
 
             // Remove all claims of the principal on the club.
             this.contextAdministrationService.RemoveAllClaimsFromPrincipal(clubName, codeUniversel);

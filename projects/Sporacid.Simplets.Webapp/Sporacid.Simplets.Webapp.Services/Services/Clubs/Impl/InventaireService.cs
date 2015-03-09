@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Linq.SqlClient;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -36,7 +35,7 @@
         public IEnumerable<WithId<Int32, ItemDto>> GetAll(String clubName, [FromUri] UInt32? skip, [FromUri] UInt32? take)
         {
             return this.itemRepository
-                .GetAll(item => SqlMethods.Like(clubName, item.Club.Nom))
+                .GetAll(item => clubName == item.Club.Nom)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Item, ItemDto>();
         }
@@ -52,7 +51,7 @@
         public ItemDto Get(String clubName, Int32 itemId)
         {
             return this.itemRepository
-                .GetUnique(item => SqlMethods.Like(item.Club.Nom, clubName) && item.Id == itemId)
+                .GetUnique(item => item.Club.Nom == clubName && item.Id == itemId)
                 .MapTo<Item, ItemDto>();
         }
 
@@ -66,7 +65,7 @@
         [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, ItemDto item)
         {
-            var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(clubName, club.Nom));
+            var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
             var itemEntity = item.MapTo<ItemDto, Item>();
 
             // Make sure the item is created in this context.
@@ -87,7 +86,7 @@
         public void Update(String clubName, Int32 itemId, ItemDto item)
         {
             var itemEntity = this.itemRepository
-                .GetUnique(item2 => SqlMethods.Like(item2.Club.Nom, clubName) && item2.Id == itemId)
+                .GetUnique(item2 => item2.Club.Nom == clubName && item2.Id == itemId)
                 .MapFrom(item);
             this.itemRepository.Update(itemEntity);
         }
@@ -103,7 +102,7 @@
         {
             // Somewhat trash call to make sure the item is in this context. 
             var itemEntity = this.itemRepository
-                .GetUnique(item => SqlMethods.Like(clubName, item.Club.Nom) && item.Id == itemId);
+                .GetUnique(item => clubName == item.Club.Nom && item.Id == itemId);
             this.itemRepository.Delete(itemEntity);
         }
     }

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -37,7 +36,7 @@
         public IEnumerable<WithId<Int32, MeetingDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.meetingRepository
-                .GetAll(meeting => SqlMethods.Like(clubName, meeting.Club.Nom))
+                .GetAll(meeting => clubName == meeting.Club.Nom)
                 .OrderByDescending(meeting => meeting.DateDebut)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Meeting, MeetingDto>();
@@ -54,7 +53,7 @@
         public MeetingDto Get(String clubName, Int32 meetingId)
         {
             return this.meetingRepository
-                .GetUnique(meeting => SqlMethods.Like(meeting.Club.Nom, clubName) && meeting.Id == meetingId)
+                .GetUnique(meeting => meeting.Club.Nom == clubName && meeting.Id == meetingId)
                 .MapTo<Meeting, MeetingDto>();
         }
 
@@ -68,7 +67,7 @@
         [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, MeetingDto meeting)
         {
-            var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(clubName, club.Nom));
+            var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
             var meetingEntity = meeting.MapTo<MeetingDto, Meeting>();
 
             // Make sure the commandite is created in this context.
@@ -89,7 +88,7 @@
         public void Update(String clubName, Int32 meetingId, MeetingDto meeting)
         {
             var meetingEntity = this.meetingRepository
-                .GetUnique(meeting2 => SqlMethods.Like(meeting2.Club.Nom, clubName) && meeting2.Id == meetingId)
+                .GetUnique(meeting2 => meeting2.Club.Nom == clubName && meeting2.Id == meetingId)
                 .MapFrom(meeting);
             this.meetingRepository.Update(meetingEntity);
         }
@@ -105,7 +104,7 @@
         {
             // Somewhat trash call to make sure the meeting is in this context. 
             var meetingEntity = this.meetingRepository
-                .GetUnique(meeting => SqlMethods.Like(clubName, meeting.Club.Nom) && meeting.Id == meetingId);
+                .GetUnique(meeting => clubName == meeting.Club.Nom && meeting.Id == meetingId);
             this.meetingRepository.Delete(meetingEntity);
         }
     }

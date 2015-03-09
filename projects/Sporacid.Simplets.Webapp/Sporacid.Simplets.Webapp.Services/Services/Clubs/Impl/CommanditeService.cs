@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Linq.SqlClient;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -36,7 +35,7 @@
         public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditeRepository
-                .GetAll(commandite => SqlMethods.Like(clubName, commandite.Club.Nom))
+                .GetAll(commandite => clubName == commandite.Club.Nom)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Commandite, CommanditeDto>();
         }
@@ -52,7 +51,7 @@
         public CommanditeDto Get(String clubName, Int32 commanditeId)
         {
             return this.commanditeRepository
-                .GetUnique(commandite => SqlMethods.Like(commandite.Club.Nom, clubName) && commandite.Id == commanditeId)
+                .GetUnique(commandite => commandite.Club.Nom == clubName && commandite.Id == commanditeId)
                 .MapTo<Commandite, CommanditeDto>();
         }
 
@@ -66,7 +65,7 @@
         [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, CommanditeDto commandite)
         {
-            var clubEntity = this.clubRepository.GetUnique(club => SqlMethods.Like(clubName, club.Nom));
+            var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
             var commanditeEntity = commandite.MapTo<CommanditeDto, Commandite>();
 
             // Make sure the commandite is created in this context.
@@ -87,7 +86,7 @@
         public void Update(String clubName, Int32 commanditeId, CommanditeDto commandite)
         {
             var commanditeEntity = this.commanditeRepository
-                .GetUnique(commandite2 => SqlMethods.Like(commandite2.Club.Nom, clubName) && commandite2.Id == commanditeId)
+                .GetUnique(commandite2 => commandite2.Club.Nom == clubName && commandite2.Id == commanditeId)
                 .MapFrom(commandite);
             this.commanditeRepository.Update(commanditeEntity);
         }
@@ -103,7 +102,7 @@
         {
             // Somewhat trash call to make sure the commandite is in this context. 
             var commanditeEntity = this.commanditeRepository
-                .GetUnique(commandite => SqlMethods.Like(clubName, commandite.Club.Nom) && commandite.Id == commanditeId);
+                .GetUnique(commandite => commandite.Club.Nom == clubName && commandite.Id == commanditeId);
             this.commanditeRepository.Delete(commanditeEntity);
         }
     }

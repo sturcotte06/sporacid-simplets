@@ -2,9 +2,11 @@
 {
     using System;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap;
     using Sporacid.Simplets.Webapp.Services.Database;
+    using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -27,13 +29,22 @@
         /// <returns>The id of the newly created profil entity.</returns>
         public Int32 CreateBaseProfil(String codeUniversel)
         {
+            // Cannot add the profil twice.
+            if (this.profilRepository.Has(profil => profil.CodeUniversel == codeUniversel))
+            {
+                throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_ProfilDuplicate, codeUniversel));
+            }
+
             // Poke ldap for nom, prenom and courriel properties.
             var ldapUser = this.ldapSearcher.SearchForUser(SearchBy.SamAccountName, codeUniversel);
 
             // Create a base profile entity.
             var profilEntity = new Profil
             {
-                ProfilAvance = new ProfilAvance {Courriel = ldapUser.Email},
+                ProfilAvance = new ProfilAvance
+                {
+                    Courriel = ldapUser.Email
+                },
                 CodeUniversel = codeUniversel,
                 Nom = ldapUser.LastName,
                 Prenom = ldapUser.FirstName,

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity.Core.Objects.DataClasses;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Linq.Expressions;
@@ -127,7 +126,7 @@
         {
             // Postconditions.
             Contract.Ensures(Contract.Result<IQueryable<TEntity>>() != null, ContractStrings.Repository_GetAll_EnsuresNonNullEntities);
-            
+
             // Dummy return.
             return default(IQueryable<TEntity>);
         }

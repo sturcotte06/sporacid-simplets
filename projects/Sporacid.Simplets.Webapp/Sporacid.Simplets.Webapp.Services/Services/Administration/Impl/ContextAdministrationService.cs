@@ -1,12 +1,13 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration.Impl
 {
     using System;
-    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -33,6 +34,12 @@
         [HttpPost, Route("")]
         public Int32 CreateContext(String context)
         {
+            // Cannot add the same context twice.
+            if (this.contextRepository.Has(context2 => context2.Name == context))
+            {
+                throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_ContextDuplicate, context));
+            }
+
             // Create the context.
             var contextEntity = new Context {Name = context};
             this.contextRepository.Add(contextEntity);
@@ -58,17 +65,20 @@
             this.RemoveAllClaimsFromPrincipal(context, identity);
 
             // Get all required entities.
-            var contextEntity = this.contextRepository.GetUnique(c => SqlMethods.Like(c.Name, context));
-            var roleTemplate = this.roleTemplateRepository.GetUnique(rt => SqlMethods.Like(rt.Name, role));
-            var principalEntity = this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, identity));
+            var contextEntity = this.contextRepository
+                .GetUnique(context2 => context2.Name == context);
+            var roleTemplateEntity = this.roleTemplateRepository
+                .GetUnique(roleTemplate => roleTemplate.Name == role);
+            var principalEntity = this.principalRepository
+                .GetUnique(principal => principal.Identity == identity);
 
             // Apply the role template on this context.
-            roleTemplate.RoleTemplateModuleClaims.ForEach(rtmc => principalEntity.PrincipalModuleContextClaims.Add(new PrincipalModuleContextClaims
+            roleTemplateEntity.RoleTemplateModuleClaims.ForEach(roleTemplateModuleClaims => principalEntity.PrincipalModuleContextClaims.Add(new PrincipalModuleContextClaims
             {
                 Principal = principalEntity,
                 ContextId = contextEntity.Id,
-                Claims = rtmc.Claims,
-                ModuleId = rtmc.ModuleId
+                Claims = roleTemplateModuleClaims.Claims,
+                ModuleId = roleTemplateModuleClaims.ModuleId
             }));
 
             // Update the principal.
@@ -84,8 +94,10 @@
         public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
             // Get all required entities.
-            var contextEntity = this.contextRepository.GetUnique(c => SqlMethods.Like(c.Name, context));
-            var principalEntity = this.principalRepository.GetUnique(p => SqlMethods.Like(p.Identity, identity));
+            var contextEntity = this.contextRepository
+                .GetUnique(context2 => context2.Name == context);
+            var principalEntity = this.principalRepository
+                .GetUnique(principal => principal.Identity == identity);
 
             // Remove all claims from the principal for this context.
             var principalClaimsOnContext = principalEntity.PrincipalModuleContextClaims

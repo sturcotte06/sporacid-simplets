@@ -33,7 +33,7 @@
         public Int32 CreateClub(ClubDto club)
         {
             // Cannot add the same club twice.
-            if (this.clubRepository.Has(c => SqlMethods.Like(c.Nom, club.Nom)))
+            if (this.clubRepository.Has(club2 => club2.Nom == club.Nom))
             {
                 throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_ClubDuplicate, club.Nom));
             }
@@ -42,9 +42,7 @@
             var clubEntity = club.MapTo<ClubDto, Club>();
             this.clubRepository.Add(clubEntity);
 
-            // Todo add creator as membre.
-
-            // Add a new context for the club.
+            // Add a new security context for the club.
             this.contextService.CreateContext(clubEntity.Nom);
             return clubEntity.Id;
         }

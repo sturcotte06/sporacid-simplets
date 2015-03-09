@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -36,7 +35,7 @@
         public ProfilDto Get(String codeUniversel)
         {
             return this.profilRepository
-                .GetUnique(profil => SqlMethods.Like(codeUniversel, profil.CodeUniversel))
+                .GetUnique(profil => codeUniversel == profil.CodeUniversel)
                 .MapTo<Profil, ProfilDto>();
         }
 
@@ -50,7 +49,7 @@
         public void Update(String codeUniversel, ProfilDto profil)
         {
             var profilEntity = this.profilRepository
-                .GetUnique(m => SqlMethods.Like(codeUniversel, m.CodeUniversel))
+                .GetUnique(profil2 => codeUniversel == profil2.CodeUniversel)
                 .MapFrom(profil);
             this.profilRepository.Update(profilEntity);
         }
@@ -64,7 +63,7 @@
         public IEnumerable<WithId<Int32, ClubDto>> GetClubsSubscribedTo(String codeUniversel)
         {
             return this.clubRepository
-                .GetAll(club => club.Membres.Any(membre => SqlMethods.Like(membre.CodeUniversel, codeUniversel)))
+                .GetAll(club => club.Membres.Any(membre => membre.CodeUniversel == codeUniversel))
                 .MapAllWithIds<Club, ClubDto>();
         }
     }

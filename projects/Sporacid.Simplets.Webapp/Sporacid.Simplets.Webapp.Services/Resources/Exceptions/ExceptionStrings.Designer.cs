@@ -88,6 +88,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Context &quot;{0}&quot; already exists and duplicates are not allowed..
+        /// </summary>
+        internal static string Services_Security_ContextDuplicate {
+            get {
+                return ResourceManager.GetString("Services_Security_ContextDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Credentials are in an invalid format..
         /// </summary>
         internal static string Services_Security_InvalidCredentialsFormat {
@@ -99,9 +108,9 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to Contextual action has no context. Cannot authorize..
         /// </summary>
-        internal static string Services_Security_NoContextualActionCOntext {
+        internal static string Services_Security_NoContextualActionContext {
             get {
-                return ResourceManager.GetString("Services_Security_NoContextualActionCOntext", resourceCulture);
+                return ResourceManager.GetString("Services_Security_NoContextualActionContext", resourceCulture);
             }
         }
         
@@ -111,6 +120,24 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Exceptions {
         internal static string Services_Security_NotConfiguredAction {
             get {
                 return ResourceManager.GetString("Services_Security_NotConfiguredAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Principal &quot;{0}&quot; already exists and duplicates are not allowed..
+        /// </summary>
+        internal static string Services_Security_PrincipalDuplicate {
+            get {
+                return ResourceManager.GetString("Services_Security_PrincipalDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profil for &quot;{0}&quot; already exists and duplicates are not allowed..
+        /// </summary>
+        internal static string Services_Security_ProfilDuplicate {
+            get {
+                return ResourceManager.GetString("Services_Security_ProfilDuplicate", resourceCulture);
             }
         }
         
