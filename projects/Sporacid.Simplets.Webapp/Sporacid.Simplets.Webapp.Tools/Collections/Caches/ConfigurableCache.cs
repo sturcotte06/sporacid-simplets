@@ -9,11 +9,12 @@
     /// <version>1.9.0</version>
     public class ConfigurableCache<TKey, TValue> : IConfigurableCache<TKey, TValue>
     {
-        private readonly Dictionary<TKey, TValue> cache = new Dictionary<TKey, TValue>();
+        private readonly IDictionary<TKey, TValue> dictionary;
         private readonly List<ICachePolicy<TKey, TValue>> registeredPolicies = new List<ICachePolicy<TKey, TValue>>();
 
-        public ConfigurableCache(IEnumerable<ICachePolicy<TKey, TValue>> policies)
+        public ConfigurableCache(IEnumerable<ICachePolicy<TKey, TValue>> policies, IDictionary<TKey, TValue> baseDictionary)
         {
+            this.dictionary = baseDictionary;
             this.RegisterPolicies(policies.ToArray());
         }
 
@@ -30,7 +31,7 @@
             bool has;
             try
             {
-                has = this.cache.ContainsKey(key);
+                has = this.dictionary.ContainsKey(key);
             }
             finally
             {
@@ -53,12 +54,12 @@
 
             try
             {
-                if (this.cache.ContainsKey(key))
+                if (this.dictionary.ContainsKey(key))
                 {
                     throw new InvalidOperationException("Cache key already exists.");
                 }
 
-                this.cache.Add(key, value);
+                this.dictionary.Add(key, value);
             }
             finally
             {
@@ -81,7 +82,7 @@
             try
             {
                 TValue value;
-                if (!this.cache.TryGetValue(key, out value))
+                if (!this.dictionary.TryGetValue(key, out value))
                 {
                     throw new InvalidOperationException("Couldn't retrieve cached value for key.");
                 }
@@ -102,11 +103,11 @@
         /// <param name="do">The action to take.</param>
         public void ForEachKeyValueDo(Action<TKey, TValue> @do)
         {
-            foreach (var key in this.cache.Keys)
+            this.dictionary.ForEach(kvp =>
             {
-                var dummyKey = key;
-                this.WithValueDo(key, value => @do(dummyKey, value));
-            }
+                var key = kvp.Key;
+                this.WithValueDo(key, value => @do(key, value));
+            });
         }
 
         /// <summary>
@@ -122,7 +123,7 @@
             bool successful;
             try
             {
-                successful = this.cache.ContainsKey(key) && this.cache.Remove(key);
+                successful = this.dictionary.ContainsKey(key) && this.dictionary.Remove(key);
             }
             finally
             {

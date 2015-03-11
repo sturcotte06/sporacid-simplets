@@ -28,4 +28,28 @@
     partial class RoleTemplate : IHasId<Int32>
     {
     }
+
+    partial class PrincipalModuleContextClaims : IHasId<PrincipalModuleContextClaimsId>
+    {
+        private PrincipalModuleContextClaimsId id;
+        public PrincipalModuleContextClaimsId Id
+        {
+            get
+            {
+                return id ?? (id = new PrincipalModuleContextClaimsId
+                {
+                    PrincipalId = this.PrincipalId,
+                    ContextId = this.ContextId,
+                    ModuleId = this.ModuleId,
+                });
+            }
+        }
+    }
+
+    public class PrincipalModuleContextClaimsId
+    {
+        public Int32 PrincipalId { get; set; }
+        public Int32 ContextId { get; set; }
+        public Int32 ModuleId { get; set; }
+    }
 }

@@ -113,6 +113,7 @@
     <Compile Include="Collections\Concurrent\BlockingQueue.cs" />
     <Compile Include="Collections\Caches\ICache.cs" />
     <Compile Include="Collections\Concurrent\IBlockingQueue.cs" />
+    <Compile Include="Collections\Dictionary\LinkedDictionary.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
     <Compile Include="Collections\Pooling\DefaultObjectManager.cs" />
     <Compile Include="Collections\Pooling\IObjectManager.cs" />

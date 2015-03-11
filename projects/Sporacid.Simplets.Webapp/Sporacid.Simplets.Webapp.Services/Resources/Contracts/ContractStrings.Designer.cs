@@ -61,24 +61,6 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string AnonymousService_DescribeApiEntities_EnsuresNonNulApiDescriptor {
-            get {
-                return ResourceManager.GetString("AnonymousService_DescribeApiEntities_EnsuresNonNulApiDescriptor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string AnonymousService_DescribeApiMethods_EnsuresNonNulApiDescriptor {
-            get {
-                return ResourceManager.GetString("AnonymousService_DescribeApiMethods_EnsuresNonNulApiDescriptor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A club name is required to create a sponsor..
         /// </summary>
         internal static string CommanditeService_Create_RequiresClubName {
@@ -273,6 +255,24 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string ContextAdministrationService_RemoveAllClaimsFromPrincipal_RequiresIdentity {
             get {
                 return ResourceManager.GetString("ContextAdministrationService_RemoveAllClaimsFromPrincipal_RequiresIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DescriptionService_DescribeApiEntities_EnsuresNonNulApiDescriptor {
+            get {
+                return ResourceManager.GetString("DescriptionService_DescribeApiEntities_EnsuresNonNulApiDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DescriptionService_DescribeApiMethods_EnsuresNonNulApiDescriptor {
+            get {
+                return ResourceManager.GetString("DescriptionService_DescribeApiMethods_EnsuresNonNulApiDescriptor", resourceCulture);
             }
         }
         

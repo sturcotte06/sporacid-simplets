@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnonymousService_DescribeApiEntities_EnsuresNonNulApiDescriptor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AnonymousService_DescribeApiMethods_EnsuresNonNulApiDescriptor" xml:space="preserve">
-    <value />
-  </data>
   <data name="CommanditeService_Create_RequiresClubName" xml:space="preserve">
     <value>A club name is required to create a sponsor.</value>
   </data>
@@ -188,6 +182,12 @@
   </data>
   <data name="ContextAdministrationService_RemoveAllClaimsFromPrincipal_RequiresIdentity" xml:space="preserve">
     <value>A user name is required to remove a user's claims.</value>
+  </data>
+  <data name="DescriptionService_DescribeApiEntities_EnsuresNonNulApiDescriptor" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DescriptionService_DescribeApiMethods_EnsuresNonNulApiDescriptor" xml:space="preserve">
+    <value />
   </data>
   <data name="EnumerationService_GetAllConcentrations_EnsuresNonNullConcentrations" xml:space="preserve">
     <value />

@@ -3,12 +3,9 @@
     using System;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RequiresAuthenticatedPrincipal]
-    [RequiresAuthorizedPrincipal]
     [HandlesException]
     public abstract class BaseService : ApiController
     {
@@ -24,9 +21,10 @@
             None = 0,
             Shortest = 30,
             Short = 60,
-            Medium = 5 * 60,
-            Long = 60 * 60,
-            VeryLong = 24 * 60 * 60
+            Medium = 5*60,
+            Long = 60*60,
+            VeryLong = 24*60*60,
+            Maximum = Int32.MaxValue
         }
     }
 }

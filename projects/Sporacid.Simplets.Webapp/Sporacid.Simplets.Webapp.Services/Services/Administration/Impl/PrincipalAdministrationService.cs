@@ -11,7 +11,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/principal")]
-    public class PrincipalAdministrationService : BaseService, IPrincipalAdministrationService
+    public class PrincipalAdministrationService : BaseSecureService, IPrincipalAdministrationService
     {
         private readonly IContextAdministrationService contextAdministrationService;
         private readonly IRepository<Int32, Principal> principalRepository;

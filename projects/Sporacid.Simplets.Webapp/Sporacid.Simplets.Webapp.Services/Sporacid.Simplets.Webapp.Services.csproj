@@ -251,6 +251,7 @@
       <DependentUpon>ValidationStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Administration\ISystemAdministrationService.cs" />
+    <Compile Include="Services\BaseSecureService.cs" />
     <Compile Include="Services\Clubs\ICommanditeService.cs" />
     <Compile Include="Services\Clubs\IFournisseurService.cs" />
     <Compile Include="Services\Clubs\IInventaireService.cs" />
@@ -262,10 +263,12 @@
     <Compile Include="Services\Clubs\Impl\SuivieService.cs" />
     <Compile Include="Services\Clubs\ISuivieService.cs" />
     <Compile Include="Services\Public\IAnonymousService.cs" />
+    <Compile Include="Services\Public\IDescriptionService.cs" />
     <Compile Include="Services\Public\IEnumerationService.cs" />
     <Compile Include="Services\Administration\Impl\SystemAdministrationService.cs" />
     <Compile Include="Services\Public\Impl\AnonymousService.cs" />
     <Compile Include="Services\Administration\Impl\ContextAdministrationService.cs" />
+    <Compile Include="Services\Public\Impl\DescriptionService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
     <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
     <Compile Include="Services\Public\Impl\EnumerationService.cs" />

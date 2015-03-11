@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration.Impl
 {
     using System;
-    using System.Data.Linq.SqlClient;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -12,7 +11,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/administration")]
-    public class SystemAdministrationService : BaseService, ISystemAdministrationService
+    public class SystemAdministrationService : BaseSecureService, ISystemAdministrationService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IContextAdministrationService contextService;

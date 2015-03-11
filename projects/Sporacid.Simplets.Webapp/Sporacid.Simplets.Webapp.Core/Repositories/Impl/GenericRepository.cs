@@ -35,7 +35,8 @@
         /// <returns>All entities matching the predicate.</returns>
         public IQueryable<TEntity> GetAll(Expression<Func<TEntity, Boolean>> whereClause)
         {
-            return this.dataContext.GetTable<TEntity>().Where(whereClause);
+            return this.GetAll()
+                .Where(whereClause);
         }
 
         /// <summary>
@@ -45,7 +46,7 @@
         /// <returns>Whether the entity with id exists or not</returns>
         public Boolean Has(TEntityId entityId)
         {
-            return this.dataContext.GetTable<TEntity>()
+            return this.GetAll()
                 .Any(e => e.Id.Equals(entityId));
         }
 
@@ -66,8 +67,9 @@
         /// <returns>Whether the entity exists or not</returns>
         public Boolean Has(Expression<Func<TEntity, Boolean>> whereClause)
         {
-            return this.dataContext.GetTable<TEntity>()
-                .AsExpandable().Any(whereClause);
+            return this.GetAll()
+                .AsExpandable()
+                .Any(whereClause);
         }
 
         /// <summary>
@@ -77,7 +79,7 @@
         /// <returns>The entity with the given id.</returns>
         public TEntity Get(TEntityId entityId)
         {
-            var entity = this.dataContext.GetTable<TEntity>().SingleOrDefault(e => e.Id.Equals(entityId));
+            var entity = this.GetAll().SingleOrDefault(e => e.Id.Equals(entityId));
             if (entity == null)
             {
                 throw new EntityNotFoundException<TEntity>(entityId);
@@ -167,6 +169,7 @@
         /// <param name="entity">The entity.</param>
         public void Update(TEntity entity)
         {
+            // this.dataContext.GetTable<TEntity>().Attach(entity, true);
             this.Commit();
         }
 
@@ -176,7 +179,7 @@
         /// <param name="entities">The entities.</param>
         public void UpdateAll(IEnumerable<TEntity> entities)
         {
-            // dataContextStore.DataContext.GetTable<TEntity>().AttachAll(entities, true);
+            // this.dataContext.GetTable<TEntity>().AttachAll(entities, true);
             this.Commit();
         }
 

@@ -13,7 +13,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{context:alpha}/administration")]
-    public class ContextAdministrationService : BaseService, IContextAdministrationService
+    public class ContextAdministrationService : BaseSecureService, IContextAdministrationService
     {
         private readonly IRepository<Int32, Context> contextRepository;
         private readonly IRepository<Int32, Principal> principalRepository;

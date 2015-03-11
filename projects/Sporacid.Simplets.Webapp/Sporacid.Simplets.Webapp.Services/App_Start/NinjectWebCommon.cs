@@ -4,8 +4,11 @@ namespace Sporacid.Simplets.Webapp.Services
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.Linq;
+    using System.Reflection;
     using System.Web;
     using System.Web.Http.Filters;
+    using log4net;
+    using log4net.Core;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
@@ -41,6 +44,7 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Locking;
+    using Sporacid.Simplets.Webapp.Tools.Collections.Dictionary;
     using Sporacid.Simplets.Webapp.Tools.Collections.Pooling;
     using Sporacid.Simplets.Webapp.Tools.Factories;
     using Sporacid.Simplets.Webapp.Tools.Threading.Pooling;
@@ -97,6 +101,7 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            RegisterDataContext(kernel);
             RegisterToolProject(kernel);
             RegisterCoreProject(kernel);
             RegisterServiceProject(kernel);
@@ -117,7 +122,7 @@ namespace Sporacid.Simplets.Webapp.Services
                     !typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) &&
                     !typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
                 .InRequestScope()
-                .OnDeactivation(ctx => ((IDisposable)ctx).Dispose());
+                .OnDeactivation(ctx => ((IDisposable) ctx).Dispose());
             // Bind repositories used in the bootstrapping of security database in thread scope,
             // because it's not running as a web request.
             kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
@@ -125,17 +130,7 @@ namespace Sporacid.Simplets.Webapp.Services
                     typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) ||
                     typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
                 .InThreadScope()
-                .OnDeactivation(ctx => ((IDisposable)ctx).Dispose());
-
-            // Data context configuration.
-            kernel.Bind<DataContext>().To<SecurityDataContext>()
-                .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
-                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
-                // .OnDeactivation(context => context.Dispose())
-            kernel.Bind<DataContext>().To<DatabaseDataContext>()
-                .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
-                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
-                // .OnDeactivation(context => context.Dispose())
+                .OnDeactivation(ctx => ((IDisposable) ctx).Dispose());
 
             // Security database boostrap configuration.
             kernel.Bind<ISecurityDatabaseBootstrapper>().To<SecurityDatabaseBootstrapper>();
@@ -156,26 +151,16 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind<TokenAuthenticationModule>().ToSelf()
                 .InRequestScope()
                 // Bind observables like this, because it doesn't work another way.
-                .WithConstructorArgument(typeof (IEnumerable<IAuthenticationObservable>), ctx => new IAuthenticationObservable[]
-                {
-                    kernel.Get<KerberosAuthenticationModule>()
-                });
+                .WithConstructorArgument(typeof (IEnumerable<IAuthenticationObservable>), ctx => new IAuthenticationObservable[] {kernel.Get<KerberosAuthenticationModule>()});
             kernel.Bind<AuthorizationModule>().ToSelf()
                 .InRequestScope();
             // 3. bind responbility chains enumerables. Those will be used when 
             // a class needs all supported security modules.
             kernel.Bind<IEnumerable<IAuthenticationModule>>()
-                .ToMethod(ctx => new IAuthenticationModule[]
-                {
-                    kernel.Get<KerberosAuthenticationModule>(),
-                    kernel.Get<TokenAuthenticationModule>()
-                })
+                .ToMethod(ctx => new IAuthenticationModule[] {kernel.Get<KerberosAuthenticationModule>(), kernel.Get<TokenAuthenticationModule>()})
                 .InRequestScope();
             kernel.Bind<IEnumerable<IAuthorizationModule>>()
-                .ToMethod(ctx => new IAuthorizationModule[]
-                {
-                    kernel.Get<AuthorizationModule>()
-                })
+                .ToMethod(ctx => new IAuthorizationModule[] {kernel.Get<AuthorizationModule>()})
                 .InRequestScope();
 
             // Token factory configuration.
@@ -189,12 +174,42 @@ namespace Sporacid.Simplets.Webapp.Services
         }
 
         /// <summary>
+        /// Register all linq to sql data contexts.
+        /// </summary>
+        /// <param name="kernel">The kernel.</param>
+        private static void RegisterDataContext(IKernel kernel)
+        {
+            kernel.Bind<LinqToSqlLog4netAdapter>().To<LinqToSqlLog4netAdapter>()
+                .InSingletonScope()
+                .WithConstructorArgument(Level.Info)
+                .WithConstructorArgument(LogManager.GetLogger("QueriesLogger"));
+            
+            // Security data context configuration.
+            kernel.Bind<DataContext>().To<SecurityDataContext>()
+                .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
+                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString)
+                .OnActivation(dc => dc.Log = kernel.Get<LinqToSqlLog4netAdapter>());
+                // .OnActivation(dc => dc.ObjectTrackingEnabled = false);
+
+            // Database data context configuration.
+            kernel.Bind<DataContext>().To<DatabaseDataContext>()
+                .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database")
+                .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString)
+                .OnActivation(dc => dc.Log = kernel.Get<LinqToSqlLog4netAdapter>());
+        }
+
+        /// <summary>
         /// Register all bindings for the tools project.
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterToolProject(IKernel kernel)
         {
             // Cache configurations.
+            kernel.Bind(typeof (IDictionary<,>)).To(typeof (Dictionary<,>));
+            kernel.Bind(typeof(IDictionary<,>)).To(typeof(LinkedDictionary<,>))
+                .When(request =>
+                    request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database" ||
+                    request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database");
             kernel.Bind(typeof (ICache<,>)).To(typeof (ConfigurableCache<,>))
                 .InSingletonScope();
             kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (ReaderWriterLockingPolicy<,>));
@@ -226,14 +241,6 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind<IEnumerationService>().To<EnumerationService>().InRequestScope();
             // Userspace services.
             kernel.Bind<IProfilService>().To<ProfilService>().InRequestScope();
-
-            // Data contexts configuration.
-            // kernel.Bind<SecurityDataContext>().ToSelf()
-            //     .InRequestScope()
-            //     .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
-            // kernel.Bind<DatabaseDataContext>().ToSelf()
-            //     .InRequestScope()
-            //     .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString);
 
             // Credential extractor configuration.
             // See security module section to know why we bind like thid.

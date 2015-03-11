@@ -35,7 +35,7 @@
             traceAction(record);
             this.Log(record);
         }
-        
+
         private void Log(TraceRecord record)
         {
             var message = new StringBuilder();

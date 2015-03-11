@@ -11,7 +11,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/administration-profil")]
-    public class UserspaceAdministrationService : BaseService, IUserspaceAdministrationService
+    public class UserspaceAdministrationService : BaseSecureService, IUserspaceAdministrationService
     {
         private readonly ILdapSearcher ldapSearcher;
         private readonly IRepository<Int32, Profil> profilRepository;

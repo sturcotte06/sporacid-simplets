@@ -121,6 +121,7 @@
     <Compile Include="Exceptions\Repositories\EntityNotUniqueException.cs" />
     <Compile Include="Exceptions\Repositories\RepositoryException.cs" />
     <Compile Include="Repositories\Impl\GenericRepository.cs" />
+    <Compile Include="Repositories\Impl\LinqToSqlLog4netAdapter.cs" />
     <Compile Include="Resources\Contracts\ContractStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

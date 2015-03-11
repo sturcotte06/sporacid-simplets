@@ -13,7 +13,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/commandite/{commanditeId:int}/suivie")]
-    public class SuivieService : BaseService, ISuivieService
+    public class SuivieService : BaseSecureService, ISuivieService
     {
         private readonly IRepository<Int32, Commandite> commanditeRepository;
         private readonly IRepository<Int32, Suivie> suivieRepository;

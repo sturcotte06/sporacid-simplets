@@ -13,7 +13,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/meeting")]
-    public class MeetingService : BaseService, IMeetingService
+    public class MeetingService : BaseSecureService, IMeetingService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Meeting> meetingRepository;

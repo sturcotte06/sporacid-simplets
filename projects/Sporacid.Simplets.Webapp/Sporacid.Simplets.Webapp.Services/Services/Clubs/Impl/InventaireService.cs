@@ -12,7 +12,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/inventaire")]
-    public class InventaireService : BaseService, IInventaireService
+    public class InventaireService : BaseSecureService, IInventaireService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Item> itemRepository;

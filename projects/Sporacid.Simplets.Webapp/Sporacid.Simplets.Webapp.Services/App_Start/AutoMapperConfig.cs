@@ -40,6 +40,10 @@
                 .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Suivie, SuivieDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Meeting, MeetingDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Groupe, GroupeDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
             // Dbo dtos.
             Mapper.CreateMap<Adresse, AdresseDto>()
                 .IgnoreUnmappedProperties().ReverseMap();

@@ -14,7 +14,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{codeUniversel}/profil")]
-    public class ProfilService : BaseService, IProfilService
+    public class ProfilService : BaseSecureService, IProfilService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Profil> profilRepository;
