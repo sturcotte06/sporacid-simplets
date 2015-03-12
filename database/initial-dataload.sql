@@ -114,3 +114,47 @@ BEGIN
 	INSERT INTO [userspace].[XpTable] VALUES (@level, @requiredXp);
 	SET @level = @level + 1;
 END
+
+IF OBJECT_ID ( 'security.sp_PromoteToSystemAdmin', 'P' ) IS NOT NULL 
+    DROP PROCEDURE [security].[sp_PromoteToSystemAdmin];
+GO
+
+CREATE PROCEDURE [security].[sp_PromoteToSystemAdmin]
+	@identity [varchar](100)
+AS
+	DECLARE @systemContext [varchar](20) = 'Systeme';
+	DECLARE @adminRole [varchar](20) = 'Administrateur';
+	DECLARE @principalId [int],  @contextId [int];
+
+	SELECT @principalId = [P].[Id]
+	FROM [security].[Principals] [P]
+	WHERE [P].[Identity] = @identity
+
+	SELECT @contextId = [C].[Id]
+	FROM [security].[Contexts] [C]
+	WHERE [C].[Name] = @systemContext
+
+	DECLARE roleTemplateCursor CURSOR FOR
+		SELECT [RTMC].[ModuleId], [RTMC].[Claims]
+		FROM [security].[RolesTemplates] [RT]
+		INNER JOIN [security].[RolesTemplatesModulesClaims] [RTMC]
+			ON [RT].[Id] = [RTMC].[RoleTemplateId]
+		WHERE [RT].[Name] = @adminRole
+
+	DECLARE @moduleId [int], @claims [int];
+	OPEN roleTemplateCursor;
+
+	FETCH NEXT FROM roleTemplateCursor
+		INTO @moduleId, @claims;
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		INSERT INTO [security].[PrincipalsModulesContextsClaims]
+		VALUES (@principalId, @moduleId, @contextId, @claims)
+
+		FETCH NEXT FROM roleTemplateCursor
+		INTO @moduleId, @claims;
+	END
+
+	CLOSE roleTemplateCursor;
+	DEALLOCATE roleTemplateCursor;
