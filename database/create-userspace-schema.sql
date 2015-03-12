@@ -74,7 +74,7 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-CREATE NONCLUSTERED INDEX UIXPreferencesProfilId ON [userspace].[Preferences] ([ProfilId])
+CREATE NONCLUSTERED INDEX IXPreferencesProfilId ON [userspace].[Preferences] ([ProfilId])
 GO
 
 /****** Object:  Table [userspace].[ProfilsFormations]  Script Date: 12/12/2014 2:40:31 PM ******/
@@ -91,7 +91,7 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-CREATE NONCLUSTERED INDEX UIXFormationsProfilId ON [userspace].[Formations] ([ProfilId])
+CREATE NONCLUSTERED INDEX IXFormationsProfilId ON [userspace].[Formations] ([ProfilId])
 GO
 
 /****** Object:  Table [userspace].[ProfilsContactsUrgence]  Script Date: 12/12/2014 2:40:31 PM ******/
@@ -120,7 +120,7 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-CREATE NONCLUSTERED INDEX UIXAllergiesProfilId ON [userspace].[Allergies] ([ProfilId])
+CREATE NONCLUSTERED INDEX IXAllergiesProfilId ON [userspace].[Allergies] ([ProfilId])
 GO
 
 /****** Foreign keys ******/

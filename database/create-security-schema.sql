@@ -28,6 +28,9 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX UIXModulesName ON [security].[Modules] ([Name])
+GO
+
 /****** Object:  Table [security].[Claims]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[Claims](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -39,6 +42,9 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX UIXClaimsName ON [security].[Claims] ([Name])
+GO
+
 /****** Object:  Table [security].[Contexts]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[Contexts](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -47,6 +53,9 @@ PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )) ON [PRIMARY]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX UIXContextsName ON [security].[Contexts] ([Name])
 GO
 
 /****** Object:  Table [security].[PrincipalsModulesContextsClaims]  Script Date: 12/12/2014 2:40:31 PM ******/
@@ -73,6 +82,9 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX UIXPrincipalsName ON [security].[Principals] ([Identity])
+GO
+
 /****** Object:  Table [security].[PrincipalsAudits]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[PrincipalsAudits](
 	[Id] [bigint] IDENTITY(1, 1) NOT NULL,
@@ -95,6 +107,9 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX UIXRolesTemplatesName ON [security].[RolesTemplates] ([Name])
+GO
+
 /****** Object:  Table [security].[RolesTemplatesModulesClaims]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[RolesTemplatesModulesClaims](
 	[RoleTemplateId] [int] NOT NULL,
@@ -106,7 +121,6 @@ PRIMARY KEY CLUSTERED
 	[ModuleId] ASC
 )) ON [PRIMARY]
 GO
-
 
 /****** Foreign keys ******/
 ALTER TABLE [security].[PrincipalsModulesContextsClaims]  WITH CHECK ADD CONSTRAINT [FKPrincipalsModulesContextsClaimsPrincipals] FOREIGN KEY([PrincipalId])
