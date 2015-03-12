@@ -115,11 +115,11 @@ BEGIN
 	SET @level = @level + 1;
 END
 
-IF OBJECT_ID ( 'security.sp_PromoteToSystemAdmin', 'P' ) IS NOT NULL 
+IF OBJECT_ID ( 'security.UspPromoteToSystemAdmin', 'P' ) IS NOT NULL 
     DROP PROCEDURE [security].[sp_PromoteToSystemAdmin];
 GO
 
-CREATE PROCEDURE [security].[sp_PromoteToSystemAdmin]
+CREATE PROCEDURE [security].[UspPromoteToSystemAdmin]
 	@identity [varchar](100)
 AS
 	DECLARE @systemContext [varchar](20) = 'Systeme';
