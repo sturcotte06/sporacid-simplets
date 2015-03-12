@@ -8,8 +8,8 @@
     public class ApiMethodParameterDescriptionDto
     {
         public String Name { get; set; }
+        public String Type { get; set; }
         public String Documentation { get; set; }
-        public String ParameterType { get; set; }
         public Boolean IsOptional { get; set; }
     }
 }

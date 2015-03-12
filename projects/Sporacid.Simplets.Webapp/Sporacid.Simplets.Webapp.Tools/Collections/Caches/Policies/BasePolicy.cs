@@ -5,6 +5,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
+    [Serializable]
     public abstract class BasePolicy<TKey, TValue> : ICachePolicy<TKey, TValue>
     {
         private volatile bool isApplied;

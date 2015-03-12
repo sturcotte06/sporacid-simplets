@@ -7,6 +7,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
+    [Serializable]
     public class ConfigurableCache<TKey, TValue> : IConfigurableCache<TKey, TValue>
     {
         private readonly IDictionary<TKey, TValue> dictionary;

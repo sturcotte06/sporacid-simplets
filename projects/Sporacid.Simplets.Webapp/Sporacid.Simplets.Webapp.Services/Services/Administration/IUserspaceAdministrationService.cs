@@ -39,11 +39,6 @@
     [ContractClassFor(typeof (IUserspaceAdministrationService))]
     internal abstract class UserspaceAdministrationServiceContract : IUserspaceAdministrationService
     {
-        /// <summary>
-        /// Creates the base profil for agiven universal code.
-        /// </summary>
-        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
-        /// <returns>The id of the newly created profil entity.</returns>
         public Int32 CreateBaseProfil(String codeUniversel)
         {
             // Preconditions.

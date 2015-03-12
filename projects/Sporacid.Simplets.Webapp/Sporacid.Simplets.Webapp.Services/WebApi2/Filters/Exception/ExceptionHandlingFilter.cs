@@ -105,7 +105,7 @@
         {
             return new
             {
-                Message = exception.Message,
+                exception.Message,
                 Cause = exception.InnerException != null ? this.CreateErrorObject(exception.InnerException) : null
             };
         }

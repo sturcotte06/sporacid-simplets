@@ -9,11 +9,12 @@
     [Serializable]
     public class ApiMethodDescriptionDto
     {
+        public String Name { get; set; }
         public String HttpMethod { get; set; }
         public String Route { get; set; }
         public String Documentation { get; set; }
         public Claims RequiredClaims { get; set; }
-        public IEnumerable<ApiMethodParameterDescriptionDto> ParameterDescriptions { get; set; }
-        public ApiResponseDescriptionDto ResponseDescription { get; set; }
+        public IEnumerable<ApiMethodParameterDescriptionDto> Parameters { get; set; }
+        public ApiResponseDescriptionDto Response { get; set; }
     }
 }

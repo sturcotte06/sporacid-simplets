@@ -8,6 +8,6 @@
     public class ApiResponseDescriptionDto
     {
         public String Documentation { get; set; }
-        public String ResponseType { get; set; }
+        public String Type { get; set; }
     }
 }

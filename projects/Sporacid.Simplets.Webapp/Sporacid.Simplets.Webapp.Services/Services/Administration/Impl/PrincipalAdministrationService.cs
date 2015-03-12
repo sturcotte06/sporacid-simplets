@@ -3,6 +3,8 @@
     using System;
     using System.Web;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
@@ -26,10 +28,16 @@
         }
 
         /// <summary>
-        /// Returns whether the principal exists.
+        /// Get whether the principal exists.
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
-        /// <returns>Ehether the principal exists.</returns>
+        /// <exception cref="RepositoryException">
+        /// If something unexpected occurs while trying to get whether the principal exists.
+        /// </exception>
+        /// <exception cref="CoreException">
+        /// If something unexpected occurs.
+        /// </exception>
+        /// <returns>Whether the principal exists.</returns>
         public Boolean PrincipalExists(String identity)
         {
             return this.principalRepository.Has(principal => principal.Identity == identity);
@@ -37,8 +45,19 @@
 
         /// <summary>
         /// Creates a principal in the system.
+        /// Creating a principal will creates its base profile, its personnal security context and will give all rights
+        /// to the principal on its context.
         /// </summary>
         /// <param name="identity">The principal's identity.</param>
+        /// <exception cref="NotAuthorizedException">
+        /// If the principal already exists.
+        /// </exception>
+        /// <exception cref="RepositoryException">
+        /// If something unexpected occurs while creating the principal.
+        /// </exception>
+        /// <exception cref="CoreException">
+        /// If something unexpected occurs.
+        /// </exception>
         /// <returns>The created principal id.</returns>
         public Int32 CreatePrincipal(String identity)
         {

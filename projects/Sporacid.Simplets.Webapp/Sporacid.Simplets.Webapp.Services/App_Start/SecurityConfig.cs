@@ -46,7 +46,7 @@
         private static void BootstrapSecurityContext()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var kernel = new Bootstrapper().Kernel; // TODO try to get the singleton kernel.
+            var kernel = NinjectWebCommon.Bootstrapper.Kernel;
 
             // Bootstrap the security database.
             kernel.Get<ISecurityDatabaseBootstrapper>()

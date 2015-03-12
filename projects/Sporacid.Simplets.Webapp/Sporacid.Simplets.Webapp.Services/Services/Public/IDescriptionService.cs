@@ -14,7 +14,7 @@
         /// Describes the api methods. This can be used to discover what operations are available.
         /// </summary>
         /// <returns>An enumeration of all available api methods.</returns>
-        IEnumerable<ApiMethodDescriptionDto> DescribeApiMethods();
+        IEnumerable<ApiModuleDescriptionDto> DescribeApiMethods();
 
         /// <summary>
         /// Describes the api entities. This can be used to discover what entities are used in the api.
@@ -28,19 +28,19 @@
     [ContractClassFor(typeof(IDescriptionService))]
     internal abstract class DescriptionServiceContract : IDescriptionService
     {
-        public IEnumerable<ApiMethodDescriptionDto> DescribeApiMethods()
+        public IEnumerable<ApiModuleDescriptionDto> DescribeApiMethods()
         {
             // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<ApiMethodDescriptionDto>>() != null, ContractStrings.DescriptionService_DescribeApiMethods_EnsuresNonNulApiDescriptor);
+            Contract.Ensures(Contract.Result<IEnumerable<ApiModuleDescriptionDto>>() != null, ContractStrings.DescriptionService_DescribeApiMethods_EnsuresNonNullModuleDescription);
 
             // Dummy return.
-            return default(IEnumerable<ApiMethodDescriptionDto>);
+            return default(IEnumerable<ApiModuleDescriptionDto>);
         }
 
         public IEnumerable<ApiEntityDescriptionDto> DescribeApiEntities()
         {
             // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<ApiEntityDescriptionDto>>() != null, ContractStrings.DescriptionService_DescribeApiEntities_EnsuresNonNulApiDescriptor);
+            Contract.Ensures(Contract.Result<IEnumerable<ApiEntityDescriptionDto>>() != null, ContractStrings.DescriptionService_DescribeApiEntities_EnsuresNonNullEntityDescriptions);
 
             // Dummy return.
             return default(IEnumerable<ApiEntityDescriptionDto>);

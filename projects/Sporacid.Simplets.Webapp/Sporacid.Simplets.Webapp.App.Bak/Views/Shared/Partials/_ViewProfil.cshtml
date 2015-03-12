@@ -1,0 +1,231 @@
+﻿<div id="page-wrapper">
+
+  <div class="row">
+    <div class="col-lg-4">
+      <h1>Votre profil</h1>
+      <br/>
+    </div>
+    <div class="col-lg-8" >
+      <h4>Votre niveau</h4>
+      <div style="position: relative;">
+      <div style="position:absolute; height: 40px; font-size:30px;">33</div>
+      <div class="progress" style="height: 40px; margin-left: 60px; margin-right: 60px; ">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+          <h4>Xp: 5174 / 8000</h4>
+        </div>
+      </div>
+      <div style="position:absolute; height: 40px; font-size:30px; right: 0px; top: 0px;">34</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Vos informations</h3>
+        </div>
+
+        <div class="row" style="padding: 20px;">
+          <div class="col-md-4">
+            <label>Avatar</label>
+            <div class="sets-profil-avatar"></div>
+          </div>
+          <div class="col-md-8">
+            <form role="form">
+              <div class="form-group">
+                <label>Prenom</label>
+                <input class="form-control" placeholder="Votre prenom" />
+              </div>
+              <div class="form-group">
+                <label>Nom</label>
+                <input class="form-control" placeholder="Votre nom" />
+              </div>
+              <div class="form-group">
+                <label>Concentration</label>
+                <select class="form-control">
+                  <option value="1">CTN - Génie de la construction</option>
+                  <option value="2">ELE - Génie électrique</option>
+                  <option value="3">GOL - Génie des opérations et de la logistique</option>
+                  <option value="4">GPA - Génie de production automatisée</option>
+                  <option value="5">LOG - Génie logiciel</option>
+                  <option value="6">MEC - Génie mécanique</option>
+                  <option value="7">GTI - Génie des technologies de l`information</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Rendre vos informations public</label>
+                <input type="checkbox" class="form-control text-left" style="width: 40px;"/>
+                <p class="help-block">Si coché, les utilisateurs de plateforme SimplETS pourront visionner cette section de votre profil.</p>
+              </div>
+              <button type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>Sauvegarder</button>
+              <button class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>Annuler</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Votre profil avancé</h3>
+        </div>
+        <form role="form" style="padding: 20px;">
+          <div class="form-group">
+            <label>Code Permanent</label>
+            <input class="form-control" placeholder="Votre code permament" />
+          </div>
+          <div class="form-group">
+            <label>Date de naissance</label>
+            <input type="date" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Numéro de téléphone</label>
+            <input class="form-control" placeholder="Votre numéro de téléphone" />
+          </div>
+          <div class="form-group">
+            <label>Courriel</label>
+            <input type="email" class="form-control" placeholder="Votre courriel" />
+          </div>
+          <div class="form-group">
+            <label>Rendre votre profil avancé public</label>
+            <input type="checkbox" class="form-control text-left" style="width: 40px;"/>
+            <p class="help-block">Si coché, les utilisateurs de plateforme SimplETS pourront visionner cette section de votre profil.</p>
+          </div>
+          <button type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>Sauvegarder</button>
+          <button class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+    
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Vos formations</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Titre</th>
+              <th>Description</th>
+              <th>Public</th>
+              <th class="sets-fixed-width-cell1"></th>
+              <th class="sets-fixed-width-cell1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Chauffer une grue</td>
+              <td>Je chauffe des grues dans mes temps libres.</td>
+              <td><input type="checkbox" class="form-control text-left" style="width: 40px;" checked></td>
+              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-edit"></div></td>
+              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-delete"></div></td>
+            </tr>
+            <tr>
+              <td><input class="form-control" placeholder="Titre de la formation" /></td>
+              <td><input class="form-control" placeholder="Description de la formation" /></td>
+              <td><input type="checkbox" class="form-control text-left" style="width: 40px;"></td>
+              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-add"></div></td>
+              <td class="sets-fixed-width-cell1"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Vos allergies</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Description</th>
+              <th>Public</th>
+              <th class="sets-fixed-width-cell1"></th>
+              <th class="sets-fixed-width-cell1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Peanut</td>
+              <td>Je meurs si je suis en contact avec une peanut.</td>
+              <td><input type="checkbox" class="form-control text-left" style="width: 40px;" checked></td>
+              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-edit"></div></td>
+              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-delete"></div></td>
+            </tr>
+            <tr>
+              <td><input class="form-control" placeholder="Nom de l'allergie" /></td>
+              <td><input class="form-control" placeholder="Description" /></td>
+              <td><input type="checkbox" class="form-control text-left" style="width: 40px;"></td>
+              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-add"></div></td>
+              <td class="sets-fixed-width-cell1"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section InlineStyles
+{
+  .btn {
+  position: relative;
+  padding-left:44px;
+  }
+
+  .btn .metro-icon {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 1px;
+  left: 1px;
+  border-radius:4px;
+  }
+
+  .table > tbody > tr > td > .metro-icon {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 6px;
+  }
+  
+  .table .sets-fixed-width-cell1 {
+  width: 40px;
+  }
+  
+
+  .table > tbody > tr > td {
+  vertical-align: middle;
+  min-width:40px
+  }
+
+  .form-group select, .form-group input {
+  color: black;
+  }
+
+  .sets-profil-avatar {
+  background-image: url(http://upload.wikimedia.org/wikipedia/en/thumb/f/ff/Polarity_cover.jpg/220px-Polarity_cover.jpg);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  /*margin: 20px;*/
+  }
+}
+
+@section InlineDocumentReady
+{
+  var $avatar = $(".sets-profil-avatar");
+  $avatar.height($avatar.width());
+
+  $(window).on("resize", function() {
+  $avatar.height($avatar.width());
+  });
+}

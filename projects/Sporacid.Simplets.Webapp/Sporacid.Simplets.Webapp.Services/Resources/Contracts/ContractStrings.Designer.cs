@@ -261,18 +261,18 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DescriptionService_DescribeApiEntities_EnsuresNonNulApiDescriptor {
+        internal static string DescriptionService_DescribeApiEntities_EnsuresNonNullEntityDescriptions {
             get {
-                return ResourceManager.GetString("DescriptionService_DescribeApiEntities_EnsuresNonNulApiDescriptor", resourceCulture);
+                return ResourceManager.GetString("DescriptionService_DescribeApiEntities_EnsuresNonNullEntityDescriptions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DescriptionService_DescribeApiMethods_EnsuresNonNulApiDescriptor {
+        internal static string DescriptionService_DescribeApiMethods_EnsuresNonNullModuleDescription {
             get {
-                return ResourceManager.GetString("DescriptionService_DescribeApiMethods_EnsuresNonNulApiDescriptor", resourceCulture);
+                return ResourceManager.GetString("DescriptionService_DescribeApiMethods_EnsuresNonNullModuleDescription", resourceCulture);
             }
         }
         

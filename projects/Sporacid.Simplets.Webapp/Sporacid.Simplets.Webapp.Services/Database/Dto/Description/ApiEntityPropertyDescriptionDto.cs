@@ -8,8 +8,8 @@
     [Serializable]
     public class ApiEntityPropertyDescriptionDto
     {
-        public String PropertyName { get; set; }
-        public String PropertyType { get; set; }
+        public String Name { get; set; }
+        public String Type { get; set; }
         public IEnumerable<String> Constraints { get; set; }
     }
 }

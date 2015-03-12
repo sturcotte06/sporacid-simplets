@@ -47,6 +47,6 @@ using Sporacid.Simplets.Webapp.Services;
 
 // Bootstrap activator methods.
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start", Order = 0)]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(AutoMapperConfig), "InitializeAutoMapper", Order = 1)]
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SecurityConfig), "BootstrapSecurityContext", Order = 2)]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop", Order = 0)]

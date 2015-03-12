@@ -1,0 +1,105 @@
+﻿<div id="profil">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Vos informations</h3>
+    </div>
+
+    <div class="row" style="padding: 20px;">
+      <!-- ko if: editInProgress -->
+      <div class="col-md-4">
+        <label>Avatar</label>
+        <div class="sets-profil-avatar"></div>
+      </div>
+      <div class="col-md-8">
+        <form role="form">
+          <div class="form-group">
+            <label>Prenom</label>
+            <input data-bind="value: prenom" class="form-control" placeholder="Votre prenom" />
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input data-bind="value: nom" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>Concentration</label>
+            <select data-bind="
+              options: availableConcentrations,
+              optionsValue: 'id',
+              optionsText: function (concentration) {
+                return sprintf('%s - %s', concentration.acronyme, concentration.description);
+              },
+              value: concentrationId" class="form-control"></select>
+          </div>
+          <div class="form-group">
+            <label >Rendre vos informations public</label>
+            <input data-bind="value: public" type="checkbox" class="form-control text-left" style="width: 40px;"/>
+            <p class="help-block">Si coché, les utilisateurs de plateforme SimplETS pourront visionner cette section de votre profil.</p>
+          </div>
+          <button data-bind="click: edit" type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>Sauvegarder</button>
+          <button data-bind="click: cancelEdit" class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>Annuler</button>
+        </form>
+      </div>
+      <!-- /ko -->
+      <!-- ko ifnot: editInProgress -->
+      <div class="col-md-4">
+        <label>Avatar</label>
+        <div class="sets-profil-avatar"></div>
+      </div>
+      <div class="col-md-8">
+          <div class="form-group">
+            <label>Prenom</label>
+            <p data-bind="text: prenom"></p>
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <p data-bind="text: nom"></p>
+          </div>
+          <div class="form-group">
+            <label>Concentration</label>
+            <p data-bind="text: sprintf('%s - %s', concentration().acronyme, concentration().description)"></p>
+          </div>
+          <button data-bind="click: beginEdit" type="submit" class="btn btn-primary"><i class="metro-icon metro-edit-trans"></i>Modifier</button>
+      </div>
+      <!-- /ko -->
+    </div>
+  </div>
+</div>
+
+@*<div class="col-md-4">
+        <label>Avatar</label>
+        <div class="sets-profil-avatar"></div>
+      </div>
+      <div class="col-md-8">
+        <form role="form">
+          <div class="form-group">
+            <label>Prenom</label>
+            <p data-bind="visible: !editInProgress(), text: prenom"></p>
+            <input data-bind="visible: editInProgress(), value: prenom" class="form-control" placeholder="Votre prenom" />
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <p data-bind="visible: !editInProgress(), text: nom"></p>
+            <input data-bind="visible: editInProgress(), value: nom" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>Concentration</label>
+            <p data-bind="visible: !editInProgress(), text: getConcentration()"></p>
+            <select data-bind="visible: editInProgress(),
+                options: availableConcentrations,
+                optionsValue: 'id',
+                optionsText: function (concentration) {
+                  return concentration.acronyme + ' - ' + concentration.description;
+                },
+                value: concentrationId" class="form-control"></select>
+          </div>
+          <div data-bind="visible: editInProgress()" class="form-group">
+            <label >Rendre vos informations public</label>
+            <input data-bind="value: public" type="checkbox" class="form-control text-left" style="width: 40px;"/>
+            <p data-bind="visible: editInProgress()" class="help-block">Si coché, les utilisateurs de plateforme SimplETS pourront visionner cette section de votre profil.</p>
+          </div>
+          <button data-bind="visible: !editInProgress(), click: beginEdit" type="submit" class="btn btn-primary"><i class="metro-icon metro-edit-trans"></i>Modifier</button>
+          <button data-bind="visible: editInProgress(), click: edit" type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>Sauvegarder</button>
+          <button data-bind="visible: editInProgress(), click: cancelEdit" class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>Annuler</button>
+        </form>
+      </div>
+    </div> *@

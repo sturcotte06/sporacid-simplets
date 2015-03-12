@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authorization.Impl
 {
     using System;
-    using System.Linq;
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
@@ -100,17 +99,13 @@
                 return;
             }
 
+            // Authorize principal on each contexts.
             contexts.ForEach(context =>
             {
-                var claimsEntity = Snippets.TryCatch<PrincipalModuleContextClaims, RepositoryException>(() => 
+                // Get the claims of the principal on this module and context.
+                var claimsEntity = Snippets.TryCatch<PrincipalModuleContextClaims, RepositoryException>(() =>
                     this.claimsRepository.GetUnique(pmcc => pmcc.Principal.Identity == principal.Identity.Name && pmcc.Context.Name == context && pmcc.Module.Name == module),
                     ex => { throw new NotAuthorizedException(ExceptionStrings.Core_Security_UnauthorizedModuleContextsAccess, ex); });
-
-                // if (claimsEntity == null)
-                // {
-                //     // The principal is not subscribed to this context or this module.
-                //     throw new NotAuthorizedException(ExceptionStrings.Core_Security_UnauthorizedModuleContextsAccess);
-                // }
 
                 // Get claims flag from the entity.
                 var principalClaimsOnContextAndModule = (Claims) claimsEntity.Claims;

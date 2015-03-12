@@ -220,6 +220,7 @@
     <Compile Include="Database\Dto\Clubs\ItemDto.cs" />
     <Compile Include="Database\Dto\Clubs\MeetingDto.cs" />
     <Compile Include="Database\Dto\Clubs\SuivieDto.cs" />
+    <Compile Include="Database\Dto\Description\ApiModuleDescriptionDto.cs" />
     <Compile Include="Database\Dto\Description\ApiResponseDescriptionDto.cs" />
     <Compile Include="Database\Dto\Dbo\AdresseDto.cs" />
     <Compile Include="Database\Dto\Dbo\ContactDto.cs" />

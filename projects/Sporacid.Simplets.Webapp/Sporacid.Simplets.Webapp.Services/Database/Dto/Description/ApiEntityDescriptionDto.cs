@@ -8,7 +8,7 @@
     [Serializable]
     public class ApiEntityDescriptionDto
     {
-        public String EntityName { get; set; }
+        public String Name { get; set; }
         public IEnumerable<ApiEntityPropertyDescriptionDto> Properties { get; set; }
     }
 }

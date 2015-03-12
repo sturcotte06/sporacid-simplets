@@ -1,0 +1,58 @@
+﻿@{
+  ViewBag.Title = "Help";
+}
+
+<div id="page-wrapper">
+  <h1>Simplets Api Description</h1>
+  <div data-bind="foreach: modules">
+    <hr/>
+    <h2 data-bind="text: name || 'None'"></h2>
+    <ul data-bind="foreach: methods">
+      <li>
+        <hr/>
+        <h3>
+          <b data-bind="text: httpMethod"></b> - 
+          <span data-bind="text: route"></span>
+        </h3>
+        <h4>Documentation</h4>
+        <span data-bind="text: documentation"></span>
+        <h4>Required Claims</h4>
+        <span data-bind="text: requiredClaims"></span>
+        <div data-bind="visible: parameters.length">
+          <h4>Parameters</h4>
+          <ul data-bind="foreach: parameters">
+            <li>
+              <h5>
+                <b data-bind="text: name"></b> - 
+                <span data-bind="text: type"></span>
+              </h5>
+              <i><span data-bind="if: isOptional">[Optional] </span>
+                <span data-bind="ifnot: isOptional">[Required] </span></i>
+              <span data-bind="text: documentation"></span>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+@section ScriptsImportBottom {
+  <script type="text/javascript">
+    jQuery(function($) {
+      ko.applyBindings(new MethodsModelView());
+    });
+
+    function MethodsModelView() {
+      var self = this;
+      self.modules = ko.observableArray();
+
+      // Describe all of rest api's methods.
+      restCall(buildUrl(apiUrl, "describe-api"), operations.get()).done(function(modules) {
+        for (var iModule = 0; iModule < modules.length; iModule++) {
+          self.modules.push(modules[iModule]);
+        }
+      });
+    }
+  </script>
+}

@@ -78,12 +78,12 @@
             var fixedCtxAttr = serviceType.GetAllCustomAttributes<FixedContextAttribute>().FirstOrDefault();
             if (fixedCtxAttr != null)
             {
-                // Fixed context.
+                // Fixed context. The context is constant and is not part of the url.
                 authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
             }
             else
             {
-                // Dynamic context, get its value.
+                // Dynamic context. The context is given in the url, so get its value.
                 var contextualAttr = serviceType.GetAllCustomAttributes<ContextualAttribute>().FirstOrDefault();
                 if (contextualAttr == null)
                 {

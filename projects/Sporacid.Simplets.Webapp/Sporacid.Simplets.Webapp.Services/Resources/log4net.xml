@@ -24,12 +24,15 @@
       <conversionPattern value="%message%newline" />
     </layout>
   </appender>
+  <!-- Logger definitons. -->
   <root>
     <level value="info" />
     <appender-ref ref="fileAppender" />
   </root>
-  <logger name="QueriesLogger">
+  <logger name="Queries" additivity="false">
     <level value="debug" />
+  </logger>
+  <logger name="Queries.QueriesLogger">
     <appender-ref ref="queriesAppender" />
   </logger>
 </log4net>

@@ -27,6 +27,7 @@
         /// <param name="tokenAndPrincipal">The token and principals of the newly authenticated user.</param>
         public void Update(ITokenAndPrincipal tokenAndPrincipal)
         {
+            // HttpContext.Current.Session["AuthenticationTokenAndPrincipal"] = tokenAndPrincipal;
             // Cache the token with the principals. 
             // If the user specify token authentication, we can speed up its response.
             this.tokenCache.Put(tokenAndPrincipal.Token, tokenAndPrincipal);
@@ -41,6 +42,13 @@
         /// <exception cref="WrongCredentialsException">If user does not exist or the password does not match.</exception>
         public override ITokenAndPrincipal Authenticate(ICredentials credentials)
         {
+            // var tokenAndPrincipal = HttpContext.Current.Session["AuthenticationTokenAndPrincipal"] as ITokenAndPrincipal;
+            // if (tokenAndPrincipal == null)
+            // {
+            //     throw new WrongCredentialsException();
+            // }
+
+            // return tokenAndPrincipal;
             var authenticationToken = new AuthenticationToken {Key = credentials.Identity};
             if (!this.tokenCache.Has(authenticationToken))
             {
@@ -48,7 +56,7 @@
             }
 
             ITokenAndPrincipal tokenAndPrincipal = null;
-            this.tokenCache.WithValueDo(authenticationToken, v => tokenAndPrincipal = v);
+            this.tokenCache.WithValueDo(authenticationToken, value => tokenAndPrincipal = value);
             return tokenAndPrincipal;
         }
 

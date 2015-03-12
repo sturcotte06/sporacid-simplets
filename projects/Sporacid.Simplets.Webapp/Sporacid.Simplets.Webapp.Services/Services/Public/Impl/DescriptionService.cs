@@ -9,6 +9,8 @@
     using System.Web.Http.Controllers;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Description;
+    using Sporacid.Simplets.Webapp.Tools.Collections;
+    using Sporacid.Simplets.Webapp.Tools.Reflection;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -32,19 +34,16 @@
             {
                 "Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs",
                 "Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo",
-                "Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace"
+                "Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace",
+                "Sporacid.Simplets.Webapp.Services.Database.Dto.Description"
             };
-
-
+            
             // Get all data transfer object types from above assemblies.
             var assembly = Assembly.GetExecutingAssembly();
-            var dtoTypes = from type in assembly.GetTypes()
-                where type.IsClass
-                      && type.Namespace != null
-                      && dtoNamespaces.Contains(type.Namespace)
-                select type;
+            var dtoTypes = assembly.GetTypes().Where(type => type.IsClass && type.Namespace != null && dtoNamespaces.Contains(type.Namespace));
 
             // Describe all dto types.
+            var entityDescriptionDtos = new List<ApiEntityDescriptionDto>();
             foreach (var dtoType in dtoTypes)
             {
                 // Describe all properties of the type.
@@ -53,8 +52,8 @@
                 {
                     var apiEntityPropertyDescriptionDto = new ApiEntityPropertyDescriptionDto
                     {
-                        PropertyName = dtoTypeProperty.Name,
-                        PropertyType = dtoTypeProperty.PropertyType.Name
+                        Name = dtoTypeProperty.Name,
+                        Type = dtoTypeProperty.PropertyType.Name
                     };
 
                     // Describe main component model constraints.
@@ -68,7 +67,7 @@
                         var strLen = dtoTypeFieldAttr as StringLengthAttribute;
                         if (strLen != null)
                         {
-                            constraints.Add(String.Format("MinLength({0})", strLen.MinimumLength));
+                            constraints.Add(String.Format("MinLength{0})", strLen.MinimumLength));
                             constraints.Add(String.Format("MaxLength({0})", strLen.MaximumLength));
                         }
 
@@ -81,77 +80,90 @@
 
                         var regex = dtoTypeFieldAttr as RegularExpressionAttribute;
                         if (regex != null)
-                            constraints.Add(String.Format("Regex({0})", regex.Pattern));
+                            constraints.Add(String.Format("Regex(\"{0}\")", regex.Pattern));
                     }
 
-                    apiEntityPropertyDescriptionDto.Constraints = constraints;
+                    apiEntityPropertyDescriptionDto.Constraints = constraints.OrderBy(c => c);
                     apiEntityPropertyDescriptionDtos.Add(apiEntityPropertyDescriptionDto);
                 }
 
-                yield return new ApiEntityDescriptionDto
+                entityDescriptionDtos.Add(new ApiEntityDescriptionDto
                 {
-                    EntityName = dtoType.Name,
-                    Properties = apiEntityPropertyDescriptionDtos
-                };
+                    Name = dtoType.Name,
+                    Properties = apiEntityPropertyDescriptionDtos.OrderBy(p => p.Name)
+                });
             }
+
+            return entityDescriptionDtos.OrderBy(e => e.Name);
         }
 
         /// <summary>
         /// Describes the api methods. This can be used to discover what operations are available.
         /// </summary>
         /// <returns>An enumeration of all available api methods.</returns>
-        [HttpGet, Route("describe-methods")]
+        [HttpGet, Route("describe-api")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Maximum)]
-        public IEnumerable<ApiMethodDescriptionDto> DescribeApiMethods()
+        public IEnumerable<ApiModuleDescriptionDto> DescribeApiMethods()
         {
             // Do not mind the ugliness of this method. The goal is not readability, nor performance.
             // The goal is to get the relevent informations of the api for a end user. Keep always in mind that the result
             // is cached for a very long time, since it will not change at runtime.
 
-            // Describe all service types.
-            var apiDescriptions = GlobalConfiguration.Configuration.Services.GetApiExplorer().ApiDescriptions;
-            foreach (var apiDescription in apiDescriptions)
+            // Describe all methods by logical module.
+            var moduleDescriptionDtos = new List<ApiModuleDescriptionDto>();
+            GlobalConfiguration.Configuration.Services.GetApiExplorer().ApiDescriptions.GroupBy(d =>
             {
-                var apiDescriptionDto = new ApiMethodDescriptionDto
+                // Group all method descriptions by module.
+                var moduleAttr = d.ActionDescriptor.ControllerDescriptor.ControllerType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
+                return moduleAttr != null ? moduleAttr.Name : null;
+            }).ForEach(module =>
+            {
+                var apiMethodDescriptionDtos = new List<ApiMethodDescriptionDto>();
+                module.ToList().ForEach(apiDescription =>
                 {
-                    Documentation = apiDescription.Documentation,
-                    HttpMethod = apiDescription.HttpMethod.Method,
-                    Route = apiDescription.Route.RouteTemplate,
-                    ParameterDescriptions = apiDescription.ParameterDescriptions.Select(parameterDescription => new ApiMethodParameterDescriptionDto
+                    var apiDescriptionDto = new ApiMethodDescriptionDto
                     {
-                        Name = parameterDescription.Name,
-                        Documentation = parameterDescription.Documentation,
-                        ParameterType =
-                            parameterDescription.ParameterDescriptor != null ? parameterDescription.ParameterDescriptor.ParameterType.Name : null,
-                        IsOptional =
-                            parameterDescription.ParameterDescriptor != null && parameterDescription.ParameterDescriptor.IsOptional
-                    }),
-                    ResponseDescription = new ApiResponseDescriptionDto
-                    {
-                        Documentation = apiDescription.ResponseDescription.Documentation,
-                        ResponseType = apiDescription.ResponseDescription.DeclaredType != null ? apiDescription.ResponseDescription.DeclaredType.Name : "void"
-                    }
-                };
+                        Name = apiDescription.ActionDescriptor.ActionName,
+                        Documentation = apiDescription.Documentation,
+                        HttpMethod = apiDescription.HttpMethod.Method,
+                        Route = apiDescription.Route.RouteTemplate,
+                        Parameters = apiDescription.ParameterDescriptions.Select(parameterDescription => new ApiMethodParameterDescriptionDto
+                        {
+                            Name = parameterDescription.Name,
+                            Documentation = parameterDescription.Documentation,
+                            Type = parameterDescription.ParameterDescriptor != null ? parameterDescription.ParameterDescriptor.ParameterType.Name : null,
+                            IsOptional = parameterDescription.ParameterDescriptor != null && parameterDescription.ParameterDescriptor.IsOptional
+                        }).OrderBy(p => p.Name),
+                        Response = new ApiResponseDescriptionDto
+                        {
+                            Type = apiDescription.ResponseDescription.DeclaredType != null ? apiDescription.ResponseDescription.DeclaredType.Name : "void",
+                            Documentation = apiDescription.ResponseDescription.Documentation
+                        }
+                    };
 
-                var actionDescriptor = apiDescription.ActionDescriptor as ReflectedHttpActionDescriptor;
-                if (actionDescriptor != null)
-                {
-                    // Hack it up. Technically, when it was written, service classes only had one interface.
-                    // It's not pretty (at all), but attribute inheritance on methods does not seem to be very well defined.
-                    var serviceType = apiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetInterfaces().FirstOrDefault(i => i.Name.Contains("Service"));
-                    if (serviceType != null)
+                    var actionDescriptor = apiDescription.ActionDescriptor as ReflectedHttpActionDescriptor;
+                    if (actionDescriptor != null)
                     {
+                        var serviceType = apiDescription.ActionDescriptor.ControllerDescriptor.ControllerType;
                         var method = serviceType.GetMethod(actionDescriptor.MethodInfo.Name);
                         if (method != null)
                         {
-                            var requiredClaimsAttr = method.GetCustomAttributes<RequiredClaimsAttribute>().FirstOrDefault();
+                            var requiredClaimsAttr = method.GetAllCustomAttributes<RequiredClaimsAttribute>().FirstOrDefault();
                             apiDescriptionDto.RequiredClaims = requiredClaimsAttr != null ? requiredClaimsAttr.RequiredClaims : Claims.None;
                         }
                     }
-                }
 
-                yield return apiDescriptionDto;
-            }
+                    apiMethodDescriptionDtos.Add(apiDescriptionDto);
+                });
+
+                moduleDescriptionDtos.Add(new ApiModuleDescriptionDto
+                {
+                    Name = module.Key,
+                    Methods = apiMethodDescriptionDtos.OrderBy(d => d.Route + d.HttpMethod)
+                });
+            });
+
+            return moduleDescriptionDtos.OrderBy(m => m.Name);
         }
     }
 }

@@ -2,6 +2,8 @@
 {
     using System;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Exceptions;
+    using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap;
@@ -23,20 +25,30 @@
         }
 
         /// <summary>
-        /// Creates the base profil for agiven universal code.
+        /// Creates the base profil entity for a given principal's identity.
+        /// Every available informations for the principal will be extracted and included in the profil entity.
         /// </summary>
-        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
-        /// <returns>The id of the newly created profil entity.</returns>
-        public Int32 CreateBaseProfil(String codeUniversel)
+        /// <param name="identity">The principal's identity.</param>
+        /// <exception cref="NotAuthorizedException">
+        /// If the profil entity already exists.
+        /// </exception>
+        /// <exception cref="RepositoryException">
+        /// If something unexpected occurs while creating the base profil entity.
+        /// </exception>
+        /// <exception cref="CoreException">
+        /// If something unexpected occurs.
+        /// </exception>
+        /// <returns>The id of the created profil entity.</returns>
+        public Int32 CreateBaseProfil(String identity)
         {
             // Cannot add the profil twice.
-            if (this.profilRepository.Has(profil => profil.CodeUniversel == codeUniversel))
+            if (this.profilRepository.Has(profil => profil.CodeUniversel == identity))
             {
-                throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_ProfilDuplicate, codeUniversel));
+                throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_ProfilDuplicate, identity));
             }
 
             // Poke ldap for nom, prenom and courriel properties.
-            var ldapUser = this.ldapSearcher.SearchForUser(SearchBy.SamAccountName, codeUniversel);
+            var ldapUser = this.ldapSearcher.SearchForUser(SearchBy.SamAccountName, identity);
 
             // Create a base profile entity.
             var profilEntity = new Profil
@@ -45,7 +57,7 @@
                 {
                     Courriel = ldapUser.Email
                 },
-                CodeUniversel = codeUniversel,
+                CodeUniversel = identity,
                 Nom = ldapUser.LastName,
                 Prenom = ldapUser.FirstName,
                 Public = true,

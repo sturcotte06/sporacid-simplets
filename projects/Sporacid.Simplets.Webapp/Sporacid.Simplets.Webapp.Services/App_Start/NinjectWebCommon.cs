@@ -4,7 +4,6 @@ namespace Sporacid.Simplets.Webapp.Services
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.Linq;
-    using System.Reflection;
     using System.Web;
     using System.Web.Http.Filters;
     using log4net;
@@ -53,7 +52,7 @@ namespace Sporacid.Simplets.Webapp.Services
     /// <version>1.9.0</version>
     public static class NinjectWebCommon
     {
-        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
+        public static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -182,14 +181,14 @@ namespace Sporacid.Simplets.Webapp.Services
             kernel.Bind<LinqToSqlLog4netAdapter>().To<LinqToSqlLog4netAdapter>()
                 .InSingletonScope()
                 .WithConstructorArgument(Level.Info)
-                .WithConstructorArgument(LogManager.GetLogger("QueriesLogger"));
-            
+                .WithConstructorArgument(LogManager.GetLogger("Queries.QueriesLogger"));
+
             // Security data context configuration.
             kernel.Bind<DataContext>().To<SecurityDataContext>()
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
                 .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString)
                 .OnActivation(dc => dc.Log = kernel.Get<LinqToSqlLog4netAdapter>());
-                // .OnActivation(dc => dc.ObjectTrackingEnabled = false);
+            // .OnActivation(dc => dc.ObjectTrackingEnabled = false);
 
             // Database data context configuration.
             kernel.Bind<DataContext>().To<DatabaseDataContext>()
@@ -206,7 +205,7 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             // Cache configurations.
             kernel.Bind(typeof (IDictionary<,>)).To(typeof (Dictionary<,>));
-            kernel.Bind(typeof(IDictionary<,>)).To(typeof(LinkedDictionary<,>))
+            kernel.Bind(typeof (IDictionary<,>)).To(typeof (LinkedDictionary<,>))
                 .When(request =>
                     request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database" ||
                     request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database");
@@ -239,6 +238,7 @@ namespace Sporacid.Simplets.Webapp.Services
             // Public services.
             kernel.Bind<IAnonymousService>().To<AnonymousService>().InRequestScope();
             kernel.Bind<IEnumerationService>().To<EnumerationService>().InRequestScope();
+            kernel.Bind<IDescriptionService>().To<DescriptionService>().InRequestScope();
             // Userspace services.
             kernel.Bind<IProfilService>().To<ProfilService>().InRequestScope();
 
@@ -263,13 +263,13 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             // Bind the authentication filter on services that have the RequiresAuthenticatedPrincipal attribute
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
-                .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>()
-                .InRequestScope();
+                .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>();
+            // .InRequestScope();
 
             // Bind the authentication filter on services that have the RequiresAuthorizedPrincipal attribute
             kernel.BindHttpFilter<AuthorizationFilter>(FilterScope.Controller)
                 .WhenControllerHas<RequiresAuthorizedPrincipalAttribute>()
-                .InRequestScope()
+                // .InRequestScope()
                 .WithConstructorArgument("endpointsNamespaces", ctx => new[]
                 {
                     "Sporacid.Simplets.Webapp.Services.Services.Administration",
@@ -280,8 +280,8 @@ namespace Sporacid.Simplets.Webapp.Services
 
             // Bind the exception handling filter on services that have the HandlesException attribute
             kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Controller)
-                .WhenControllerHas<HandlesExceptionAttribute>()
-                .InRequestScope();
+                .WhenControllerHas<HandlesExceptionAttribute>();
+            // .InRequestScope();
 
             // Bind the model validation filter.
             kernel.BindHttpFilter<ValidationFilter>(FilterScope.Global);
