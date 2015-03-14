@@ -2,6 +2,8 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -14,6 +16,7 @@
             ErrorMessageResourceName = "ProfilAvanceDto_CodePermament_StringLength")]
         public String CodePermanent { get; set; }
 
+        [JsonConverter(typeof(DateConverter))]
         public DateTime? DateNaissance { get; set; }
 
         [RegularExpression("[0-9]{10}",
@@ -33,5 +36,13 @@
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilAvanceDto_Public_Required")]
         public bool Public { get; set; }
+    }
+
+    class DateConverter : IsoDateTimeConverter
+    {
+        public DateConverter()
+        {
+            base.DateTimeFormat = "yyyy-MM-dd";
+        }
     }
 }

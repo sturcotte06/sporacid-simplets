@@ -1,5 +1,5 @@
 // Base url for the rest api.
-var apiUrl = "http://localhost/services/api/v1/";
+var apiUrl = "http://simon-pc/services/api/v1/";
 
 // Enumeration of all supported rest operations.
 var operations = {

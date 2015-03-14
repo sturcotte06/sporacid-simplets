@@ -23,7 +23,7 @@
         /// </summary>
         /// <returns>An enumeration of all available api entities.</returns>
         [HttpGet, Route("describe-entities")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Maximum)]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Maximum, ClientTimeSpan = (Int32)CacheDuration.Maximum)]
         public IEnumerable<ApiEntityDescriptionDto> DescribeApiEntities()
         {
             // Do not mind the ugliness of this method. The goal is not readability, nor performance.
@@ -102,7 +102,7 @@
         /// </summary>
         /// <returns>An enumeration of all available api methods.</returns>
         [HttpGet, Route("describe-api")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Maximum)]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Maximum, ClientTimeSpan = (Int32)CacheDuration.Maximum)]
         public IEnumerable<ApiModuleDescriptionDto> DescribeApiMethods()
         {
             // Do not mind the ugliness of this method. The goal is not readability, nor performance.

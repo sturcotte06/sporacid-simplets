@@ -31,7 +31,7 @@
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <returns>The profil.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.VeryLong)]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.VeryLong, ClientTimeSpan = (Int32)CacheDuration.VeryLong)]
         public ProfilDto Get(String codeUniversel)
         {
             return this.profilRepository

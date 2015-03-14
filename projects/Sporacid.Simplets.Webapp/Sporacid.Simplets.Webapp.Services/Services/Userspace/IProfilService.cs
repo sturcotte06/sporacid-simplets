@@ -23,7 +23,7 @@
         /// <returns>The profil.</returns>
         [RequiredClaims(Claims.Admin | Claims.Read)]
         ProfilDto Get(String codeUniversel);
-
+        
         /// <summary>
         /// Updates the profil entity in the system.
         /// </summary>
