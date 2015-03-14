@@ -4,20 +4,20 @@
     <meta charset="ISO-8859-1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SimplETS | @ViewBag.Title</title>
-    
-    @Styles.Render("~/bundles/styles")
 
     @Scripts.Render("~/bundles/scripts")
     
     @RenderSection("ScriptsImportTop", required: false)
+    
+    @Styles.Render("~/bundles/styles")
 
     @RenderSection("StylesImport", required: false)
     
   </head>
   <body id="body">
     
-    @Html.Partial("Partials/_Login");
-
+    @Html.Partial("Partials/Authentication/_Login");
+    
     <div id="wrapper">
       
       @RenderPage("Partials/_NavBar.cshtml")
@@ -25,14 +25,15 @@
       @RenderBody()
 
     </div>
+
+    @RenderSection("ScriptsImportBottom", required: false)
     
     <script type="text/javascript">
       jQuery(function ($) {
-
+        var $login = $("#login");
+        ko.applyBindings(new LoginModelView($login), $login[0]);
       });
     </script>
-
-    @RenderSection("ScriptsImportBottom", required: false)
 
   </body>
 </html>

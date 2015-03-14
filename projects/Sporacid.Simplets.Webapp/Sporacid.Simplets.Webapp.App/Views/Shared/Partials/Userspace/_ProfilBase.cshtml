@@ -1,0 +1,73 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
+@using Sporacid.Simplets.Webapp.App.Resources.Labels
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
+@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">@Html.Raw(TitleStrings.ProfilBase_MainTitle)</h3>
+  </div>
+  <!-- Validation state view. -->
+  <ul id="profil-base-validation-errors" class="validation-errors" data-bind="foreach: states">
+    <li><b data-bind="text: property"></b> - <span data-bind="text: message"></span></li>
+  </ul>
+  <div id="profil-base" style="padding: 20px;" data-bind="with: profil">
+    <!-- Base profil view mode. -->
+    <div id="view-profil-base" class="row" data-bind="visible: $root.viewmode() == viewmodes.view()">
+      <div class="col-md-4">
+        <label>@Html.Raw(LabelStrings.ProfilBase_Avatar)</label>
+        <div class="sets-profil-avatar"></div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <label>@Html.Raw(LabelStrings.ProfilBase_Prenom)</label>
+          <p data-bind="text: prenom || '@Html.Raw(LabelStrings.Profil_DefaultValue)'"></p>
+        </div>
+        <div class="form-group">
+          <label>@Html.Raw(LabelStrings.ProfilBase_Nom)</label>
+          <p data-bind="text: nom || '@Html.Raw(LabelStrings.Profil_DefaultValue)'"></p>
+        </div>
+        <div class="form-group">
+          <label>@Html.Raw(LabelStrings.ProfilBase_Concentration)</label>
+          <p data-bind="text: $root.concentration"></p>
+        </div>
+        <button data-bind="click: $root.beginEdit" type="submit" class="btn btn-primary"><i class="metro-icon metro-edit-trans"></i>@Html.Raw(ButtonStrings.Edit)</button>
+      </div>
+    </div>
+    <!-- Base profil edition mode. -->
+    <div id="edit-profil-base" class="row" data-bind="visible: $root.viewmode() == viewmodes.edition()">
+      <div class="col-md-4">
+        <label>@Html.Raw(LabelStrings.ProfilBase_Avatar)</label>
+        <div class="sets-profil-avatar"></div>
+      </div>
+      <div class="col-md-8">
+        <form role="form">
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.ProfilBase_Prenom)</label>
+            <input data-bind="value: prenom" class="form-control" placeholder="Votre prenom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.ProfilBase_Nom)</label>
+            <input data-bind="value: nom" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.ProfilBase_Concentration)</label>
+            <select data-bind="
+              options: $root.concentrations,
+              optionsValue: 'id',
+              optionsText: function (concentration) { return concentration.toString(); },
+              value: concentrationId" class="form-control">
+            </select>
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.ProfilBase_Public)</label>
+            <input data-bind="checked: public" type="checkbox" class="form-control text-left" style="width: 40px;"/>
+            <p class="help-block">@Html.Raw(MessageStrings.ProfilBase_PublicDisclaimer)</p>
+          </div>
+        </form>
+        <button data-bind="click: $root.edit" type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>@Html.Raw(ButtonStrings.Save)</button>
+        <button data-bind="click: $root.cancelEdit" class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>@Html.Raw(ButtonStrings.Cancel)</button>
+      </div>
+    </div>
+  </div>
+</div>

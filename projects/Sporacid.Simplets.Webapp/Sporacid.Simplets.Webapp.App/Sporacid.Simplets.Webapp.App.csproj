@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{922471F1-3C8D-49E9-89C6-B3954ACA3D11}</ProjectGuid>
+    <ProjectGuid>{288DAC87-BEF6-49D1-8C2B-1DB573DFBB91}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -130,6 +132,26 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Buttons\ButtonStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ButtonStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Labels\LabelStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LabelStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Messages\MessageStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Titles\TitleStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TitleStrings.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\css\bootstrap.css" />
@@ -157,11 +179,13 @@
     <Content Include="Content\img\metro-icons\metro-login-trans.png" />
     <Content Include="Content\img\metro-icons\metro-login.png" />
     <Content Include="Content\img\metro-icons\metro-logout.png" />
+    <Content Include="Content\img\metro-icons\metro-refresh-trans.png" />
     <Content Include="Content\img\metro-icons\metro-refresh.png" />
     <Content Include="Content\img\metro-icons\metro-save-trans.png" />
     <Content Include="Content\img\metro-icons\metro-save.png" />
     <Content Include="Content\img\metro-icons\metro-search.png" />
     <Content Include="Content\img\metro-icons\metro-settings.png" />
+    <Content Include="Content\js\core\simplets-modelviews-0.9.js" />
     <Content Include="Content\js\moment.js" />
     <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\sprintf.js" />
@@ -175,19 +199,16 @@
     <Content Include="Content\js\sprintf.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Folder Include="Views\Shared\Fulls\Administration\" />
+    <Folder Include="Views\Shared\Fulls\Clubs\" />
+    <Folder Include="Views\Shared\Partials\Administration\" />
+    <Folder Include="Views\Shared\Partials\Clubs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -295,19 +316,44 @@
     <Content Include="Views\Shared\Partials\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Profil.cshtml" />
+    <Content Include="Views\Shared\Fulls\Userspace\Profil.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_ViewProfil.cshtml" />
+    <Content Include="Views\Shared\Partials\Authentication\_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_Login.cshtml" />
+    <Content Include="Views\Shared\Partials\Userspace\_ProfilBase.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_Profil.cshtml" />
+    <Content Include="Views\Shared\Partials\Userspace\_ProfilAvance.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_ProfilAvance.cshtml" />
+    <Content Include="Views\Shared\Fulls\Description\ApiHelp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Fulls\Description\EntitiesHelp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Buttons\ButtonStrings.fr.resx" />
+    <EmbeddedResource Include="Resources\Buttons\ButtonStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ButtonStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels\LabelStrings.fr.resx" />
+    <EmbeddedResource Include="Resources\Labels\LabelStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LabelStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages\MessageStrings.fr.resx" />
+    <EmbeddedResource Include="Resources\Messages\MessageStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Titles\TitleStrings.fr.resx" />
+    <EmbeddedResource Include="Resources\Titles\TitleStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TitleStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -337,6 +383,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

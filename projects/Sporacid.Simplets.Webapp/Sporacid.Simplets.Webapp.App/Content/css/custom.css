@@ -59,3 +59,35 @@
     /*-ms-filter: blur(7px);*/
     filter: blur(15px);
 }
+
+.loading {
+    background: rgb(34, 34, 34);
+    background: rgba(34, 34, 34, 0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: progress;
+}
+
+.loading > .metro-icon {
+    position: absolute;
+    height: 75px;
+    width: 75px;
+}
+
+.validation-errors {
+    list-style-type: lower-roman;
+    margin: 0;
+    padding: 0;
+    margin-left: 35px;
+}
+
+.validation-errors > li:first-child {
+    padding-top: 20px;
+}
+
+.validation-errors > li {
+    padding: 5px;
+}

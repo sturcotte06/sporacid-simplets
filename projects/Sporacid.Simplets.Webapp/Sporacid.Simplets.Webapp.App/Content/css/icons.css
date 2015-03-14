@@ -50,6 +50,10 @@
     background-image: url("../img/metro-icons/metro-refresh.png");
 }
 
+.metro-icon.metro-refresh-trans {
+    background-image: url("../img/metro-icons/metro-refresh-trans.png");
+}
+
 .metro-icon.metro-search {
     background-image: url("../img/metro-icons/metro-search.png");
 }
@@ -72,4 +76,19 @@
 
 .metro-icon.metro-cancel-trans {
     background-image: url("../img/metro-icons/metro-cancel-trans.png");
+}
+
+.metro-icon-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
 }
