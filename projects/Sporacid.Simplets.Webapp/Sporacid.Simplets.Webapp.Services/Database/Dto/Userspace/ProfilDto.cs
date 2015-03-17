@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Data.Linq;
     using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -40,7 +41,7 @@
             ErrorMessageResourceName = "ProfilDto_Public_Required")]
         public bool Public { get; set; }
 
-        // public byte[] Avatar { get; set; }
+        public Binary Avatar { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),

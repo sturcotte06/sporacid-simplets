@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration.Impl
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Security.Administration.Impl
 {
     using System;
     using System.Web;
@@ -9,17 +9,17 @@
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
+    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/principal")]
     public class PrincipalAdministrationService : BaseSecureService, IPrincipalAdministrationService
     {
         private readonly IContextAdministrationService contextAdministrationService;
         private readonly IRepository<Int32, Principal> principalRepository;
-        private readonly IUserspaceAdministrationService profilAdministrationService;
+        private readonly IProfilAdministrationService profilAdministrationService;
 
-        public PrincipalAdministrationService(IContextAdministrationService contextAdministrationService, IUserspaceAdministrationService profilAdministrationService,
+        public PrincipalAdministrationService(IContextAdministrationService contextAdministrationService, IProfilAdministrationService profilAdministrationService,
             IRepository<Int32, Principal> principalRepository)
         {
             this.contextAdministrationService = contextAdministrationService;
@@ -38,7 +38,7 @@
         /// If something unexpected occurs.
         /// </exception>
         /// <returns>Whether the principal exists.</returns>
-        public Boolean PrincipalExists(String identity)
+        public Boolean Exists(String identity)
         {
             return this.principalRepository.Has(principal => principal.Identity == identity);
         }
@@ -59,10 +59,10 @@
         /// If something unexpected occurs.
         /// </exception>
         /// <returns>The created principal id.</returns>
-        public Int32 CreatePrincipal(String identity)
+        public Int32 Create(String identity)
         {
             // Cannot add the same context twice.
-            if (this.PrincipalExists(identity))
+            if (this.Exists(identity))
             {
                 throw new NotAuthorizedException(String.Format(ExceptionStrings.Services_Security_PrincipalDuplicate, identity));
             }
@@ -72,10 +72,10 @@
             this.principalRepository.Add(principalEntity);
 
             // Create the new personnal context of this principal. The principal has full access over its context.
-            this.contextAdministrationService.CreateContext(principalEntity.Identity);
+            this.contextAdministrationService.Create(principalEntity.Identity, principalEntity.Identity);
             this.contextAdministrationService.RemoveAllClaimsFromPrincipal(principalEntity.Identity, HttpContext.Current.User.Identity.Name);
             this.contextAdministrationService.BindRoleToPrincipal(principalEntity.Identity, SecurityConfig.Role.Administrateur.ToString(), principalEntity.Identity);
-            
+
             // Create the base profil for the new principal.
             this.profilAdministrationService.CreateBaseProfil(identity);
             return principalEntity.Id;

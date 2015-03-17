@@ -61,6 +61,141 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ClubAdministrationService_CreateClub_EnsuresPositiveClubId {
+            get {
+                return ResourceManager.GetString("ClubAdministrationService_CreateClub_EnsuresPositiveClubId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ClubAdministrationService_CreateClub_RequiresClub {
+            get {
+                return ResourceManager.GetString("ClubAdministrationService_CreateClub_RequiresClub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Create_RequiresClubName {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Create_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Create_RequiresCommanditaire {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Create_RequiresCommanditaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Delete_RequiresClubName {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Delete_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Get_EnsuresNonNullCommanditaire {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Get_EnsuresNonNullCommanditaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Get_EnsuresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Get_EnsuresPositiveCommanditaireId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Get_RequiresClubName {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Get_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Get_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Get_RequiresPositiveCommanditaireId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_GetAll_EnsuresNonNullCommanditaires {
+            get {
+                return ResourceManager.GetString("CommanditaireService_GetAll_EnsuresNonNullCommanditaires", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_GetAll_RequiresClubName {
+            get {
+                return ResourceManager.GetString("CommanditaireService_GetAll_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("CommanditaireService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Update_RequiresClubName {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Update_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Update_RequiresCommanditaire {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Update_RequiresCommanditaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireService_Update_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditaireService_Update_RequiresPositiveCommanditaireId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A club name is required to create a sponsor..
         /// </summary>
         internal static string CommanditeService_Create_RequiresClubName {
@@ -79,11 +214,29 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeService_Create_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditeService_Create_RequiresPositiveCommanditaireId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A club name is required to delete a sponsor..
         /// </summary>
         internal static string CommanditeService_Delete_RequiresClubName {
             get {
                 return ResourceManager.GetString("CommanditeService_Delete_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeService_Delete_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditeService_Delete_RequiresPositiveCommanditaireId", resourceCulture);
             }
         }
         
@@ -124,6 +277,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeService_Get_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditeService_Get_RequiresPositiveCommanditaireId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A positive sponsor id is required to get a sponsor..
         /// </summary>
         internal static string CommanditeService_Get_RequiresPositiveCommanditeId {
@@ -147,6 +309,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string CommanditeService_GetAll_RequiresClubName {
             get {
                 return ResourceManager.GetString("CommanditeService_GetAll_RequiresClubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeService_GetAll_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditeService_GetAll_RequiresPositiveCommanditaireId", resourceCulture);
             }
         }
         
@@ -183,6 +354,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string CommanditeService_Update_RequiresCommandite {
             get {
                 return ResourceManager.GetString("CommanditeService_Update_RequiresCommandite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeService_Update_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("CommanditeService_Update_RequiresPositiveCommanditaireId", resourceCulture);
             }
         }
         
@@ -237,6 +417,33 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string ContextAdministrationService_CreateContext_RequiresContext {
             get {
                 return ResourceManager.GetString("ContextAdministrationService_CreateContext_RequiresContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextAdministrationService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule {
+            get {
+                return ResourceManager.GetString("ContextAdministrationService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextAdministrationService_GetAllClaimsOnContext_RequiresContext {
+            get {
+                return ResourceManager.GetString("ContextAdministrationService_GetAllClaimsOnContext_RequiresContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextAdministrationService_GetAllClaimsOnContext_RequiresOwner {
+            get {
+                return ResourceManager.GetString("ContextAdministrationService_GetAllClaimsOnContext_RequiresOwner", resourceCulture);
             }
         }
         
@@ -630,6 +837,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MeetingService_Delete_RequiresPositiveCommanditaireId {
+            get {
+                return ResourceManager.GetString("MeetingService_Delete_RequiresPositiveCommanditaireId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MeetingService_Delete_RequiresPositiveMeetingId {
             get {
                 return ResourceManager.GetString("MeetingService_Delete_RequiresPositiveMeetingId", resourceCulture);
@@ -750,6 +966,24 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string PrincipalAdministrationService_PrincipalExists_RequiresIdentity {
             get {
                 return ResourceManager.GetString("PrincipalAdministrationService_PrincipalExists_RequiresIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ProfilAdministrationService_CreateBaseProfil_EnsuresPositiveProfilId {
+            get {
+                return ResourceManager.GetString("ProfilAdministrationService_CreateBaseProfil_EnsuresPositiveProfilId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ProfilAdministrationService_CreateBaseProfil_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ProfilAdministrationService_CreateBaseProfil_RequiresCodeUniversel", resourceCulture);
             }
         }
         
@@ -966,42 +1200,6 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string SuivieService_Update_RequiresSuivie {
             get {
                 return ResourceManager.GetString("SuivieService_Update_RequiresSuivie", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SystemAdministrationService_CreateClub_EnsuresPositiveClubId {
-            get {
-                return ResourceManager.GetString("SystemAdministrationService_CreateClub_EnsuresPositiveClubId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A club entity is required to add a club..
-        /// </summary>
-        internal static string SystemAdministrationService_CreateClub_RequiresClub {
-            get {
-                return ResourceManager.GetString("SystemAdministrationService_CreateClub_RequiresClub", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string UserspaceAdministrationService_CreateBaseProfil_EnsuresPositiveProfilId {
-            get {
-                return ResourceManager.GetString("UserspaceAdministrationService_CreateBaseProfil_EnsuresPositiveProfilId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A universal code (AJxxxxx) is required to create a base profile..
-        /// </summary>
-        internal static string UserspaceAdministrationService_CreateBaseProfil_RequiresCodeUniversel {
-            get {
-                return ResourceManager.GetString("UserspaceAdministrationService_CreateBaseProfil_RequiresCodeUniversel", resourceCulture);
             }
         }
     }

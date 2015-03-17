@@ -26,7 +26,11 @@
             // Clubs dtos.
             Mapper.CreateMap<Club, ClubDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Commanditaire, CommanditaireDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Commandite, CommanditeDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Suivie, SuivieDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Evenement, EvenementDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
@@ -38,11 +42,15 @@
                 .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<StatutSuivie, StatutSuivieDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
-            Mapper.CreateMap<Suivie, SuivieDto>()
-                .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Meeting, MeetingDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Groupe, GroupeDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<TypeCommanditaire, TypeCommanditaireDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<TypeCommandite, TypeCommanditeDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<TypeFournisseur, TypeFournisseurDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
             // Dbo dtos.
             Mapper.CreateMap<Adresse, AdresseDto>()
@@ -56,7 +64,9 @@
             Mapper.CreateMap<Unite, UniteDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
             // Userspace dtos.
-            Mapper.CreateMap<Allergie, AllergieDto>()
+            Mapper.CreateMap<Antecedent, AntecedentDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<TypeAntecedent, TypeAntecedentDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Formation, FormationDto>()
                 .IgnoreUnmappedProperties().ReverseMap();

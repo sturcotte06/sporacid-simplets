@@ -1,6 +1,8 @@
 ﻿USE [SIMPLETS]
 GO
 
+EXEC sp_MSforeachtable @command1 = "DELETE FROM ?" 
+
 -- INSERT INTO [dbo].[Clubs] VALUES ('PRECI','Programme de Regroupement Étudiant pour la Coopération Internationale', DEFAULT);
 -- INSERT INTO [dbo].[Clubs] VALUES ('LiETS','Ligue d`Improvisation de l`ETS', DEFAULT);
 -- INSERT INTO [dbo].[Clubs] VALUES ('Evolution','Véhicule à faible consommation', DEFAULT);
@@ -60,12 +62,14 @@ INSERT INTO [dbo].[Unites] VALUES ('Kilogramme','SI');
 -- INSERT INTO [dbo].[Commandites] VALUES (3,3,3,1628,'feugiat placerat velit. Quisque varius.', DEFAULT);
 -- INSERT INTO [dbo].[Commandites] VALUES (4,4,4,5702,'molestie dapibus ligula. Aliquam erat', DEFAULT);
 
-INSERT INTO [dbo].[TypesContact] VALUES ('Mère');
-INSERT INTO [dbo].[TypesContact] VALUES ('Père');
-INSERT INTO [dbo].[TypesContact] VALUES ('Enfant');
-INSERT INTO [dbo].[TypesContact] VALUES ('Ami');
-INSERT INTO [dbo].[TypesContact] VALUES ('Client');
-INSERT INTO [dbo].[TypesContact] VALUES ('Autre');
+INSERT INTO [dbo].[TypesContact] VALUES ('Mère', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Père', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Enfant', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Ami', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Client', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Commanditaire', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Fournisseur', NULL);
+INSERT INTO [dbo].[TypesContact] VALUES ('Autre', NULL);
 
 -- INSERT INTO [dbo].[ContactsUrgence] VALUES (1,1,'Hoover','Zephania','1-772-913-2130', DEFAULT);
 -- INSERT INTO [dbo].[ContactsUrgence] VALUES (2,1,'Gibson','Wynne','1-727-710-9565', DEFAULT);
@@ -105,6 +109,18 @@ INSERT INTO [clubs].[StatutsSuivie] VALUES ('FERME', 'Fermé');
 -- INSERT INTO [dbo].[MembresAllergies] VALUES (1,1, DEFAULT);
 -- INSERT INTO [dbo].[MembresAllergies] VALUES (1,2, DEFAULT);
 
+INSERT INTO [clubs].[TypesFournisseur] VALUES ('Matériel', NULL);
+INSERT INTO [clubs].[TypesFournisseur] VALUES ('Service', NULL);
+
+INSERT INTO [clubs].[TypesCommanditaire] VALUES ('Sporadique', 'Le commanditaire est sporadique dans ses dons.');
+INSERT INTO [clubs].[TypesCommanditaire] VALUES ('Régulier', 'Le commanditaire donne régulièrement.');
+
+INSERT INTO [clubs].[TypesCommandite] VALUES ('Monétaire', 'Le résultat de la commandite est monétaire.');
+INSERT INTO [clubs].[TypesCommandite] VALUES ('Matérielle', 'Le résultat de la commandite est matérielle.');
+
+INSERT INTO [userspace].[TypesAntecedent] VALUES ('Allergie', NULL);
+INSERT INTO [userspace].[TypesAntecedent] VALUES ('Maladie chronique', NULL);
+INSERT INTO [userspace].[TypesAntecedent] VALUES ('Autre', NULL);
 
 DECLARE @level [int] = 1;
 WHILE @level <= 50
@@ -116,7 +132,7 @@ BEGIN
 END
 
 IF OBJECT_ID ( 'security.UspPromoteToSystemAdmin', 'P' ) IS NOT NULL 
-    DROP PROCEDURE [security].[sp_PromoteToSystemAdmin];
+    DROP PROCEDURE [security].[UspPromoteToSystemAdmin];
 GO
 
 CREATE PROCEDURE [security].[UspPromoteToSystemAdmin]

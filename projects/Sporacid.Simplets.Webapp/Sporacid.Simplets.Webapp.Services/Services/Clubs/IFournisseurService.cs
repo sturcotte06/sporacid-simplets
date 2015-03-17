@@ -7,7 +7,6 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
-    using Sporacid.Simplets.Webapp.Tools.Strings;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -17,7 +16,7 @@
     public interface IFournisseurService
     {
         /// <summary>
-        /// Get all fournisseurs entities from a club context.
+        /// Get all fournisseur entities from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>

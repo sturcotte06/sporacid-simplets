@@ -22,13 +22,14 @@ END
 CREATE TABLE [userspace].[Profils](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[ConcentrationId] [int] NULL,
-	[CodeUniversel] [varchar](10) NULL,
+	[CodeUniversel] [varchar](10) NOT NULL,
 	[Nom] [varchar](50) NULL,
 	[Prenom] [varchar](50) NULL,
 	[Avatar] [varbinary](4000) NULL,
 	[Xp] [int] NOT NULL,
 	[Actif] [bit] NOT NULL,
 	[Public] [bit] NOT NULL,
+	[DateCreation] [datetime] NOT NULL,
 	[Version] [rowversion] NOT NULL,
 PRIMARY KEY CLUSTERED
 (
@@ -39,6 +40,7 @@ GO
 CREATE UNIQUE NONCLUSTERED INDEX UIXProfilsCodeUniversel ON [userspace].[Profils] ([CodeUniversel])
 GO
 
+/****** Object:  Table [userspace].[XpTable]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[XpTable](
 	[Level] [int] NOT NULL,
 	[RequiredXp] [int] NOT NULL
@@ -48,6 +50,7 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
+/****** Object:  Table [userspace].[ProfilsAvances]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[ProfilsAvances](
 	[ProfilId] [int] NOT NULL,
 	[CodePermanent] [varchar](12) NULL,
@@ -62,7 +65,7 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-/****** Object:  Table [dbo].[Membres_Preferences]    Script Date: 12/12/2014 2:40:31 PM ******/
+/****** Object:  Table [dbo].[Preferences]    Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[Preferences](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ProfilId] [int] NOT NULL,
@@ -77,7 +80,7 @@ GO
 CREATE NONCLUSTERED INDEX IXPreferencesProfilId ON [userspace].[Preferences] ([ProfilId])
 GO
 
-/****** Object:  Table [userspace].[ProfilsFormations]  Script Date: 12/12/2014 2:40:31 PM ******/
+/****** Object:  Table [userspace].[Formations]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[Formations](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[ProfilId] [int] NOT NULL,
@@ -94,7 +97,7 @@ GO
 CREATE NONCLUSTERED INDEX IXFormationsProfilId ON [userspace].[Formations] ([ProfilId])
 GO
 
-/****** Object:  Table [userspace].[ProfilsContactsUrgence]  Script Date: 12/12/2014 2:40:31 PM ******/
+/****** Object:  Table [userspace].[ContactsUrgence] Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[ContactsUrgence](
 	[ProfilId] [int] NOT NULL,
 	[ContactId] [int] NOT NULL,
@@ -106,11 +109,22 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-/****** Object:  Table [userspace].[MembresAllergies]  Script Date: 12/12/2014 2:40:31 PM ******/
-CREATE TABLE [userspace].[Allergies](
+/****** Object:  Table [dbo].[TypesAntecedent]    Script Date: 12/12/2014 2:40:31 PM ******/
+CREATE TABLE [userspace].[TypesAntecedent](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nom] [varchar](50) NOT NULL,
+	[Description] [varchar](150) NULL
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)) ON [PRIMARY]
+GO
+
+/****** Object:  Table [userspace].[Antecedents]  Script Date: 12/12/2014 2:40:31 PM ******/
+CREATE TABLE [userspace].[Antecedents](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[ProfilId] [int] NOT NULL,
-	[Nom] [varchar](50) NOT NULL,
+	[TypeAntecedentId] [int] NOT NULL,
 	[Description] [varchar](150) NOT NULL,
 	[Public] [bit] NOT NULL,
 	[Version] [rowversion] NOT NULL,
@@ -120,7 +134,7 @@ PRIMARY KEY CLUSTERED
 )) ON [PRIMARY]
 GO
 
-CREATE NONCLUSTERED INDEX IXAllergiesProfilId ON [userspace].[Allergies] ([ProfilId])
+CREATE NONCLUSTERED INDEX IXAntecedentsProfilId ON [userspace].[Antecedents] ([ProfilId])
 GO
 
 /****** Foreign keys ******/
@@ -160,10 +174,16 @@ GO
 ALTER TABLE [userspace].[ContactsUrgence] CHECK CONSTRAINT [FKContactsUrgenceContacts]
 GO
 
-ALTER TABLE [userspace].[Allergies]  WITH CHECK ADD CONSTRAINT [FKProfilsAllergies] FOREIGN KEY([ProfilId])
+ALTER TABLE [userspace].[Antecedents]  WITH CHECK ADD CONSTRAINT [FKAntecedentsProfils] FOREIGN KEY([ProfilId])
 REFERENCES [userspace].[Profils] ([Id])
 GO
-ALTER TABLE [userspace].[Allergies] CHECK CONSTRAINT [FKProfilsAllergies]
+ALTER TABLE [userspace].[Antecedents] CHECK CONSTRAINT [FKAntecedentsProfils]
+GO
+
+ALTER TABLE [userspace].[Antecedents]  WITH CHECK ADD CONSTRAINT [FKAntecedentsTypesAntecedent] FOREIGN KEY([TypeAntecedentId])
+REFERENCES [userspace].[TypesAntecedent] ([Id])
+GO
+ALTER TABLE [userspace].[Antecedents] CHECK CONSTRAINT [FKAntecedentsTypesAntecedent]
 GO
 
 SET ANSI_NULLS OFF

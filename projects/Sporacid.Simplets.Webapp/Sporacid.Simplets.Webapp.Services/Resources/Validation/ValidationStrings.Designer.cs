@@ -144,45 +144,45 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AllergieDto_Description_Required {
+        internal static string AntecedentDto_Description_Required {
             get {
-                return ResourceManager.GetString("AllergieDto_Description_Required", resourceCulture);
+                return ResourceManager.GetString("AntecedentDto_Description_Required", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AllergieDto_Description_StringLength {
+        internal static string AntecedentDto_Description_StringLength {
             get {
-                return ResourceManager.GetString("AllergieDto_Description_StringLength", resourceCulture);
+                return ResourceManager.GetString("AntecedentDto_Description_StringLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AllergieDto_Nom_Required {
+        internal static string AntecedentDto_Nom_Required {
             get {
-                return ResourceManager.GetString("AllergieDto_Nom_Required", resourceCulture);
+                return ResourceManager.GetString("AntecedentDto_Nom_Required", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AllergieDto_Nom_StringLength {
+        internal static string AntecedentDto_Nom_StringLength {
             get {
-                return ResourceManager.GetString("AllergieDto_Nom_StringLength", resourceCulture);
+                return ResourceManager.GetString("AntecedentDto_Nom_StringLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AllergieDto_Public_Required {
+        internal static string AntecedentDto_Public_Required {
             get {
-                return ResourceManager.GetString("AllergieDto_Public_Required", resourceCulture);
+                return ResourceManager.GetString("AntecedentDto_Public_Required", resourceCulture);
             }
         }
         
@@ -225,36 +225,108 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommanditeDto_FournisseurId_Range {
+        internal static string CommanditaireDto_Adresse_Required {
             get {
-                return ResourceManager.GetString("CommanditeDto_FournisseurId_Range", resourceCulture);
+                return ResourceManager.GetString("CommanditaireDto_Adresse_Required", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommanditeDto_ItemId_Range {
+        internal static string CommanditaireDto_Commentaire_StringLength {
             get {
-                return ResourceManager.GetString("CommanditeDto_ItemId_Range", resourceCulture);
+                return ResourceManager.GetString("CommanditaireDto_Commentaire_StringLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommanditeDto_Nature_Required {
+        internal static string CommanditaireDto_Contact_Required {
             get {
-                return ResourceManager.GetString("CommanditeDto_Nature_Required", resourceCulture);
+                return ResourceManager.GetString("CommanditaireDto_Contact_Required", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommanditeDto_Nature_StringLength {
+        internal static string CommanditaireDto_Nom_Required {
             get {
-                return ResourceManager.GetString("CommanditeDto_Nature_StringLength", resourceCulture);
+                return ResourceManager.GetString("CommanditaireDto_Nom_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireDto_Nom_StringLength {
+            get {
+                return ResourceManager.GetString("CommanditaireDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireDto_TypeCommanditaireId_Range {
+            get {
+                return ResourceManager.GetString("CommanditaireDto_TypeCommanditaireId_Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditaireDto_TypeCommanditaireId_Required {
+            get {
+                return ResourceManager.GetString("CommanditaireDto_TypeCommanditaireId_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeDto_Commentaire_StringLength {
+            get {
+                return ResourceManager.GetString("CommanditeDto_Commentaire_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeDto_Recu_Required {
+            get {
+                return ResourceManager.GetString("CommanditeDto_Recu_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeDto_Suivies_Required {
+            get {
+                return ResourceManager.GetString("CommanditeDto_Suivies_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeDto_TypeCommanditeId_Range {
+            get {
+                return ResourceManager.GetString("CommanditeDto_TypeCommanditeId_Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CommanditeDto_TypeCommanditeId_Required {
+            get {
+                return ResourceManager.GetString("CommanditeDto_TypeCommanditeId_Required", resourceCulture);
             }
         }
         
@@ -525,6 +597,24 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         internal static string FournisseurDto_Nom_StringLength {
             get {
                 return ResourceManager.GetString("FournisseurDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FournisseurDto_TypeFournisseurId_Range {
+            get {
+                return ResourceManager.GetString("FournisseurDto_TypeFournisseurId_Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FournisseurDto_TypeFournisseurId_Required {
+            get {
+                return ResourceManager.GetString("FournisseurDto_TypeFournisseurId_Required", resourceCulture);
             }
         }
         
@@ -981,6 +1071,96 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string TypeAntecedentDto_Description_StringLength {
+            get {
+                return ResourceManager.GetString("TypeAntecedentDto_Description_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeAntecedentDto_Nom_Required {
+            get {
+                return ResourceManager.GetString("TypeAntecedentDto_Nom_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeAntecedentDto_Nom_StringLength {
+            get {
+                return ResourceManager.GetString("TypeAntecedentDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeCommanditaireDto_Description_StringLength {
+            get {
+                return ResourceManager.GetString("TypeCommanditaireDto_Description_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeCommanditaireDto_Nom_Required {
+            get {
+                return ResourceManager.GetString("TypeCommanditaireDto_Nom_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeCommanditaireDto_Nom_StringLength {
+            get {
+                return ResourceManager.GetString("TypeCommanditaireDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeCommanditeDto_Description_StringLength {
+            get {
+                return ResourceManager.GetString("TypeCommanditeDto_Description_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeCommanditeDto_Nom_Required {
+            get {
+                return ResourceManager.GetString("TypeCommanditeDto_Nom_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeCommanditeDto_Nom_StringLength {
+            get {
+                return ResourceManager.GetString("TypeCommanditeDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeContactDto_Description_StringLength {
+            get {
+                return ResourceManager.GetString("TypeContactDto_Description_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string TypeContactDto_Nom_Required {
             get {
                 return ResourceManager.GetString("TypeContactDto_Nom_Required", resourceCulture);
@@ -993,6 +1173,33 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         internal static string TypeContactDto_Nom_StringLength {
             get {
                 return ResourceManager.GetString("TypeContactDto_Nom_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeFournisseurDto_Description_StringLength {
+            get {
+                return ResourceManager.GetString("TypeFournisseurDto_Description_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeFournisseurDto_Nom_Required {
+            get {
+                return ResourceManager.GetString("TypeFournisseurDto_Nom_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TypeFournisseurDto_Nom_StringLength {
+            get {
+                return ResourceManager.GetString("TypeFournisseurDto_Nom_StringLength", resourceCulture);
             }
         }
         

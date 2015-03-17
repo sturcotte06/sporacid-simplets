@@ -47,7 +47,7 @@
         /// Updates a meeting entity in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="meetingId">The commandite id.</param>
+        /// <param name="meetingId">The meeting id.</param>
         /// <param name="meeting">The meeting entity.</param>
         [RequiredClaims(Claims.Update)]
         void Update(String clubName, Int32 meetingId, MeetingDto meeting);
@@ -66,13 +66,6 @@
     [ContractClassFor(typeof (IMeetingService))]
     internal abstract class MeetingServiceContract : IMeetingService
     {
-        /// <summary>
-        /// Get all meeting entities from a club context.
-        /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
-        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
-        /// <returns>The meeting entities.</returns>
         public IEnumerable<WithId<Int32, MeetingDto>> GetAll(String clubName, UInt32? skip, UInt32? take)
         {
             // Preconditions.
@@ -87,12 +80,6 @@
             return default(IEnumerable<WithId<Int32, MeetingDto>>);
         }
 
-        /// <summary>
-        /// Get a meeting entity from a club context.
-        /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="meetingId">The meeting id.</param>
-        /// <returns>The meeting entity.</returns>
         public MeetingDto Get(String clubName, Int32 meetingId)
         {
             // Preconditions.
@@ -106,12 +93,6 @@
             return default(MeetingDto);
         }
 
-        /// <summary>
-        /// Creates a meeting entity in a club context.
-        /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="meeting">The meeting entity.</param>
-        /// <returns>The created meeting id.</returns>
         public Int32 Create(String clubName, MeetingDto meeting)
         {
             // Preconditions.
@@ -125,12 +106,6 @@
             return default(Int32);
         }
 
-        /// <summary>
-        /// Updates a meeting entity in a club context.
-        /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="meetingId">The commandite id.</param>
-        /// <param name="meeting">The meeting entity.</param>
         public void Update(String clubName, Int32 meetingId, MeetingDto meeting)
         {
             // Preconditions.
@@ -139,11 +114,6 @@
             Contract.Requires(meeting != null, ContractStrings.MeetingService_Update_RequiresMeeting);
         }
 
-        /// <summary>
-        /// Deletes a meeting entity from a club context.
-        /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="meetingId">The meeting id.</param>
         public void Delete(String clubName, Int32 meetingId)
         {
             // Preconditions.

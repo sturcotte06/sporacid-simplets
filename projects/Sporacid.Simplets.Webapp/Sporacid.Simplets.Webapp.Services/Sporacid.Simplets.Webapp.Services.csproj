@@ -105,6 +105,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Extensions.Conventions">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
@@ -208,6 +211,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Database\Dto\Clubs\CommanditaireDto.cs" />
+    <Compile Include="Database\Dto\Clubs\TypeCommanditaireDto.cs" />
+    <Compile Include="Database\Dto\Clubs\TypeCommanditeDto.cs" />
+    <Compile Include="Database\Dto\Clubs\TypeFournisseurDto.cs" />
     <Compile Include="Database\Dto\Description\ApiEntityDescriptionDto.cs" />
     <Compile Include="Database\Dto\Description\ApiEntityPropertyDescriptionDto.cs" />
     <Compile Include="Database\Dto\Description\ApiMethodDescriptionDto.cs" />
@@ -226,12 +233,13 @@
     <Compile Include="Database\Dto\Dbo\ContactDto.cs" />
     <Compile Include="Database\Dto\Dbo\TypeContactDto.cs" />
     <Compile Include="Database\Dto\Dbo\UniteDto.cs" />
-    <Compile Include="Database\Dto\Userspace\AllergieDto.cs" />
+    <Compile Include="Database\Dto\Userspace\AntecedentDto.cs" />
     <Compile Include="Database\Dto\Userspace\FormationDto.cs" />
     <Compile Include="Database\Dto\Userspace\PreferenceDto.cs" />
     <Compile Include="Database\Dto\Userspace\ProfilAvanceDto.cs" />
     <Compile Include="Database\Dto\Userspace\ProfilDto.cs" />
     <Compile Include="Database\Dto\Clubs\StatutSuivieDto.cs" />
+    <Compile Include="Database\Dto\Userspace\TypeAntecedentDto.cs" />
     <Compile Include="Database\Dto\WithId.cs" />
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
     <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
@@ -251,32 +259,38 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\Administration\ISystemAdministrationService.cs" />
+    <Compile Include="Services\Clubs\Administration\IClubAdministrationService.cs" />
     <Compile Include="Services\BaseSecureService.cs" />
+    <Compile Include="Services\Clubs\ICommanditaireService.cs" />
     <Compile Include="Services\Clubs\ICommanditeService.cs" />
     <Compile Include="Services\Clubs\IFournisseurService.cs" />
+    <Compile Include="Services\Clubs\IGroupeService.cs" />
     <Compile Include="Services\Clubs\IInventaireService.cs" />
     <Compile Include="Services\Clubs\IMeetingService.cs" />
+    <Compile Include="Services\Clubs\IMembreService.cs" />
+    <Compile Include="Services\Clubs\Impl\CommanditaireService.cs" />
     <Compile Include="Services\Clubs\Impl\CommanditeService.cs" />
     <Compile Include="Services\Clubs\Impl\FournisseurService.cs" />
+    <Compile Include="Services\Clubs\Impl\GroupeService.cs" />
     <Compile Include="Services\Clubs\Impl\InventaireService.cs" />
     <Compile Include="Services\Clubs\Impl\MeetingService.cs" />
-    <Compile Include="Services\Clubs\Impl\SuivieService.cs" />
-    <Compile Include="Services\Clubs\ISuivieService.cs" />
+    <Compile Include="Services\Clubs\Impl\MembreService.cs" />
     <Compile Include="Services\Public\IAnonymousService.cs" />
     <Compile Include="Services\Public\IDescriptionService.cs" />
     <Compile Include="Services\Public\IEnumerationService.cs" />
-    <Compile Include="Services\Administration\Impl\SystemAdministrationService.cs" />
+    <Compile Include="Services\Clubs\Administration\Impl\ClubAdministrationService.cs" />
     <Compile Include="Services\Public\Impl\AnonymousService.cs" />
-    <Compile Include="Services\Administration\Impl\ContextAdministrationService.cs" />
+    <Compile Include="Services\Security\Administration\Impl\ContextAdministrationService.cs" />
     <Compile Include="Services\Public\Impl\DescriptionService.cs" />
+    <Compile Include="Services\Security\IContextService.cs" />
+    <Compile Include="Services\Security\Impl\ContextService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
     <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
     <Compile Include="Services\Public\Impl\EnumerationService.cs" />
-    <Compile Include="Services\Administration\Impl\PrincipalAdministrationService.cs" />
+    <Compile Include="Services\Security\Administration\Impl\PrincipalAdministrationService.cs" />
     <Compile Include="Services\Clubs\Impl\InscriptionService.cs" />
-    <Compile Include="Services\Administration\IContextAdministrationService.cs" />
-    <Compile Include="Services\Administration\IPrincipalAdministrationService.cs" />
+    <Compile Include="Services\Security\Administration\IContextAdministrationService.cs" />
+    <Compile Include="Services\Security\Administration\IPrincipalAdministrationService.cs" />
     <Compile Include="Services\Userspace\IProfilService.cs" />
     <Compile Include="Services\Clubs\IInscriptionService.cs" />
     <Compile Include="WebApi2\Description\XmlDocumentationProvider.cs" />
@@ -296,8 +310,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\Administration\IUserspaceAdministrationService.cs" />
-    <Compile Include="Services\Administration\Impl\UserspaceAdministrationService.cs" />
+    <Compile Include="Services\Userspace\Administration\IProfilAdministrationService.cs" />
+    <Compile Include="Services\Userspace\Administration\Impl\ProfilAdministrationService.cs" />
     <Compile Include="WebApi2\Trace\Log4NetTraceWriter.cs" />
     <Compile Include="WebApi2\Filters\Validation\ValidationFilter.cs" />
   </ItemGroup>

@@ -7,27 +7,27 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
-    public class AllergieDto
+    public class AntecedentDto
     {
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AllergieDto_Nom_Required")]
+            ErrorMessageResourceName = "AntecedentDto_Nom_Required")]
         [StringLength(50,
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AllergieDto_Nom_StringLength")]
+            ErrorMessageResourceName = "AntecedentDto_Nom_StringLength")]
         public String Nom { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AllergieDto_Description_Required")]
+            ErrorMessageResourceName = "AntecedentDto_Description_Required")]
         [StringLength(150,
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AllergieDto_Description_StringLength")]
+            ErrorMessageResourceName = "AntecedentDto_Description_StringLength")]
         public String Description { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AllergieDto_Public_Required")]
+            ErrorMessageResourceName = "AntecedentDto_Public_Required")]
         public Boolean Public { get; set; }
     }
 }

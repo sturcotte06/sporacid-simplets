@@ -7,22 +7,19 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
-    public class GroupeDto
+    public class TypeCommanditeDto
     {
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "GroupeDto_Nom_Required")]
+            ErrorMessageResourceName = "TypeCommanditeDto_Nom_Required")]
         [StringLength(50,
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "GroupeDto_Nom_StringLength")]
+            ErrorMessageResourceName = "TypeCommanditeDto_Nom_StringLength")]
         public String Nom { get; set; }
 
-        [Required(
+        [StringLength(150,
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "GroupeDto_Description_Required")]
-        [StringLength(250,
-            ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "GroupeDto_Description_StringLength")]
+            ErrorMessageResourceName = "TypeCommanditeDto_Description_StringLength")]
         public String Description { get; set; }
     }
 }

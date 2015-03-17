@@ -21,7 +21,7 @@ END
 /****** Object:  Table [security].[Modules]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[Modules](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
-	[Name] [varchar](20) NOT NULL
+	[Name] [varchar](50) NOT NULL
 PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
@@ -34,7 +34,7 @@ GO
 /****** Object:  Table [security].[Claims]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[Claims](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [varchar](20) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
 	[Value] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -75,7 +75,7 @@ GO
 /****** Object:  Table [security].[Principals] Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [security].[Principals](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
-	[Identity] [varchar](25) NOT NULL,
+	[Identity] [varchar](50) NOT NULL,
 PRIMARY KEY CLUSTERED
 (
 	[Id] ASC

@@ -1,6 +1,7 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration.Impl
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration.Impl
 {
     using System;
+    using System.Web;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
@@ -9,16 +10,17 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
+    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/administration")]
-    public class SystemAdministrationService : BaseSecureService, ISystemAdministrationService
+    public class ClubAdministrationService : BaseSecureService, IClubAdministrationService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IContextAdministrationService contextService;
 
-        public SystemAdministrationService(IContextAdministrationService contextService, IRepository<Int32, Club> clubRepository)
+        public ClubAdministrationService(IContextAdministrationService contextService, IRepository<Int32, Club> clubRepository)
         {
             this.contextService = contextService;
             this.clubRepository = clubRepository;
@@ -53,7 +55,8 @@
             this.clubRepository.Add(clubEntity);
 
             // Add a new security context for the club.
-            this.contextService.CreateContext(clubEntity.Nom);
+            var identity = HttpContext.Current.User.Identity.Name;
+            this.contextService.Create(clubEntity.Nom, identity);
             return clubEntity.Id;
         }
     }

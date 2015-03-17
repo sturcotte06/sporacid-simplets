@@ -10,6 +10,7 @@ namespace Sporacid.Simplets.Webapp.Services
     using log4net.Core;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
+    using Ninject.Syntax;
     using Ninject.Web.Common;
     using Ninject.Web.WebApi.FilterBindingSyntax;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -26,13 +27,17 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Ldap;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap.Impl;
     using Sporacid.Simplets.Webapp.Services.Database;
-    using Sporacid.Simplets.Webapp.Services.Services.Administration;
-    using Sporacid.Simplets.Webapp.Services.Services.Administration.Impl;
     using Sporacid.Simplets.Webapp.Services.Services.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration;
+    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration.Impl;
     using Sporacid.Simplets.Webapp.Services.Services.Clubs.Impl;
     using Sporacid.Simplets.Webapp.Services.Services.Public;
     using Sporacid.Simplets.Webapp.Services.Services.Public.Impl;
+    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
+    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration.Impl;
     using Sporacid.Simplets.Webapp.Services.Services.Userspace;
+    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration;
+    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration.Impl;
     using Sporacid.Simplets.Webapp.Services.Services.Userspace.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
@@ -227,21 +232,28 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServiceProject(IKernel kernel)
         {
-            // Services configuration.
-            // Administration services.
+            // Services configuration. TODO Rebind the shits.
+            // Security services.
             kernel.Bind<IContextAdministrationService>().To<ContextAdministrationService>().InRequestScope();
-            kernel.Bind<IUserspaceAdministrationService>().To<UserspaceAdministrationService>().InRequestScope();
             kernel.Bind<IPrincipalAdministrationService>().To<PrincipalAdministrationService>().InRequestScope();
-            kernel.Bind<ISystemAdministrationService>().To<SystemAdministrationService>().InRequestScope();
             // Club services.
+            kernel.Bind<IClubAdministrationService>().To<ClubAdministrationService>().InRequestScope();
             kernel.Bind<IInscriptionService>().To<InscriptionService>().InRequestScope();
+            kernel.Bind<ICommanditaireService>().To<CommanditaireService>().InRequestScope();
+            kernel.Bind<ICommanditeService>().To<CommanditeService>().InRequestScope();
+            kernel.Bind<IFournisseurService>().To<FournisseurService>().InRequestScope();
+            kernel.Bind<IInventaireService>().To<InventaireService>().InRequestScope();
+            kernel.Bind<IMeetingService>().To<MeetingService>().InRequestScope();
+            kernel.Bind<IGroupeService>().To<GroupeService>().InRequestScope();
+            kernel.Bind<IMembreService>().To<MembreService>().InRequestScope();
             // Public services.
             kernel.Bind<IAnonymousService>().To<AnonymousService>().InRequestScope();
             kernel.Bind<IEnumerationService>().To<EnumerationService>().InRequestScope();
             kernel.Bind<IDescriptionService>().To<DescriptionService>().InRequestScope();
             // Userspace services.
+            kernel.Bind<IProfilAdministrationService>().To<ProfilAdministrationService>().InRequestScope();
             kernel.Bind<IProfilService>().To<ProfilService>().InRequestScope();
-
+            
             // Credential extractor configuration.
             // See security module section to know why we bind like thid.
             kernel.Bind<ICredentialsExtractor>().To<KerberosCredentialsExtractor>();
@@ -272,10 +284,14 @@ namespace Sporacid.Simplets.Webapp.Services
                 // .InRequestScope()
                 .WithConstructorArgument("endpointsNamespaces", ctx => new[]
                 {
-                    "Sporacid.Simplets.Webapp.Services.Services.Administration",
+                    "Sporacid.Simplets.Webapp.Services.Services.Security",
+                    "Sporacid.Simplets.Webapp.Services.Services.Security.Administration",
                     "Sporacid.Simplets.Webapp.Services.Services.Clubs",
+                    "Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration",
                     "Sporacid.Simplets.Webapp.Services.Services.Public",
-                    "Sporacid.Simplets.Webapp.Services.Services.Userspace"
+                    "Sporacid.Simplets.Webapp.Services.Services.Public.Administration",
+                    "Sporacid.Simplets.Webapp.Services.Services.Userspace",
+                    "Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration"
                 });
 
             // Bind the exception handling filter on services that have the HandlesException attribute

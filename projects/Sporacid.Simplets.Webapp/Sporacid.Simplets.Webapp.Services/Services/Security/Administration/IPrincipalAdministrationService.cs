@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Security.Administration
 {
     using System;
     using System.Diagnostics.Contracts;
@@ -10,7 +10,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Module("Administration")]
+    [Module("PrincipalAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof (PrincipalAdministrationServiceContract))]
     public interface IPrincipalAdministrationService
@@ -27,7 +27,7 @@
         /// </exception>
         /// <returns>Whether the principal exists.</returns>
         [RequiredClaims(Claims.Admin | Claims.Read)]
-        bool PrincipalExists(String identity);
+        bool Exists(String identity);
 
         /// <summary>
         /// Creates a principal in the system.
@@ -46,7 +46,7 @@
         /// </exception>
         /// <returns>The created principal id.</returns>
         [RequiredClaims(Claims.Admin | Claims.Create)]
-        Int32 CreatePrincipal(String identity);
+        Int32 Create(String identity);
     }
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -54,7 +54,7 @@
     [ContractClassFor(typeof (IPrincipalAdministrationService))]
     internal abstract class PrincipalAdministrationServiceContract : IPrincipalAdministrationService
     {
-        public Boolean PrincipalExists(String identity)
+        public Boolean Exists(String identity)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(identity), ContractStrings.PrincipalAdministrationService_PrincipalExists_RequiresIdentity);
@@ -63,7 +63,7 @@
             return default(Boolean);
         }
 
-        public Int32 CreatePrincipal(String identity)
+        public Int32 Create(String identity)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(identity), ContractStrings.PrincipalAdministrationService_CreatePrincipal_RequiresIdentity);

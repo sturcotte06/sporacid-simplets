@@ -59,15 +59,9 @@
 
     partial class Profil : IHasId<Int32>
     {
-
     }
 
-    // partial class ProfilAvance : IHasId<Int32>
-    // {
-    //     public int Id { get { return ProfilId; } }
-    // }
-    // 
-    partial class Allergie : IHasId<Int32>
+    partial class Antecedent : IHasId<Int32>
     {
     }
 
@@ -89,5 +83,47 @@
 
     partial class Meeting : IHasId<Int32>
     {
+    }
+
+    partial class TypeCommanditaire : IHasId<Int32>
+    {
+    }
+
+    partial class TypeCommandite : IHasId<Int32>
+    {
+    }
+
+    partial class TypeFournisseur : IHasId<Int32>
+    {
+    }
+
+    partial class TypeAntecedent : IHasId<Int32>
+    {
+    }
+
+    partial class Commanditaire : IHasId<Int32>
+    {
+    }
+
+    partial class GroupeMembre : IHasId<GroupeMembreId>
+    {
+        private GroupeMembreId id;
+        public GroupeMembreId Id
+        {
+            get
+            {
+                return id ?? (id = new GroupeMembreId
+                {
+                    GroupeId = this.GroupeId,
+                    MembreId = this.MembreId
+                });
+            }
+        }
+    }
+
+    public class GroupeMembreId
+    {
+        public Int32 GroupeId { get; set; }
+        public Int32 MembreId { get; set; }
     }
 }

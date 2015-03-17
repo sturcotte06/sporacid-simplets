@@ -1,6 +1,7 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration.Impl
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Security.Administration.Impl
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Http;
@@ -8,6 +9,7 @@
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Collections;
@@ -18,22 +20,25 @@
     public class ContextAdministrationService : BaseSecureService, IContextAdministrationService
     {
         private readonly IRepository<Int32, Context> contextRepository;
+        private readonly IRepository<PrincipalModuleContextClaimsId, PrincipalModuleContextClaims> principalModuleContextClaimsRepository;
         private readonly IRepository<Int32, Principal> principalRepository;
         private readonly IRepository<Int32, RoleTemplate> roleTemplateRepository;
 
         public ContextAdministrationService(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
-            IRepository<Int32, Context> contextRepository)
+            IRepository<Int32, Context> contextRepository, IRepository<PrincipalModuleContextClaimsId, PrincipalModuleContextClaims> principalModuleContextClaimsRepository)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;
             this.contextRepository = contextRepository;
+            this.principalModuleContextClaimsRepository = principalModuleContextClaimsRepository;
         }
 
         /// <summary>
         /// Creates a context in the system.
-        /// Creating a context will automatically give all rights on the context to the principal creating the context.
+        /// Creating a context will automatically give all rights on the context to the owner principal.
         /// </summary>
         /// <param name="context">The context name.</param>
+        /// <param name="owner">The context owner.</param>
         /// <exception cref="NotAuthorizedException">
         /// If the security context already exists.
         /// </exception>
@@ -44,8 +49,7 @@
         /// If something unexpected occurs.
         /// </exception>
         /// <returns>The id of the created context entity.</returns>
-        [HttpPost, Route("")]
-        public Int32 CreateContext(String context)
+        public Int32 Create(String context, String owner)
         {
             // Cannot add the same context twice.
             if (this.contextRepository.Has(context2 => context2.Name == context))
@@ -54,13 +58,33 @@
             }
 
             // Create the context.
-            var contextEntity = new Context {Name = context};
+            var contextEntity = new Context { Name = context };
             this.contextRepository.Add(contextEntity);
 
-            // Bind admin role to the current user on the newly created context.
-            var principal = HttpContext.Current.User.Identity.Name;
-            this.BindRoleToPrincipal(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), principal);
+            // Bind admin role to the owner on the newly created context.
+            this.BindRoleToPrincipal(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), owner);
             return contextEntity.Id;
+        }
+
+        /// <summary>
+        /// Returns all claims of the current user, by module, on the given context.
+        /// </summary>
+        /// <param name="context">The context name.</param>
+        /// <exception cref="RepositoryException">
+        /// If something unexpected occurs while getting all claims.
+        /// </exception>
+        /// <exception cref="CoreException">
+        /// If something unexpected occurs.
+        /// </exception>
+        /// <returns>A dictionary of all claims, by module.</returns>
+        public IEnumerable<KeyValuePair<string, Claims>> GetAllClaimsOnContext(string context)
+        {
+            var identity = HttpContext.Current.User.Identity.Name;
+            return this.contextRepository
+                .GetUnique(context2 => context2.Name == context)
+                .PrincipalModuleContextClaims
+                .Where(pmcc => pmcc.Context.Name == context && pmcc.Principal.Identity == identity)
+                .ToDictionary(pmcc => pmcc.Module.Name, pmcc => (Claims) pmcc.Claims);
         }
 
         /// <summary>
@@ -132,17 +156,20 @@
         [HttpDelete, Route("unbind-claims-from/{identity}")]
         public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
+            // this.principalModuleContextClaimsRepository
+            //     .DeleteAll(pmcc => pmcc.Context.Name == context && pmcc.Principal.Identity == identity);
+
             // Get all required entities.
             var contextEntity = this.contextRepository
                 .GetUnique(context2 => context2.Name == context);
             var principalEntity = this.principalRepository
                 .GetUnique(principal => principal.Identity == identity);
-
+            
             // Remove all claims from the principal for this context.
             var principalClaimsOnContext = principalEntity.PrincipalModuleContextClaims
                 .Where(pc => pc.ContextId == contextEntity.Id).ToList();
             principalClaimsOnContext.ForEach(pc => principalEntity.PrincipalModuleContextClaims.Remove(pc));
-
+            
             // Update the principal.
             this.principalRepository.Update(principalEntity);
         }

@@ -34,11 +34,6 @@
     [ContractClassFor(typeof (IInscriptionService))]
     internal abstract class InscriptionServiceContract : IInscriptionService
     {
-        /// <summary>
-        /// Subscribes a member entity to a club entity.
-        /// </summary>
-        /// <param name="clubName">The id of the club entity.</param>
-        /// <param name="codeUniversel">The universal code that represents the user.</param>
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
             // Preconditions.
@@ -46,11 +41,6 @@
             Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.InscriptionService_SubscribeToClub_RequiresCodeUniversel);
         }
 
-        /// <summary>
-        /// Unsubscribes a member entity from a club entity.
-        /// </summary>
-        /// <param name="clubName">The id of the club entity.</param>
-        /// <param name="codeUniversel">The universal code that represents the user.</param>
         public void UnsubscribeFromClub(String clubName, String codeUniversel)
         {
             // Preconditions.

@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo
+﻿namespace Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -7,19 +7,19 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Serializable]
-    public class TypeContactDto
+    public class TypeAntecedentDto
     {
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "TypeContactDto_Nom_Required")]
+            ErrorMessageResourceName = "TypeAntecedentDto_Nom_Required")]
         [StringLength(50,
             ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "TypeContactDto_Nom_StringLength")]
-        public String Nom { get; set; }
+            ErrorMessageResourceName = "TypeAntecedentDto_Nom_StringLength")]
+        public string Nom { get; set; }
 
         [StringLength(150,
-            ErrorMessageResourceType = typeof(ValidationStrings),
-            ErrorMessageResourceName = "TypeContactDto_Description_StringLength")]
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "TypeAntecedentDto_Description_StringLength")]
         public string Description { get; set; }
     }
 }

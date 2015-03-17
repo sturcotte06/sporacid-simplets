@@ -31,7 +31,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, FournisseurDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.fournisseurRepository
@@ -47,7 +47,7 @@
         /// <param name="fournisseurId">The fournisseur id.</param>
         /// <returns>The fournisseur.</returns>
         [HttpGet, Route("{fournisseurId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
         public FournisseurDto Get(String clubName, Int32 fournisseurId)
         {
             return this.fournisseurRepository

@@ -1,7 +1,6 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration.Impl
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration.Impl
 {
     using System;
-    using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
@@ -12,13 +11,12 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/administration-profil")]
-    public class UserspaceAdministrationService : BaseSecureService, IUserspaceAdministrationService
+    public class ProfilAdministrationService : BaseSecureService, IProfilAdministrationService
     {
         private readonly ILdapSearcher ldapSearcher;
         private readonly IRepository<Int32, Profil> profilRepository;
 
-        public UserspaceAdministrationService(ILdapSearcher ldapSearcher, IRepository<Int32, Profil> profilRepository)
+        public ProfilAdministrationService(ILdapSearcher ldapSearcher, IRepository<Int32, Profil> profilRepository)
         {
             this.profilRepository = profilRepository;
             this.ldapSearcher = ldapSearcher;
@@ -60,6 +58,7 @@
                 CodeUniversel = identity,
                 Nom = ldapUser.LastName,
                 Prenom = ldapUser.FirstName,
+                DateCreation = DateTime.Now,
                 Public = true,
                 Actif = true,
             };

@@ -3,7 +3,6 @@
     using System;
     using System.Reflection;
     using Ninject;
-    using Ninject.Web.Common;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
 
@@ -32,11 +31,15 @@
 
         private static readonly String[] AllModules =
         {
-            "Administration",
+            "ContextAdministration",
+            "ProfilAdministration",
+            "ClubAdministration",
+            "PrincipalAdministration",
+            "Club",
             "Commandites",
+            "Commanditaires",
             "Fournisseurs",
             "Inventaire",
-            "SuiviesCommandites",
             "Default",
             "Enumerations",
             "Profils",
@@ -51,10 +54,14 @@
             // Bootstrap the security database.
             kernel.Get<ISecurityDatabaseBootstrapper>()
                 .Bootstrap(assembly,
-                    "Sporacid.Simplets.Webapp.Services.Services.Administration",
+                    "Sporacid.Simplets.Webapp.Services.Services.Security",
+                    "Sporacid.Simplets.Webapp.Services.Services.Security.Administration",
                     "Sporacid.Simplets.Webapp.Services.Services.Clubs",
+                    "Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration",
                     "Sporacid.Simplets.Webapp.Services.Services.Public",
-                    "Sporacid.Simplets.Webapp.Services.Services.Userspace");
+                    "Sporacid.Simplets.Webapp.Services.Services.Public.Administration",
+                    "Sporacid.Simplets.Webapp.Services.Services.Userspace",
+                    "Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration");
 
             // Bootstrap the user roles of the application.
             var roleBootstrapper = kernel.Get<IRoleBootstrapper>();

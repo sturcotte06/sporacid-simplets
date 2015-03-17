@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration
 {
     using System;
     using System.Diagnostics.Contracts;
@@ -10,10 +10,10 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Module("Administration")]
+    [Module("ProfilAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
-    [ContractClass(typeof (UserspaceAdministrationServiceContract))]
-    public interface IUserspaceAdministrationService
+    [ContractClass(typeof(ProfilAdministrationServiceContract))]
+    public interface IProfilAdministrationService
     {
         /// <summary>
         /// Creates the base profil entity for a given principal's identity.
@@ -36,16 +36,16 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [ContractClassFor(typeof (IUserspaceAdministrationService))]
-    internal abstract class UserspaceAdministrationServiceContract : IUserspaceAdministrationService
+    [ContractClassFor(typeof(IProfilAdministrationService))]
+    internal abstract class ProfilAdministrationServiceContract : IProfilAdministrationService
     {
         public Int32 CreateBaseProfil(String codeUniversel)
         {
             // Preconditions.
-            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.UserspaceAdministrationService_CreateBaseProfil_RequiresCodeUniversel);
+            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.ProfilAdministrationService_CreateBaseProfil_RequiresCodeUniversel);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<Int32>() > 0, ContractStrings.UserspaceAdministrationService_CreateBaseProfil_EnsuresPositiveProfilId);
+            Contract.Ensures(Contract.Result<Int32>() > 0, ContractStrings.ProfilAdministrationService_CreateBaseProfil_EnsuresPositiveProfilId);
 
             // Dummy return.
             return default(Int32);

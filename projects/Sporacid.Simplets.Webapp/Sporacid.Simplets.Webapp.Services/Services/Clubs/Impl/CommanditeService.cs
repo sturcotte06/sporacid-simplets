@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
@@ -11,31 +12,33 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/commandite")]
+    [RoutePrefix(BasePath + "/{clubName:alpha}/commanditaire/{commanditaireId:int}/commandite")]
     public class CommanditeService : BaseSecureService, ICommanditeService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
+        private readonly IRepository<Int32, Commanditaire> commanditaireRepository;
         private readonly IRepository<Int32, Commandite> commanditeRepository;
 
-        public CommanditeService(IRepository<Int32, Commandite> commanditeRepository, IRepository<Int32, Club> clubRepository)
+        public CommanditeService(IRepository<Int32, Commanditaire> commanditaireRepository, IRepository<Int32, Commandite> commanditeRepository)
         {
+            this.commanditaireRepository = commanditaireRepository;
             this.commanditeRepository = commanditeRepository;
-            this.clubRepository = clubRepository;
         }
 
         /// <summary>
         /// Get all commandite from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="commanditaireId">The commanditaire id.</param>
         /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
-        public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
+        public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, Int32 commanditaireId, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditeRepository
-                .GetAll(commandite => clubName == commandite.Club.Nom)
+                .GetAll(commandite => clubName == commandite.Commanditaire.Club.Nom)
+                .OrderBy(commandite => commandite.Commanditaire.Nom)
                 .OptionalSkipTake(skip, take)
                 .MapAllWithIds<Commandite, CommanditeDto>();
         }
@@ -44,14 +47,15 @@
         /// Get a commandite from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="commanditaireId">The commanditaire id.</param>
         /// <param name="commanditeId">The commandite id.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("{commanditeId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
-        public CommanditeDto Get(String clubName, Int32 commanditeId)
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
+        public CommanditeDto Get(String clubName, Int32 commanditaireId, Int32 commanditeId)
         {
             return this.commanditeRepository
-                .GetUnique(commandite => commandite.Club.Nom == clubName && commandite.Id == commanditeId)
+                .GetUnique(commandite => commandite.Commanditaire.Club.Nom == clubName && commandite.Commanditaire.Id == commanditaireId && commandite.Id == commanditeId)
                 .MapTo<Commandite, CommanditeDto>();
         }
 
@@ -59,17 +63,19 @@
         /// Creates a commandite in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="commanditaireId">The commanditaire id.</param>
         /// <param name="commandite">The commandite.</param>
         /// <returns>The created commandite id.</returns>
         [HttpPost, Route("")]
         [InvalidateCacheOutput("GetAll")]
-        public Int32 Create(String clubName, CommanditeDto commandite)
+        public Int32 Create(String clubName, Int32 commanditaireId, CommanditeDto commandite)
         {
-            var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
-            var commanditeEntity = commandite.MapTo<CommanditeDto, Commandite>();
+            var commanditaireEntity = this.commanditaireRepository
+                .GetUnique(commanditaire => commanditaire.Id == commanditaireId && clubName == commanditaire.Club.Nom);
 
             // Make sure the commandite is created in this context.
-            commanditeEntity.ClubId = clubEntity.Id;
+            var commanditeEntity = commandite.MapTo<CommanditeDto, Commandite>();
+            commanditeEntity.CommanditaireId = commanditaireId;
 
             this.commanditeRepository.Add(commanditeEntity);
             return commanditeEntity.Id;
@@ -79,14 +85,15 @@
         /// Udates a commandite in a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="commanditaireId">The commanditaire id.</param>
         /// <param name="commanditeId">The commandite id.</param>
         /// <param name="commandite">The commandite.</param>
         [HttpPut, Route("{commanditeId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
-        public void Update(String clubName, Int32 commanditeId, CommanditeDto commandite)
+        public void Update(String clubName, Int32 commanditaireId, Int32 commanditeId, CommanditeDto commandite)
         {
             var commanditeEntity = this.commanditeRepository
-                .GetUnique(commandite2 => commandite2.Club.Nom == clubName && commandite2.Id == commanditeId)
+                .GetUnique(commandite2 => commandite2.Commanditaire.Club.Nom == clubName && commandite2.Commanditaire.Id == commanditaireId && commandite2.Id == commanditeId)
                 .MapFrom(commandite);
             this.commanditeRepository.Update(commanditeEntity);
         }
@@ -95,14 +102,15 @@
         /// Deletes a commandite from a club context.
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="commanditaireId">The commanditaire id.</param>
         /// <param name="commanditeId">The commandite id.</param>
         [HttpDelete, Route("{commanditeId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
-        public void Delete(String clubName, Int32 commanditeId)
+        public void Delete(String clubName, Int32 commanditaireId, Int32 commanditeId)
         {
             // Somewhat trash call to make sure the commandite is in this context. 
             var commanditeEntity = this.commanditeRepository
-                .GetUnique(commandite => commandite.Club.Nom == clubName && commandite.Id == commanditeId);
+                .GetUnique(commandite => commandite.Commanditaire.Club.Nom == clubName && commandite.Commanditaire.Id == commanditaireId && commandite.Id == commanditeId);
             this.commanditeRepository.Delete(commanditeEntity);
         }
     }

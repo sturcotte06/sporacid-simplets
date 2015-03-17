@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Services.Administration
+﻿namespace Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration
 {
     using System;
     using System.Diagnostics.Contracts;
@@ -11,10 +11,10 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [Module("Administration")]
+    [Module("ClubAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
-    [ContractClass(typeof(SystemAdministrationServiceContract))]
-    public interface ISystemAdministrationService
+    [ContractClass(typeof(ClubAdministrationServiceContract))]
+    public interface IClubAdministrationService
     {
         /// <summary>
         /// Creates a club entity into the system.
@@ -37,22 +37,16 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [ContractClassFor(typeof(ISystemAdministrationService))]
-    abstract class SystemAdministrationServiceContract : ISystemAdministrationService
+    [ContractClassFor(typeof(IClubAdministrationService))]
+    abstract class ClubAdministrationServiceContract : IClubAdministrationService
     {
-        /// <summary>
-        /// Adds a club entity into the system.
-        /// All resources available for the club will be added to the security sub-system.
-        /// </summary>
-        /// <param name="club">The club entity.</param>
-        /// <returns>The id of the newly created club entity.</returns>
         public Int32 CreateClub(ClubDto club)
         {
             // Preconditions.
-            Contract.Requires(club != null, ContractStrings.SystemAdministrationService_CreateClub_RequiresClub);
+            Contract.Requires(club != null, ContractStrings.ClubAdministrationService_CreateClub_RequiresClub);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<Int32>() > 0, ContractStrings.SystemAdministrationService_CreateClub_EnsuresPositiveClubId);
+            Contract.Ensures(Contract.Result<Int32>() > 0, ContractStrings.ClubAdministrationService_CreateClub_EnsuresPositiveClubId);
 
             // Dummy return.
             return default(Int32);

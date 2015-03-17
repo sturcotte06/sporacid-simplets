@@ -17,7 +17,7 @@
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
-    using Sporacid.Simplets.Webapp.Services.Services.Administration;
+    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
 
@@ -117,10 +117,10 @@
             // Check if the user is logged in for the first time.
             var identity = tokenAndPrincipal.Principal.Identity.Name;
             var principalAdministrationService = this.kernel.Get<IPrincipalAdministrationService>();
-            if (!principalAdministrationService.PrincipalExists(identity))
+            if (!principalAdministrationService.Exists(identity))
             {
                 // User logged in for first time. Create its principal.
-                principalAdministrationService.CreatePrincipal(identity);
+                principalAdministrationService.Create(identity);
             }
 
             return Task.FromResult(0);
