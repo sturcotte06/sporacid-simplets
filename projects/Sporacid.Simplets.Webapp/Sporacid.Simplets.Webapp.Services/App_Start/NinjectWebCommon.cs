@@ -4,15 +4,19 @@ namespace Sporacid.Simplets.Webapp.Services
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.Linq;
+    using System.Linq;
+    using System.Reflection;
     using System.Web;
     using System.Web.Http.Filters;
     using log4net;
     using log4net.Core;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
-    using Ninject.Syntax;
+    using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
     using Ninject.Web.WebApi.FilterBindingSyntax;
+    using Sporacid.Simplets.Webapp.Core.Events;
+    using Sporacid.Simplets.Webapp.Core.Events.Impl;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
@@ -27,18 +31,7 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Core.Security.Ldap;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap.Impl;
     using Sporacid.Simplets.Webapp.Services.Database;
-    using Sporacid.Simplets.Webapp.Services.Services.Clubs;
-    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration;
-    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration.Impl;
-    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Impl;
-    using Sporacid.Simplets.Webapp.Services.Services.Public;
-    using Sporacid.Simplets.Webapp.Services.Services.Public.Impl;
-    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
-    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration.Impl;
-    using Sporacid.Simplets.Webapp.Services.Services.Userspace;
-    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration;
-    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration.Impl;
-    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Impl;
+    using Sporacid.Simplets.Webapp.Services.Services;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Exception;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
@@ -48,9 +41,10 @@ namespace Sporacid.Simplets.Webapp.Services
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Locking;
-    using Sporacid.Simplets.Webapp.Tools.Collections.Dictionary;
+    using Sporacid.Simplets.Webapp.Tools.Collections.Concurrent;
     using Sporacid.Simplets.Webapp.Tools.Collections.Pooling;
     using Sporacid.Simplets.Webapp.Tools.Factories;
+    using Sporacid.Simplets.Webapp.Tools.Reflection;
     using Sporacid.Simplets.Webapp.Tools.Threading.Pooling;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -122,50 +116,12 @@ namespace Sporacid.Simplets.Webapp.Services
             // Bind all (beside exceptions) repositories in request scope, because linq to sql data
             // contexts should live for a single unit of work.
             kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
-                .WhenAnyAncestorMatches(ctx =>
-                    !typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) &&
-                    !typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
                 .InRequestScope()
-                .OnDeactivation(ctx => ((IDisposable) ctx).Dispose());
-            // Bind repositories used in the bootstrapping of security database in thread scope,
-            // because it's not running as a web request.
-            kernel.Bind(typeof (IRepository<,>)).To(typeof (GenericRepository<,>))
-                .WhenAnyAncestorMatches(ctx =>
-                    typeof (ISecurityDatabaseBootstrapper).IsAssignableFrom((ctx.Binding).Service) ||
-                    typeof (IRoleBootstrapper).IsAssignableFrom((ctx.Binding).Service))
-                .InThreadScope()
                 .OnDeactivation(ctx => ((IDisposable) ctx).Dispose());
 
             // Security database boostrap configuration.
             kernel.Bind<ISecurityDatabaseBootstrapper>().To<SecurityDatabaseBootstrapper>();
             kernel.Bind<IRoleBootstrapper>().To<RoleBootstrapper>();
-
-            // Security modules configuration.
-            // 1. bind security module defaults.
-            kernel.Bind<IAuthenticationModule>().To<KerberosAuthenticationModule>()
-                .InRequestScope()
-                .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
-            kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>()
-                .InRequestScope();
-            // 2. bind implementation to themselves. 
-            // There is cases where we specifically need a given module.
-            kernel.Bind<KerberosAuthenticationModule>().ToSelf()
-                .InRequestScope()
-                .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
-            kernel.Bind<TokenAuthenticationModule>().ToSelf()
-                .InRequestScope()
-                // Bind observables like this, because it doesn't work another way.
-                .WithConstructorArgument(typeof (IEnumerable<IAuthenticationObservable>), ctx => new IAuthenticationObservable[] {kernel.Get<KerberosAuthenticationModule>()});
-            kernel.Bind<AuthorizationModule>().ToSelf()
-                .InRequestScope();
-            // 3. bind responbility chains enumerables. Those will be used when 
-            // a class needs all supported security modules.
-            kernel.Bind<IEnumerable<IAuthenticationModule>>()
-                .ToMethod(ctx => new IAuthenticationModule[] {kernel.Get<KerberosAuthenticationModule>(), kernel.Get<TokenAuthenticationModule>()})
-                .InRequestScope();
-            kernel.Bind<IEnumerable<IAuthorizationModule>>()
-                .ToMethod(ctx => new IAuthorizationModule[] {kernel.Get<AuthorizationModule>()})
-                .InRequestScope();
 
             // Token factory configuration.
             kernel.Bind<ITokenFactory>().To<AuthenticationTokenFactory>()
@@ -175,6 +131,33 @@ namespace Sporacid.Simplets.Webapp.Services
             // Ldap configuration.
             kernel.Bind<ILdapSearcher>().To<ActiveDirectorySearcher>()
                 .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
+
+            // Security modules configuration.
+            kernel.Bind(typeof (IAuthenticationModule), typeof (KerberosAuthenticationModule), typeof (IAuthenticationObservable))
+                .To<KerberosAuthenticationModule>()
+                .InRequestScope()
+                .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
+            kernel.Bind(typeof (IAuthenticationModule), typeof (TokenAuthenticationModule)).To<TokenAuthenticationModule>()
+                .InRequestScope();
+            kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>()
+                .InRequestScope();
+
+            // Event configuration.
+            kernel.Bind(typeof (IBlockingQueue<>)).To(typeof (BlockingQueue<>));
+            kernel.Bind(x => x
+                .FromThisAssembly()
+                .SelectAllClasses().InheritedFrom(typeof (IEventSubscriber<,>))
+                .BindAllInterfaces()
+                .Configure(s => s.InSingletonScope()));
+            kernel.Bind(typeof (IEventBus<,>)).To(typeof (EventBus<,>))
+                .InSingletonScope()
+                .WithConstructorArgument(typeof (IThreadPool), new ThreadPool(new ThreadPoolConfiguration
+                {
+                   AutomaticStart = true,
+                   ThreadCount = 1,
+                   ThreadNamePrefix = "Event Bus"
+                }));
+
         }
 
         /// <summary>
@@ -183,7 +166,7 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterDataContext(IKernel kernel)
         {
-            kernel.Bind<LinqToSqlLog4netAdapter>().To<LinqToSqlLog4netAdapter>()
+            kernel.Bind<LinqToSqlLog4netAdapter>().ToSelf()
                 .InSingletonScope()
                 .WithConstructorArgument(Level.Info)
                 .WithConstructorArgument(LogManager.GetLogger("Queries.QueriesLogger"));
@@ -193,7 +176,6 @@ namespace Sporacid.Simplets.Webapp.Services
                 .When(request => request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database")
                 .WithConstructorArgument(ConfigurationManager.ConnectionStrings["SIMPLETSConnectionString"].ConnectionString)
                 .OnActivation(dc => dc.Log = kernel.Get<LinqToSqlLog4netAdapter>());
-            // .OnActivation(dc => dc.ObjectTrackingEnabled = false);
 
             // Database data context configuration.
             kernel.Bind<DataContext>().To<DatabaseDataContext>()
@@ -210,19 +192,11 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             // Cache configurations.
             kernel.Bind(typeof (IDictionary<,>)).To(typeof (Dictionary<,>));
-            kernel.Bind(typeof (IDictionary<,>)).To(typeof (LinkedDictionary<,>))
-                .When(request =>
-                    request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Core.Security.Database" ||
-                    request.ParentRequest.Service.GetGenericArguments()[1].Namespace == "Sporacid.Simplets.Webapp.Services.Database");
-            kernel.Bind(typeof (ICache<,>)).To(typeof (ConfigurableCache<,>))
-                .InSingletonScope();
+            kernel.Bind(typeof (ICache<,>)).To(typeof (ConfigurableCache<,>)).InSingletonScope();
             kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (ReaderWriterLockingPolicy<,>));
             kernel.Bind(typeof (ICachePolicy<,>)).To(typeof (TimeBasedInvalidationPolicy<,>))
                 .WithConstructorArgument(TimeSpan.FromHours(6));
 
-            // General configuration.
-            kernel.Bind<IThreadPool>().To<ThreadPool>();
-            kernel.Bind(typeof (IFactory<>)).To(typeof (Factory<>));
             kernel.Bind(typeof (IObjectPool<>)).To(typeof (ObjectPool<>));
         }
 
@@ -233,38 +207,15 @@ namespace Sporacid.Simplets.Webapp.Services
         private static void RegisterServiceProject(IKernel kernel)
         {
             // Services configuration. TODO Rebind the shits.
-            // Security services.
-            kernel.Bind<IContextAdministrationService>().To<ContextAdministrationService>().InRequestScope();
-            kernel.Bind<IPrincipalAdministrationService>().To<PrincipalAdministrationService>().InRequestScope();
-            // Club services.
-            kernel.Bind<IClubAdministrationService>().To<ClubAdministrationService>().InRequestScope();
-            kernel.Bind<IInscriptionService>().To<InscriptionService>().InRequestScope();
-            kernel.Bind<ICommanditaireService>().To<CommanditaireService>().InRequestScope();
-            kernel.Bind<ICommanditeService>().To<CommanditeService>().InRequestScope();
-            kernel.Bind<IFournisseurService>().To<FournisseurService>().InRequestScope();
-            kernel.Bind<IInventaireService>().To<InventaireService>().InRequestScope();
-            kernel.Bind<IMeetingService>().To<MeetingService>().InRequestScope();
-            kernel.Bind<IGroupeService>().To<GroupeService>().InRequestScope();
-            kernel.Bind<IMembreService>().To<MembreService>().InRequestScope();
-            // Public services.
-            kernel.Bind<IAnonymousService>().To<AnonymousService>().InRequestScope();
-            kernel.Bind<IEnumerationService>().To<EnumerationService>().InRequestScope();
-            kernel.Bind<IDescriptionService>().To<DescriptionService>().InRequestScope();
-            // Userspace services.
-            kernel.Bind<IProfilAdministrationService>().To<ProfilAdministrationService>().InRequestScope();
-            kernel.Bind<IProfilService>().To<ProfilService>().InRequestScope();
-            
+            kernel.Bind(x => x
+                .FromThisAssembly()
+                .SelectAllClasses().InheritedFrom<IService>()
+                .BindAllInterfaces()
+                .Configure(service => service.InRequestScope()));
+
             // Credential extractor configuration.
-            // See security module section to know why we bind like thid.
-            kernel.Bind<ICredentialsExtractor>().To<KerberosCredentialsExtractor>();
-            kernel.Bind<KerberosCredentialsExtractor>().ToSelf();
-            kernel.Bind<TokenCredentialsExtractor>().ToSelf();
-            kernel.Bind<IEnumerable<ICredentialsExtractor>>()
-                .ToMethod(ctx => new ICredentialsExtractor[]
-                {
-                    kernel.Get<KerberosCredentialsExtractor>(),
-                    kernel.Get<TokenCredentialsExtractor>()
-                });
+            kernel.Bind(typeof (ICredentialsExtractor), typeof (KerberosCredentialsExtractor)).To<KerberosCredentialsExtractor>();
+            kernel.Bind(typeof (ICredentialsExtractor), typeof (TokenCredentialsExtractor)).To<TokenCredentialsExtractor>();
         }
 
         /// <summary>
@@ -275,35 +226,23 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             // Bind the authentication filter on services that have the RequiresAuthenticatedPrincipal attribute
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
-                .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>();
-            // .InRequestScope();
+                .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>()
+                .InRequestScope();
 
-            // Bind the authentication filter on services that have the RequiresAuthorizedPrincipal attribute
+            // Bind the authorization filter on services that have the RequiresAuthorizedPrincipal attribute
+            kernel.Bind<ClaimsByActionDictionary>().ToSelf().InSingletonScope()
+                .WithConstructorArgument(Assembly.GetExecutingAssembly())
+                .WithConstructorArgument(ReflectionExtensions.GetChildrenNamespaces(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services").ToArray());
             kernel.BindHttpFilter<AuthorizationFilter>(FilterScope.Controller)
                 .WhenControllerHas<RequiresAuthorizedPrincipalAttribute>()
-                // .InRequestScope()
-                .WithConstructorArgument("endpointsNamespaces", ctx => new[]
-                {
-                    "Sporacid.Simplets.Webapp.Services.Services.Security",
-                    "Sporacid.Simplets.Webapp.Services.Services.Security.Administration",
-                    "Sporacid.Simplets.Webapp.Services.Services.Clubs",
-                    "Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration",
-                    "Sporacid.Simplets.Webapp.Services.Services.Public",
-                    "Sporacid.Simplets.Webapp.Services.Services.Public.Administration",
-                    "Sporacid.Simplets.Webapp.Services.Services.Userspace",
-                    "Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration"
-                });
+                .InRequestScope();
 
             // Bind the exception handling filter on services that have the HandlesException attribute
             kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Controller)
                 .WhenControllerHas<HandlesExceptionAttribute>();
-            // .InRequestScope();
 
             // Bind the model validation filter.
             kernel.BindHttpFilter<ValidationFilter>(FilterScope.Global);
-
-            // Bind the anti-forgery validation filter.
-            // kernel.BindHttpFilter<ValidateAntiForgeryTokenFilter>(FilterScope.Global);
         }
     }
 }

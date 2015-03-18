@@ -13,7 +13,7 @@
     [Module("PrincipalAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof (PrincipalAdministrationServiceContract))]
-    public interface IPrincipalAdministrationService
+    public interface IPrincipalAdministrationService : IService
     {
         /// <summary>
         /// Get whether the principal exists.

@@ -15,7 +15,7 @@
         [StringLength(10,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ConcentrationDto_Acronyme_StringLength")]
-        public string Acronyme { get; set; }
+        public String Acronyme { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
@@ -23,6 +23,6 @@
         [StringLength(150,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ConcentrationDto_Description_StringLength")]
-        public string Description { get; set; }
+        public String Description { get; set; }
     }
 }

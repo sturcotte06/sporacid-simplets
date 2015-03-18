@@ -8,7 +8,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [ContractClass(typeof (DescriptionServiceContract))]
-    public interface IDescriptionService
+    public interface IDescriptionService : IService
     {
         /// <summary>
         /// Describes the api methods. This can be used to discover what operations are available.

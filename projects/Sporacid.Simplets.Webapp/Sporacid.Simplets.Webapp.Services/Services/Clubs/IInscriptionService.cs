@@ -10,7 +10,7 @@
     [Module("Inscriptions")]
     [Contextual("clubName")]
     [ContractClass(typeof (InscriptionServiceContract))]
-    public interface IInscriptionService
+    public interface IInscriptionService : IService
     {
         /// <summary>
         /// Subscribes a member entity to a club entity.

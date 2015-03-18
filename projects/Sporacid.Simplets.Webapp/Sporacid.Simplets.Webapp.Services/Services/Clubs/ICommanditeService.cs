@@ -13,7 +13,7 @@
     [Module("Commandites")]
     [Contextual("clubName")]
     [ContractClass(typeof (CommanditeServiceContract))]
-    public interface ICommanditeService
+    public interface ICommanditeService : IService
     {
         /// <summary>
         /// Get all commandite entities from a club context.

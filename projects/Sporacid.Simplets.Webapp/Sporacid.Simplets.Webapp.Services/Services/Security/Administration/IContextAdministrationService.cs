@@ -14,7 +14,7 @@
     [Module("ContextAdministration")]
     [Contextual("context")]
     [ContractClass(typeof (ContextAdministrationServiceContract))]
-    public interface IContextAdministrationService
+    public interface IContextAdministrationService : IService
     {
         /// <summary>
         /// Creates a context in the system.
@@ -47,7 +47,7 @@
         /// </exception>
         /// <returns>A dictionary of all claims, by module.</returns>
         [RequiredClaims(Claims.ReadAll)]
-        IEnumerable<KeyValuePair<string, Claims>> GetAllClaimsOnContext(String context);
+        IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context);
 
         /// <summary>
         /// Binds a role to a principal in a given context.
@@ -113,17 +113,17 @@
             return default(Int32);
         }
 
-        public IEnumerable<KeyValuePair<string, Claims>> GetAllClaimsOnContext(String context)
+        public IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(context), ContractStrings.ContextAdministrationService_GetAllClaimsOnContext_RequiresContext);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<KeyValuePair<string, Claims>>>() != null,
+            Contract.Ensures(Contract.Result<IEnumerable<KeyValuePair<String, Claims>>>() != null,
                 ContractStrings.ContextAdministrationService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule);
 
             // Dummy return.
-            return default(IEnumerable<KeyValuePair<string, Claims>>);
+            return default(IEnumerable<KeyValuePair<String, Claims>>);
         }
 
         public void BindRoleToPrincipal(String context, String role, String identity)

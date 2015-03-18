@@ -13,18 +13,18 @@
     /// </summary>
     public class XmlDocumentationProvider : IDocumentationProvider
     {
-        private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
-        private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
-        private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
-        private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
-        private const string ParameterExpression = "param[@name='{0}']";
+        private const String TypeExpression = "/doc/members/member[@name='T:{0}']";
+        private const String MethodExpression = "/doc/members/member[@name='M:{0}']";
+        private const String PropertyExpression = "/doc/members/member[@name='P:{0}']";
+        private const String FieldExpression = "/doc/members/member[@name='F:{0}']";
+        private const String ParameterExpression = "param[@name='{0}']";
         private readonly XPathNavigator _documentNavigator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider" /> class.
         /// </summary>
         /// <param name="documentPath">The physical path to XML document.</param>
-        public XmlDocumentationProvider(string documentPath)
+        public XmlDocumentationProvider(String documentPath)
         {
             if (documentPath == null)
             {
@@ -34,19 +34,19 @@
             this._documentNavigator = xpath.CreateNavigator();
         }
 
-        public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
+        public String GetDocumentation(HttpControllerDescriptor controllerDescriptor)
         {
             var typeNode = this.GetTypeNode(controllerDescriptor.ControllerType);
             return GetTagValue(typeNode, "summary");
         }
 
-        public virtual string GetDocumentation(HttpActionDescriptor actionDescriptor)
+        public virtual String GetDocumentation(HttpActionDescriptor actionDescriptor)
         {
             var methodNode = this.GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "summary");
         }
 
-        public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
+        public virtual String GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
             var reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
             if (reflectedParameterDescriptor != null)
@@ -66,13 +66,13 @@
             return null;
         }
 
-        public string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
+        public String GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
         {
             var methodNode = this.GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "returns");
         }
 
-        public string GetDocumentation(MemberInfo member)
+        public String GetDocumentation(MemberInfo member)
         {
             var memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
             var expression = member.MemberType == MemberTypes.Field ? FieldExpression : PropertyExpression;
@@ -81,7 +81,7 @@
             return GetTagValue(propertyNode, "summary");
         }
 
-        public string GetDocumentation(Type type)
+        public String GetDocumentation(Type type)
         {
             var typeNode = this.GetTypeNode(type);
             return GetTagValue(typeNode, "summary");
@@ -99,7 +99,7 @@
             return null;
         }
 
-        private static string GetMemberName(MethodInfo method)
+        private static String GetMemberName(MethodInfo method)
         {
             var name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
             var parameters = method.GetParameters();
@@ -112,7 +112,7 @@
             return name;
         }
 
-        private static string GetTagValue(XPathNavigator parentNode, string tagName)
+        private static String GetTagValue(XPathNavigator parentNode, String tagName)
         {
             if (parentNode != null)
             {
@@ -133,7 +133,7 @@
             return this._documentNavigator.SelectSingleNode(selectExpression);
         }
 
-        private static string GetTypeName(Type type)
+        private static String GetTypeName(Type type)
         {
             var name = type.FullName;
             if (type.IsGenericType)

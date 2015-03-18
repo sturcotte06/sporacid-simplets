@@ -14,7 +14,7 @@
     [Module("Profils")]
     [Contextual("codeUniversel")]
     [ContractClass(typeof (ProfilServiceContract))]
-    public interface IProfilService
+    public interface IProfilService : IService
     {
         /// <summary>
         /// Gets the profil entity from the system.

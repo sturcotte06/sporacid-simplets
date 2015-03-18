@@ -13,7 +13,7 @@
     [Module("Fournisseurs")]
     [Contextual("clubName")]
     [ContractClass(typeof (FournisseurServiceContract))]
-    public interface IFournisseurService
+    public interface IFournisseurService : IService
     {
         /// <summary>
         /// Get all fournisseur entities from a club context.

@@ -109,14 +109,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\Bus\IEventBus.cs" />
-    <Compile Include="Events\Bus\IEventPublisher.cs" />
-    <Compile Include="Events\Bus\IEventSubscriber.cs" />
-    <Compile Include="Events\Bus\Impl\EventBus.cs" />
     <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="Events\IEventPublisher.cs" />
+    <Compile Include="Events\IEventSubscriber.cs" />
+    <Compile Include="Events\Impl\Event.cs" />
+    <Compile Include="Events\Impl\EventBus.cs" />
     <Compile Include="Exceptions\CoreException.cs" />
+    <Compile Include="Exceptions\Events\EventException.cs" />
+    <Compile Include="Exceptions\Events\PublishException.cs" />
     <Compile Include="Exceptions\Security\Authorization\NotAuthorizedException.cs" />
-    <Compile Include="Exceptions\Contracts\ContractException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\Repositories\EntityNotUniqueException.cs" />
     <Compile Include="Exceptions\Repositories\RepositoryException.cs" />

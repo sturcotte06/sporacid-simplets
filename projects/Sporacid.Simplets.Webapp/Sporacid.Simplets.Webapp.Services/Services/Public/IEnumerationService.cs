@@ -14,7 +14,7 @@
     [Module("Enumerations")]
     [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof (EnumerationServiceContract))]
-    public interface IEnumerationService
+    public interface IEnumerationService : IService
     {
         /// <summary>
         /// Returns all type contact entities from the system.

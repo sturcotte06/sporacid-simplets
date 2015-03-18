@@ -33,7 +33,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, CommanditeDto>> GetAll(String clubName, Int32 commanditaireId, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditeRepository
@@ -51,7 +51,7 @@
         /// <param name="commanditeId">The commandite id.</param>
         /// <returns>The commandite.</returns>
         [HttpGet, Route("{commanditeId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
         public CommanditeDto Get(String clubName, Int32 commanditaireId, Int32 commanditeId)
         {
             return this.commanditeRepository
@@ -70,7 +70,8 @@
         [InvalidateCacheOutput("GetAll")]
         public Int32 Create(String clubName, Int32 commanditaireId, CommanditeDto commandite)
         {
-            var commanditaireEntity = this.commanditaireRepository
+            // Somewhat trash call to make sure the commandite is in this context. 
+            this.commanditaireRepository
                 .GetUnique(commanditaire => commanditaire.Id == commanditaireId && clubName == commanditaire.Club.Nom);
 
             // Make sure the commandite is created in this context.

@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.App.Events.Impl
+﻿namespace Sporacid.Simplets.Webapp.Core.Events.Impl
 {
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>

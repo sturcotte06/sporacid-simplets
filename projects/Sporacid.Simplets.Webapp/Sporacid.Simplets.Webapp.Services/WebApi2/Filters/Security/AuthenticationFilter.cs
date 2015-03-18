@@ -13,7 +13,6 @@
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Filters;
-    using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
@@ -25,11 +24,16 @@
     /// <version>1.9.0</version>
     public class AuthenticationFilter : IAuthenticationFilter
     {
-        private readonly IKernel kernel;
+        private readonly IEnumerable<IAuthenticationModule> authenticationModules;
+        private readonly IEnumerable<ICredentialsExtractor> credentialsExtractors;
+        private readonly IPrincipalAdministrationService principalAdministrationService;
 
-        public AuthenticationFilter(IKernel kernel)
+        public AuthenticationFilter(IPrincipalAdministrationService principalAdministrationService, IEnumerable<IAuthenticationModule> authenticationModules,
+            IEnumerable<ICredentialsExtractor> credentialsExtractors)
         {
-            this.kernel = kernel;
+            this.principalAdministrationService = principalAdministrationService;
+            this.authenticationModules = authenticationModules.ToList();
+            this.credentialsExtractors = credentialsExtractors.ToList();
         }
 
         /// <summary>
@@ -68,28 +72,26 @@
                 Thread.CurrentThread.CurrentUICulture = cultureInfo;
             }
 
-
             // If there are no credentials, throw.
             if (authorization == null)
             {
                 throw new SecurityException(ExceptionStrings.Services_Security_AuthHeaderRequired);
             }
 
-            // If there are credentials but the filter does not recognize the 
-            // authentication scheme, do nothing.
+            // If there are credentials but the filter does not recognize the authentication scheme, do nothing.
             AuthenticationScheme scheme;
-            if (!Enum.TryParse(authorization.Scheme, out scheme))
+            if (!Enum.TryParse(authorization.Scheme, true, out scheme))
             {
                 throw new SecurityException(String.Format(ExceptionStrings.Services_Security_UnsupportedScheme, authorization.Scheme));
             }
 
-            var authenticationModule = this.kernel.Get<IEnumerable<IAuthenticationModule>>().FirstOrDefault(a => a.IsSupported(scheme));
+            var authenticationModule = this.authenticationModules.FirstOrDefault(a => a.IsSupported(scheme));
             if (authenticationModule == null)
             {
                 throw new SecurityException(String.Format(ExceptionStrings.Services_Security_UnsupportedScheme, scheme));
             }
 
-            var credentialsExtractor = this.kernel.Get<IEnumerable<ICredentialsExtractor>>().FirstOrDefault(e => e.IsSupported(scheme));
+            var credentialsExtractor = this.credentialsExtractors.FirstOrDefault(e => e.IsSupported(scheme));
             if (credentialsExtractor == null)
             {
                 throw new SecurityException(String.Format(ExceptionStrings.Services_Security_CannotExtractScheme, scheme));
@@ -116,11 +118,10 @@
 
             // Check if the user is logged in for the first time.
             var identity = tokenAndPrincipal.Principal.Identity.Name;
-            var principalAdministrationService = this.kernel.Get<IPrincipalAdministrationService>();
-            if (!principalAdministrationService.Exists(identity))
+            if (!this.principalAdministrationService.Exists(identity))
             {
                 // User logged in for first time. Create its principal.
-                principalAdministrationService.Create(identity);
+                this.principalAdministrationService.Create(identity);
             }
 
             return Task.FromResult(0);

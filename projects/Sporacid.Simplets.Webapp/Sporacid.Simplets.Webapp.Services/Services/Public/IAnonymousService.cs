@@ -8,7 +8,7 @@
     [Module("Default")]
     [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof (AnonymousServiceContract))]
-    public interface IAnonymousService
+    public interface IAnonymousService : IService
     {
         /// <summary>
         /// Dummy method that has no side effect on the system.

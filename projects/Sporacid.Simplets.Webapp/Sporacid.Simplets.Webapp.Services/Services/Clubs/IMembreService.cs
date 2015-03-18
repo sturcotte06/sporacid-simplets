@@ -10,7 +10,7 @@
     /// <version>1.9.0</version>
     [Module("Membres")]
     [Contextual("clubName")]
-    public interface IMembreService
+    public interface IMembreService : IService
     {
         /// <summary>
         /// Get all membre entities from a club context.

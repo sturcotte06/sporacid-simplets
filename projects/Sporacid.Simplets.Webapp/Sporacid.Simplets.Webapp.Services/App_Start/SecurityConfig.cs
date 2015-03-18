@@ -1,10 +1,12 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using Ninject;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
+    using Sporacid.Simplets.Webapp.Tools.Reflection;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -54,14 +56,15 @@
             // Bootstrap the security database.
             kernel.Get<ISecurityDatabaseBootstrapper>()
                 .Bootstrap(assembly,
-                    "Sporacid.Simplets.Webapp.Services.Services.Security",
-                    "Sporacid.Simplets.Webapp.Services.Services.Security.Administration",
-                    "Sporacid.Simplets.Webapp.Services.Services.Clubs",
-                    "Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration",
-                    "Sporacid.Simplets.Webapp.Services.Services.Public",
-                    "Sporacid.Simplets.Webapp.Services.Services.Public.Administration",
-                    "Sporacid.Simplets.Webapp.Services.Services.Userspace",
-                    "Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration");
+                    ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
+                    // "Sporacid.Simplets.Webapp.Services.Services.Security",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Security.Administration",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Clubs",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Public",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Public.Administration",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Userspace",
+                    // "Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration");
 
             // Bootstrap the user roles of the application.
             var roleBootstrapper = kernel.Get<IRoleBootstrapper>();

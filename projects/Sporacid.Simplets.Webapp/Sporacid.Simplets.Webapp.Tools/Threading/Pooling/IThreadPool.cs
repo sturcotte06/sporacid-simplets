@@ -9,6 +9,11 @@
     public interface IThreadPool : IDisposable
     {
         /// <summary>
+        /// The thread pool's configuration.
+        /// </summary>
+        ThreadPoolConfiguration Configuration { get; }
+
+        /// <summary>
         /// Whether the thread pool is shutdown or not.
         /// </summary>
         bool IsShutdown { get; }
@@ -32,7 +37,7 @@
         /// Shutdowns the thread pool. The call will block until all threads are finished.
         /// </summary>
         void Shutdown();
-        
+
         /// <summary>
         /// Shutdowns the thread pool.
         /// If the shutdown takes more than the number of ms specified, false will be returned,
@@ -56,7 +61,7 @@
 
         /// <summary>
         /// Blocks the current thread until the thread pool is done with all work items.
-        /// If the thread pool takes more than the number of ms specified to be idle, false will be returned. 
+        /// If the thread pool takes more than the number of ms specified to be idle, false will be returned.
         /// </summary>
         /// <param name="timeoutInMilliseconds">The number of milliseconds before timeout.</param>
         /// <returns>Whether the thread pool was idle or not.</returns>
@@ -134,7 +139,8 @@
         /// <param name="param4">The fourth parameter value.</param>
         /// <param name="options">The options of the work.</param>
         /// <returns>The work item asynchronous result object.</returns>
-        WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TParam3, TParam4, TReturn>(Work<TParam1, TParam2, TParam3, TParam4, TReturn> work, TParam1 param1, TParam2 param2, TParam3 param3,
+        WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TParam3, TParam4, TReturn>(Work<TParam1, TParam2, TParam3, TParam4, TReturn> work, TParam1 param1, TParam2 param2,
+            TParam3 param3,
             TParam4 param4, WorkItemOptions<TReturn> options);
     }
 

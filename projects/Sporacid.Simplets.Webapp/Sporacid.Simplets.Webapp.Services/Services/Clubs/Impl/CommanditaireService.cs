@@ -32,7 +32,7 @@
         /// <returns>The commanditaires entities.</returns>
         [HttpGet, Route("")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
-        public IEnumerable<WithId<int, CommanditaireDto>> GetAll(string clubName, uint? skip, uint? take)
+        public IEnumerable<WithId<Int32, CommanditaireDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditaireRepository
                 .GetAll(commanditaire => commanditaire.Club.Nom == clubName)
@@ -46,9 +46,9 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditaireId">The commanditaire id.</param>
         /// <returns>The meeting entity.</returns>
-        [HttpGet, Route("{fournisseurId:int}")]
+        [HttpGet, Route("{commanditaireId:int}")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
-        public CommanditaireDto Get(string clubName, int commanditaireId)
+        public CommanditaireDto Get(String clubName, Int32 commanditaireId)
         {
             return this.commanditaireRepository
                 .GetUnique(commanditaire => commanditaire.Club.Nom == clubName && commanditaire.Id == commanditaireId)
@@ -63,7 +63,7 @@
         /// <returns>The created commanditaire id.</returns>
         [HttpPost, Route("")]
         [InvalidateCacheOutput("GetAll")]
-        public int Create(string clubName, CommanditaireDto commanditaire)
+        public Int32 Create(String clubName, CommanditaireDto commanditaire)
         {
             var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
             var commanditaireEntity = commanditaire.MapTo<CommanditaireDto, Commanditaire>();
@@ -81,9 +81,9 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditaireId">The commanditaire id.</param>
         /// <param name="commanditaire">The commanditaire entity.</param>
-        [HttpPut, Route("{fournisseurId:int}")]
+        [HttpPut, Route("{commanditaireId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
-        public void Update(string clubName, int commanditaireId, CommanditaireDto commanditaire)
+        public void Update(String clubName, Int32 commanditaireId, CommanditaireDto commanditaire)
         {
             var commanditaireEntity = this.commanditaireRepository
                 .GetUnique(commanditaire2 => commanditaire2.Club.Nom == clubName && commanditaire2.Id == commanditaireId)
@@ -96,9 +96,9 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="commanditaireId">The commanditaire id.</param>
-        [HttpDelete, Route("{fournisseurId:int}")]
+        [HttpDelete, Route("{commanditaireId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
-        public void Delete(string clubName, int commanditaireId)
+        public void Delete(String clubName, Int32 commanditaireId)
         {
             // Somewhat trash call to make sure the commanditaire is in this context. 
             var commanditaireEntity = this.commanditaireRepository

@@ -21,7 +21,7 @@
         [StringLength(50,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilDto_Nom_StringLength")]
-        public string Nom { get; set; }
+        public String Nom { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
@@ -29,7 +29,7 @@
         [StringLength(50,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilDto_Prenom_Required")]
-        public string Prenom { get; set; }
+        public String Prenom { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),

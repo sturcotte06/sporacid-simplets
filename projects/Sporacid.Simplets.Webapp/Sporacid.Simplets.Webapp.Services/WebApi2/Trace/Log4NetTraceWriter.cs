@@ -11,8 +11,8 @@
     {
         private static readonly ILog s_log = LogManager.GetLogger(typeof (Log4NetTraceWriter));
 
-        private static readonly Lazy<Dictionary<TraceLevel, Action<string>>> s_loggingMap =
-            new Lazy<Dictionary<TraceLevel, Action<string>>>(() => new Dictionary<TraceLevel, Action<string>>
+        private static readonly Lazy<Dictionary<TraceLevel, Action<String>>> s_loggingMap =
+            new Lazy<Dictionary<TraceLevel, Action<String>>>(() => new Dictionary<TraceLevel, Action<String>>
             {
                 {TraceLevel.Info, s_log.Info},
                 {TraceLevel.Debug, s_log.Debug},
@@ -21,12 +21,12 @@
                 {TraceLevel.Warn, s_log.Warn}
             });
 
-        private Dictionary<TraceLevel, Action<string>> Logger
+        private Dictionary<TraceLevel, Action<String>> Logger
         {
             get { return s_loggingMap.Value; }
         }
 
-        public void Trace(HttpRequestMessage request, string category, TraceLevel level, Action<TraceRecord> traceAction)
+        public void Trace(HttpRequestMessage request, String category, TraceLevel level, Action<TraceRecord> traceAction)
         {
             if (level == TraceLevel.Off)
                 return;
@@ -49,16 +49,16 @@
                     message.Append(" ").Append(record.Request.RequestUri.AbsoluteUri);
             }
 
-            if (!string.IsNullOrWhiteSpace(record.Category))
+            if (!String.IsNullOrWhiteSpace(record.Category))
                 message.Append(" ").Append(record.Category);
 
-            if (!string.IsNullOrWhiteSpace(record.Operator))
+            if (!String.IsNullOrWhiteSpace(record.Operator))
                 message.Append(" ").Append(record.Operator).Append(" ").Append(record.Operation);
 
-            if (!string.IsNullOrWhiteSpace(record.Message))
+            if (!String.IsNullOrWhiteSpace(record.Message))
                 message.Append(" ").Append(record.Message);
 
-            if (record.Exception != null && !string.IsNullOrEmpty(record.Exception.GetBaseException().Message))
+            if (record.Exception != null && !String.IsNullOrEmpty(record.Exception.GetBaseException().Message))
                 message.Append(" ").AppendLine(record.Exception.GetBaseException().Message);
 
             this.Logger[record.Level](message.ToString());

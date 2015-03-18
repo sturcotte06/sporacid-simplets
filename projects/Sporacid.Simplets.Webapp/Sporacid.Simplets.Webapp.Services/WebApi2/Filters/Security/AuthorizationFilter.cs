@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
     using System.Reflection;
@@ -10,7 +9,6 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using System.Web.Http.Services;
-    using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
@@ -20,24 +18,13 @@
     /// <version>1.9.0</version>
     public class AuthorizationFilter : IAuthorizationFilter
     {
-        // private readonly IAuthorizationModule authorizationModule;
-        // private readonly Dictionary<String, Claims> claimsByAction;
-        // 
-        // public AuthorizationFilter(IAuthorizationModule authorizationModule)
-        // {
-        //     this.authorizationModule = authorizationModule;
-        //     this.claimsByAction = new Dictionary<String, Claims>();
-        //     this.Initialize(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services");
-        // }
+        private readonly IAuthorizationModule authorizationModule;
+        private readonly ClaimsByActionDictionary claimsByAction;
 
-        private readonly Dictionary<String, Claims> claimsByAction;
-        private readonly IKernel kernel;
-
-        public AuthorizationFilter(IKernel kernel, String[] endpointsNamespaces)
+        public AuthorizationFilter(IAuthorizationModule authorizationModule, ClaimsByActionDictionary claimsByAction)
         {
-            this.kernel = kernel;
-            this.claimsByAction = new Dictionary<String, Claims>();
-            this.Initialize(Assembly.GetExecutingAssembly(), endpointsNamespaces);
+            this.authorizationModule = authorizationModule;
+            this.claimsByAction = claimsByAction;
         }
 
         /// <summary>
@@ -64,14 +51,14 @@
 
             // Get the required claims attribute. This is a required key of the authorization system.
             Claims claims;
-            var serviceActionName = this.GetServiceActionName(moduleAttr, serviceMethod);
+            var serviceActionName = this.claimsByAction.CreateKey(moduleAttr, serviceMethod);
             if (!this.claimsByAction.TryGetValue(serviceActionName, out claims))
             {
                 throw new NotAuthorizedException(ExceptionStrings.Services_Security_NotConfiguredAction);
             }
 
             // Get an authorization module.
-            var authorizationModule = this.kernel.Get<IAuthorizationModule>();
+            // var authorizationModule = this.kernel.Get<IAuthorizationModule>();
 
             // Get the context attribute. This is a required key of the authorization system.
             // Context can be fixed, or dynamic. Handle both cases.
@@ -79,7 +66,7 @@
             if (fixedCtxAttr != null)
             {
                 // Fixed context. The context is constant and is not part of the url.
-                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
+                this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
             }
             else
             {
@@ -96,7 +83,7 @@
                     throw new NotAuthorizedException(ExceptionStrings.Services_Security_NoContextualActionContext);
                 }
 
-                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
+                this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
             }
 
             return continuation();
@@ -112,53 +99,6 @@
         public bool AllowMultiple
         {
             get { return false; }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="moduleAttr"></param>
-        /// <param name="serviceMethod"></param>
-        /// <returns></returns>
-        private String GetServiceActionName(ModuleAttribute moduleAttr, MethodInfo serviceMethod)
-        {
-            return String.Format("{0}.{1}", moduleAttr.Name, serviceMethod);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="endpointsNamespaces"></param>
-        private void Initialize(Assembly assembly, params String[] endpointsNamespaces)
-        {
-            // Get all endpoint types.
-            var endpointTypes = from type in assembly.GetTypes()
-                where (type.IsClass || type.IsInterface) &&
-                      endpointsNamespaces.Contains(type.Namespace)
-                select type;
-
-            // For each of them, cache authorization configuration.
-            foreach (var endpointType in endpointTypes)
-            {
-                var moduleAttr = endpointType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
-                if (moduleAttr == null)
-                {
-                    continue;
-                }
-
-                var endpointTypeMethods = from method in endpointType.GetMethods()
-                    select method;
-
-                foreach (var endpointTypeMethod in endpointTypeMethods)
-                {
-                    var requiredClaimsAttr = endpointTypeMethod.GetCustomAttributes<RequiredClaimsAttribute>(true).FirstOrDefault();
-                    if (requiredClaimsAttr != null)
-                    {
-                        // Endpoint actions.
-                        var actionName = this.GetServiceActionName(moduleAttr, endpointTypeMethod);
-                        this.claimsByAction.Add(actionName, requiredClaimsAttr.RequiredClaims);
-                    }
-                }
-            }
         }
 
         /// <summary>

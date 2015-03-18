@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="credentialsParameter"></param>
         /// <returns></returns>
-        public ICredentials Extract(string credentialsParameter)
+        public ICredentials Extract(String credentialsParameter)
         {
             var credentialBytes = Convert.FromBase64String(credentialsParameter);
             var decodedCredentials = Encoding.GetString(credentialBytes);

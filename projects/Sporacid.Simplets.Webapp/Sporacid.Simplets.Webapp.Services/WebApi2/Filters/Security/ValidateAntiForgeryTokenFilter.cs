@@ -89,7 +89,7 @@
             }
 
             // Validated. Create a new csrf token in the response for this user's next request.
-            string newCsrfFormToken, newCsrfCookieToken;
+            String newCsrfFormToken, newCsrfCookieToken;
             AntiForgery.GetTokens(csrfCookieToken, out newCsrfCookieToken, out newCsrfFormToken);
             var newCsrfToken = Convert.ToBase64String(
                 Encoding.GetBytes(String.Format("{0}:{1}", newCsrfFormToken, newCsrfCookieToken)));

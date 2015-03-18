@@ -13,7 +13,7 @@
     [Module("ProfilAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof(ProfilAdministrationServiceContract))]
-    public interface IProfilAdministrationService
+    public interface IProfilAdministrationService : IService
     {
         /// <summary>
         /// Creates the base profil entity for a given principal's identity.

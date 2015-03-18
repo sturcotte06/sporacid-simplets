@@ -129,7 +129,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			OnCreated();
 		}
 		
-		public DatabaseDataContext(string connection) : 
+		public DatabaseDataContext(String connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -141,7 +141,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 			OnCreated();
 		}
 		
-		public DatabaseDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DatabaseDataContext(String connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -403,9 +403,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private System.Data.Linq.Binary _Logo;
 		
@@ -433,9 +433,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     partial void OnLogoChanging(System.Data.Linq.Binary value);
     partial void OnLogoChanged();
@@ -471,7 +471,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -492,7 +492,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -942,9 +942,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private System.Nullable<int> _ContactId;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Commentaire;
+		private String _Commentaire;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -974,9 +974,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnAdresseIdChanged();
     partial void OnContactIdChanging(System.Nullable<int> value);
     partial void OnContactIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnCommentaireChanging(string value);
+    partial void OnCommentaireChanging(String value);
     partial void OnCommentaireChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -1110,7 +1110,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -1131,7 +1131,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public string Commentaire
+		public String Commentaire
 		{
 			get
 			{
@@ -1407,7 +1407,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private bool _Recu;
 		
-		private string _Commentaire;
+		private String _Commentaire;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -1433,7 +1433,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnValeurChanged();
     partial void OnRecuChanging(bool value);
     partial void OnRecuChanged();
-    partial void OnCommentaireChanging(string value);
+    partial void OnCommentaireChanging(String value);
     partial void OnCommentaireChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -1559,7 +1559,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Commentaire
+		public String Commentaire
 		{
 			get
 			{
@@ -1759,9 +1759,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ClubId;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private System.DateTime _DateDebut;
 		
@@ -1779,9 +1779,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnClubIdChanging(int value);
     partial void OnClubIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     partial void OnDateDebutChanging(System.DateTime value);
     partial void OnDateDebutChanged();
@@ -1844,7 +1844,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -1865,7 +1865,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -2032,9 +2032,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private System.Nullable<int> _ContactId;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Commentaire;
+		private String _Commentaire;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -2064,9 +2064,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnAdresseIdChanged();
     partial void OnContactIdChanging(System.Nullable<int> value);
     partial void OnContactIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnCommentaireChanging(string value);
+    partial void OnCommentaireChanging(String value);
     partial void OnCommentaireChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -2200,7 +2200,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -2221,7 +2221,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public string Commentaire
+		public String Commentaire
 		{
 			get
 			{
@@ -2491,7 +2491,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ItemId;
 		
-		private string _CodeFournisseur;
+		private String _CodeFournisseur;
 		
 		private EntityRef<Fournisseur> _Fournisseur;
 		
@@ -2505,7 +2505,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnFournisseurIdChanged();
     partial void OnItemIdChanging(int value);
     partial void OnItemIdChanged();
-    partial void OnCodeFournisseurChanging(string value);
+    partial void OnCodeFournisseurChanging(String value);
     partial void OnCodeFournisseurChanged();
     #endregion
 		
@@ -2566,7 +2566,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeFournisseur", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string CodeFournisseur
+		public String CodeFournisseur
 		{
 			get
 			{
@@ -2699,9 +2699,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ClubId;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -2719,9 +2719,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnClubIdChanging(int value);
     partial void OnClubIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -2780,7 +2780,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -2801,7 +2801,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -3151,9 +3151,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _UniteId;
 		
-		private string _Code;
+		private String _Code;
 		
-		private string _Description;
+		private String _Description;
 		
 		private decimal _Quantite;
 		
@@ -3181,9 +3181,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnClubIdChanged();
     partial void OnUniteIdChanging(int value);
     partial void OnUniteIdChanged();
-    partial void OnCodeChanging(string value);
+    partial void OnCodeChanging(String value);
     partial void OnCodeChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     partial void OnQuantiteChanging(decimal value);
     partial void OnQuantiteChanged();
@@ -3273,7 +3273,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Code
+		public String Code
 		{
 			get
 			{
@@ -3294,7 +3294,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -3563,7 +3563,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private System.DateTime _DateFin;
 		
-		private string _Commentaire;
+		private String _Commentaire;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -3587,7 +3587,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnDateDebutChanged();
     partial void OnDateFinChanging(System.DateTime value);
     partial void OnDateFinChanged();
-    partial void OnCommentaireChanging(string value);
+    partial void OnCommentaireChanging(String value);
     partial void OnCommentaireChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -3709,7 +3709,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Commentaire
+		public String Commentaire
 		{
 			get
 			{
@@ -4082,9 +4082,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ClubId;
 		
-		private string _CodeUniversel;
+		private String _CodeUniversel;
 		
-		private string _Titre;
+		private String _Titre;
 		
 		private System.DateTime _DateDebut;
 		
@@ -4110,9 +4110,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnClubIdChanging(int value);
     partial void OnClubIdChanged();
-    partial void OnCodeUniverselChanging(string value);
+    partial void OnCodeUniverselChanging(String value);
     partial void OnCodeUniverselChanged();
-    partial void OnTitreChanging(string value);
+    partial void OnTitreChanging(String value);
     partial void OnTitreChanged();
     partial void OnDateDebutChanging(System.DateTime value);
     partial void OnDateDebutChanged();
@@ -4175,7 +4175,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string CodeUniversel
+		public String CodeUniversel
 		{
 			get
 			{
@@ -4196,7 +4196,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Titre
+		public String Titre
 		{
 			get
 			{
@@ -4465,9 +4465,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Code;
+		private String _Code;
 		
-		private string _Description;
+		private String _Description;
 		
 		private EntitySet<Suivie> _Suivies;
 		
@@ -4479,9 +4479,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnCodeChanging(string value);
+    partial void OnCodeChanging(String value);
     partial void OnCodeChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     #endregion
 		
@@ -4513,7 +4513,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Code
+		public String Code
 		{
 			get
 			{
@@ -4534,7 +4534,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -4649,7 +4649,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private System.DateTime _DateSuivie;
 		
-		private string _Commentaire;
+		private String _Commentaire;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -4673,7 +4673,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnStatutSuivieIdChanged();
     partial void OnDateSuivieChanging(System.DateTime value);
     partial void OnDateSuivieChanged();
-    partial void OnCommentaireChanging(string value);
+    partial void OnCommentaireChanging(String value);
     partial void OnCommentaireChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -4803,7 +4803,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commentaire", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Commentaire
+		public String Commentaire
 		{
 			get
 			{
@@ -4990,9 +4990,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private EntitySet<Commanditaire> _Commanditaires;
 		
@@ -5004,9 +5004,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     #endregion
 		
@@ -5038,7 +5038,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -5059,7 +5059,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -5166,9 +5166,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private EntitySet<Commandite> _Commandites;
 		
@@ -5180,9 +5180,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     #endregion
 		
@@ -5214,7 +5214,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -5235,7 +5235,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -5342,9 +5342,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private EntitySet<Fournisseur> _Fournisseurs;
 		
@@ -5356,9 +5356,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     #endregion
 		
@@ -5390,7 +5390,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -5411,7 +5411,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -5520,13 +5520,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private System.Nullable<int> _NoCivique;
 		
-		private string _Rue;
+		private String _Rue;
 		
-		private string _Appartement;
+		private String _Appartement;
 		
-		private string _Ville;
+		private String _Ville;
 		
-		private string _CodePostal;
+		private String _CodePostal;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -5544,13 +5544,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnNoCiviqueChanging(System.Nullable<int> value);
     partial void OnNoCiviqueChanged();
-    partial void OnRueChanging(string value);
+    partial void OnRueChanging(String value);
     partial void OnRueChanged();
-    partial void OnAppartementChanging(string value);
+    partial void OnAppartementChanging(String value);
     partial void OnAppartementChanged();
-    partial void OnVilleChanging(string value);
+    partial void OnVilleChanging(String value);
     partial void OnVilleChanged();
-    partial void OnCodePostalChanging(string value);
+    partial void OnCodePostalChanging(String value);
     partial void OnCodePostalChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -5605,7 +5605,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rue", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Rue
+		public String Rue
 		{
 			get
 			{
@@ -5626,7 +5626,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Appartement", DbType="VarChar(10)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Appartement
+		public String Appartement
 		{
 			get
 			{
@@ -5647,7 +5647,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ville", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Ville
+		public String Ville
 		{
 			get
 			{
@@ -5668,7 +5668,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodePostal", DbType="VarChar(16)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string CodePostal
+		public String CodePostal
 		{
 			get
 			{
@@ -5828,9 +5828,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Acronyme;
+		private String _Acronyme;
 		
-		private string _Description;
+		private String _Description;
 		
 		private EntitySet<Profil> _Profils;
 		
@@ -5842,9 +5842,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnAcronymeChanging(string value);
+    partial void OnAcronymeChanging(String value);
     partial void OnAcronymeChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     #endregion
 		
@@ -5876,7 +5876,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Acronyme", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Acronyme
+		public String Acronyme
 		{
 			get
 			{
@@ -5897,7 +5897,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -6006,13 +6006,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _TypeContactId;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Prenom;
+		private String _Prenom;
 		
-		private string _Telephone;
+		private String _Telephone;
 		
-		private string _Courriel;
+		private String _Courriel;
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -6034,13 +6034,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnTypeContactIdChanging(int value);
     partial void OnTypeContactIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnPrenomChanging(string value);
+    partial void OnPrenomChanging(String value);
     partial void OnPrenomChanged();
-    partial void OnTelephoneChanging(string value);
+    partial void OnTelephoneChanging(String value);
     partial void OnTelephoneChanged();
-    partial void OnCourrielChanging(string value);
+    partial void OnCourrielChanging(String value);
     partial void OnCourrielChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
@@ -6099,7 +6099,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -6120,7 +6120,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Prenom
+		public String Prenom
 		{
 			get
 			{
@@ -6141,7 +6141,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Telephone
+		public String Telephone
 		{
 			get
 			{
@@ -6162,7 +6162,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string Courriel
+		public String Courriel
 		{
 			get
 			{
@@ -6389,7 +6389,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Nom;
+		private String _Nom;
 		
 		private EntitySet<Contact> _Contacts;
 		
@@ -6401,7 +6401,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
     #endregion
 		
@@ -6433,7 +6433,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -6540,9 +6540,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Code;
+		private String _Code;
 		
-		private string _Systeme;
+		private String _Systeme;
 		
 		private EntitySet<Item> _Items;
 		
@@ -6554,9 +6554,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnCodeChanging(string value);
+    partial void OnCodeChanging(String value);
     partial void OnCodeChanged();
-    partial void OnSystemeChanging(string value);
+    partial void OnSystemeChanging(String value);
     partial void OnSystemeChanged();
     #endregion
 		
@@ -6588,7 +6588,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Code
+		public String Code
 		{
 			get
 			{
@@ -6609,7 +6609,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Systeme", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Systeme
+		public String Systeme
 		{
 			get
 			{
@@ -6720,7 +6720,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _TypeAntecedentId;
 		
-		private string _Description;
+		private String _Description;
 		
 		private bool _Public;
 		
@@ -6740,7 +6740,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnProfilIdChanged();
     partial void OnTypeAntecedentIdChanging(int value);
     partial void OnTypeAntecedentIdChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     partial void OnPublicChanging(bool value);
     partial void OnPublicChanged();
@@ -6826,7 +6826,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -7209,9 +7209,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ProfilId;
 		
-		private string _Titre;
+		private String _Titre;
 		
-		private string _Description;
+		private String _Description;
 		
 		private bool _Public;
 		
@@ -7227,9 +7227,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnProfilIdChanging(int value);
     partial void OnProfilIdChanged();
-    partial void OnTitreChanging(string value);
+    partial void OnTitreChanging(String value);
     partial void OnTitreChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     partial void OnPublicChanging(bool value);
     partial void OnPublicChanged();
@@ -7290,7 +7290,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titre", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Titre
+		public String Titre
 		{
 			get
 			{
@@ -7311,7 +7311,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Description
+		public String Description
 		{
 			get
 			{
@@ -7451,9 +7451,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ProfilId;
 		
-		private string _Name;
+		private String _Name;
 		
-		private string _Value;
+		private String _Value;
 		
 		private EntityRef<Profil> _Profil;
 		
@@ -7465,9 +7465,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnProfilIdChanging(int value);
     partial void OnProfilIdChanged();
-    partial void OnNameChanging(string value);
+    partial void OnNameChanging(String value);
     partial void OnNameChanged();
-    partial void OnValueChanging(string value);
+    partial void OnValueChanging(String value);
     partial void OnValueChanged();
     #endregion
 		
@@ -7524,7 +7524,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Name
+		public String Name
 		{
 			get
 			{
@@ -7545,7 +7545,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Value
+		public String Value
 		{
 			get
 			{
@@ -7643,11 +7643,11 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private System.Nullable<int> _ConcentrationId;
 		
-		private string _CodeUniversel;
+		private String _CodeUniversel;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Prenom;
+		private String _Prenom;
 		
 		private System.Data.Linq.Binary _Avatar;
 		
@@ -7683,11 +7683,11 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnIdChanged();
     partial void OnConcentrationIdChanging(System.Nullable<int> value);
     partial void OnConcentrationIdChanged();
-    partial void OnCodeUniverselChanging(string value);
+    partial void OnCodeUniverselChanging(String value);
     partial void OnCodeUniverselChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnPrenomChanging(string value);
+    partial void OnPrenomChanging(String value);
     partial void OnPrenomChanged();
     partial void OnAvatarChanging(System.Data.Linq.Binary value);
     partial void OnAvatarChanged();
@@ -7756,7 +7756,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeUniversel", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string CodeUniversel
+		public String CodeUniversel
 		{
 			get
 			{
@@ -7777,7 +7777,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -7798,7 +7798,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Prenom
+		public String Prenom
 		{
 			get
 			{
@@ -8198,13 +8198,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _ProfilId;
 		
-		private string _CodePermanent;
+		private String _CodePermanent;
 		
 		private System.Nullable<System.DateTime> _DateNaissance;
 		
-		private string _Courriel;
+		private String _Courriel;
 		
-		private string _Telephone;
+		private String _Telephone;
 		
 		private bool _Public;
 		
@@ -8218,13 +8218,13 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnProfilIdChanging(int value);
     partial void OnProfilIdChanged();
-    partial void OnCodePermanentChanging(string value);
+    partial void OnCodePermanentChanging(String value);
     partial void OnCodePermanentChanged();
     partial void OnDateNaissanceChanging(System.Nullable<System.DateTime> value);
     partial void OnDateNaissanceChanged();
-    partial void OnCourrielChanging(string value);
+    partial void OnCourrielChanging(String value);
     partial void OnCourrielChanged();
-    partial void OnTelephoneChanging(string value);
+    partial void OnTelephoneChanging(String value);
     partial void OnTelephoneChanged();
     partial void OnPublicChanging(bool value);
     partial void OnPublicChanged();
@@ -8264,7 +8264,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodePermanent", DbType="VarChar(12)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string CodePermanent
+		public String CodePermanent
 		{
 			get
 			{
@@ -8306,7 +8306,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Courriel", DbType="VarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Courriel
+		public String Courriel
 		{
 			get
 			{
@@ -8327,7 +8327,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="VarChar(20)", UpdateCheck=UpdateCheck.Never)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public string Telephone
+		public String Telephone
 		{
 			get
 			{
@@ -8465,9 +8465,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		private int _Id;
 		
-		private string _Nom;
+		private String _Nom;
 		
-		private string _Description;
+		private String _Description;
 		
 		private EntitySet<Antecedent> _Antecedents;
 		
@@ -8479,9 +8479,9 @@ namespace Sporacid.Simplets.Webapp.Services.Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNomChanging(string value);
+    partial void OnNomChanging(String value);
     partial void OnNomChanged();
-    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanging(String value);
     partial void OnDescriptionChanged();
     #endregion
 		
@@ -8513,7 +8513,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Nom
+		public String Nom
 		{
 			get
 			{
@@ -8534,7 +8534,7 @@ namespace Sporacid.Simplets.Webapp.Services.Database
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
+		public String Description
 		{
 			get
 			{

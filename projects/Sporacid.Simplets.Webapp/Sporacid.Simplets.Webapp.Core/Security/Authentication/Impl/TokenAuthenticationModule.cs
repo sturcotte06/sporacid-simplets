@@ -27,7 +27,6 @@
         /// <param name="tokenAndPrincipal">The token and principals of the newly authenticated user.</param>
         public void Update(ITokenAndPrincipal tokenAndPrincipal)
         {
-            // HttpContext.Current.Session["AuthenticationTokenAndPrincipal"] = tokenAndPrincipal;
             // Cache the token with the principals. 
             // If the user specify token authentication, we can speed up its response.
             this.tokenCache.Put(tokenAndPrincipal.Token, tokenAndPrincipal);

@@ -10,7 +10,7 @@
     /// <version>1.9.0</version>
     [Module("Groupes")]
     [Contextual("clubName")]
-    public interface IGroupeService
+    public interface IGroupeService : IService
     {
         /// <summary>
         /// Get all groupe entities from a club context.

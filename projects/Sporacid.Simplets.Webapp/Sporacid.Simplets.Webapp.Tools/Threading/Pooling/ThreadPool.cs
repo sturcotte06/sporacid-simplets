@@ -80,6 +80,14 @@
         }
 
         /// <summary>
+        /// The thread pool's configuration.
+        /// </summary>
+        public ThreadPoolConfiguration Configuration
+        {
+            get { return this.configuration; }
+        }
+
+        /// <summary>
         /// Whether the thread pool is shutdown or not.
         /// </summary>
         public bool IsShutdown
@@ -104,7 +112,7 @@
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with 
+        /// Performs application-defined tasks associated with
         /// freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
@@ -357,14 +365,15 @@
         /// <remarks>
         /// I am a 100% positive that there is a race condition. A thread could be queuing work items
         /// while waiting for the pool to be idle. Race condition :
-        ///     1) Thread A calls WaitForIdle()
-        ///     2) Thread Pool checks worker 1 : it is idle.
-        ///     3) Thread Pool checks worker 2 : it is idle.
-        ///     4) Thread B queues a work item; worker 1 wakes up and does the work.
-        ///     5) Thread Pool checks worker 3 : it is idle.
-        ///     6) Thread A unblocks because all worker were idle, but worker 1 is now doing a work item.
+        /// 1) Thread A calls WaitForIdle()
+        /// 2) Thread Pool checks worker 1 : it is idle.
+        /// 3) Thread Pool checks worker 2 : it is idle.
+        /// 4) Thread B queues a work item; worker 1 wakes up and does the work.
+        /// 5) Thread Pool checks worker 3 : it is idle.
+        /// 6) Thread A unblocks because all worker were idle, but worker 1 is now doing a work item.
         /// The workaround could be to have an event set when waiting on idle. Threads queuing work item would have to wait.
-        /// However, this does not fix the problem because when WaitForIdle() unblocks, it did assert that the pool was idle at that moment,
+        /// However, this does not fix the problem because when WaitForIdle() unblocks, it did assert that the pool was idle at
+        /// that moment,
         /// but as soon as the method ends, workers will start working again.
         /// </remarks>
         public void WaitForIdle()
@@ -385,7 +394,7 @@
 
         /// <summary>
         /// Blocks the current thread until the thread pool is done with all work items.
-        /// If the thread pool takes more than the number of ms specified to be idle, false will be returned. 
+        /// If the thread pool takes more than the number of ms specified to be idle, false will be returned.
         /// </summary>
         /// <param name="timeoutInMilliseconds">The number of milliseconds before timeout.</param>
         /// <returns>Whether the thread pool was idle or not.</returns>
@@ -467,11 +476,11 @@
             var result = new WorkItemResult<TReturn>(cancelToken);
 
             // Bind the callbacks on the good events.
-            if (options.OnWorkItemComputed != null) 
+            if (options.OnWorkItemComputed != null)
                 result.OnResultComputed += (sender, args) => options.OnWorkItemComputed((TReturn) args.Data);
-            if (options.OnWorkItemFailure != null) 
+            if (options.OnWorkItemFailure != null)
                 result.OnResultFailure += (sender, args) => options.OnWorkItemFailure(args.Data);
-            if (options.OnWorkItemCancelled != null) 
+            if (options.OnWorkItemCancelled != null)
                 result.OnResultCancelled += (sender, args) => options.OnWorkItemCancelled();
 
             // Create the work item.
@@ -499,7 +508,8 @@
         /// <param name="param2">The second parameter value.</param>
         /// <param name="options">The options of the work.</param>
         /// <returns>The work item asynchronous result object.</returns>
-        public WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TReturn>(Work<TParam1, TParam2, TReturn> work, TParam1 param1, TParam2 param2, WorkItemOptions<TReturn> options)
+        public WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TReturn>(Work<TParam1, TParam2, TReturn> work, TParam1 param1, TParam2 param2,
+            WorkItemOptions<TReturn> options)
         {
             return this.QueueWorkItem((cancelToken, @params) => work(cancelToken, (TParam1) @params[0], (TParam2) @params[1]), new object[] {param1, param2}, options);
         }
@@ -517,10 +527,12 @@
         /// <param name="param3">The third parameter value.</param>
         /// <param name="options">The options of the work.</param>
         /// <returns>The work item asynchronous result object.</returns>
-        public WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TParam3, TReturn>(Work<TParam1, TParam2, TParam3, TReturn> work, TParam1 param1, TParam2 param2, TParam3 param3,
+        public WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TParam3, TReturn>(Work<TParam1, TParam2, TParam3, TReturn> work, TParam1 param1, TParam2 param2,
+            TParam3 param3,
             WorkItemOptions<TReturn> options)
         {
-            return this.QueueWorkItem((cancelToken, @params) => work(cancelToken, (TParam1) @params[0], (TParam2) @params[1], (TParam3) @params[2]), new object[] {param1, param2, param3}, options);
+            return this.QueueWorkItem((cancelToken, @params) => work(cancelToken, (TParam1) @params[0], (TParam2) @params[1], (TParam3) @params[2]),
+                new object[] {param1, param2, param3}, options);
         }
 
         /// <summary>
@@ -538,7 +550,8 @@
         /// <param name="param4">The fourth parameter value.</param>
         /// <param name="options">The options of the work.</param>
         /// <returns>The work item asynchronous result object.</returns>
-        public WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TParam3, TParam4, TReturn>(Work<TParam1, TParam2, TParam3, TParam4, TReturn> work, TParam1 param1, TParam2 param2, TParam3 param3,
+        public WorkItemResult<TReturn> QueueWorkItem<TParam1, TParam2, TParam3, TParam4, TReturn>(Work<TParam1, TParam2, TParam3, TParam4, TReturn> work, TParam1 param1,
+            TParam2 param2, TParam3 param3,
             TParam4 param4, WorkItemOptions<TReturn> options)
         {
             return this.QueueWorkItem((cancelToken, @params) => work(cancelToken, (TParam1) @params[0], (TParam2) @params[1], (TParam3) @params[2], (TParam4) @params[3]),

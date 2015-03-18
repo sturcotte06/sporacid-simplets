@@ -1,5 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials
 {
+    using System;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -11,7 +12,7 @@
         /// </summary>
         /// <param name="credentialsParameter"></param>
         /// <returns></returns>
-        ICredentials Extract(string credentialsParameter);
+        ICredentials Extract(String credentialsParameter);
 
         /// <summary>
         /// Whether the authentication scheme is supported.

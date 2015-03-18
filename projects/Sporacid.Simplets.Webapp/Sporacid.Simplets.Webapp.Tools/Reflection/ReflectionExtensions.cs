@@ -133,5 +133,20 @@
             //  attributeCollection.CopyTo(attributeArray, 0);
             return attributes.ToArray();
         }
+
+        /// <summary>
+        /// Gets all namespaces which name starts with the given namespace.
+        /// This method should not be called in a loop, as it is slow.
+        /// </summary>
+        /// <param name="assembly">The assembly in whcih to search.</param>
+        /// <param name="namespace">The root namespace.</param>
+        /// <returns>An enumeration of all children namespaces.</returns>
+        public static IEnumerable<String> GetChildrenNamespaces(Assembly assembly, String @namespace)
+        {
+            return assembly.GetTypes()
+                .Select(t => t.Namespace)
+                .Distinct()
+                .Where(ns => ns != null && ns.StartsWith(@namespace));
+        }
     }
 }

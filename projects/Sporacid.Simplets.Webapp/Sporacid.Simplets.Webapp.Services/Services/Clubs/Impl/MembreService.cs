@@ -33,7 +33,7 @@
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
-        public IEnumerable<WithId<int, MembreDto>> GetAll(string clubName, uint? skip, uint? take)
+        public IEnumerable<WithId<Int32, MembreDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.membreRepository
                 .GetAll(membre => membre.Club.Nom == clubName)
@@ -51,7 +51,7 @@
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("in/{groupeId:int}")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
-        public IEnumerable<WithId<int, MembreDto>> GetAllInGroupe(string clubName, int groupeId, uint? skip, uint? take)
+        public IEnumerable<WithId<Int32, MembreDto>> GetAllInGroupe(String clubName, Int32 groupeId, [FromUri] UInt32? skip = null, UInt32? take = null)
         {
             return this.membreRepository
                 .GetAll(membre => membre.Club.Nom == clubName && membre.GroupeMembres.Any(gp => gp.GroupeId == groupeId))
@@ -67,7 +67,7 @@
         /// <returns>The membre entity.</returns>
         [HttpGet, Route("{membreId:int}")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
-        public MembreDto Get(string clubName, int membreId)
+        public MembreDto Get(String clubName, Int32 membreId)
         {
             return this.membreRepository
                 .GetUnique(membre => membre.Club.Nom == clubName && membre.Id == membreId)
@@ -82,7 +82,7 @@
         /// <returns>The created membre id.</returns>
         [HttpPost, Route("")]
         [InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe")]
-        public int Create(string clubName, MembreDto membre)
+        public int Create(String clubName, MembreDto membre)
         {
             var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
             var membreEntity = membre.MapTo<MembreDto, Membre>();
@@ -102,7 +102,7 @@
         /// <param name="membre">The membre.</param>
         [HttpPut, Route("{membreId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe")]
-        public void Update(string clubName, int membreId, MembreDto membre)
+        public void Update(String clubName, Int32 membreId, MembreDto membre)
         {
             var membreEntity = this.membreRepository
                 .GetUnique(membre2 => membre2.Club.Nom == clubName && membre2.Id == membreId)
@@ -117,7 +117,7 @@
         /// <param name="membreId">The membre id.</param>
         [HttpDelete, Route("{membreId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe")]
-        public void Delete(string clubName, int membreId)
+        public void Delete(String clubName, Int32 membreId)
         {
             // Somewhat trash call to make sure the membre is in this context. 
             var membreEntity = this.membreRepository

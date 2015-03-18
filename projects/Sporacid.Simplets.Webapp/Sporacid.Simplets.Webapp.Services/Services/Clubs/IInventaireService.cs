@@ -13,7 +13,7 @@
     [Module("Inventaire")]
     [Contextual("clubName")]
     [ContractClass(typeof (InventaireServiceContract))]
-    public interface IInventaireService
+    public interface IInventaireService : IService
     {
         /// <summary>
         /// Get all item entities from a club context.

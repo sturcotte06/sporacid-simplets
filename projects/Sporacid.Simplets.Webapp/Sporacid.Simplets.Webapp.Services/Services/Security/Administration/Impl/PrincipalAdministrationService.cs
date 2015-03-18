@@ -73,7 +73,7 @@
 
             // Create the new personnal context of this principal. The principal has full access over its context.
             this.contextAdministrationService.Create(principalEntity.Identity, principalEntity.Identity);
-            this.contextAdministrationService.RemoveAllClaimsFromPrincipal(principalEntity.Identity, HttpContext.Current.User.Identity.Name);
+            this.contextAdministrationService.RemoveAllClaimsFromPrincipal(principalEntity.Identity, principalEntity.Identity);
             this.contextAdministrationService.BindRoleToPrincipal(principalEntity.Identity, SecurityConfig.Role.Administrateur.ToString(), principalEntity.Identity);
 
             // Create the base profil for the new principal.

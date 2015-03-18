@@ -28,7 +28,7 @@
     /// <version>1.9.0</version>
     public class PascalCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
     {
-        protected override string ResolvePropertyName(string propertyName)
+        protected override String ResolvePropertyName(String propertyName)
         {
             var camelCase = base.ResolvePropertyName(propertyName);
             return camelCase.Remove(0, 1).Insert(0, Char.ToUpper(camelCase[0]).ToString(CultureInfo.CurrentCulture));

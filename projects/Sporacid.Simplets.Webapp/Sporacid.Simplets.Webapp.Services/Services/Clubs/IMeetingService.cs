@@ -13,7 +13,7 @@
     [Module("Meetings")]
     [Contextual("clubName")]
     [ContractClass(typeof (MeetingServiceContract))]
-    public interface IMeetingService
+    public interface IMeetingService : IService
     {
         /// <summary>
         /// Get all meeting entities from a club context.

@@ -1,11 +1,13 @@
-﻿namespace Sporacid.Simplets.Webapp.App.Events
+﻿namespace Sporacid.Simplets.Webapp.Core.Events
 {
+    using System;
+
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public interface IEventBus<TEvent, TEventArgs> where TEvent : IEvent<TEventArgs>
+    public interface IEventBus<TEvent, TEventArgs> : IDisposable where TEvent : IEvent<TEventArgs>
     {
         /// <summary>
-        /// Publishes an event into the bus. 
+        /// Publishes an event into the bus.
         /// All subscribers to this event will be notified asynchronously.
         /// </summary>
         /// <param name="publisher">The sender of the event.</param>

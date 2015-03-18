@@ -5,32 +5,35 @@
     using System.Linq;
     using System.Web;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Events;
+    using Sporacid.Simplets.Webapp.Core.Events.Impl;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{context:alpha}/administration")]
-    public class ContextAdministrationService : BaseSecureService, IContextAdministrationService
+    public class ContextAdministrationService : BaseSecureService, IContextAdministrationService, IEventPublisher<ContextCreated, ContextCreatedEventArgs>
     {
+        private readonly IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus;
         private readonly IRepository<Int32, Context> contextRepository;
-        private readonly IRepository<PrincipalModuleContextClaimsId, PrincipalModuleContextClaims> principalModuleContextClaimsRepository;
         private readonly IRepository<Int32, Principal> principalRepository;
         private readonly IRepository<Int32, RoleTemplate> roleTemplateRepository;
 
         public ContextAdministrationService(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
-            IRepository<Int32, Context> contextRepository, IRepository<PrincipalModuleContextClaimsId, PrincipalModuleContextClaims> principalModuleContextClaimsRepository)
+            IRepository<Int32, Context> contextRepository, IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;
             this.contextRepository = contextRepository;
-            this.principalModuleContextClaimsRepository = principalModuleContextClaimsRepository;
+            this.contextCreatedEventBus = contextCreatedEventBus;
         }
 
         /// <summary>
@@ -58,11 +61,13 @@
             }
 
             // Create the context.
-            var contextEntity = new Context { Name = context };
+            var contextEntity = new Context {Name = context};
             this.contextRepository.Add(contextEntity);
 
             // Bind admin role to the owner on the newly created context.
-            this.BindRoleToPrincipal(contextEntity.Name, SecurityConfig.Role.Administrateur.ToString(), owner);
+            // this.BindRoleToPrincipal(context, SecurityConfig.Role.Administrateur.ToString(), owner);
+            this.Publish(new ContextCreatedEventArgs(context, owner));
+
             return contextEntity.Id;
         }
 
@@ -77,7 +82,7 @@
         /// If something unexpected occurs.
         /// </exception>
         /// <returns>A dictionary of all claims, by module.</returns>
-        public IEnumerable<KeyValuePair<string, Claims>> GetAllClaimsOnContext(string context)
+        public IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context)
         {
             var identity = HttpContext.Current.User.Identity.Name;
             return this.contextRepository
@@ -156,22 +161,28 @@
         [HttpDelete, Route("unbind-claims-from/{identity}")]
         public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
-            // this.principalModuleContextClaimsRepository
-            //     .DeleteAll(pmcc => pmcc.Context.Name == context && pmcc.Principal.Identity == identity);
-
             // Get all required entities.
             var contextEntity = this.contextRepository
                 .GetUnique(context2 => context2.Name == context);
             var principalEntity = this.principalRepository
                 .GetUnique(principal => principal.Identity == identity);
-            
+
             // Remove all claims from the principal for this context.
             var principalClaimsOnContext = principalEntity.PrincipalModuleContextClaims
                 .Where(pc => pc.ContextId == contextEntity.Id).ToList();
             principalClaimsOnContext.ForEach(pc => principalEntity.PrincipalModuleContextClaims.Remove(pc));
-            
+
             // Update the principal.
             this.principalRepository.Update(principalEntity);
+        }
+
+        /// <summary>
+        /// Publishes an event in the given event bus.
+        /// </summary>
+        /// <param name="eventArgs">The event args of the event.</param>
+        public void Publish(ContextCreatedEventArgs eventArgs)
+        {
+            this.contextCreatedEventBus.Publish(this, eventArgs);
         }
     }
 }

@@ -15,11 +15,11 @@
         [StringLength(50,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "TypeAntecedentDto_Nom_StringLength")]
-        public string Nom { get; set; }
+        public String Nom { get; set; }
 
         [StringLength(150,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "TypeAntecedentDto_Description_StringLength")]
-        public string Description { get; set; }
+        public String Description { get; set; }
     }
 }

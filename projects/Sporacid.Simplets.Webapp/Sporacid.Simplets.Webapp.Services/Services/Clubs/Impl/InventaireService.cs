@@ -32,7 +32,7 @@
         /// <returns>The item entities.</returns>
         [HttpGet, Route("")]
         [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
-        public IEnumerable<WithId<Int32, ItemDto>> GetAll(String clubName, [FromUri] UInt32? skip, [FromUri] UInt32? take)
+        public IEnumerable<WithId<Int32, ItemDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.itemRepository
                 .GetAll(item => clubName == item.Club.Nom)

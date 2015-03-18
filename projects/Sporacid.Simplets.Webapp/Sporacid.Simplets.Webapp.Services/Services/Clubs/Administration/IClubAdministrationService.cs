@@ -14,7 +14,7 @@
     [Module("ClubAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
     [ContractClass(typeof(ClubAdministrationServiceContract))]
-    public interface IClubAdministrationService
+    public interface IClubAdministrationService : IService
     {
         /// <summary>
         /// Creates a club entity into the system.

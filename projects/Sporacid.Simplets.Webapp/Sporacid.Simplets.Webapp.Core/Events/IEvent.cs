@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.App.Events
+﻿namespace Sporacid.Simplets.Webapp.Core.Events
 {
     using System;
 
