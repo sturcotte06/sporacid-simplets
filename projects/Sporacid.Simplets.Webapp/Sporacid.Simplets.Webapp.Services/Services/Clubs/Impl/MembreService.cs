@@ -32,7 +32,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, MembreDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.membreRepository
@@ -50,7 +50,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
         [HttpGet, Route("in/{groupeId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, MembreDto>> GetAllInGroupe(String clubName, Int32 groupeId, [FromUri] UInt32? skip = null, UInt32? take = null)
         {
             return this.membreRepository

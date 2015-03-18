@@ -35,7 +35,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The groupe entities.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<int, GroupeDto>> GetAll(String clubName, [FromUri] uint? skip = null, [FromUri] uint? take = null)
         {
             return this.groupeRepository
@@ -51,7 +51,7 @@
         /// <param name="groupeId">The groupe id.</param>
         /// <returns>The groupe entity.</returns>
         [HttpGet, Route("{groupeId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public GroupeDto Get(String clubName, int groupeId)
         {
             return this.groupeRepository

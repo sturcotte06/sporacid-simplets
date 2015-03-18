@@ -9,6 +9,7 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using System.Web.Http.Services;
+    using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
@@ -18,12 +19,12 @@
     /// <version>1.9.0</version>
     public class AuthorizationFilter : IAuthorizationFilter
     {
-        private readonly IAuthorizationModule authorizationModule;
         private readonly ClaimsByActionDictionary claimsByAction;
+        private readonly IKernel kernel;
 
-        public AuthorizationFilter(IAuthorizationModule authorizationModule, ClaimsByActionDictionary claimsByAction)
+        public AuthorizationFilter(IKernel kernel, ClaimsByActionDictionary claimsByAction)
         {
-            this.authorizationModule = authorizationModule;
+            this.kernel = kernel;
             this.claimsByAction = claimsByAction;
         }
 
@@ -58,7 +59,7 @@
             }
 
             // Get an authorization module.
-            // var authorizationModule = this.kernel.Get<IAuthorizationModule>();
+            var authorizationModule = this.kernel.Get<IAuthorizationModule>();
 
             // Get the context attribute. This is a required key of the authorization system.
             // Context can be fixed, or dynamic. Handle both cases.
@@ -66,7 +67,7 @@
             if (fixedCtxAttr != null)
             {
                 // Fixed context. The context is constant and is not part of the url.
-                this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
+                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
             }
             else
             {
@@ -83,7 +84,7 @@
                     throw new NotAuthorizedException(ExceptionStrings.Services_Security_NoContextualActionContext);
                 }
 
-                this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
+                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
             }
 
             return continuation();

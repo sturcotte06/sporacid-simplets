@@ -13,6 +13,7 @@
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Filters;
+    using Ninject;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
@@ -24,16 +25,11 @@
     /// <version>1.9.0</version>
     public class AuthenticationFilter : IAuthenticationFilter
     {
-        private readonly IEnumerable<IAuthenticationModule> authenticationModules;
-        private readonly IEnumerable<ICredentialsExtractor> credentialsExtractors;
-        private readonly IPrincipalAdministrationService principalAdministrationService;
+        private readonly IKernel kernel;
 
-        public AuthenticationFilter(IPrincipalAdministrationService principalAdministrationService, IEnumerable<IAuthenticationModule> authenticationModules,
-            IEnumerable<ICredentialsExtractor> credentialsExtractors)
+        public AuthenticationFilter(IKernel kernel)
         {
-            this.principalAdministrationService = principalAdministrationService;
-            this.authenticationModules = authenticationModules.ToList();
-            this.credentialsExtractors = credentialsExtractors.ToList();
+            this.kernel = kernel;
         }
 
         /// <summary>
@@ -85,13 +81,13 @@
                 throw new SecurityException(String.Format(ExceptionStrings.Services_Security_UnsupportedScheme, authorization.Scheme));
             }
 
-            var authenticationModule = this.authenticationModules.FirstOrDefault(a => a.IsSupported(scheme));
+            var authenticationModule = this.kernel.GetAll<IAuthenticationModule>().ToList().FirstOrDefault(a => a.IsSupported(scheme));
             if (authenticationModule == null)
             {
                 throw new SecurityException(String.Format(ExceptionStrings.Services_Security_UnsupportedScheme, scheme));
             }
 
-            var credentialsExtractor = this.credentialsExtractors.FirstOrDefault(e => e.IsSupported(scheme));
+            var credentialsExtractor = this.kernel.GetAll<ICredentialsExtractor>().ToList().FirstOrDefault(e => e.IsSupported(scheme));
             if (credentialsExtractor == null)
             {
                 throw new SecurityException(String.Format(ExceptionStrings.Services_Security_CannotExtractScheme, scheme));
@@ -118,10 +114,11 @@
 
             // Check if the user is logged in for the first time.
             var identity = tokenAndPrincipal.Principal.Identity.Name;
-            if (!this.principalAdministrationService.Exists(identity))
+            var principalAdministrationService = this.kernel.Get<IPrincipalAdministrationService>();
+            if (!principalAdministrationService.Exists(identity))
             {
                 // User logged in for first time. Create its principal.
-                this.principalAdministrationService.Create(identity);
+                principalAdministrationService.Create(identity);
             }
 
             return Task.FromResult(0);

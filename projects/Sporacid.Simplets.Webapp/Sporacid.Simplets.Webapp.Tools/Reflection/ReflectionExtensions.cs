@@ -42,7 +42,7 @@
         /// will be searched, too.
         /// </param>
         /// <returns>An array that contains all the custom attributes, or an array with zero elements if no attributes are defined.</returns>
-        private static object[] GetCustomAttributes(Type type, Type attributeType, bool inherit)
+        private static IEnumerable<object> GetCustomAttributes(Type type, Type attributeType, bool inherit)
         {
             if (!inherit)
             {
@@ -98,7 +98,7 @@
         /// will be searched, too.
         /// </param>
         /// <returns>An array that contains all the custom attributes, or an array with zero elements if no attributes are defined.</returns>
-        private static object[] GetCustomAttributes(MethodBase method, Type attributeType, bool inherit)
+        private static IEnumerable<object> GetCustomAttributes(MethodBase method, Type attributeType, bool inherit)
         {
             var type = method.DeclaringType;
 

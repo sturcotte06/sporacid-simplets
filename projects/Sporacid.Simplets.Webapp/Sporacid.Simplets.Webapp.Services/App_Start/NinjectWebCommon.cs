@@ -133,30 +133,30 @@ namespace Sporacid.Simplets.Webapp.Services
                 .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
 
             // Security modules configuration.
-            kernel.Bind(typeof (IAuthenticationModule), typeof (KerberosAuthenticationModule), typeof (IAuthenticationObservable))
-                .To<KerberosAuthenticationModule>()
+            kernel.Bind(typeof (IAuthenticationModule), typeof (KerberosAuthenticationModule)).To<KerberosAuthenticationModule>()
                 .InRequestScope()
                 .WithConstructorArgument(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]);
             kernel.Bind(typeof (IAuthenticationModule), typeof (TokenAuthenticationModule)).To<TokenAuthenticationModule>()
-                .InRequestScope();
+                .InRequestScope()
+                .WithConstructorArgument(typeof (IEnumerable<IAuthenticationObservable>), new[] {kernel.Get<KerberosAuthenticationModule>()});
             kernel.Bind<IAuthorizationModule>().To<AuthorizationModule>()
                 .InRequestScope();
 
-            // Event configuration.
-            kernel.Bind(typeof (IBlockingQueue<>)).To(typeof (BlockingQueue<>));
-            kernel.Bind(x => x
-                .FromThisAssembly()
-                .SelectAllClasses().InheritedFrom(typeof (IEventSubscriber<,>))
-                .BindAllInterfaces()
-                .Configure(s => s.InSingletonScope()));
-            kernel.Bind(typeof (IEventBus<,>)).To(typeof (EventBus<,>))
-                .InSingletonScope()
-                .WithConstructorArgument(typeof (IThreadPool), new ThreadPool(new ThreadPoolConfiguration
-                {
-                   AutomaticStart = true,
-                   ThreadCount = 1,
-                   ThreadNamePrefix = "Event Bus"
-                }));
+            // // Event configuration.
+            // kernel.Bind(typeof (IBlockingQueue<>)).To(typeof (BlockingQueue<>));
+            // kernel.Bind(x => x
+            //     .FromThisAssembly()
+            //     .SelectAllClasses().InheritedFrom(typeof (IEventSubscriber<,>))
+            //     .BindAllInterfaces()
+            //     .Configure(s => s.InSingletonScope()));
+            // kernel.Bind(typeof (IEventBus<,>)).To(typeof (EventBus<,>))
+            //     .InSingletonScope()
+            //     .WithConstructorArgument(typeof (IThreadPool), new ThreadPool(new ThreadPoolConfiguration
+            //     {
+            //        AutomaticStart = true,
+            //        ThreadCount = 1,
+            //        ThreadNamePrefix = "Event Bus"
+            //     }));
 
         }
 
@@ -206,7 +206,7 @@ namespace Sporacid.Simplets.Webapp.Services
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServiceProject(IKernel kernel)
         {
-            // Services configuration. TODO Rebind the shits.
+            // Services configuration.
             kernel.Bind(x => x
                 .FromThisAssembly()
                 .SelectAllClasses().InheritedFrom<IService>()
@@ -226,16 +226,14 @@ namespace Sporacid.Simplets.Webapp.Services
         {
             // Bind the authentication filter on services that have the RequiresAuthenticatedPrincipal attribute
             kernel.BindHttpFilter<AuthenticationFilter>(FilterScope.Controller)
-                .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>()
-                .InRequestScope();
+                .WhenControllerHas<RequiresAuthenticatedPrincipalAttribute>();
 
             // Bind the authorization filter on services that have the RequiresAuthorizedPrincipal attribute
             kernel.Bind<ClaimsByActionDictionary>().ToSelf().InSingletonScope()
                 .WithConstructorArgument(Assembly.GetExecutingAssembly())
                 .WithConstructorArgument(ReflectionExtensions.GetChildrenNamespaces(Assembly.GetExecutingAssembly(), "Sporacid.Simplets.Webapp.Services.Services").ToArray());
             kernel.BindHttpFilter<AuthorizationFilter>(FilterScope.Controller)
-                .WhenControllerHas<RequiresAuthorizedPrincipalAttribute>()
-                .InRequestScope();
+                .WhenControllerHas<RequiresAuthorizedPrincipalAttribute>();
 
             // Bind the exception handling filter on services that have the HandlesException attribute
             kernel.BindHttpFilter<ExceptionHandlingFilter>(FilterScope.Controller)

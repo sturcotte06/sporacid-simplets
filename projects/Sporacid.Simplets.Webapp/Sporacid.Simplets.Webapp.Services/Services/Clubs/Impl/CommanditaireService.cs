@@ -31,7 +31,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The commanditaires entities.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, CommanditaireDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.commanditaireRepository
@@ -47,7 +47,7 @@
         /// <param name="commanditaireId">The commanditaire id.</param>
         /// <returns>The meeting entity.</returns>
         [HttpGet, Route("{commanditaireId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public CommanditaireDto Get(String clubName, Int32 commanditaireId)
         {
             return this.commanditaireRepository

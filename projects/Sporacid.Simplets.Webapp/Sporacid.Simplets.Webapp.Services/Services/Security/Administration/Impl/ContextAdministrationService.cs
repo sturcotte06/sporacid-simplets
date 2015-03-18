@@ -6,7 +6,6 @@
     using System.Web;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Events;
-    using Sporacid.Simplets.Webapp.Core.Events.Impl;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
@@ -28,12 +27,12 @@
         private readonly IRepository<Int32, RoleTemplate> roleTemplateRepository;
 
         public ContextAdministrationService(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
-            IRepository<Int32, Context> contextRepository, IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus)
+            IRepository<Int32, Context> contextRepository /*, IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus*/)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;
             this.contextRepository = contextRepository;
-            this.contextCreatedEventBus = contextCreatedEventBus;
+            /*this.contextCreatedEventBus = contextCreatedEventBus;*/
         }
 
         /// <summary>
@@ -65,8 +64,8 @@
             this.contextRepository.Add(contextEntity);
 
             // Bind admin role to the owner on the newly created context.
-            // this.BindRoleToPrincipal(context, SecurityConfig.Role.Administrateur.ToString(), owner);
-            this.Publish(new ContextCreatedEventArgs(context, owner));
+            this.BindRoleToPrincipal(context, SecurityConfig.Role.Administrateur.ToString(), owner);
+            // this.Publish(new ContextCreatedEventArgs(context, owner));
 
             return contextEntity.Id;
         }

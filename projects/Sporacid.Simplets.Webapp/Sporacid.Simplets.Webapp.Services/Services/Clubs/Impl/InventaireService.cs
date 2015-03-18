@@ -31,7 +31,7 @@
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The item entities.</returns>
         [HttpGet, Route("")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public IEnumerable<WithId<Int32, ItemDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.itemRepository
@@ -47,7 +47,7 @@
         /// <param name="itemId">The item entity id.</param>
         /// <returns>The item entity.</returns>
         [HttpGet, Route("{itemId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium, ClientTimeSpan = (Int32)CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public ItemDto Get(String clubName, Int32 itemId)
         {
             return this.itemRepository
