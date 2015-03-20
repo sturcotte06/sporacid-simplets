@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Impl
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,6 @@
     using System.Web.Helpers;
     using System.Web.Http.Controllers;
     using System.Web.Mvc;
-    using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using IAuthorizationFilter = System.Web.Http.Filters.IAuthorizationFilter;
 

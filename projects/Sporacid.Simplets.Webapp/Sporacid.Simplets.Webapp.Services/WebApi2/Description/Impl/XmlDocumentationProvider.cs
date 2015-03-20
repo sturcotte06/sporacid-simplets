@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Description
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Description.Impl
 {
     using System;
     using System.Globalization;

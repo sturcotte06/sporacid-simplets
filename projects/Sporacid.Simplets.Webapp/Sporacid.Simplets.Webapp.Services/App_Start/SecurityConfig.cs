@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
-    using Ninject;
+    using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
     using Sporacid.Simplets.Webapp.Tools.Reflection;
@@ -48,27 +48,16 @@
             "Inscriptions"
         };
 
-        private static void BootstrapSecurityContext()
+        public static void Register(HttpConfiguration config)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var kernel = NinjectWebCommon.Bootstrapper.Kernel;
+            var securityDatabaseBootstrapper = (ISecurityDatabaseBootstrapper) config.DependencyResolver.GetService(typeof (ISecurityDatabaseBootstrapper));
+            var roleBootstrapper = (IRoleBootstrapper) config.DependencyResolver.GetService(typeof (IRoleBootstrapper));
 
             // Bootstrap the security database.
-            kernel.Get<ISecurityDatabaseBootstrapper>()
-                .Bootstrap(assembly,
-                    ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
-                    // "Sporacid.Simplets.Webapp.Services.Services.Security",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Security.Administration",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Clubs",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Clubs.Administration",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Public",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Public.Administration",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Userspace",
-                    // "Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration");
+            securityDatabaseBootstrapper.Bootstrap(assembly, ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
 
             // Bootstrap the user roles of the application.
-            var roleBootstrapper = kernel.Get<IRoleBootstrapper>();
-
             roleBootstrapper
                 .BindClaims(AllClaims)
                 .ToModules(AllModules)

@@ -11,12 +11,12 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class ProfilAdministrationService : BaseSecureService, IProfilAdministrationService
+    public class ProfilAdministrationController : BaseSecureService, IProfilAdministrationService
     {
         private readonly ILdapSearcher ldapSearcher;
         private readonly IRepository<Int32, Profil> profilRepository;
 
-        public ProfilAdministrationService(ILdapSearcher ldapSearcher, IRepository<Int32, Profil> profilRepository)
+        public ProfilAdministrationController(ILdapSearcher ldapSearcher, IRepository<Int32, Profil> profilRepository)
         {
             this.profilRepository = profilRepository;
             this.ldapSearcher = ldapSearcher;

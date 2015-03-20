@@ -1,10 +1,10 @@
 ﻿// General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+
 using System.Reflection;
 using System.Runtime.InteropServices;
 using log4net.Config;
-using Sporacid.Simplets.Webapp.Services;
 
 [assembly: AssemblyTitle("Sporacid.Simplets.Webapp.Services")]
 [assembly: AssemblyDescription("")]
@@ -38,15 +38,3 @@ using Sporacid.Simplets.Webapp.Services;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: XmlConfigurator(ConfigFile = @".\Resources\log4net.xml", Watch = true)]
-
-// Postsharp aspects.
-// [assembly: Trace(AttributeTargetAssemblies = "Sporacid.Simplets.Webapp.Core|Sporacid.Simplets.Webapp.Services",
-//    AttributeTargetTypeAttributes = MulticastAttributes.Public,
-//    AttributeTargetMemberAttributes = MulticastAttributes.Public,
-//    AttributeTargetElements = MulticastTargets.Method)]
-
-// Bootstrap activator methods.
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start", Order = 0)]
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(AutoMapperConfig), "InitializeAutoMapper", Order = 1)]
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SecurityConfig), "BootstrapSecurityContext", Order = 2)]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop", Order = 0)]

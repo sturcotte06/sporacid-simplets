@@ -88,12 +88,6 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -109,12 +103,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\EventExtensions.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventBus.cs" />
     <Compile Include="Events\IEventPublisher.cs" />
     <Compile Include="Events\IEventSubscriber.cs" />
     <Compile Include="Events\Impl\Event.cs" />
-    <Compile Include="Events\Impl\EventBus.cs" />
+    <Compile Include="Events\Impl\SyncTransientEventBus.cs" />
+    <Compile Include="Events\Impl\TransientEventBus.cs" />
     <Compile Include="Exceptions\CoreException.cs" />
     <Compile Include="Exceptions\Events\EventException.cs" />
     <Compile Include="Exceptions\Events\PublishException.cs" />
@@ -134,9 +130,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExceptionStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Security\Authentication\BaseAuthenticationModule.cs" />
-    <Compile Include="Security\Authentication\IAuthenticationObservable.cs" />
-    <Compile Include="Security\Authentication\IAuthenticationObserver.cs" />
+    <Compile Include="Security\Events\PrincipalAuthenticated.cs" />
+    <Compile Include="Security\Events\Subscribers\OnPrincipalAuthenticatedCacheToken.cs" />
     <Compile Include="Security\Authentication\Impl\PrincipalIdentity.cs" />
     <Compile Include="Security\Authentication\Impl\TokenAndPrincipal.cs" />
     <Compile Include="Security\Authentication\ITokenAndPrincipal.cs" />
@@ -173,6 +168,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Security.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Security\Database\SecurityGenericRepository.cs" />
     <Compile Include="Security\Ldap\ILdapSearcher.cs" />
     <Compile Include="Security\Ldap\ILdapUser.cs" />
     <Compile Include="Security\Ldap\Impl\ActiveDirectorySearcher.cs" />

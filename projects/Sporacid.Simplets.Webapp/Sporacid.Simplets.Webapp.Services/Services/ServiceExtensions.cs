@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using AutoMapper;
-    using NLog.Time;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
 
@@ -50,7 +49,8 @@
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
         /// <param name="sourceEntitiesQuery">The source entities query.</param>
         /// <returns>The query for destination entities with their ids.</returns>
-        public static IQueryable<WithId<Int32, TEntityDestination>> MapAllWithIds<TEntitySource, TEntityDestination>(this IQueryable<TEntitySource> sourceEntitiesQuery) where TEntitySource : IHasId<Int32>
+        public static IQueryable<WithId<Int32, TEntityDestination>> MapAllWithIds<TEntitySource, TEntityDestination>(this IQueryable<TEntitySource> sourceEntitiesQuery)
+            where TEntitySource : IHasId<Int32>
         {
             return sourceEntitiesQuery.MapAllWithIds<TEntitySource, Int32, TEntityDestination>();
         }
@@ -64,7 +64,8 @@
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
         /// <param name="sourceEntitiesQuery">The source entities query.</param>
         /// <returns>The query for destination entities with their ids.</returns>
-        public static IQueryable<WithId<TEntitySourceId, TEntityDestination>> MapAllWithIds<TEntitySource, TEntitySourceId, TEntityDestination>(this IQueryable<TEntitySource> sourceEntitiesQuery) where TEntitySource : IHasId<TEntitySourceId>
+        public static IQueryable<WithId<TEntitySourceId, TEntityDestination>> MapAllWithIds<TEntitySource, TEntitySourceId, TEntityDestination>(
+            this IQueryable<TEntitySource> sourceEntitiesQuery) where TEntitySource : IHasId<TEntitySourceId>
         {
             return sourceEntitiesQuery
                 .Select(sourceEntity =>
@@ -74,7 +75,7 @@
         }
 
         /// <summary>
-        // Maps a source entity to a destination entity.
+        /// Maps a source entity to a destination entity.
         /// </summary>
         /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
@@ -86,7 +87,7 @@
         }
 
         /// <summary>
-        // Maps a source entity to a destination entity.
+        /// Maps a source entity to a destination entity.
         /// </summary>
         /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
@@ -98,7 +99,7 @@
         }
 
         /// <summary>
-        // Maps a source entity to a destination entity.
+        /// Maps a source entity to a destination entity.
         /// </summary>
         /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>

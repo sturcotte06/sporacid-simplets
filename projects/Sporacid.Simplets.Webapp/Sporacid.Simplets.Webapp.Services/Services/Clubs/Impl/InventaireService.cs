@@ -12,12 +12,12 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/inventaire")]
-    public class InventaireService : BaseSecureService, IInventaireService
+    public class InventaireController : BaseSecureService, IInventaireService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Item> itemRepository;
 
-        public InventaireService(IRepository<Int32, Item> itemRepository, IRepository<Int32, Club> clubRepository)
+        public InventaireController(IRepository<Int32, Item> itemRepository, IRepository<Int32, Club> clubRepository)
         {
             this.itemRepository = itemRepository;
             this.clubRepository = clubRepository;

@@ -13,12 +13,12 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/commanditaire/{commanditaireId:int}/commandite")]
-    public class CommanditeService : BaseSecureService, ICommanditeService
+    public class CommanditeController : BaseSecureService, ICommanditeService
     {
         private readonly IRepository<Int32, Commanditaire> commanditaireRepository;
         private readonly IRepository<Int32, Commandite> commanditeRepository;
 
-        public CommanditeService(IRepository<Int32, Commanditaire> commanditaireRepository, IRepository<Int32, Commandite> commanditeRepository)
+        public CommanditeController(IRepository<Int32, Commanditaire> commanditaireRepository, IRepository<Int32, Commandite> commanditeRepository)
         {
             this.commanditaireRepository = commanditaireRepository;
             this.commanditeRepository = commanditeRepository;

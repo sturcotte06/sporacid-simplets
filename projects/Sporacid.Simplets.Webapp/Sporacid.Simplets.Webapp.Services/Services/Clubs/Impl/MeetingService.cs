@@ -13,12 +13,12 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/meeting")]
-    public class MeetingService : BaseSecureService, IMeetingService
+    public class MeetingController : BaseSecureService, IMeetingService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Meeting> meetingRepository;
 
-        public MeetingService(IRepository<Int32, Club> clubRepository, IRepository<Int32, Meeting> meetingRepository)
+        public MeetingController(IRepository<Int32, Club> clubRepository, IRepository<Int32, Meeting> meetingRepository)
         {
             this.clubRepository = clubRepository;
             this.meetingRepository = meetingRepository;

@@ -34,6 +34,14 @@
         /// Takes an action on a cached value.
         /// An exclusive lock will be acquired while the action is taken.
         /// </summary>
+        /// <param name="key">The key object.</param>
+        /// <param name="do">The action to take.</param>
+        bool TryWithValueDo(TKey key, Action<TValue> @do);
+
+        /// <summary>
+        /// Takes an action on a cached value.
+        /// An exclusive lock will be acquired while the action is taken.
+        /// </summary>
         /// <param name="do">The action to take.</param>
         void ForEachKeyValueDo(Action<TKey, TValue> @do);
 

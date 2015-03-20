@@ -16,7 +16,7 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath)]
-    public class DescriptionService : BaseService, IDescriptionService
+    public class DescriptionController : BaseService, IDescriptionService
     {
         /// <summary>
         /// Describes the api entities. This can be used to discover what entities are used in the api.

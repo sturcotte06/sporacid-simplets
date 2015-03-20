@@ -12,12 +12,12 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/fournisseur")]
-    public class FournisseurService : BaseSecureService, IFournisseurService
+    public class FournisseurController : BaseSecureService, IFournisseurService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Fournisseur> fournisseurRepository;
 
-        public FournisseurService(IRepository<Int32, Fournisseur> fournisseurRepository, IRepository<Int32, Club> clubRepository)
+        public FournisseurController(IRepository<Int32, Fournisseur> fournisseurRepository, IRepository<Int32, Club> clubRepository)
         {
             this.fournisseurRepository = fournisseurRepository;
             this.clubRepository = clubRepository;

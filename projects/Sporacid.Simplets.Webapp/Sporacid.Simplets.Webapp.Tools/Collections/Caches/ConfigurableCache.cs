@@ -13,9 +13,9 @@
         private readonly IDictionary<TKey, TValue> dictionary;
         private readonly List<ICachePolicy<TKey, TValue>> registeredPolicies = new List<ICachePolicy<TKey, TValue>>();
 
-        public ConfigurableCache(IEnumerable<ICachePolicy<TKey, TValue>> policies, IDictionary<TKey, TValue> baseDictionary)
+        public ConfigurableCache(IEnumerable<ICachePolicy<TKey, TValue>> policies/*, IDictionary<TKey, TValue> baseDictionary*/)
         {
-            this.dictionary = baseDictionary;
+            this.dictionary = new Dictionary<TKey, TValue>();
             this.RegisterPolicies(policies.ToArray());
         }
 
@@ -95,6 +95,36 @@
                 // Trigger policies to take action before WithValueDo().
                 this.registeredPolicies.ForEachDesc(p => p.AfterWithValueDo(key, @do));
             }
+        }
+
+        /// <summary>
+        /// Takes an action on a cached value.
+        /// An exclusive lock will be acquired while the action is taken.
+        /// </summary>
+        /// <param name="key">The key object.</param>
+        /// <param name="do">The action to take.</param>
+        public bool TryWithValueDo(TKey key, Action<TValue> @do)
+        {
+            // Trigger policies to take action before WithValueDo().
+            this.registeredPolicies.ForEach(p => p.BeforeWithValueDo(key, @do));
+            var worked = false;
+
+            try
+            {
+                TValue value;
+                if (this.dictionary.TryGetValue(key, out value))
+                {
+                    @do(value);
+                    worked = true;
+                }
+            }
+            finally
+            {
+                // Trigger policies to take action before WithValueDo().
+                this.registeredPolicies.ForEachDesc(p => p.AfterWithValueDo(key, @do));
+            }
+
+            return worked;
         }
 
         /// <summary>

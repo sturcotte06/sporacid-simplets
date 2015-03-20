@@ -8,7 +8,7 @@
     [Module("Security")]
     [FixedContext(SecurityConfig.SystemContext)]
     [RoutePrefix(BasePath + "/context")]
-    public class ContextService : BaseSecureService, IContextService
+    public class ContextController : BaseSecureService, IContextService
     {
     }
 }

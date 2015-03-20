@@ -5,34 +5,30 @@
     using System.Linq;
     using System.Web;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Events;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
-    using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{context:alpha}/administration")]
-    public class ContextAdministrationService : BaseSecureService, IContextAdministrationService, IEventPublisher<ContextCreated, ContextCreatedEventArgs>
+    public class ContextAdministrationController : BaseSecureService, IContextAdministrationService
     {
-        private readonly IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus;
         private readonly IRepository<Int32, Context> contextRepository;
         private readonly IRepository<Int32, Principal> principalRepository;
         private readonly IRepository<Int32, RoleTemplate> roleTemplateRepository;
 
-        public ContextAdministrationService(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
-            IRepository<Int32, Context> contextRepository /*, IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus*/)
+        public ContextAdministrationController(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
+            IRepository<Int32, Context> contextRepository)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;
             this.contextRepository = contextRepository;
-            /*this.contextCreatedEventBus = contextCreatedEventBus;*/
         }
 
         /// <summary>
@@ -65,7 +61,6 @@
 
             // Bind admin role to the owner on the newly created context.
             this.BindRoleToPrincipal(context, SecurityConfig.Role.Administrateur.ToString(), owner);
-            // this.Publish(new ContextCreatedEventArgs(context, owner));
 
             return contextEntity.Id;
         }
@@ -173,15 +168,6 @@
 
             // Update the principal.
             this.principalRepository.Update(principalEntity);
-        }
-
-        /// <summary>
-        /// Publishes an event in the given event bus.
-        /// </summary>
-        /// <param name="eventArgs">The event args of the event.</param>
-        public void Publish(ContextCreatedEventArgs eventArgs)
-        {
-            this.contextCreatedEventBus.Publish(this, eventArgs);
         }
     }
 }

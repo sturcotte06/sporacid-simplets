@@ -5,7 +5,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public interface ITokenAndPrincipal
+    public interface ITokenAndPrincipal : IPrincipal
     {
         /// <summary>
         /// Authentication token for this principal.

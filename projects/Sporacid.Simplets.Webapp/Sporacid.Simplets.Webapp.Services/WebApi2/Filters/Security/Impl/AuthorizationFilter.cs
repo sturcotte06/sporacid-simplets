@@ -1,15 +1,12 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Impl
 {
-    using System;
     using System.Linq;
     using System.Net.Http;
     using System.Reflection;
     using System.Threading;
-    using System.Threading.Tasks;
     using System.Web.Http.Controllers;
-    using System.Web.Http.Filters;
     using System.Web.Http.Services;
-    using Ninject;
+    using Autofac.Integration.WebApi;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
@@ -17,31 +14,25 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class AuthorizationFilter : IAuthorizationFilter
+    public class AuthorizationFilter : IAutofacAuthorizationFilter
     {
+        private readonly IAuthorizationModule authorizationModule;
         private readonly ClaimsByActionDictionary claimsByAction;
-        private readonly IKernel kernel;
 
-        public AuthorizationFilter(IKernel kernel, ClaimsByActionDictionary claimsByAction)
+        public AuthorizationFilter(IAuthorizationModule authorizationModule, ClaimsByActionDictionary claimsByAction)
         {
-            this.kernel = kernel;
+            this.authorizationModule = authorizationModule;
             this.claimsByAction = claimsByAction;
         }
 
         /// <summary>
-        /// Executes the authorization filter to synchronize.
+        /// Called when a process requests authorization.
         /// </summary>
-        /// <returns>
-        /// The authorization filter to synchronize.
-        /// </returns>
-        /// <param name="actionContext">The action context.</param>
-        /// <param name="cancellationToken">The cancellation token associated with the filter.</param>
-        /// <param name="continuation">The continuation.</param>
-        public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken,
-            Func<Task<HttpResponseMessage>> continuation)
+        /// <param name="actionContext">The context for the action.</param>
+        public void OnAuthorization(HttpActionContext actionContext)
         {
             var serviceType = actionContext.ControllerContext.Controller.GetType();
-            var serviceMethod = this.GetMethodInfoFromActionContext(actionContext);
+            var serviceMethod = GetMethodInfoFromActionContext(actionContext);
 
             // Get the module attribute. This is a required key of the authorization system.
             var moduleAttr = serviceType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
@@ -58,16 +49,13 @@
                 throw new NotAuthorizedException(ExceptionStrings.Services_Security_NotConfiguredAction);
             }
 
-            // Get an authorization module.
-            var authorizationModule = this.kernel.Get<IAuthorizationModule>();
-
             // Get the context attribute. This is a required key of the authorization system.
             // Context can be fixed, or dynamic. Handle both cases.
             var fixedCtxAttr = serviceType.GetAllCustomAttributes<FixedContextAttribute>().FirstOrDefault();
             if (fixedCtxAttr != null)
             {
                 // Fixed context. The context is constant and is not part of the url.
-                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
+                this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, fixedCtxAttr.Name);
             }
             else
             {
@@ -84,22 +72,8 @@
                     throw new NotAuthorizedException(ExceptionStrings.Services_Security_NoContextualActionContext);
                 }
 
-                authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
+                this.authorizationModule.Authorize(Thread.CurrentPrincipal, claims, moduleAttr.Name, context.ToString());
             }
-
-            return continuation();
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether more than one instance of the indicated attribute can be specified for a single
-        /// program element.
-        /// </summary>
-        /// <returns>
-        /// true if more than one instance is allowed to be specified; otherwise, false. The default is false.
-        /// </returns>
-        public bool AllowMultiple
-        {
-            get { return false; }
         }
 
         /// <summary>
@@ -107,7 +81,7 @@
         /// </summary>
         /// <param name="actionContext">The action context.</param>
         /// <returns>The controller method info that is to be executed.</returns>
-        private MethodInfo GetMethodInfoFromActionContext(HttpActionContext actionContext)
+        private static MethodInfo GetMethodInfoFromActionContext(HttpActionContext actionContext)
         {
             ReflectedHttpActionDescriptor reflectedActionDescriptor = null;
 

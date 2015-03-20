@@ -3,32 +3,34 @@
     using System;
     using System.Web;
     using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Events;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
-    using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/administration")]
-    public class ClubAdministrationService : BaseSecureService, IClubAdministrationService
+    public class ClubAdministrationController : BaseSecureService, IClubAdministrationService, IEventPublisher<ClubCreated, ClubCreatedEventArgs>
     {
+        private readonly IEventBus<ClubCreated, ClubCreatedEventArgs> clubCreatedEventBus;
         private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IContextAdministrationService contextService;
 
-        public ClubAdministrationService(IContextAdministrationService contextService, IRepository<Int32, Club> clubRepository)
+        public ClubAdministrationController(IRepository<Int32, Club> clubRepository, IEventBus<ClubCreated, ClubCreatedEventArgs> clubCreatedEventBus)
         {
-            this.contextService = contextService;
+            this.clubCreatedEventBus = clubCreatedEventBus;
             this.clubRepository = clubRepository;
         }
 
         /// <summary>
         /// Creates a club entity into the system.
-        /// Creating a club will creates its security context and will give all rights on the context to the principal creating the club.
+        /// Creating a club will creates its security context and will give all rights on the context to the principal creating the
+        /// club.
         /// </summary>
         /// <param name="club">The club entity.</param>
         /// <exception cref="NotAuthorizedException">
@@ -54,10 +56,21 @@
             var clubEntity = club.MapTo<ClubDto, Club>();
             this.clubRepository.Add(clubEntity);
 
+            // Publish a club created event.
+            this.Publish(new ClubCreatedEventArgs(clubEntity.Nom, HttpContext.Current.User.Identity.Name));
+
             // Add a new security context for the club.
-            var identity = HttpContext.Current.User.Identity.Name;
-            this.contextService.Create(clubEntity.Nom, identity);
+            // this.contextService.Create(clubEntity.Nom, identity);
             return clubEntity.Id;
+        }
+
+        /// <summary>
+        /// Publishes an event in the given event bus.
+        /// </summary>
+        /// <param name="eventArgs">The event args of the event.</param>
+        public void Publish(ClubCreatedEventArgs eventArgs)
+        {
+            this.clubCreatedEventBus.Publish(this, eventArgs);
         }
     }
 }

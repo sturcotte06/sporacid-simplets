@@ -2,14 +2,16 @@
 {
     using System;
     using System.Diagnostics.Contracts;
+    using Sporacid.Simplets.Webapp.Core.Events;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Resources.Contracts;
+    using Sporacid.Simplets.Webapp.Core.Security.Events;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [ContractClass(typeof (AuthenticationModuleContract))]
-    public interface IAuthenticationModule : IAuthenticationObservable
+    public interface IAuthenticationModule : IEventPublisher<PrincipalAuthenticated, PrincipalAuthenticatedEventArgs>
     {
         /// <summary>
         /// Authenticate a user agaisnt a membership repository.
@@ -39,24 +41,6 @@
     [ContractClassFor(typeof (IAuthenticationModule))]
     internal abstract class AuthenticationModuleContract : IAuthenticationModule
     {
-        /// <summary>
-        /// Add an observer to the list of authentication observers.
-        /// </summary>
-        /// <param name="observer">The observer to add.</param>
-        public abstract void AddObserver(IAuthenticationObserver observer);
-
-        /// <summary>
-        /// Removes an observer from the list of authentication observers.
-        /// </summary>
-        /// <param name="observer">The observer to remove.</param>
-        public abstract void RemoveObserver(IAuthenticationObserver observer);
-
-        /// <summary>
-        /// Notify all observers of an authentication.
-        /// </summary>
-        /// <param name="tokenAndPrincipal">The token and principals of the newly authenticated user.</param>
-        public abstract void NotifyAuthentication(ITokenAndPrincipal tokenAndPrincipal);
-
         /// <summary>
         /// Authenticate a user agaisnt a membership repository.
         /// If the authentication fails, an exception will be raised.

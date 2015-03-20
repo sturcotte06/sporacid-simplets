@@ -1,6 +1,5 @@
 ﻿namespace Sporacid.Simplets.Webapp.Tools.Collections.Caches
 {
-    using System.Collections.Generic;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>

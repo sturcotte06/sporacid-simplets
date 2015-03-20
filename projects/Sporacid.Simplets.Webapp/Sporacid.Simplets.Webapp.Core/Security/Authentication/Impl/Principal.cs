@@ -53,8 +53,8 @@
         /// <param name="obj">The object to compare with the current object. </param>
         public override bool Equals(object obj)
         {
-            var identity = obj as IIdentity;
-            return identity != null && this.Identity.Equals(obj);
+            var principal = obj as IPrincipal;
+            return principal != null && this.Identity.Equals(principal.Identity);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
+    using System.Web.Http;
     using AutoMapper;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
@@ -13,7 +14,7 @@
         /// <summary>
         /// Initializes AutoMapper mappings and configration.
         /// </summary>
-        public static void InitializeAutoMapper()
+        public static void Register(HttpConfiguration cfg)
         {
             // Configure AutoMapping.
             Mapper.Initialize(config =>

@@ -10,7 +10,7 @@
     using System.Web.Http.Dispatcher;
     using System.Web.Http.Tracing;
     using Sporacid.Simplets.Webapp.Services.Services;
-    using Sporacid.Simplets.Webapp.Services.WebApi2.Description;
+    using Sporacid.Simplets.Webapp.Services.WebApi2.Description.Impl;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Trace;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -22,18 +22,19 @@
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            // The convention for this project is NameService instead of NameController.
-            config.Services.Replace(typeof (IHttpControllerTypeResolver), new ServiceHttpControllerTypeResolver());
-            var suffix = typeof (DefaultHttpControllerSelector).GetField("ControllerSuffix", BindingFlags.Static | BindingFlags.Public);
-            if (suffix != null)
-            {
-                suffix.SetValue(null, "Service");
-            }
+            // // The convention for this project is NameService instead of NameController.
+            // config.Services.Replace(typeof (IHttpControllerTypeResolver), new ServiceHttpControllerTypeResolver());
+            // var suffix = typeof (DefaultHttpControllerSelector).GetField("ControllerSuffix", BindingFlags.Static | BindingFlags.Public);
+            // if (suffix != null)
+            // {
+            //     suffix.SetValue(null, "Service");
+            // }
 
-            // Use log4net for logging
+            // Use log4net for logging.
             config.Services.Replace(typeof (ITraceWriter), new Log4NetTraceWriter());
             Trace.AutoFlush = true;
 
+            // Create a documentation provider based on xml documentation.
             config.Services.Replace(typeof (IDocumentationProvider),
                 new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/bin/Sporacid.Simplets.Webapp.Services.xml")));
         }

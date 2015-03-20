@@ -11,14 +11,14 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/inscription")]
-    public class InscriptionService : BaseSecureService, IInscriptionService
+    public class InscriptionController : BaseSecureService, IInscriptionService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IContextAdministrationService contextAdministrationService;
         private readonly IRepository<Int32, Membre> membreRepository;
         private readonly IPrincipalAdministrationService principalAdministrationService;
 
-        public InscriptionService(IContextAdministrationService contextAdministrationService, IPrincipalAdministrationService principalAdministrationService,
+        public InscriptionController(IContextAdministrationService contextAdministrationService, IPrincipalAdministrationService principalAdministrationService,
             IRepository<Int32, Club> clubRepository, IRepository<Int32, Membre> membreRepository)
         {
             this.contextAdministrationService = contextAdministrationService;

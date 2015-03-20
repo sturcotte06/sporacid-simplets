@@ -12,7 +12,10 @@
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            AutoFacConfig.Register(GlobalConfiguration.Configuration);
             SerializationConfig.Register(GlobalConfiguration.Configuration);
+            AutoMapperConfig.Register(GlobalConfiguration.Configuration);
+            SecurityConfig.Register(GlobalConfiguration.Configuration);
             GlobalConfiguration.Configuration.EnsureInitialized();
         }
     }

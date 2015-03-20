@@ -1,4 +1,4 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security
+﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Impl
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,7 @@
     /// <version>1.9.0</version>
     public class ClaimsByActionDictionary : Dictionary<String, Claims>
     {
-        public ClaimsByActionDictionary(Assembly assembly, String[] endpointsNamespaces)
+        public ClaimsByActionDictionary(Assembly assembly, IEnumerable<String> endpointsNamespaces)
         {
             this.Initialize(assembly, endpointsNamespaces);
         }
@@ -30,7 +30,7 @@
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="endpointsNamespaces"></param>
-        private void Initialize(Assembly assembly, params String[] endpointsNamespaces)
+        private void Initialize(Assembly assembly, IEnumerable<String> endpointsNamespaces)
         {
             // Get all endpoint types.
             var endpointTypes = from type in assembly.GetTypes()

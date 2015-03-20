@@ -14,12 +14,12 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{codeUniversel}/profil")]
-    public class ProfilService : BaseSecureService, IProfilService
+    public class ProfilController : BaseSecureService, IProfilService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Profil> profilRepository;
 
-        public ProfilService(IRepository<Int32, Profil> profilRepository, IRepository<Int32, Club> clubRepository)
+        public ProfilController(IRepository<Int32, Profil> profilRepository, IRepository<Int32, Club> clubRepository)
         {
             this.profilRepository = profilRepository;
             this.clubRepository = clubRepository;

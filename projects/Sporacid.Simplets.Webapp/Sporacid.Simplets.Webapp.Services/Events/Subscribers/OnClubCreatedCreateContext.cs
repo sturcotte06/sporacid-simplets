@@ -5,14 +5,13 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class ContextCreatedSubscriber : IEventSubscriber<ContextCreated, ContextCreatedEventArgs>
+    public class OnClubCreatedCreateContext : IEventSubscriber<ClubCreated, ClubCreatedEventArgs>
     {
         private readonly IContextAdministrationService contextAdministrationService;
 
-        public ContextCreatedSubscriber(IEventBus<ContextCreated, ContextCreatedEventArgs> contextCreatedEventBus, IContextAdministrationService contextAdministrationService)
+        public OnClubCreatedCreateContext(IContextAdministrationService contextAdministrationService)
         {
             this.contextAdministrationService = contextAdministrationService;
-            contextCreatedEventBus.Subscribe(this);
         }
 
         /// <summary>
@@ -20,11 +19,10 @@
         /// This method will be called asynchronously when events of the generic type occur.
         /// </summary>
         /// <param name="event">The event that occured.</param>
-        public void Handle(ContextCreated @event)
+        public void Handle(ClubCreated @event)
         {
-            // Bind administrator role on the owner of the context.
-            this.contextAdministrationService.BindRoleToPrincipal(
-                @event.EventArgs.Context, SecurityConfig.Role.Administrateur.ToString(), @event.EventArgs.Owner);
+            // Create the security context for the club.
+            this.contextAdministrationService.Create(@event.EventArgs.ClubName, @event.EventArgs.Owner);
         }
     }
 }

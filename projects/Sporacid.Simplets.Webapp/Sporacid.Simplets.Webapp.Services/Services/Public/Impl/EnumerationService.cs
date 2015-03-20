@@ -13,14 +13,14 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/enumeration")]
-    public class EnumerationService : BaseService, IEnumerationService
+    public class EnumerationController : BaseService, IEnumerationService
     {
         private readonly IRepository<Int32, Concentration> concentrationRepository;
         private readonly IRepository<Int32, StatutSuivie> statutSuivieRepository;
         private readonly IRepository<Int32, TypeContact> typeContactRepository;
         private readonly IRepository<Int32, Unite> uniteRepository;
 
-        public EnumerationService(IRepository<Int32, TypeContact> typeContactRepository, IRepository<Int32, Concentration> concentrationRepository,
+        public EnumerationController(IRepository<Int32, TypeContact> typeContactRepository, IRepository<Int32, Concentration> concentrationRepository,
             IRepository<Int32, StatutSuivie> statutSuivieRepository, IRepository<Int32, Unite> uniteRepository)
         {
             this.typeContactRepository = typeContactRepository;

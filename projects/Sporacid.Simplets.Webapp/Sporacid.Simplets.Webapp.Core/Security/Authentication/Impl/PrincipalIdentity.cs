@@ -58,8 +58,8 @@
         /// <param name="obj">The object to compare with the current object. </param>
         public override bool Equals(object obj)
         {
-            var str = obj as String;
-            return str != null && this.Name == str;
+            var identity = obj as IIdentity;
+            return identity != null && this.Name == identity.Name;
         }
     }
 }

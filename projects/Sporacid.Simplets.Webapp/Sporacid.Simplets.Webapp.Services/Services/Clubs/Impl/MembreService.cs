@@ -13,12 +13,12 @@
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/membre")]
-    public class MembreService : BaseSecureService, IMembreService
+    public class MembreController : BaseSecureService, IMembreService
     {
         private readonly IRepository<Int32, Club> clubRepository;
         private readonly IRepository<Int32, Membre> membreRepository;
 
-        public MembreService(IRepository<Int32, Membre> membreRepository, IRepository<Int32, Club> clubRepository)
+        public MembreController(IRepository<Int32, Membre> membreRepository, IRepository<Int32, Club> clubRepository)
         {
             this.membreRepository = membreRepository;
             this.clubRepository = clubRepository;

@@ -1,30 +1,26 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Security.Administration.Impl
 {
     using System;
-    using System.Web;
-    using System.Web.Http;
+    using Sporacid.Simplets.Webapp.Core.Events;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
-    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class PrincipalAdministrationService : BaseSecureService, IPrincipalAdministrationService
+    public class PrincipalAdministrationController : BaseSecureService, IPrincipalAdministrationService, IEventPublisher<PrincipalCreated, PrincipalCreatedEventArgs>
     {
-        private readonly IContextAdministrationService contextAdministrationService;
+        private readonly IEventBus<PrincipalCreated, PrincipalCreatedEventArgs> principalCreatedEventBus;
         private readonly IRepository<Int32, Principal> principalRepository;
-        private readonly IProfilAdministrationService profilAdministrationService;
 
-        public PrincipalAdministrationService(IContextAdministrationService contextAdministrationService, IProfilAdministrationService profilAdministrationService,
-            IRepository<Int32, Principal> principalRepository)
+        public PrincipalAdministrationController(IEventBus<PrincipalCreated, PrincipalCreatedEventArgs> principalCreatedEventBus, IRepository<Int32, Principal> principalRepository)
         {
-            this.contextAdministrationService = contextAdministrationService;
-            this.profilAdministrationService = profilAdministrationService;
             this.principalRepository = principalRepository;
+            this.principalCreatedEventBus = principalCreatedEventBus;
         }
 
         /// <summary>
@@ -71,13 +67,9 @@
             var principalEntity = new Principal {Identity = identity};
             this.principalRepository.Add(principalEntity);
 
-            // Create the new personnal context of this principal. The principal has full access over its context.
-            this.contextAdministrationService.Create(principalEntity.Identity, principalEntity.Identity);
-            this.contextAdministrationService.RemoveAllClaimsFromPrincipal(principalEntity.Identity, principalEntity.Identity);
-            this.contextAdministrationService.BindRoleToPrincipal(principalEntity.Identity, SecurityConfig.Role.Administrateur.ToString(), principalEntity.Identity);
+            // Publish a new principal created event.
+            this.Publish(this.principalCreatedEventBus, new PrincipalCreatedEventArgs(identity));
 
-            // Create the base profil for the new principal.
-            this.profilAdministrationService.CreateBaseProfil(identity);
             return principalEntity.Id;
         }
     }

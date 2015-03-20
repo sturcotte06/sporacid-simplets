@@ -5,9 +5,9 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class ContextCreated : Event<ContextCreatedEventArgs>
+    public class ClubCreated : Event<ClubCreatedEventArgs>
     {
-        public ContextCreated(object sender, ContextCreatedEventArgs eventArgs)
+        public ClubCreated(object sender, ClubCreatedEventArgs eventArgs)
             : base(sender, eventArgs)
         {
         }
@@ -15,18 +15,18 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class ContextCreatedEventArgs
+    public class ClubCreatedEventArgs
     {
-        public ContextCreatedEventArgs(String context, String owner)
+        public ClubCreatedEventArgs(String clubName, String owner)
         {
-            this.Context = context;
+            this.ClubName = clubName;
             this.Owner = owner;
         }
 
         /// <summary>
         /// The created context name.
         /// </summary>
-        public String Context { get; private set; }
+        public String ClubName { get; private set; }
 
         /// <summary>
         /// The owner of the context.

@@ -2,13 +2,12 @@
 {
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    public class Event<TEventArgs> : IEvent<TEventArgs>
+    public abstract class Event<TEventArgs> : IEvent<TEventArgs>
     {
-        public Event(object sender, TEventArgs eventArgs)
+        protected Event(object sender, TEventArgs eventArgs)
         {
             this.Sender = sender;
             this.EventArgs = eventArgs;
-            this.Handled = false;
         }
 
         /// <summary>
