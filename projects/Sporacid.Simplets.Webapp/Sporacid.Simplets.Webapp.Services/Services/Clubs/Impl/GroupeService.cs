@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -15,12 +15,12 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/groupe")]
     public class GroupeController : BaseSecureService, IGroupeService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IRepository<GroupeMembreId, GroupeMembre> groupeMembreRepository;
-        private readonly IRepository<Int32, Groupe> groupeRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<GroupeMembreId, GroupeMembre> groupeMembreRepository;
+        private readonly IEntityRepository<Int32, Groupe> groupeRepository;
 
-        public GroupeController(IRepository<Int32, Groupe> groupeRepository, IRepository<Int32, Club> clubRepository,
-            IRepository<GroupeMembreId, GroupeMembre> groupeMembreRepository)
+        public GroupeController(IEntityRepository<Int32, Groupe> groupeRepository, IEntityRepository<Int32, Club> clubRepository,
+            IEntityRepository<GroupeMembreId, GroupeMembre> groupeMembreRepository)
         {
             this.groupeRepository = groupeRepository;
             this.clubRepository = clubRepository;
@@ -100,7 +100,7 @@
         /// <param name="groupeId">The groupe id.</param>
         /// <param name="membreIds">The enumeration of group ids.</param>
         [HttpDelete, Route("{groupeId:int}/membre")]
-        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof(MembreController))]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
         public void DeleteAllMembreToGroupe(String clubName, int groupeId, IEnumerable<int> membreIds)
         {
             var groupeMembreEntities = membreIds.Select(membreId => new GroupeMembre {GroupeId = groupeId, MembreId = membreId});
@@ -129,7 +129,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="groupeId">The groupe id.</param>
         [HttpDelete, Route("{groupeId:int}")]
-        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof(MembreController))]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
         public void Delete(String clubName, int groupeId)
         {
             // Somewhat trash call to make sure the groupe is in this context. 

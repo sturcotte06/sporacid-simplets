@@ -189,10 +189,10 @@
   <ItemGroup>
     <Compile Include="App_Start\AutoFacConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
-    <Compile Include="App_Start\Modules\FilterModule.cs" />
-    <Compile Include="App_Start\Modules\CoreModule.cs" />
-    <Compile Include="App_Start\Modules\ServicesModule.cs" />
-    <Compile Include="App_Start\Modules\ToolsModule.cs" />
+    <Compile Include="Installers\FilterModule.cs" />
+    <Compile Include="Installers\CoreModule.cs" />
+    <Compile Include="Installers\ServicesModule.cs" />
+    <Compile Include="Installers\ToolsModule.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -237,11 +237,13 @@
     <Compile Include="Database\LinqToSqlDatabaseCorrections.cs" />
     <Compile Include="Database\Dto\Dbo\ConcentrationDto.cs" />
     <Compile Include="Database\Dto\Clubs\MembreDto.cs" />
+    <Compile Include="Database\Repositories\IEntityRepository.cs" />
+    <Compile Include="Database\Repositories\Impl\EntityGenericRepository.cs" />
     <Compile Include="Events\ClubCreated.cs" />
     <Compile Include="Events\PrincipalCreated.cs" />
-    <Compile Include="Events\Subscribers\ClubCreatedSubscriber.cs" />
-    <Compile Include="Events\Subscribers\FirstAuthenticationSubscriber.cs" />
-    <Compile Include="Events\Subscribers\PrincipalCreatedSubscriber.cs" />
+    <Compile Include="Events\Subscribers\OnClubCreatedCreateContext.cs" />
+    <Compile Include="Events\Subscribers\OnFirstAuthenticationCreatePrincipal.cs" />
+    <Compile Include="Events\Subscribers\OnPrincipalCreatedCreateBaseProfil.cs" />
     <Compile Include="Resources\Contracts\ContractStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

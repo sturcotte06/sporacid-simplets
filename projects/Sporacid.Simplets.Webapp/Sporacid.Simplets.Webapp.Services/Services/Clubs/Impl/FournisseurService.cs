@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -14,10 +14,10 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/fournisseur")]
     public class FournisseurController : BaseSecureService, IFournisseurService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IRepository<Int32, Fournisseur> fournisseurRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Fournisseur> fournisseurRepository;
 
-        public FournisseurController(IRepository<Int32, Fournisseur> fournisseurRepository, IRepository<Int32, Club> clubRepository)
+        public FournisseurController(IEntityRepository<Int32, Fournisseur> fournisseurRepository, IEntityRepository<Int32, Club> clubRepository)
         {
             this.fournisseurRepository = fournisseurRepository;
             this.clubRepository = clubRepository;

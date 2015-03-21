@@ -1,5 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Impl
 {
+    using System.Configuration;
+    using System.Globalization;
     using System.Linq;
     using System.Net.Http;
     using System.Reflection;
@@ -11,6 +13,7 @@
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Reflection;
+    using Sporacid.Simplets.Webapp.Tools.Threading;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -31,6 +34,13 @@
         /// <param name="actionContext">The context for the action.</param>
         public void OnAuthorization(HttpActionContext actionContext)
         {
+            // Look for credentials in the request.
+            var request = actionContext.Request;
+
+            // Sets the culture if possible.
+            var cultureHeader = request.Headers.AcceptLanguage.FirstOrDefault();
+            Thread.CurrentThread.ToCulture(cultureHeader != null ? cultureHeader.Value : ConfigurationManager.AppSettings["DefaultLanguage"]);
+
             var serviceType = actionContext.ControllerContext.Controller.GetType();
             var serviceMethod = GetMethodInfoFromActionContext(actionContext);
 

@@ -8,9 +8,9 @@
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Tools.Collections;
 
@@ -19,12 +19,12 @@
     [RoutePrefix(BasePath + "/{context:alpha}/administration")]
     public class ContextAdministrationController : BaseSecureService, IContextAdministrationService
     {
-        private readonly IRepository<Int32, Context> contextRepository;
-        private readonly IRepository<Int32, Principal> principalRepository;
-        private readonly IRepository<Int32, RoleTemplate> roleTemplateRepository;
+        private readonly ISecurityRepository<Int32, Context> contextRepository;
+        private readonly ISecurityRepository<Int32, Principal> principalRepository;
+        private readonly ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository;
 
-        public ContextAdministrationController(IRepository<Int32, Principal> principalRepository, IRepository<Int32, RoleTemplate> roleTemplateRepository,
-            IRepository<Int32, Context> contextRepository)
+        public ContextAdministrationController(ISecurityRepository<Int32, Principal> principalRepository, ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository,
+            ISecurityRepository<Int32, Context> contextRepository)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;

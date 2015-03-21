@@ -135,6 +135,7 @@
     <Compile Include="Threading\Pooling\WorkItemCancellationToken.cs" />
     <Compile Include="Threading\Pooling\WorkItemOptions.cs" />
     <Compile Include="Threading\Pooling\WorkItemResult.cs" />
+    <Compile Include="Threading\ThreadingExtensions.cs" />
     <Compile Include="Threading\Timers\ITimer.cs" />
     <Compile Include="Threading\Timers\TimeoutTimer.cs" />
     <Compile Include="Threading\Void.cs" />

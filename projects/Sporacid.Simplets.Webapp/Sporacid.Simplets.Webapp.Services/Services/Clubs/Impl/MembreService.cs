@@ -8,6 +8,7 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -15,10 +16,10 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/membre")]
     public class MembreController : BaseSecureService, IMembreService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IRepository<Int32, Membre> membreRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Membre> membreRepository;
 
-        public MembreController(IRepository<Int32, Membre> membreRepository, IRepository<Int32, Club> clubRepository)
+        public MembreController(IEntityRepository<Int32, Membre> membreRepository, IEntityRepository<Int32, Club> clubRepository)
         {
             this.membreRepository = membreRepository;
             this.clubRepository = clubRepository;

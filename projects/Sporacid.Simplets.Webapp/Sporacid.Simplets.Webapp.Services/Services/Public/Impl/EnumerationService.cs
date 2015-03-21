@@ -8,6 +8,7 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -15,13 +16,13 @@
     [RoutePrefix(BasePath + "/enumeration")]
     public class EnumerationController : BaseService, IEnumerationService
     {
-        private readonly IRepository<Int32, Concentration> concentrationRepository;
-        private readonly IRepository<Int32, StatutSuivie> statutSuivieRepository;
-        private readonly IRepository<Int32, TypeContact> typeContactRepository;
-        private readonly IRepository<Int32, Unite> uniteRepository;
+        private readonly IEntityRepository<Int32, Concentration> concentrationRepository;
+        private readonly IEntityRepository<Int32, StatutSuivie> statutSuivieRepository;
+        private readonly IEntityRepository<Int32, TypeContact> typeContactRepository;
+        private readonly IEntityRepository<Int32, Unite> uniteRepository;
 
-        public EnumerationController(IRepository<Int32, TypeContact> typeContactRepository, IRepository<Int32, Concentration> concentrationRepository,
-            IRepository<Int32, StatutSuivie> statutSuivieRepository, IRepository<Int32, Unite> uniteRepository)
+        public EnumerationController(IEntityRepository<Int32, TypeContact> typeContactRepository, IEntityRepository<Int32, Concentration> concentrationRepository,
+            IEntityRepository<Int32, StatutSuivie> statutSuivieRepository, IEntityRepository<Int32, Unite> uniteRepository)
         {
             this.typeContactRepository = typeContactRepository;
             this.concentrationRepository = concentrationRepository;

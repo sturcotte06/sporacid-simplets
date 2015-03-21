@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Public.Impl
 {
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Security.Events.Subscribers;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -16,8 +15,6 @@
         [HttpGet, Route("no-op")]
         public void NoOp()
         {
-
-            var t = typeof(OnPrincipalAuthenticatedCacheToken);
         }
     }
 }

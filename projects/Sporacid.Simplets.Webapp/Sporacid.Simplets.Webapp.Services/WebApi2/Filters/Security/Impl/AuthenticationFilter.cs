@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Globalization;
     using System.Linq;
     using System.Net;
@@ -18,6 +19,7 @@
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
     using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
     using Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Credentials;
+    using Sporacid.Simplets.Webapp.Tools.Threading;
     using IAuthenticationModule = Sporacid.Simplets.Webapp.Core.Security.Authentication.IAuthenticationModule;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -46,15 +48,8 @@
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
-            // Get the culture header if it exists.
             var cultureHeader = request.Headers.AcceptLanguage.FirstOrDefault();
-            if (cultureHeader != null)
-            {
-                // Set specific culture requested by client.
-                var cultureInfo = CultureInfo.CreateSpecificCulture(cultureHeader.Value);
-                Thread.CurrentThread.CurrentCulture = cultureInfo;
-                Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            }
+            Thread.CurrentThread.ToCulture(cultureHeader != null ? cultureHeader.Value : ConfigurationManager.AppSettings["DefaultLanguage"]);
 
             // If there are no credentials, throw.
             if (authorization == null)

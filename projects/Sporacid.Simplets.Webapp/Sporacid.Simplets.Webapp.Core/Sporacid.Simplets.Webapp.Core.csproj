@@ -130,7 +130,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExceptionStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\Database\Repositories\ISecurityRepository.cs" />
     <Compile Include="Security\Events\PrincipalAuthenticated.cs" />
+    <Compile Include="Security\Events\PrincipalAuthorized.cs" />
     <Compile Include="Security\Events\Subscribers\OnPrincipalAuthenticatedCacheToken.cs" />
     <Compile Include="Security\Authentication\Impl\PrincipalIdentity.cs" />
     <Compile Include="Security\Authentication\Impl\TokenAndPrincipal.cs" />
@@ -168,7 +170,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Security.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Security\Database\SecurityGenericRepository.cs" />
+    <Compile Include="Security\Database\Repositories\Impl\SecurityGenericRepository.cs" />
     <Compile Include="Security\Ldap\ILdapSearcher.cs" />
     <Compile Include="Security\Ldap\ILdapUser.cs" />
     <Compile Include="Security\Ldap\Impl\ActiveDirectorySearcher.cs" />

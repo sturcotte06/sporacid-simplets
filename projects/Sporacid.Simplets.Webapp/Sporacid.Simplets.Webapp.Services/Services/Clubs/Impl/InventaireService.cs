@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -14,10 +14,10 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/inventaire")]
     public class InventaireController : BaseSecureService, IInventaireService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IRepository<Int32, Item> itemRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Item> itemRepository;
 
-        public InventaireController(IRepository<Int32, Item> itemRepository, IRepository<Int32, Club> clubRepository)
+        public InventaireController(IEntityRepository<Int32, Item> itemRepository, IEntityRepository<Int32, Club> clubRepository)
         {
             this.itemRepository = itemRepository;
             this.clubRepository = clubRepository;

@@ -1,12 +1,7 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Modules
+﻿namespace Sporacid.Simplets.Webapp.Services.Installers
 {
     using System;
-    using System.Collections.Generic;
     using Autofac;
-    using Autofac.Builder;
-    using Autofac.Core;
-    using Sporacid.Simplets.Webapp.Core.Security.Authentication;
-    using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies;
     using Sporacid.Simplets.Webapp.Tools.Collections.Caches.Policies.Invalidation;

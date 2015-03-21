@@ -7,9 +7,9 @@
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
 
@@ -19,9 +19,9 @@
     public class ClubAdministrationController : BaseSecureService, IClubAdministrationService, IEventPublisher<ClubCreated, ClubCreatedEventArgs>
     {
         private readonly IEventBus<ClubCreated, ClubCreatedEventArgs> clubCreatedEventBus;
-        private readonly IRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
 
-        public ClubAdministrationController(IRepository<Int32, Club> clubRepository, IEventBus<ClubCreated, ClubCreatedEventArgs> clubCreatedEventBus)
+        public ClubAdministrationController(IEntityRepository<Int32, Club> clubRepository, IEventBus<ClubCreated, ClubCreatedEventArgs> clubCreatedEventBus)
         {
             this.clubCreatedEventBus = clubCreatedEventBus;
             this.clubRepository = clubRepository;

@@ -1,19 +1,11 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Modules
+﻿namespace Sporacid.Simplets.Webapp.Services.Installers
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
-    using System.Data.Linq;
     using System.Linq;
-    using System.Reflection;
-    using System.Web;
     using Autofac;
-    using Autofac.Builder;
-    using Autofac.Core;
     using Sporacid.Simplets.Webapp.Core.Events;
     using Sporacid.Simplets.Webapp.Core.Events.Impl;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
-    using Sporacid.Simplets.Webapp.Core.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Authentication.Tokens.Factories;
@@ -23,10 +15,13 @@
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
-    using Sporacid.Simplets.Webapp.Core.Security.Events.Subscribers;
+    using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories;
+    using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap.Impl;
     using Sporacid.Simplets.Webapp.Services.Database;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories.Impl;
     using Sporacid.Simplets.Webapp.Services.Services;
     using Module = Autofac.Module;
 
@@ -54,28 +49,8 @@
                 .WithParameter(TypedParameter.From(connectionString));
 
             // Repositories registrations.
-            builder.RegisterGeneric(typeof (GenericRepository<,>)).As(typeof (IRepository<,>))
-                .OnPreparing(args =>
-                {
-                    var firstService = args.Component.Services.FirstOrDefault() as TypedService;
-                    if (firstService != null)
-                    {
-                        // Repositories second generic is the entity type.
-                        var entityType = firstService.ServiceType.GetGenericArguments()[1];
-                        var entityNamespace = (entityType ?? typeof (object)).Namespace ?? "";
-                        var newParams = new List<Parameter>(args.Parameters);
-                        if (entityNamespace.StartsWith("Sporacid.Simplets.Webapp.Services"))
-                        {
-                            newParams.Add(new TypedParameter(typeof (DataContext), args.Context.Resolve<DatabaseDataContext>()));
-                        }
-                        else if (entityNamespace.Contains("Sporacid.Simplets.Webapp.Core"))
-                        {
-                            newParams.Add(new TypedParameter(typeof (DataContext), args.Context.Resolve<SecurityDataContext>()));
-                        }
-
-                        args.Parameters = newParams;
-                    }
-                });
+            builder.RegisterGeneric(typeof (EntityGenericRepository<,>)).As(typeof (IEntityRepository<,>));
+            builder.RegisterGeneric(typeof (SecurityGenericRepository<,>)).As(typeof (ISecurityRepository<,>));
 
             // Security database boostrap registrations.
             builder.RegisterType<SecurityDatabaseBootstrapper>().As<ISecurityDatabaseBootstrapper>();
@@ -94,13 +69,12 @@
             builder.RegisterType<KerberosAuthenticationModule>().As<IAuthenticationModule>()
                 .WithParameter(TypedParameter.From(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]));
             builder.RegisterType<TokenAuthenticationModule>().As<IAuthenticationModule>();
-
-
+            
             // Register event bus registrations.
             builder.RegisterGeneric(typeof (SyncTransientEventBus<,>)).As(typeof (IEventBus<,>));
 
             // Event subscribers registrations.
-            builder.RegisterAssemblyTypes(typeof(IService).Assembly, typeof(IAuthenticationModule).Assembly)
+            builder.RegisterAssemblyTypes(typeof (IService).Assembly, typeof (IAuthenticationModule).Assembly)
                 .Where(type => type.GetInterfaces().Any(@interface => @interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof (IEventSubscriber<,>)))
                 .AsImplementedInterfaces();
         }

@@ -6,7 +6,7 @@
     using System.Web.Http;
     using Autofac;
     using Autofac.Integration.WebApi;
-    using Sporacid.Simplets.Webapp.Services.Modules;
+    using Sporacid.Simplets.Webapp.Services.Installers;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -21,14 +21,7 @@
             builder.RegisterModule<CoreModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<FilterModule>();
-
-            // Register the http context as an injectable.
-            //builder.Register(c => HttpContext.Current != null ?
-            //    new HttpContextWrapper(HttpContext.Current) :
-            //    c.Resolve<HttpRequestMessage>().Properties["MS_HttpContext"])
-            //    .As<HttpContextBase>()
-            //    .InstancePerRequest();
-
+            
             // Let the dependency injector filters.
             builder.RegisterWebApiFilterProvider(config);
 

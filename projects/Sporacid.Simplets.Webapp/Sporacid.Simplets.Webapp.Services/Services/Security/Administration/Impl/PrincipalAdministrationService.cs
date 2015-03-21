@@ -5,8 +5,8 @@
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Events;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
 
@@ -15,9 +15,10 @@
     public class PrincipalAdministrationController : BaseSecureService, IPrincipalAdministrationService, IEventPublisher<PrincipalCreated, PrincipalCreatedEventArgs>
     {
         private readonly IEventBus<PrincipalCreated, PrincipalCreatedEventArgs> principalCreatedEventBus;
-        private readonly IRepository<Int32, Principal> principalRepository;
+        private readonly ISecurityRepository<Int32, Principal> principalRepository;
 
-        public PrincipalAdministrationController(IEventBus<PrincipalCreated, PrincipalCreatedEventArgs> principalCreatedEventBus, IRepository<Int32, Principal> principalRepository)
+        public PrincipalAdministrationController(IEventBus<PrincipalCreated, PrincipalCreatedEventArgs> principalCreatedEventBus,
+            ISecurityRepository<Int32, Principal> principalRepository)
         {
             this.principalRepository = principalRepository;
             this.principalCreatedEventBus = principalCreatedEventBus;

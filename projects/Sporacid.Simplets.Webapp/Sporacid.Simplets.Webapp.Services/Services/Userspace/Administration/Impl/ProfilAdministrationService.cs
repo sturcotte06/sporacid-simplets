@@ -7,6 +7,7 @@
     using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Ldap;
     using Sporacid.Simplets.Webapp.Services.Database;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -14,9 +15,9 @@
     public class ProfilAdministrationController : BaseSecureService, IProfilAdministrationService
     {
         private readonly ILdapSearcher ldapSearcher;
-        private readonly IRepository<Int32, Profil> profilRepository;
+        private readonly IEntityRepository<Int32, Profil> profilRepository;
 
-        public ProfilAdministrationController(ILdapSearcher ldapSearcher, IRepository<Int32, Profil> profilRepository)
+        public ProfilAdministrationController(ILdapSearcher ldapSearcher, IEntityRepository<Int32, Profil> profilRepository)
         {
             this.profilRepository = profilRepository;
             this.ldapSearcher = ldapSearcher;

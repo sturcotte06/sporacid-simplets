@@ -1,6 +1,5 @@
-﻿namespace Sporacid.Simplets.Webapp.Services.Modules
+﻿namespace Sporacid.Simplets.Webapp.Services.Installers
 {
-    using System.Linq;
     using System.Reflection;
     using Autofac;
     using Autofac.Integration.WebApi;

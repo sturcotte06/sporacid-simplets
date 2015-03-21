@@ -4,23 +4,22 @@
     using System.Collections.Generic;
     using System.Data.Linq.SqlClient;
     using System.Linq;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public class RoleBootstrapper : IRoleBootstrapper
     {
-        private readonly IRepository<Int32, Claim> claimRepository;
-        private readonly IRepository<Int32, Module> moduleRepository;
-        private readonly IRepository<Int32, RoleTemplate> roleRepository;
+        private readonly ISecurityRepository<Int32, Claim> claimRepository;
+        private readonly ISecurityRepository<Int32, Module> moduleRepository;
+        private readonly ISecurityRepository<Int32, RoleTemplate> roleRepository;
         private RoleModuleBindings currentRoleModuleBindings = new RoleModuleBindings();
         private List<RoleModuleBindings> roleModuleBindings = new List<RoleModuleBindings>();
 
-        public RoleBootstrapper(IRepository<Int32, RoleTemplate> roleRepository,
-            IRepository<Int32, Module> moduleRepository,
-            IRepository<Int32, Claim> claimRepository)
+        public RoleBootstrapper(ISecurityRepository<Int32, RoleTemplate> roleRepository, ISecurityRepository<Int32, Module> moduleRepository,
+            ISecurityRepository<Int32, Claim> claimRepository)
         {
             this.roleRepository = roleRepository;
             this.moduleRepository = moduleRepository;

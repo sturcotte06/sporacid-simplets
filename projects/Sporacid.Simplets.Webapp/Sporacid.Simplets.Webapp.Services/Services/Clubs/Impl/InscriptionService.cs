@@ -3,23 +3,22 @@
     using System;
     using System.Linq;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
-    using Sporacid.Simplets.Webapp.Services.Services.Userspace.Administration;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [RoutePrefix(BasePath + "/{clubName:alpha}/inscription")]
     public class InscriptionController : BaseSecureService, IInscriptionService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
         private readonly IContextAdministrationService contextAdministrationService;
-        private readonly IRepository<Int32, Membre> membreRepository;
+        private readonly IEntityRepository<Int32, Membre> membreRepository;
         private readonly IPrincipalAdministrationService principalAdministrationService;
 
         public InscriptionController(IContextAdministrationService contextAdministrationService, IPrincipalAdministrationService principalAdministrationService,
-            IRepository<Int32, Club> clubRepository, IRepository<Int32, Membre> membreRepository)
+            IEntityRepository<Int32, Club> clubRepository, IEntityRepository<Int32, Membre> membreRepository)
         {
             this.contextAdministrationService = contextAdministrationService;
             this.principalAdministrationService = principalAdministrationService;
@@ -35,10 +34,10 @@
         [HttpPost, Route("{codeUniversel}")]
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
-            if (!principalAdministrationService.Exists(codeUniversel))
+            if (!this.principalAdministrationService.Exists(codeUniversel))
             {
                 // User never logged in. Create its principal and base profil.
-                principalAdministrationService.Create(codeUniversel);
+                this.principalAdministrationService.Create(codeUniversel);
             }
 
             var defaultRole = SecurityConfig.Role.Noob.ToString();

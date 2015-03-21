@@ -9,6 +9,7 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -16,10 +17,10 @@
     [RoutePrefix(BasePath + "/{codeUniversel}/profil")]
     public class ProfilController : BaseSecureService, IProfilService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IRepository<Int32, Profil> profilRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Profil> profilRepository;
 
-        public ProfilController(IRepository<Int32, Profil> profilRepository, IRepository<Int32, Club> clubRepository)
+        public ProfilController(IEntityRepository<Int32, Profil> profilRepository, IEntityRepository<Int32, Club> clubRepository)
         {
             this.profilRepository = profilRepository;
             this.clubRepository = clubRepository;

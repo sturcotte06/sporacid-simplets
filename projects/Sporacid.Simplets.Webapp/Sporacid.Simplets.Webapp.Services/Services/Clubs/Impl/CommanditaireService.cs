@@ -7,6 +7,7 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -14,10 +15,10 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/commanditaire")]
     public class CommanditaireController : BaseSecureService, ICommanditaireService
     {
-        private readonly IRepository<Int32, Club> clubRepository;
-        private readonly IRepository<Int32, Commanditaire> commanditaireRepository;
+        private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<Int32, Commanditaire> commanditaireRepository;
 
-        public CommanditaireController(IRepository<Int32, Commanditaire> commanditaireRepository, IRepository<Int32, Club> clubRepository)
+        public CommanditaireController(IEntityRepository<Int32, Commanditaire> commanditaireRepository, IEntityRepository<Int32, Club> clubRepository)
         {
             this.commanditaireRepository = commanditaireRepository;
             this.clubRepository = clubRepository;

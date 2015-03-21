@@ -4,21 +4,21 @@
     using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Reflection;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
+    using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories;
     using Module = Sporacid.Simplets.Webapp.Core.Security.Database.Module;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     public class SecurityDatabaseBootstrapper : ISecurityDatabaseBootstrapper
     {
-        private readonly IRepository<Int32, Claim> claimsRepository;
-        private readonly IRepository<Int32, Context> contextRepository;
-        private readonly IRepository<Int32, Module> moduleRepository;
+        private readonly ISecurityRepository<Int32, Claim> claimsRepository;
+        private readonly ISecurityRepository<Int32, Context> contextRepository;
+        private readonly ISecurityRepository<Int32, Module> moduleRepository;
 
-        public SecurityDatabaseBootstrapper(IRepository<Int32, Module> moduleRepository, IRepository<Int32, Claim> claimsRepository,
-            IRepository<Int32, Context> contextRepository)
+        public SecurityDatabaseBootstrapper(ISecurityRepository<Int32, Module> moduleRepository, ISecurityRepository<Int32, Claim> claimsRepository,
+            ISecurityRepository<Int32, Context> contextRepository)
         {
             this.moduleRepository = moduleRepository;
             this.claimsRepository = claimsRepository;

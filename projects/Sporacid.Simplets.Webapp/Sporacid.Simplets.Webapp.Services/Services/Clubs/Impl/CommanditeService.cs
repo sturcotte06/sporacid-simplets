@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -15,10 +15,10 @@
     [RoutePrefix(BasePath + "/{clubName:alpha}/commanditaire/{commanditaireId:int}/commandite")]
     public class CommanditeController : BaseSecureService, ICommanditeService
     {
-        private readonly IRepository<Int32, Commanditaire> commanditaireRepository;
-        private readonly IRepository<Int32, Commandite> commanditeRepository;
+        private readonly IEntityRepository<Int32, Commanditaire> commanditaireRepository;
+        private readonly IEntityRepository<Int32, Commandite> commanditeRepository;
 
-        public CommanditeController(IRepository<Int32, Commanditaire> commanditaireRepository, IRepository<Int32, Commandite> commanditeRepository)
+        public CommanditeController(IEntityRepository<Int32, Commanditaire> commanditaireRepository, IEntityRepository<Int32, Commandite> commanditeRepository)
         {
             this.commanditaireRepository = commanditaireRepository;
             this.commanditeRepository = commanditeRepository;
