@@ -80,9 +80,9 @@ function ProfilBaseModelView($self, validationModelView) {
         $panel.waiting();
 
         // Update the profil entity.
-        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.update(), buildTokenAuthHeader(), self.profil()).done(function() {
-            self.endEdit();
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.update(), buildTokenAuthHeader(), self.profil()).done(function () {
             self.profil.valueHasMutated();
+            self.endEdit();
         }).fail(function(jqhxr, textStatus, ex) {
             self.error(createErrorObject(jqhxr, textStatus, ex));
         }).invoke();
@@ -134,6 +134,15 @@ function ProfilBaseModelView($self, validationModelView) {
             if (profil.concentrationId) {
                 self.concentration(stores.concentrations[profil.concentrationId]);
             }
+
+            
+            if (profil.avatar) {
+                $self.find(".profil-avatar").each(function () {
+                    $(this).css('background-image', 'url(data:image/jpg;base64,' + profil.avatar + ')');
+                });
+                alert("caca");
+            }
+            
 
             // Reactivate the view.
             $panel.active();
