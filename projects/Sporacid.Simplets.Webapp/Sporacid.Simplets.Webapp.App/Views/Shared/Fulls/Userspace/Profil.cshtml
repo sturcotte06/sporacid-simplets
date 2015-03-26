@@ -125,8 +125,8 @@
       min-width: 40px
     }
 
-    .sets-profil-avatar {
-      background-image: url(http://upload.wikimedia.org/wikipedia/en/thumb/f/ff/Polarity_cover.jpg/220px-Polarity_cover.jpg);
+    .profil-avatar {
+      /*background-image: url(http://upload.wikimedia.org/wikipedia/en/thumb/f/ff/Polarity_cover.jpg/220px-Polarity_cover.jpg);*/
       background-size: 100% auto;
       background-repeat: no-repeat;
     }
@@ -137,7 +137,7 @@
   <script type="text/javascript">
     jQuery(function($) {
       $("#login").on("logged-in", function() {
-        var $avatar = $(".sets-profil-avatar");
+        var $avatar = $(".profil-avatar");
         $avatar.height($avatar.width());
 
         $(window).on("resize", function() {
