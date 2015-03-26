@@ -31,26 +31,28 @@
         private const Claims ModifyClaims = (Claims) 207;
         private const Claims FullModifyClaims = (Claims) 255;
 
-        private static readonly String[] AllModules =
-        {
-            "ContextAdministration",
-            "ProfilAdministration",
-            "ClubAdministration",
-            "PrincipalAdministration",
-            "Club",
-            "Commandites",
-            "Commanditaires",
-            "Fournisseurs",
-            "Inventaire",
-            "Default",
-            "Enumerations",
-            "Profils",
-            "Inscriptions"
-        };
+        //private static readonly String[] AllModules =
+        //{
+        //    "ContextAdministration",
+        //    "ProfilAdministration",
+        //    "ClubAdministration",
+        //    "PrincipalAdministration",
+        //    "Club",
+        //    "Commandites",
+        //    "Commanditaires",
+        //    "Fournisseurs",
+        //    "Inventaire",
+        //    "Default",
+        //    "Enumerations",
+        //    "Profils",
+        //    "Inscriptions"
+        //};
 
         public static void Register(HttpConfiguration config)
         {
             var assembly = Assembly.GetExecutingAssembly();
+            var allModules = assembly.GetTypes().Where(type => type.GetCustomAttribute<ModuleAttribute>() != null)
+                .Select(type => type.GetCustomAttribute<ModuleAttribute>().Name).ToArray();
             var securityDatabaseBootstrapper = (ISecurityDatabaseBootstrapper) config.DependencyResolver.GetService(typeof (ISecurityDatabaseBootstrapper));
             var roleBootstrapper = (IRoleBootstrapper) config.DependencyResolver.GetService(typeof (IRoleBootstrapper));
 
@@ -60,7 +62,7 @@
             // Bootstrap the user roles of the application.
             roleBootstrapper
                 .BindClaims(AllClaims)
-                .ToModules(AllModules)
+                .ToModules(allModules)
                 .BootstrapTo(Role.Administrateur.ToString());
             roleBootstrapper
                 .BindClaims(ReadOnlyClaims)
