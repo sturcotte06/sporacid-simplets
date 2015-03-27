@@ -8,10 +8,11 @@ namespace Sporacid.Simplets.Webapp.App
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new HandleErrorAttribute());
             // Register global filter
-            GlobalFilters.Filters.Add(new LocalizationFilterAttribute());
-            GlobalFilters.Filters.Add(new HandleErrorAttribute());
-            RegisterGlobalFilters(GlobalFilters.Filters);
+            //GlobalFilters.Filters.Add(new LocalizationFilterAttribute());
+            //GlobalFilters.Filters.Add(new HandleErrorAttribute());
+            //RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
 }
