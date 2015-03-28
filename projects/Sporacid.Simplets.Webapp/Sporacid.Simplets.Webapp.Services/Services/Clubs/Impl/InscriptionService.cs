@@ -6,6 +6,9 @@
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
+    using System.Collections.Generic;
+    using Sporacid.Simplets.Webapp.Services.Services.Userspace;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -16,14 +19,17 @@
         private readonly IContextAdministrationService contextAdministrationService;
         private readonly IEntityRepository<Int32, Membre> membreRepository;
         private readonly IPrincipalAdministrationService principalAdministrationService;
+        private readonly IProfilPublicService profilPublicService;
+
 
         public InscriptionController(IContextAdministrationService contextAdministrationService, IPrincipalAdministrationService principalAdministrationService,
-            IEntityRepository<Int32, Club> clubRepository, IEntityRepository<Int32, Membre> membreRepository)
+            IEntityRepository<Int32, Club> clubRepository, IEntityRepository<Int32, Membre> membreRepository, IProfilPublicService profilPublicService)
         {
             this.contextAdministrationService = contextAdministrationService;
             this.principalAdministrationService = principalAdministrationService;
             this.clubRepository = clubRepository;
             this.membreRepository = membreRepository;
+            this.profilPublicService = profilPublicService;
         }
 
         /// <summary>
@@ -86,6 +92,25 @@
             // Remove all claims of the principal on the club.
             this.contextAdministrationService.RemoveAllClaimsFromPrincipal(clubName, codeUniversel);
             this.membreRepository.Update(membreEntity);
+        }
+
+        /// <summary>
+        /// Return all inscriton of a club entity.
+        /// </summary>
+        /// <param name="clubName">The id of the club entity.</param>
+        /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
+        /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
+        [HttpGet, Route("")]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium)]
+        public IEnumerable<dynamic> GetAllInscriptionsFromClub(String clubName, [FromUri]UInt32? skip = null, [FromUri]UInt32? take = null)
+        {
+            var membreEntities = this.membreRepository
+                .GetAll(membre => membre.Club.Nom == clubName).OptionalSkipTake(skip,take);
+
+            foreach(var membreEntity in membreEntities)
+            {
+                yield return profilPublicService.Get(membreEntity.CodeUniversel);
+            }
         }
     }
 }

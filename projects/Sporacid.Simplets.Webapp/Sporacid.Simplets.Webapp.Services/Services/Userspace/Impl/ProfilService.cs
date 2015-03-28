@@ -11,6 +11,7 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using WebApi.OutputCache.V2;
+    using Sporacid.Simplets.Webapp.Services.Services.Clubs.Impl;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -46,7 +47,7 @@
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <param name="profil">The profil.</param>
         [HttpPut, Route("")]
-        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("Get", typeof(ProfilPublicController))]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("Get", typeof(ProfilPublicController)), InvalidateCacheOutput("GetAllInscriptionsFromClub", typeof(InscriptionController))]
         public void Update(String codeUniversel, ProfilDto profil)
         {
             var profilEntity = this.profilRepository
