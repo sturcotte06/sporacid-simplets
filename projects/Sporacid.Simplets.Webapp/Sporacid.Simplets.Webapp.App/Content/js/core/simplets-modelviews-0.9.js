@@ -140,7 +140,6 @@ function ProfilBaseModelView($self, validationModelView) {
                 $self.find(".profil-avatar").each(function () {
                     $(this).css('background-image', 'url(data:image/jpg;base64,' + profil.avatar + ')');
                 });
-                alert("caca");
             }
             
 
@@ -234,24 +233,25 @@ function ProfilAvanceModelView($self, validationModelView) {
         $panel.waiting();
 
         // Load the profil entity.
-        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function (profil) {
-            // The separation between profil and profil avance is logical only.
-            self.profilAvance(profil.profilAvance);
-            // Reactivate the view.
-            $panel.active();
-            $self.trigger("loaded");
-        }).invoke();
-    };
+        //    restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function (profil) {
+        //        // The separation between profil and profil avance is logical only.
+        //        self.profilAvance(profil.profilAvance);
+        //        // Reactivate the view.
+        //        $panel.active();
+        //        $self.trigger("loaded");
+        //    }).invoke();
+        //};
 
-    // Load the entity.
-    self.load();
+        // Load the entity.
+        self.load();
+    }
 }
 
 // Prototype for a validation exception model view.
 function ValidationExceptionModelView($self) {
     // Define closure safe properties.
     var self = this;
-    
+
     // Define all onservable properties.
     self.message = ko.observable();
     self.states = ko.observableArray();
@@ -271,7 +271,7 @@ function ValidationExceptionModelView($self) {
         self.states(states);
     }
 
-    self.clear = function() {
+    self.clear = function () {
         self.message = ko.observable("");
         self.states.removeAll();
     }
@@ -299,7 +299,7 @@ function LoginModelView($self) {
         if (authCookie && authCookie !== "null" && authCookie !== "undefined") {
             // Try to log in with the token.
             var token = JSON.parse(authCookie);
-            restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildTokenAuthHeader(token.token)).done(function() {
+            restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildTokenAuthHeader(token.token)).done(function () {
                 // Worked, token is still valid.
                 self.endLogin(token);
             }).fail(function () {
@@ -319,13 +319,13 @@ function LoginModelView($self) {
         }
     };
 
-    self.login = function() {
+    self.login = function () {
         // Deactivate the view.
         $modal.waiting();
 
         // Try to do a no-op on the rest server.
         // If the user's credentials are wrong, this will throw.
-        restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildKerberosAuthHeader(self.username(), self.password())).done(function(data, textStatus, jqxhr) {
+        restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildKerberosAuthHeader(self.username(), self.password())).done(function (data, textStatus, jqxhr) {
             // Succeeded. Extract the authentication token for further calls to the api and end the login procedure.
             self.endLogin({
                 token: jqxhr.getResponseHeader("Authorization-Token"),
@@ -333,26 +333,26 @@ function LoginModelView($self) {
                 emittedAt: moment(jqxhr.getResponseHeader("Authorization-Token-Emitted-At"), moment().ISO_8601),
                 expiresAt: moment(jqxhr.getResponseHeader("Authorization-Token-Expires-At"), moment().ISO_8601)
             });
-        }).fail(function(jqhxr, textStatus, ex) {
+        }).fail(function (jqhxr, textStatus, ex) {
             self.error(createErrorObject(jqhxr, textStatus, ex));
         }).invoke();
     };
 
-    self.endLogin = function(token) {
+    self.endLogin = function (token) {
         // Reactivate the view.
         if ($modal) $modal.active();
-        
+
         // Set the static authentication token.
         authenticationToken = token;
         $.cookie('Authorization-Token', JSON.stringify(authenticationToken), { path: "/" });
-        
+
         // Hide the login modal.
         $self.modal("hide");
-        
+
         // Remove the content's blur.
         $("#page-wrapper").show();
         $("#wrapper").removeClass("blurred");
-        
+
         // Trigger a new event to wake up model views waiting on this event.
         $self.trigger("logged-in");
     };
@@ -370,4 +370,31 @@ function LoginModelView($self) {
 
     // Force authentication.
     self.beginLogin();
+}
+
+// Model view for the base profil object.
+function MemberListModelView($self, validationModelView) {
+    // Define closure safe properties.
+    var self = this;
+
+    self.membersList = ko.observable();
+
+    // Loads the profil entity from the rest services.
+    self.load = function () {
+        // Deactivate the view.
+        $panel.waiting();
+
+        // Load the profilList entity.
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, ""), operations.get(), buildTokenAuthHeader()).done(function (memberList) {
+            self.membersList(memberList);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+    };
+
+    // Load the entity.
+    self.load();
+
 }

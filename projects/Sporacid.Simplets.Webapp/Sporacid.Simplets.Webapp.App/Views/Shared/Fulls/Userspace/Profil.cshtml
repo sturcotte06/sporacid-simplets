@@ -25,6 +25,9 @@
     </div>*@
   </div>
 
+    <div class="row">
+        @Html.Partial("Partials/Userspace/_ProfilsList")
+    </div>
   <div class="row">
     <div class="col-md-6">
       @Html.Partial("Partials/Userspace/_ProfilBase")
@@ -169,6 +172,23 @@
         ko.applyBindings(profilAvanceValidationMv, $profilAvanceValidation[0]);
         ko.applyBindings(profilBaseMv, $profilBase[0]);
         ko.applyBindings(profilAvanceMv, $profilAvance[0]);
+
+        // Cache important jquery selectors.
+        var $profilList = $("#profil-list");
+        var $profilListValidation = $("#profil-list-validation-errors");
+
+        $("#profil-list").on("loaded", function () {
+            $(".page-wrapper").active();
+            $(".page-wrapper").show();
+        });
+
+          // Create modelviews.
+        var profilListValidationMv = new ValidationExceptionModelView($profilListValidation);
+        var profilListMv = new ProfilListModelView($profilList, profilListValidationMv);
+
+          // Apply all bindings.
+        ko.applyBindings(profilListValidationMv, $profilListValidation[0]);
+        ko.applyBindings(profilListMv, $profilList[0]);
       });
     });
   </script>
