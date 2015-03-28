@@ -31,33 +31,21 @@
         private const Claims ModifyClaims = (Claims) 207;
         private const Claims FullModifyClaims = (Claims) 255;
 
-        //private static readonly String[] AllModules =
-        //{
-        //    "ContextAdministration",
-        //    "ProfilAdministration",
-        //    "ClubAdministration",
-        //    "PrincipalAdministration",
-        //    "Club",
-        //    "Commandites",
-        //    "Commanditaires",
-        //    "Fournisseurs",
-        //    "Inventaire",
-        //    "Default",
-        //    "Enumerations",
-        //    "Profils",
-        //    "Inscriptions"
-        //};
-
         public static void Register(HttpConfiguration config)
         {
             var assembly = Assembly.GetExecutingAssembly();
+
+            // Query all modules of application.
             var allModules = assembly.GetTypes().Where(type => type.GetCustomAttribute<ModuleAttribute>() != null)
                 .Select(type => type.GetCustomAttribute<ModuleAttribute>().Name).ToArray();
+
+            // Get bootstrappers of security database.
             var securityDatabaseBootstrapper = (ISecurityDatabaseBootstrapper) config.DependencyResolver.GetService(typeof (ISecurityDatabaseBootstrapper));
             var roleBootstrapper = (IRoleBootstrapper) config.DependencyResolver.GetService(typeof (IRoleBootstrapper));
 
             // Bootstrap the security database.
-            securityDatabaseBootstrapper.Bootstrap(assembly, ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
+            securityDatabaseBootstrapper.Bootstrap(assembly, 
+                ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
 
             // Bootstrap the user roles of the application.
             roleBootstrapper
@@ -68,13 +56,13 @@
                 .BindClaims(ReadOnlyClaims)
                 .ToModules("Enumerations", "Default")
                 .BindClaims(AllClaims)
-                .ToModules("Inscriptions")
+                .ToModules("Membres")
                 .BindClaims(FullModifyClaims)
-                .ToModules("Administration")
+                .ToModules("Commanditaires")
                 .BootstrapTo(Role.Capitaine.ToString());
             roleBootstrapper
                 .BindClaims(ReadOnlyClaims)
-                .ToModules("Enumerations", "Default")
+                .ToModules(allModules)
                 .BootstrapTo(Role.Noob.ToString());
         }
     }

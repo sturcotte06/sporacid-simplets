@@ -2,24 +2,26 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [Module("Membres")]
     [Contextual("clubName")]
+    [ContractClass(typeof (MembreServiceContract))]
     public interface IMembreService : IService
     {
         /// <summary>
-        /// Get all membre entities from a club context.
+        /// Return all inscriton of a club entity.
         /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
+        /// <param name="clubName">The id of the club entity.</param>
         /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
-        /// <returns>The fournisseur entities.</returns>
-        [RequiredClaims(Claims.ReadAll)]
+        [RequiredClaims(Claims.Read | Claims.ReadAll)]
         IEnumerable<WithId<Int32, MembreDto>> GetAll(String clubName, UInt32? skip, UInt32? take);
 
         /// <summary>
@@ -30,8 +32,8 @@
         /// <param name="skip">Optional parameter. Specifies how many entities to skip.</param>
         /// <param name="take">Optional parameter. Specifies how many entities to take.</param>
         /// <returns>The fournisseur entities.</returns>
-        [RequiredClaims(Claims.ReadAll)]
-        IEnumerable<WithId<Int32, MembreDto>> GetAllInGroupe(String clubName, Int32 groupeId, UInt32? skip, UInt32? take);
+        [RequiredClaims(Claims.Read | Claims.ReadAll)]
+        IEnumerable<WithId<Int32, MembreDto>> GetAllFromGroupe(String clubName, Int32 groupeId, UInt32? skip, UInt32? take);
 
         /// <summary>
         /// Get a membre entity from a club context.
@@ -43,29 +45,79 @@
         MembreDto Get(String clubName, Int32 membreId);
 
         /// <summary>
-        /// Creates a membre in a club context.
+        /// Subscribes a member entity to a club entity.
         /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="membre">The membre.</param>
-        /// <returns>The created membre id.</returns>
-        [RequiredClaims(Claims.Create)]
-        Int32 Create(String clubName, MembreDto membre);
+        /// <param name="clubName">The id of the club entity.</param>
+        /// <param name="codeUniversel">The universal code that represents the user.</param>
+        [RequiredClaims(Claims.Admin | Claims.Create)]
+        void SubscribeToClub(String clubName, String codeUniversel);
 
         /// <summary>
-        /// Udates a membre in a club context.
+        /// Unsubscribes a member entity from a club entity.
         /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="membreId">The membre id.</param>
-        /// <param name="membre">The membre.</param>
-        [RequiredClaims(Claims.Update)]
-        void Update(String clubName, Int32 membreId, MembreDto membre);
+        /// <param name="clubName">The id of the club entity.</param>
+        /// <param name="codeUniversel">The universal code that represents the user.</param>
+        [RequiredClaims(Claims.Admin | Claims.Delete)]
+        void UnsubscribeFromClub(String clubName, String codeUniversel);
+    }
 
-        /// <summary>
-        /// Deletes a membre from a club context.
-        /// </summary>
-        /// <param name="clubName">The unique club name of the club entity.</param>
-        /// <param name="membreId">The membre id.</param>
-        [RequiredClaims(Claims.Delete)]
-        void Delete(String clubName, Int32 membreId);
+    /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
+    /// <version>1.9.0</version>
+    [ContractClassFor(typeof (IMembreService))]
+    internal abstract class MembreServiceContract : IMembreService
+    {
+        public IEnumerable<WithId<int, MembreDto>> GetAll(string clubName, uint? skip, uint? take)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_GetAll_RequiresClubName);
+            Contract.Requires(take == null || take > 0, ContractStrings.MembreService_GetAll_RequiresUndefinedOrPositiveTake);
+
+            // Postconditions.
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<int, MembreDto>>>() != null, ContractStrings.MembreService_GetAll_EnsuresNonNullMembres);
+
+            // Dummy return.
+            return default(IEnumerable<WithId<int, MembreDto>>);
+        }
+
+        public IEnumerable<WithId<int, MembreDto>> GetAllFromGroupe(string clubName, int groupeId, uint? skip, uint? take)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_GetAllFromGroupe_RequiresClubName);
+            Contract.Requires(take == null || take > 0, ContractStrings.MembreService_GetAllFromGroupe_RequiresUndefinedOrPositiveTake);
+            Contract.Requires(groupeId > 0, ContractStrings.MembreService_GetAllFromGroupe_RequiresPositiveGroupeId);
+
+            // Postconditions.
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<int, MembreDto>>>() != null, ContractStrings.MembreService_GetAllFromGroupe_EnsuresNonNullMembres);
+
+            // Dummy return.
+            return default(IEnumerable<WithId<int, MembreDto>>);
+        }
+
+        public MembreDto Get(string clubName, int membreId)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_Get_RequiresClubName);
+            Contract.Requires(membreId > 0, ContractStrings.MembreService_Get_RequiresPositiveMembreId);
+
+            // Postconditions.
+            Contract.Ensures(Contract.Result<MembreDto>() != null, ContractStrings.MembreService_Get_EnsuresNonNullMembre);
+
+            // Dummy return.
+            return default(MembreDto);
+        }
+
+        public void SubscribeToClub(String clubName, String codeUniversel)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_SubscribeToClub_RequiresClubName);
+            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.MembreService_SubscribeToClub_RequiresCodeUniversel);
+        }
+
+        public void UnsubscribeFromClub(String clubName, String codeUniversel)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_UnsubscribeFromClub_RequiresClubName);
+            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.MembreService_UnsubscribeFromClub_RequiresCodeUniversel);
+        }
     }
 }

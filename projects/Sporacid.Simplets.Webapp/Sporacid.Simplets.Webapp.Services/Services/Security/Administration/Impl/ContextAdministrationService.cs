@@ -127,8 +127,8 @@
             {
                 Principal = principalEntity,
                 ContextId = contextEntity.Id,
-                Claims = roleTemplateModuleClaims.Claims,
-                ModuleId = roleTemplateModuleClaims.ModuleId
+                ModuleId = roleTemplateModuleClaims.ModuleId,
+                Claims = roleTemplateModuleClaims.Claims
             }));
 
             // Update the principal.
@@ -155,18 +155,81 @@
         [HttpDelete, Route("unbind-claims-from/{identity}")]
         public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
-            // Get all required entities.
-            var contextEntity = this.contextRepository
-                .GetUnique(context2 => context2.Name == context);
             var principalEntity = this.principalRepository
                 .GetUnique(principal => principal.Identity == identity);
 
             // Remove all claims from the principal for this context.
             var principalClaimsOnContext = principalEntity.PrincipalModuleContextClaims
-                .Where(pc => pc.ContextId == contextEntity.Id).ToList();
+                .Where(pc => pc.Context.Name == context)
+                .ToList();
             principalClaimsOnContext.ForEach(pc => principalEntity.PrincipalModuleContextClaims.Remove(pc));
 
             // Update the principal.
+            this.principalRepository.Update(principalEntity);
+        }
+
+        /// <summary>
+        /// Merges the claims of a given principal on a given context with the claims given by a role.
+        /// For example, if a principal has the "read" claim on "context1" and the role "role1" has the
+        /// "create" claim, then the principal would end up with "read" and "create" on "context1".
+        /// </summary>
+        /// <param name="context">The context name.</param>
+        /// <param name="role">The role name.</param>
+        /// <param name="identity">The principal's identity.</param>
+        /// <exception cref="EntityNotFoundException{Context}">
+        /// If the context does not exist.
+        /// </exception>
+        /// <exception cref="EntityNotFoundException{RoleTemplate}">
+        /// If the role does not exist.
+        /// </exception>
+        /// <exception cref="EntityNotFoundException{Principal}">
+        /// If the principal's identity does not exist.
+        /// </exception>
+        /// <exception cref="RepositoryException">
+        /// If something unexpected occurs while merging the role to the principal in the given context.
+        /// </exception>
+        /// <exception cref="CoreException">
+        /// If something unexpected occurs.
+        /// </exception>
+        public void MergeClaimsOfPrincipalWithRole(string context, string role, string identity)
+        {
+            var contextEntity = this.contextRepository
+                .GetUnique(context2 => context2.Name == context);
+            var roleTemplateEntity = this.roleTemplateRepository
+                .GetUnique(roleTemplate => roleTemplate.Name == role);
+            var principalEntity = this.principalRepository
+                .GetUnique(principal => principal.Identity == identity);
+
+            var principalContextClaims = principalEntity.PrincipalModuleContextClaims
+                .Where(pmcc => pmcc.Context.Name == context)
+                .ToList();
+
+            // Foreach claims of the role template.
+            roleTemplateEntity.RoleTemplateModuleClaims.ForEach(roleTemplateModuleClaims =>
+            {
+                var principalModuleContextClaims = principalContextClaims
+                    .FirstOrDefault(pmcc => pmcc.Module.Name == roleTemplateModuleClaims.Module.Name);
+
+                // Check if the claims exists on principal.
+                if (principalModuleContextClaims != null)
+                {
+                    // Claims already exists, merge the claims.
+                    principalModuleContextClaims.Claims |= roleTemplateModuleClaims.Claims;
+                }
+                else
+                {
+                    // Claims do not exist, add them.
+                    principalEntity.PrincipalModuleContextClaims.Add(new PrincipalModuleContextClaims
+                    {
+                        Principal = principalEntity,
+                        ContextId = contextEntity.Id,
+                        ModuleId = roleTemplateModuleClaims.ModuleId,
+                        Claims = roleTemplateModuleClaims.Claims
+                    });
+                }
+            });
+
+            // Update the all claims.
             this.principalRepository.Update(principalEntity);
         }
     }

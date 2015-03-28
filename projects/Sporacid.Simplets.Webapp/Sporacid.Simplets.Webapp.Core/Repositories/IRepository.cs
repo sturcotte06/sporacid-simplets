@@ -106,6 +106,11 @@
         /// </summary>
         /// <param name="entities">The entities.</param>
         void UpdateAll(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Forces the repository to refreshes itself.
+        /// </summary>
+        void Refresh();
     }
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -299,6 +304,13 @@
             // Preconditions.
             Contract.Requires(entities != null && Contract.ForAll(entities, entity => entity != null),
                 ContractStrings.Repository_UpdateAll_RequiresEntities);
+        }
+
+        /// <summary>
+        /// Forces the repository to refreshes itself.
+        /// </summary>
+        public void Refresh()
+        {
         }
     }
 }

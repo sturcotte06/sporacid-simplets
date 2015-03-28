@@ -52,7 +52,7 @@
         public static IQueryable<WithId<Int32, TEntityDestination>> MapAllWithIds<TEntitySource, TEntityDestination>(this IQueryable<TEntitySource> sourceEntitiesQuery)
             where TEntitySource : IHasId<Int32>
         {
-            return sourceEntitiesQuery.MapAllWithIds<TEntitySource, Int32, TEntityDestination>();
+            return sourceEntitiesQuery.MapAllWithIds<Int32, TEntitySource, TEntityDestination>();
         }
 
         /// <summary>
@@ -64,14 +64,24 @@
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
         /// <param name="sourceEntitiesQuery">The source entities query.</param>
         /// <returns>The query for destination entities with their ids.</returns>
-        public static IQueryable<WithId<TEntitySourceId, TEntityDestination>> MapAllWithIds<TEntitySource, TEntitySourceId, TEntityDestination>(
+        public static IQueryable<WithId<TEntitySourceId, TEntityDestination>> MapAllWithIds<TEntitySourceId, TEntitySource, TEntityDestination>(
             this IQueryable<TEntitySource> sourceEntitiesQuery) where TEntitySource : IHasId<TEntitySourceId>
         {
             return sourceEntitiesQuery
-                .Select(sourceEntity =>
-                    new WithId<TEntitySourceId, TEntityDestination>(
-                        sourceEntity.Id,
-                        Mapper.Map<TEntitySource, TEntityDestination>(sourceEntity)));
+                .Select(sourceEntity => sourceEntity.MapWithId<TEntitySourceId, TEntitySource, TEntityDestination>());
+        }
+
+        /// <summary>
+        /// Maps a source entity to a destination entity with the source id.
+        /// </summary>
+        /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
+        /// <typeparam name="TEntitySourceId">Type of the source entity id.</typeparam>
+        /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
+        /// <param name="sourceEntity">The source entity.</param>
+        /// <returns>The destination entity with its id.</returns>
+        public static WithId<TEntitySourceId, TEntityDestination> MapWithId<TEntitySourceId, TEntitySource, TEntityDestination>(this TEntitySource sourceEntity) where TEntitySource : IHasId<TEntitySourceId>
+        {
+            return new WithId<TEntitySourceId, TEntityDestination>(sourceEntity.Id, Mapper.Map<TEntitySource, TEntityDestination>(sourceEntity));
         }
 
         /// <summary>

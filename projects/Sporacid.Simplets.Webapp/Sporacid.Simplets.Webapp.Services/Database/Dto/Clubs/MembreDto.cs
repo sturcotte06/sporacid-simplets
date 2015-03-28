@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -27,5 +28,7 @@
         [Required(ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "MembreDto_Actif_Required")]
         public Boolean Actif { get; set; }
+
+        public ProfilPublicDto ProfilPublic { get; set; }
     }
 }

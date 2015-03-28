@@ -6,6 +6,7 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
+    using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -77,6 +78,8 @@
                 .IgnoreUnmappedProperties().ReverseMap();
             Mapper.CreateMap<Profil, ProfilDto>()
                 .IgnoreUnmappedProperties().ReverseMap();
+            Mapper.CreateMap<Profil, ProfilPublicDto>()
+                .IgnoreUnmappedProperties().ReverseMap();
 
             // Assert that we have not screwed up.
             Mapper.AssertConfigurationIsValid();
@@ -90,14 +93,14 @@
         public static IMappingExpression<TSource, TDestination> IgnoreUnmappedProperties<TSource, TDestination>(this IMappingExpression<TSource, TDestination> expression)
         {
             var typeMap = Mapper.FindTypeMapFor<TSource, TDestination>();
-            if (typeMap != null)
-            {
-                foreach (var unmappedPropertyName in typeMap.GetUnmappedPropertyNames())
-                {
-                    expression.ForMember(unmappedPropertyName, opt => opt.Ignore());
-                }
-            }
+            if (typeMap == null) return expression;
 
+            // foreach (var unmappedPropertyName in typeMap.GetUnmappedPropertyNames())
+            // {
+            //     expression.ForMember(unmappedPropertyName, opt => opt.Ignore());
+            // }
+
+            typeMap.GetUnmappedPropertyNames().ForEach(unmappedPropertyName => expression.ForMember(unmappedPropertyName, opt => opt.Ignore()));
             return expression;
         }
     }

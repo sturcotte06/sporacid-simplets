@@ -39,9 +39,16 @@
         /// <returns>All club entities subscribed to.</returns>
         [RequiredClaims(Claims.Admin | Claims.Read)]
         IEnumerable<WithId<Int32, ClubDto>> GetClubsSubscribedTo(String codeUniversel);
+
+        /// <summary>
+        /// Gets the public profil entity from the system.
+        /// </summary>
+        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
+        /// <returns>The public profil.</returns>
+        [RequiredClaims(Claims.None)]
+        ProfilPublicDto GetPublic(String codeUniversel);
     }
-
-
+    
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
     [ContractClassFor(typeof (IProfilService))]
@@ -91,6 +98,23 @@
 
             // Dummy return.
             return default(IEnumerable<WithId<Int32, ClubDto>>);
+        }
+
+        /// <summary>
+        /// Gets the public profil entity from the system.
+        /// </summary>
+        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
+        /// <returns>The public profil.</returns>
+        public ProfilPublicDto GetPublic(String codeUniversel)
+        {
+            // Preconditions.
+            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.ProfilService_GetPublic_RequiresCodeUniversel);
+
+            // Postconditions.
+            Contract.Ensures(Contract.Result<ProfilPublicDto>() != null, ContractStrings.ProfilService_GetPublic_EnsuresNonNullPublicProfil);
+
+            // Dummy return.
+            return default(ProfilPublicDto);
         }
     }
 }

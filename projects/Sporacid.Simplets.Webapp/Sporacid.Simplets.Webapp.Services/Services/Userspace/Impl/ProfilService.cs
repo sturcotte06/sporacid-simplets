@@ -4,14 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
+    using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Database.Repositories;
-    using WebApi.OutputCache.V2;
     using Sporacid.Simplets.Webapp.Services.Services.Clubs.Impl;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -19,12 +19,15 @@
     public class ProfilController : BaseSecureService, IProfilService
     {
         private readonly IEntityRepository<Int32, Club> clubRepository;
+        private readonly IEntityRepository<ContactUrgenceId, ContactUrgence> contactUrgenceRepository;
         private readonly IEntityRepository<Int32, Profil> profilRepository;
 
-        public ProfilController(IEntityRepository<Int32, Profil> profilRepository, IEntityRepository<Int32, Club> clubRepository)
+        public ProfilController(IEntityRepository<Int32, Profil> profilRepository, IEntityRepository<Int32, Club> clubRepository,
+            IEntityRepository<ContactUrgenceId, ContactUrgence> contactUrgenceRepository)
         {
             this.profilRepository = profilRepository;
             this.clubRepository = clubRepository;
+            this.contactUrgenceRepository = contactUrgenceRepository;
         }
 
         /// <summary>
@@ -47,7 +50,10 @@
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <param name="profil">The profil.</param>
         [HttpPut, Route("")]
-        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("Get", typeof(ProfilPublicController)), InvalidateCacheOutput("GetAllInscriptionsFromClub", typeof(InscriptionController))]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetPublic"),
+         InvalidateCacheOutput("GetAll", typeof (MembreController)),
+         InvalidateCacheOutput("Get", typeof (MembreController)),
+         InvalidateCacheOutput("GetAllFromGroupe", typeof (MembreController))]
         public void Update(String codeUniversel, ProfilDto profil)
         {
             var profilEntity = this.profilRepository
@@ -67,6 +73,35 @@
             return this.clubRepository
                 .GetAll(club => club.Membres.Any(membre => membre.CodeUniversel == codeUniversel))
                 .MapAllWithIds<Club, ClubDto>();
+        }
+
+        /// <summary>
+        /// Gets the public profil entity from the system.
+        /// </summary>
+        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
+        /// <returns>The public profil.</returns>
+        [HttpGet, Route("public")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.VeryLong)]
+        public ProfilPublicDto GetPublic(String codeUniversel)
+        {
+            var profilEntity = this.profilRepository
+                .GetUnique(profil => codeUniversel == profil.CodeUniversel);
+
+            // Map the profil to a public profil dto.
+            var profilPublic = profilEntity.MapTo<Profil, ProfilPublicDto>();
+
+            // Sets all non-public data to null.
+            profilPublic.ProfilAvance = profilPublic.ProfilAvance.Public ? profilPublic.ProfilAvance : null;
+            profilPublic.Formations = profilPublic.Formations.Where(formation => formation.Public);
+            profilPublic.Antecedents = profilPublic.Antecedents.Where(antecedent => antecedent.Public);
+
+            // Query the contact differently, because of n to n relationship between contacts and profil.
+            profilPublic.Contacts = this.contactUrgenceRepository
+                .GetAll(contactUrgence => contactUrgence.Public && contactUrgence.Profil.CodeUniversel == codeUniversel)
+                .Select(contactUrgence => contactUrgence.Contact)
+                .MapAll<Contact, ContactDto>();
+
+            return profilPublic;
         }
     }
 }

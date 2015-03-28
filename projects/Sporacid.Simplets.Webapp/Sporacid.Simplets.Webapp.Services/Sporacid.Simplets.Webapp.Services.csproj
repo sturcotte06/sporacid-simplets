@@ -189,6 +189,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AutoFacConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="Database\Dto\Userspace\ProfilPublicDto.cs" />
     <Compile Include="Installers\FilterModule.cs" />
     <Compile Include="Installers\CoreModule.cs" />
     <Compile Include="Installers\ServicesModule.cs" />
@@ -267,14 +268,12 @@
     <Compile Include="Services\Clubs\IGroupeService.cs" />
     <Compile Include="Services\Clubs\IInventaireService.cs" />
     <Compile Include="Services\Clubs\IMeetingService.cs" />
-    <Compile Include="Services\Clubs\IMembreService.cs" />
     <Compile Include="Services\Clubs\Impl\CommanditaireService.cs" />
     <Compile Include="Services\Clubs\Impl\CommanditeService.cs" />
     <Compile Include="Services\Clubs\Impl\FournisseurService.cs" />
     <Compile Include="Services\Clubs\Impl\GroupeService.cs" />
     <Compile Include="Services\Clubs\Impl\InventaireService.cs" />
     <Compile Include="Services\Clubs\Impl\MeetingService.cs" />
-    <Compile Include="Services\Clubs\Impl\MembreService.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\Public\IAnonymousService.cs" />
     <Compile Include="Services\Public\IDescriptionService.cs" />
@@ -286,16 +285,14 @@
     <Compile Include="Services\Security\IContextService.cs" />
     <Compile Include="Services\Security\Impl\ContextService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
-    <Compile Include="Services\Userspace\Impl\ProfilPublicService.cs" />
     <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
     <Compile Include="Services\Public\Impl\EnumerationService.cs" />
     <Compile Include="Services\Security\Administration\Impl\PrincipalAdministrationService.cs" />
-    <Compile Include="Services\Clubs\Impl\InscriptionService.cs" />
+    <Compile Include="Services\Clubs\Impl\MembreService.cs" />
     <Compile Include="Services\Security\Administration\IContextAdministrationService.cs" />
     <Compile Include="Services\Security\Administration\IPrincipalAdministrationService.cs" />
-    <Compile Include="Services\Userspace\IProfilPublicService.cs" />
     <Compile Include="Services\Userspace\IProfilService.cs" />
-    <Compile Include="Services\Clubs\IInscriptionService.cs" />
+    <Compile Include="Services\Clubs\IMembreService.cs" />
     <Compile Include="WebApi2\Description\Impl\XmlDocumentationProvider.cs" />
     <Compile Include="WebApi2\Filters\Exception\Impl\ExceptionMap.cs" />
     <Compile Include="WebApi2\Filters\Exception\IExceptionMap.cs" />

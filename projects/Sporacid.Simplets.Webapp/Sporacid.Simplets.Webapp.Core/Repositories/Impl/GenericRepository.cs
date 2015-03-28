@@ -184,6 +184,14 @@
         }
 
         /// <summary>
+        /// Forces the repository to refreshes itself.
+        /// </summary>
+        public void Refresh()
+        {
+            this.dataContext.Refresh(RefreshMode.OverwriteCurrentValues);
+        }
+
+        /// <summary>
         /// Deletes the entity with the given id.
         /// </summary>
         /// <param name="entityId">The entity id.</param>
