@@ -120,10 +120,31 @@
             }
         }
     }
+    partial class ContactUrgence : IHasId<ContactUrgenceId>
+    {
+        private ContactUrgenceId id;
+        public ContactUrgenceId Id
+        {
+            get
+            {
+                return id ?? (id = new ContactUrgenceId
+                {
+                    ProfilId = this.ProfilId,
+                    ContactId = this.ContactId
+                });
+            }
+        }
+    }
 
     public class GroupeMembreId
     {
         public Int32 GroupeId { get; set; }
         public Int32 MembreId { get; set; }
+    }
+    
+    public class ContactUrgenceId
+    {
+        public Int32 ProfilId { get; set; }
+        public Int32 ContactId { get; set; }
     }
 }

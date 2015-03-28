@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{61A60DBA-3101-498F-BB26-C216DE985A25}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sporacid.Simplets.Webapp.Services</RootNamespace>
@@ -286,12 +286,14 @@
     <Compile Include="Services\Security\IContextService.cs" />
     <Compile Include="Services\Security\Impl\ContextService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
+    <Compile Include="Services\Userspace\Impl\ProfilPublicService.cs" />
     <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
     <Compile Include="Services\Public\Impl\EnumerationService.cs" />
     <Compile Include="Services\Security\Administration\Impl\PrincipalAdministrationService.cs" />
     <Compile Include="Services\Clubs\Impl\InscriptionService.cs" />
     <Compile Include="Services\Security\Administration\IContextAdministrationService.cs" />
     <Compile Include="Services\Security\Administration\IPrincipalAdministrationService.cs" />
+    <Compile Include="Services\Userspace\IProfilPublicService.cs" />
     <Compile Include="Services\Userspace\IProfilService.cs" />
     <Compile Include="Services\Clubs\IInscriptionService.cs" />
     <Compile Include="WebApi2\Description\Impl\XmlDocumentationProvider.cs" />

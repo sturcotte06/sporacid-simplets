@@ -46,7 +46,7 @@
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
         /// <param name="profil">The profil.</param>
         [HttpPut, Route("")]
-        [InvalidateCacheOutput("Get")]
+        [InvalidateCacheOutput("Get"), InvalidateCacheOutput("Get", typeof(ProfilPublicController))]
         public void Update(String codeUniversel, ProfilDto profil)
         {
             var profilEntity = this.profilRepository
