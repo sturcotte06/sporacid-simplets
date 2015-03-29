@@ -38,10 +38,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject.MockingKernel">
-      <HintPath>..\packages\Ninject.MockingKernel.3.2.0.0\lib\net45-full\Ninject.MockingKernel.dll</HintPath>
+      <HintPath>..\packages\Ninject.MockingKernel.3.2.1.0\lib\net45-full\Ninject.MockingKernel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject.MockingKernel.RhinoMock">
       <HintPath>..\packages\Ninject.MockingKernel.RhinoMocks.3.2.1.0\lib\net45-full\Ninject.MockingKernel.RhinoMock.dll</HintPath>

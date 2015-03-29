@@ -154,7 +154,7 @@ namespace Sporacid.Simplets.Webapp.Services.Tests.IntegrationTests.Database
             {
                 for (var iCommandite = 0; iCommandite < TestSize; iCommandite++)
                 {
-                    var commandite = new Commandite()
+                    var commandite = new Commandite
                     {
                         ClubId = club.Id,
                         FournisseurId = fournisseurRepository.GetAll().First().Id,
