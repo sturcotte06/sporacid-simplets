@@ -228,23 +228,22 @@ function ProfilAvanceModelView($self, validationModelView) {
     };
 
     // Loads the profil entity from the rest services.
-    self.load = function () {
+    self.load = function() {
         // Deactivate the view.
         $panel.waiting();
 
         // Load the profil entity.
-        //    restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function (profil) {
-        //        // The separation between profil and profil avance is logical only.
-        //        self.profilAvance(profil.profilAvance);
-        //        // Reactivate the view.
-        //        $panel.active();
-        //        $self.trigger("loaded");
-        //    }).invoke();
-        //};
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function(profil) {
+            // The separation between profil and profil avance is logical only.
+            self.profilAvance(profil.profilAvance);
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+    };
 
-        // Load the entity.
-        self.load();
-    }
+    // Load the entity.
+    self.load();
 }
 
 // Prototype for a validation exception model view.

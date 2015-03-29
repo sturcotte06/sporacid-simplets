@@ -180,7 +180,6 @@
     <Compile Include="Security\Ldap\SearchBy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Security\Database\Security.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
