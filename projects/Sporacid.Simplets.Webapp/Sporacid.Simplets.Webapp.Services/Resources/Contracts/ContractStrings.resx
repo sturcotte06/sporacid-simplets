@@ -273,6 +273,9 @@
   <data name="EnumerationService_GetAllStatutsSuivie_EnsuresNonNullStatusSuivie" xml:space="preserve">
     <value />
   </data>
+  <data name="EnumerationService_GetAllTypeCommanditaires_EnsuresNonNullTypeCommanditaires" xml:space="preserve">
+    <value />
+  </data>
   <data name="EnumerationService_GetAllTypesContacts_EnsuresNonNullTypesContact" xml:space="preserve">
     <value />
   </data>
