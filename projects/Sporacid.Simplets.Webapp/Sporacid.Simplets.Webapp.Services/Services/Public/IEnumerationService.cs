@@ -43,6 +43,13 @@
         /// <returns>Enumeration of all unite entities.</returns>
         [RequiredClaims(Claims.None)]
         IEnumerable<WithId<Int32, UniteDto>> GetAllUnites();
+
+        /// <summary>
+        /// Returns all commanditaire types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all commanditaire types.</returns>
+        [RequiredClaims(Claims.None)]
+        IEnumerable<WithId<Int32, TypeCommanditaireDto>> GetAllTypeCommanditaires();
     }
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -100,6 +107,19 @@
 
             // Dummy return.
             return default(IEnumerable<WithId<Int32, UniteDto>>);
+        }
+
+        /// <summary>
+        /// Returns all commanditaire types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all unite entities.</returns>
+        public IEnumerable<WithId<Int32, TypeCommanditaireDto>> GetAllTypeCommanditaires()
+        {
+            // Postconditions.
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, TypeCommanditaireDto>>>() != null, ContractStrings.EnumerationService_GetAllTypeCommanditaires_EnsuresNonNullTypeCommanditaires);
+
+            // Dummy return.
+            return default(IEnumerable<WithId<Int32, TypeCommanditaireDto>>);
         }
     }
 }
