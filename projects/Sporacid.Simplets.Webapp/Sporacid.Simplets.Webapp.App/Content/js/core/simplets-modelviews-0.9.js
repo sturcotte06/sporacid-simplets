@@ -383,11 +383,13 @@ function LoginModelView($self) {
 }
 
 // Model view for the base profil object.
-function MemberListModelView($self, validationModelView) {
+function MembersModelView($self) {
     // Define closure safe properties.
     var self = this;
+    var $panel = $self.parents(".panel").first();
 
-    self.membersList = ko.observable();
+    self.membres = ko.observableArray();
+    self.activeIndex = ko.observableArray();
 
     // Loads the profil entity from the rest services.
     self.load = function () {
@@ -395,14 +397,22 @@ function MemberListModelView($self, validationModelView) {
         $panel.waiting();
 
         // Load the profilList entity.
-        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, ""), operations.get(), buildTokenAuthHeader()).done(function (memberList) {
-            self.membersList(memberList);
+        restCall(buildUrl(apiUrl, "demandespecial/membre"), operations.get(), buildTokenAuthHeader()).done(function (membres) {
+
+            $.each(membres, function () {
+                this.nom = sprintf("%s %s", this.profilPublic.prenom, this.profilPublic.nom);
+                this.avatar = this.profilPublic.avatar ? sprintf("data:image/jpg;base64,%s", this.profilPublic.avatar) : "http://placehold.it/80";
+            });
+
+            self.membres(membres);
 
             // Reactivate the view.
             $panel.active();
             $self.trigger("loaded");
         }).invoke();
     };
+
+
 
     // Load the entity.
     self.load();
