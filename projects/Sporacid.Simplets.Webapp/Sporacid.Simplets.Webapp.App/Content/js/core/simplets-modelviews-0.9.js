@@ -54,6 +54,17 @@ jQuery(function($) {
 
         stores.unites = unites.asStore();
     }).invoke();
+
+    // Load commanditaire types as a data store.
+    storeData.typesCommanditaires = ko.observableArray();
+    restCall(buildUrl(apiUrl, "enumeration/types-commanditaires"), operations.get()).done(function (typesCommanditaires) {
+        $.each(typesCommanditaires, function (typeCommanditaire, i) {
+            typeCommanditaire.toString = function () { return typeCommanditaire.nom; };
+            storeData.typesCommanditaires().push(typeCommanditaire);
+        });
+
+        stores.typesCommanditaires = typesCommanditaires.asStore();
+    }).invoke();
 });
 
 // Model view for the base profil object.
@@ -410,6 +421,34 @@ function MembersModelView($self) {
 
 
 // Load the entity.
+    self.load();
+
+}
+
+// Model view for the commanditaire object.
+function CommanditaireListModelView($self, validationModelView) {
+    // Define closure safe properties.
+    var self = this;
+
+    self.commanditairesList = ko.observableArray();
+
+    // Loads the profil entity from the rest services.
+    self.load = function () {
+        // Deactivate the view.
+        $panel.waiting();
+
+        // Load the profilList entity.
+        // ***GAGF url à déterminer, doit fournir le nom du club (dropdown)
+        restCall(buildUrl(apiUrl, "nomDuClub", "commanditaire"), operations.get(), buildTokenAuthHeader()).done(function (commanditairesList) {
+            self.commanditairesList(commanditairesList);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+    };
+
+    // Load the entity.
     self.load();
 
 }
