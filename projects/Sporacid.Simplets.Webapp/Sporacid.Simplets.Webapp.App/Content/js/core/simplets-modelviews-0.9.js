@@ -1,18 +1,21 @@
 // The authentication token of an authenticated user.
 var authenticationToken = null;
 
+// The rights of the user per module.
+var principalRights = null;
+
 // The stores underlying data for immutable collections.
 var storeData = {};
 
 // The stores for immutable collections.
 var stores = {};
 
-jQuery(function ($) {
+jQuery(function($) {
     // Load concentrations as a data store.
     storeData.concentrations = ko.observableArray();
-    restCall(buildUrl(apiUrl, "enumeration/concentrations"), operations.get()).done(function (concentrations) {
+    restCall(buildUrl(apiUrl, "enumeration/concentrations"), operations.get()).done(function(concentrations) {
         $.each(concentrations, function(i, concentration) {
-            concentration.toString = function () { return sprintf('%s - %s', concentration.acronyme, concentration.description); };
+            concentration.toString = function() { return sprintf("%s - %s", concentration.acronyme, concentration.description); };
             storeData.concentrations().push(concentration);
         });
 
@@ -21,9 +24,9 @@ jQuery(function ($) {
 
     // Load contacts types as a data store.
     storeData.typesContacts = ko.observableArray();
-    restCall(buildUrl(apiUrl, "enumeration/types-contacts"), operations.get()).done(function (typesContacts) {
-        $.each(typesContacts, function (typeContact, i) {
-            typeContact.toString = function () { return typeContact.nom; };
+    restCall(buildUrl(apiUrl, "enumeration/types-contacts"), operations.get()).done(function(typesContacts) {
+        $.each(typesContacts, function(typeContact, i) {
+            typeContact.toString = function() { return typeContact.nom; };
             storeData.typesContacts().push(typeContact);
         });
 
@@ -32,9 +35,9 @@ jQuery(function ($) {
 
     // Load statuts suivies as a data store.
     storeData.statutsSuivies = ko.observableArray();
-    restCall(buildUrl(apiUrl, "enumeration/statuts-suivies"), operations.get()).done(function (statutsSuivies) {
-        $.each(statutsSuivies, function (statutSuivie) {
-            statutSuivie.toString = function () { return sprintf('%s - %s', statutSuivie.code, statutSuivie.description); };
+    restCall(buildUrl(apiUrl, "enumeration/statuts-suivies"), operations.get()).done(function(statutsSuivies) {
+        $.each(statutsSuivies, function(statutSuivie) {
+            statutSuivie.toString = function() { return sprintf("%s - %s", statutSuivie.code, statutSuivie.description); };
             storeData.statutsSuivies().push(statutSuivie);
         });
 
@@ -43,9 +46,9 @@ jQuery(function ($) {
 
     // Load unites as a data store.
     storeData.unites = ko.observableArray();
-    restCall(buildUrl(apiUrl, "enumeration/unites"), operations.get()).done(function (unites) {
-        $.each(unites, function (unite) {
-            unite.toString = function () { return sprintf('%s - %s', unite.systeme, unite.code); };
+    restCall(buildUrl(apiUrl, "enumeration/unites"), operations.get()).done(function(unites) {
+        $.each(unites, function(unite) {
+            unite.toString = function() { return sprintf("%s - %s", unite.systeme, unite.code); };
             storeData.statutsSuivies().push(unite);
         });
 
@@ -68,7 +71,7 @@ function ProfilBaseModelView($self, validationModelView) {
     var $panel = $self.parents(".panel").first();
 
     // Begin edition of base profil entity.
-    self.beginEdit = function () {
+    self.beginEdit = function() {
         // Switch to edition mode.
         self.viewmode(viewmodes.edition());
         $panel.removeClass("panel-primary").addClass("panel-warning");
@@ -80,7 +83,7 @@ function ProfilBaseModelView($self, validationModelView) {
         $panel.waiting();
 
         // Update the profil entity.
-        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.update(), buildTokenAuthHeader(), self.profil()).done(function () {
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.update(), buildTokenAuthHeader(), self.profil()).done(function() {
             self.profil.valueHasMutated();
             self.endEdit();
         }).fail(function(jqhxr, textStatus, ex) {
@@ -94,7 +97,7 @@ function ProfilBaseModelView($self, validationModelView) {
     };
 
     // Ends the edition of profil entity.
-    self.endEdit = function () {
+    self.endEdit = function() {
         // Clear valdiation messages.
         validationModelView.clear();
 
@@ -109,11 +112,11 @@ function ProfilBaseModelView($self, validationModelView) {
         if (self.profil().concentrationId) {
             self.concentration(stores.concentrations[self.profil().concentrationId]);
         }
-        
+
     };
 
     // Manages an error that occured while managing the profil entity.
-    self.error = function (error) {
+    self.error = function(error) {
         if (error.httpStatus == 400) {
             // Bad request: validation error.
             validationModelView.load(error.response);
@@ -124,24 +127,24 @@ function ProfilBaseModelView($self, validationModelView) {
     };
 
     // Loads the profil entity from the rest services.
-    self.load = function () {
+    self.load = function() {
         // Deactivate the view.
         $panel.waiting();
 
         // Load the profil entity.
-        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function (profil) {
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function(profil) {
             self.profil(profil);
             if (profil.concentrationId) {
                 self.concentration(stores.concentrations[profil.concentrationId]);
             }
 
-            
+
             if (profil.avatar) {
-                $self.find(".profil-avatar").each(function () {
-                    $(this).css('background-image', 'url(data:image/jpg;base64,' + profil.avatar + ')');
+                $self.find(".profil-avatar").each(function() {
+                    $(this).css("background-image", "url(data:image/jpg;base64," + profil.avatar + ")");
                 });
             }
-            
+
 
             // Reactivate the view.
             $panel.active();
@@ -166,42 +169,42 @@ function ProfilAvanceModelView($self, validationModelView) {
     var $panel = $self.parents(".panel").first();
 
     // Begin edition of profil entity.
-    self.beginEdit = function () {
+    self.beginEdit = function() {
         // Switch to edition mode.
         self.viewmode(viewmodes.edition());
         $panel.removeClass("panel-primary").addClass("panel-warning");
     };
 
     // Commits the edited properties of the profil entity.
-    self.edit = function () {
+    self.edit = function() {
         // Deactivate the view.
         $panel.waiting();
 
         // The separation between profil and profil avance is logical only.
         // This means the profil is the aggregation of both. Before posting the profil avance, reload
         // the base profil. If it has not changed, this will reload the cached value anyway.
-        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function (profil) {
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.get(), buildTokenAuthHeader()).done(function(profil) {
             profil.profilAvance = self.profilAvance();
 
             // Update the profil entity.
-            restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.update(), buildTokenAuthHeader(), profil).done(function () {
+            restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "profil"), operations.update(), buildTokenAuthHeader(), profil).done(function() {
                 self.endEdit();
                 self.profilAvance.valueHasMutated();
-            }).fail(function (jqhxr, textStatus, ex) {
+            }).fail(function(jqhxr, textStatus, ex) {
                 self.error(createErrorObject(jqhxr, textStatus, ex));
             }).invoke();
-        }).fail(function (jqhxr, textStatus, ex) {
+        }).fail(function(jqhxr, textStatus, ex) {
             self.error(createErrorObject(jqhxr, textStatus, ex));
         }).invoke();
     };
 
     // Cancels the edition of profil entity.
-    self.cancelEdit = function () {
+    self.cancelEdit = function() {
         self.endEdit();
     };
 
     // Ends the edition of profil entity.
-    self.endEdit = function () {
+    self.endEdit = function() {
         // Clear valdiation messages.
         validationModelView.clear();
 
@@ -214,7 +217,7 @@ function ProfilAvanceModelView($self, validationModelView) {
     };
 
     // Manages an error that occured while managing the profil entity.
-    self.error = function (error) {
+    self.error = function(error) {
         // Reactivate the view.
         $panel.active();
 
@@ -256,7 +259,7 @@ function ValidationExceptionModelView($self) {
     self.states = ko.observableArray();
 
     // Load all validation messages.
-    self.load = function (validation) {
+    self.load = function(validation) {
         var states = [];
         for (var key in validation.modelState) {
             var propertyStates = validation.modelState[key];
@@ -268,12 +271,11 @@ function ValidationExceptionModelView($self) {
         // Refresh observables.
         self.message(validation.message);
         self.states(states);
-    }
-
-    self.clear = function () {
+    };
+    self.clear = function() {
         self.message = ko.observable("");
         self.states.removeAll();
-    }
+    };
 }
 
 // Prototype for the authentication model view.
@@ -289,7 +291,7 @@ function LoginModelView($self) {
     var $loginError = $self.find(".login-error");
     var $modal;
 
-    self.beginLogin = function () {
+    self.beginLogin = function() {
         // Hide the main content wrapper while authenticating the user.
         $("#page-wrapper").hide();
 
@@ -298,10 +300,10 @@ function LoginModelView($self) {
         if (authCookie && authCookie !== "null" && authCookie !== "undefined") {
             // Try to log in with the token.
             var token = JSON.parse(authCookie);
-            restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildTokenAuthHeader(token.token)).done(function () {
+            restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildTokenAuthHeader(token.token)).done(function() {
                 // Worked, token is still valid.
                 self.endLogin(token);
-            }).fail(function () {
+            }).fail(function() {
                 // Failed, force reauthentication.
                 $.cookie("Authorization-Token", null, { path: "/" });
                 self.beginLogin();
@@ -318,13 +320,13 @@ function LoginModelView($self) {
         }
     };
 
-    self.login = function () {
+    self.login = function() {
         // Deactivate the view.
         $modal.waiting();
 
         // Try to do a no-op on the rest server.
         // If the user's credentials are wrong, this will throw.
-        restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildKerberosAuthHeader(self.username(), self.password())).done(function (data, textStatus, jqxhr) {
+        restCall(buildUrl(apiUrl, "no-op"), operations.get(), buildKerberosAuthHeader(self.username(), self.password())).done(function(data, textStatus, jqxhr) {
             // Succeeded. Extract the authentication token for further calls to the api and end the login procedure.
             self.endLogin({
                 token: jqxhr.getResponseHeader("Authorization-Token"),
@@ -332,18 +334,23 @@ function LoginModelView($self) {
                 emittedAt: moment(jqxhr.getResponseHeader("Authorization-Token-Emitted-At"), moment().ISO_8601),
                 expiresAt: moment(jqxhr.getResponseHeader("Authorization-Token-Expires-At"), moment().ISO_8601)
             });
-        }).fail(function (jqhxr, textStatus, ex) {
+        }).fail(function(jqhxr, textStatus, ex) {
             self.error(createErrorObject(jqhxr, textStatus, ex));
         }).invoke();
     };
 
-    self.endLogin = function (token) {
+    self.endLogin = function(token) {
         // Reactivate the view.
         if ($modal) $modal.active();
 
         // Set the static authentication token.
         authenticationToken = token;
-        $.cookie('Authorization-Token', JSON.stringify(authenticationToken), { path: "/" });
+        $.cookie("Authorization-Token", JSON.stringify(authenticationToken), { path: "/" });
+
+        // Get the principal's rights.
+        restCall(buildUrl(apiUrl, authenticationToken.emittedFor, "claims"), operations.get(), buildTokenAuthHeader()).done(function(rights) {
+            principalRights = rights;
+        });
 
         // Hide the login modal.
         $self.modal("hide");
@@ -356,7 +363,7 @@ function LoginModelView($self) {
         $self.trigger("logged-in");
     };
 
-    self.error = function (error) {
+    self.error = function(error) {
         // Reactivate the view.
         if ($modal) $modal.active();
 
@@ -381,14 +388,14 @@ function MembersModelView($self) {
     self.activeIndex = ko.observableArray();
 
     // Loads the profil entity from the rest services.
-    self.load = function () {
+    self.load = function() {
         // Deactivate the view.
         $panel.waiting();
 
         // Load the profilList entity.
-        restCall(buildUrl(apiUrl, "demandespecial/membre"), operations.get(), buildTokenAuthHeader()).done(function (membres) {
+        restCall(buildUrl(apiUrl, "demandespecial/membre"), operations.get(), buildTokenAuthHeader()).done(function(membres) {
 
-            $.each(membres, function () {
+            $.each(membres, function() {
                 this.nom = sprintf("%s %s", this.profilPublic.prenom, this.profilPublic.nom);
                 this.avatar = this.profilPublic.avatar ? sprintf("data:image/jpg;base64,%s", this.profilPublic.avatar) : "http://placehold.it/80";
             });
@@ -402,8 +409,7 @@ function MembersModelView($self) {
     };
 
 
-
-    // Load the entity.
+// Load the entity.
     self.load();
 
 }
