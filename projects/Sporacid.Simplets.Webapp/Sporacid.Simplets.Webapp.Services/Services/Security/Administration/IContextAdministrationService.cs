@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Security.Administration
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
@@ -34,20 +33,6 @@
         /// <returns>The id of the created context entity.</returns>
         [RequiredClaims(Claims.Admin)]
         Int32 Create(String context, String owner);
-
-        /// <summary>
-        /// Returns all claims of the current user, by module, on the given context.
-        /// </summary>
-        /// <param name="context">The context name.</param>
-        /// <exception cref="RepositoryException">
-        /// If something unexpected occurs while getting all claims.
-        /// </exception>
-        /// <exception cref="CoreException">
-        /// If something unexpected occurs.
-        /// </exception>
-        /// <returns>A dictionary of all claims, by module.</returns>
-        [RequiredClaims(Claims.ReadAll)]
-        IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context);
 
         /// <summary>
         /// Binds a role to a principal in a given context.
@@ -96,7 +81,7 @@
 
         /// <summary>
         /// Merges the claims of a given principal on a given context with the claims given by a role.
-        /// For example, if a principal has the "read" claim on "context1" and the role "role1" has the 
+        /// For example, if a principal has the "read" claim on "context1" and the role "role1" has the
         /// "create" claim, then the principal would end up with "read" and "create" on "context1".
         /// </summary>
         /// <param name="context">The context name.</param>
@@ -126,30 +111,17 @@
     [ContractClassFor(typeof (IContextAdministrationService))]
     internal abstract class ContextAdministrationServiceContract : IContextAdministrationService
     {
-        public int Create(String context, String owner)
+        public Int32 Create(String context, String owner)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(context), ContractStrings.ContextAdministrationService_CreateContext_RequiresContext);
-            Contract.Requires(!String.IsNullOrEmpty(owner), ContractStrings.ContextAdministrationService_GetAllClaimsOnContext_RequiresOwner);
+            Contract.Requires(!String.IsNullOrEmpty(owner), ContractStrings.ContextAdministrationService_CreateContext_RequiresOwner);
 
             // Postconditions.
             Contract.Ensures(Contract.Result<Int32>() > 0, ContractStrings.ContextAdministrationService_CreateContext_EnsuresPositiveContextId);
 
             // Dummy return.
             return default(Int32);
-        }
-
-        public IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context)
-        {
-            // Preconditions.
-            Contract.Requires(!String.IsNullOrEmpty(context), ContractStrings.ContextAdministrationService_GetAllClaimsOnContext_RequiresContext);
-
-            // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<KeyValuePair<String, Claims>>>() != null,
-                ContractStrings.ContextAdministrationService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule);
-
-            // Dummy return.
-            return default(IEnumerable<KeyValuePair<String, Claims>>);
         }
 
         public void BindRoleToPrincipal(String context, String role, String identity)

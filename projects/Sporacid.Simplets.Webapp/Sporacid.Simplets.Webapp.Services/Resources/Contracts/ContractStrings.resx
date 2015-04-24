@@ -237,13 +237,7 @@
   <data name="ContextAdministrationService_CreateContext_RequiresContext" xml:space="preserve">
     <value>A context is required to create a context.</value>
   </data>
-  <data name="ContextAdministrationService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ContextAdministrationService_GetAllClaimsOnContext_RequiresContext" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ContextAdministrationService_GetAllClaimsOnContext_RequiresOwner" xml:space="preserve">
+  <data name="ContextAdministrationService_CreateContext_RequiresOwner" xml:space="preserve">
     <value />
   </data>
   <data name="ContextAdministrationService_MergeClaimsOfPrincipalWithRole_RequiresContext" xml:space="preserve">
@@ -260,6 +254,12 @@
   </data>
   <data name="ContextAdministrationService_RemoveAllClaimsFromPrincipal_RequiresIdentity" xml:space="preserve">
     <value>A user name is required to remove a user's claims.</value>
+  </data>
+  <data name="ContextService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContextService_GetAllClaimsOnContext_RequiresContext" xml:space="preserve">
+    <value />
   </data>
   <data name="DescriptionService_DescribeApiEntities_EnsuresNonNullEntityDescriptions" xml:space="preserve">
     <value />

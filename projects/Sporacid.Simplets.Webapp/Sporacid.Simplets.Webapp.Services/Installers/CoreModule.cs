@@ -65,7 +65,6 @@
             builder.RegisterType<AuthorizationModule>().As<IAuthorizationModule>();
 
             // Specific authentication registrations. 
-            // It's more complicated because of observables.
             builder.RegisterType<KerberosAuthenticationModule>().As<IAuthenticationModule>()
                 .WithParameter(TypedParameter.From(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]));
             builder.RegisterType<TokenAuthenticationModule>().As<IAuthenticationModule>();

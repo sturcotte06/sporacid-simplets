@@ -1,18 +1,17 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Security.Administration.Impl
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Database;
     using Sporacid.Simplets.Webapp.Core.Security.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Resources.Exceptions;
+    using Sporacid.Simplets.Webapp.Services.Services.Security.Impl;
     using Sporacid.Simplets.Webapp.Tools.Collections;
+    using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -66,27 +65,6 @@
         }
 
         /// <summary>
-        /// Returns all claims of the current user, by module, on the given context.
-        /// </summary>
-        /// <param name="context">The context name.</param>
-        /// <exception cref="RepositoryException">
-        /// If something unexpected occurs while getting all claims.
-        /// </exception>
-        /// <exception cref="CoreException">
-        /// If something unexpected occurs.
-        /// </exception>
-        /// <returns>A dictionary of all claims, by module.</returns>
-        public IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context)
-        {
-            var identity = HttpContext.Current.User.Identity.Name;
-            return this.contextRepository
-                .GetUnique(context2 => context2.Name == context)
-                .PrincipalModuleContextClaims
-                .Where(pmcc => pmcc.Context.Name == context && pmcc.Principal.Identity == identity)
-                .ToDictionary(pmcc => pmcc.Module.Name, pmcc => (Claims) pmcc.Claims);
-        }
-
-        /// <summary>
         /// Binds a role to a principal in a given context.
         /// Every previous claims of the principal on this context will be removed beforehand.
         /// </summary>
@@ -109,6 +87,7 @@
         /// If something unexpected occurs.
         /// </exception>
         [HttpPut, Route("bind/{role:alpha}/to/{identity}")]
+        [InvalidateCacheOutput("GetAllClaimsOnContext", typeof (ContextController))]
         public void BindRoleToPrincipal(String context, String role, String identity)
         {
             // Remove all claims from this user. A tad slow because we need to query the context and principal twice.
@@ -153,6 +132,7 @@
         /// If something unexpected occurs.
         /// </exception>
         [HttpDelete, Route("unbind-claims-from/{identity}")]
+        [InvalidateCacheOutput("GetAllClaimsOnContext", typeof (ContextController))]
         public void RemoveAllClaimsFromPrincipal(String context, String identity)
         {
             var principalEntity = this.principalRepository
@@ -171,7 +151,7 @@
         /// <summary>
         /// Merges the claims of a given principal on a given context with the claims given by a role.
         /// For example, if a principal has the "read" claim on "context1" and the role "role1" has the
-        /// "create" claim, then the principal would end up with "read" and "create" on "context1".
+        /// "create" and "read" claims, then the principal would end up with "read" and "create" on "context1".
         /// </summary>
         /// <param name="context">The context name.</param>
         /// <param name="role">The role name.</param>
@@ -191,7 +171,8 @@
         /// <exception cref="CoreException">
         /// If something unexpected occurs.
         /// </exception>
-        public void MergeClaimsOfPrincipalWithRole(string context, string role, string identity)
+        [InvalidateCacheOutput("GetAllClaimsOnContext", typeof (ContextController))]
+        public void MergeClaimsOfPrincipalWithRole(String context, String role, String identity)
         {
             var contextEntity = this.contextRepository
                 .GetUnique(context2 => context2.Name == context);
