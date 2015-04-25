@@ -16,6 +16,9 @@
         DeleteAll = 32,
         Read = 64,
         ReadAll = 128,
-        Admin = 256
+        Admin = 256,
+        ReadOnly = Read | ReadAll,
+        ReadWriteOnly = ReadOnly | Create | CreateAll | Update | UpdateAll | Delete | DeleteAll,
+        All = ReadWriteOnly | Admin
     }
 }

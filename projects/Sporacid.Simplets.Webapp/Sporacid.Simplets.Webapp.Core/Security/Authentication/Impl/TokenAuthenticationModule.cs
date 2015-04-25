@@ -1,5 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Core.Security.Authentication.Impl
 {
+    using System;
     using System.Security.Principal;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Security.Authentication;
@@ -52,7 +53,7 @@
         /// </summary>
         /// <param name="scheme">The authentication scheme.</param>
         /// <returns> Whether the authentication scheme is supported.</returns>
-        public bool IsSupported(AuthenticationScheme scheme)
+        public Boolean IsSupported(AuthenticationScheme scheme)
         {
             return scheme == AuthenticationScheme.Token;
         }

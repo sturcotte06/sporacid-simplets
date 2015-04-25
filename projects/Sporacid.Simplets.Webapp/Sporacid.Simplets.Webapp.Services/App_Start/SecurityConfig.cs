@@ -17,19 +17,14 @@
         public enum Role
         {
             Administrateur,
-            Capitaine,
-            Noob
+            Collaborateur,
+            Lecteur
         }
 
         /// <summary>
         /// Fixed context for system administration.
         /// </summary>
         public const String SystemContext = "Systeme";
-
-        private const Claims AllClaims = (Claims) 511;
-        private const Claims ReadOnlyClaims = (Claims) 192;
-        private const Claims ModifyClaims = (Claims) 207;
-        private const Claims FullModifyClaims = (Claims) 255;
 
         public static void Register(HttpConfiguration config)
         {
@@ -44,26 +39,22 @@
             var roleBootstrapper = (IRoleBootstrapper) config.DependencyResolver.GetService(typeof (IRoleBootstrapper));
 
             // Bootstrap the security database.
-            securityDatabaseBootstrapper.Bootstrap(assembly, 
+            securityDatabaseBootstrapper.Bootstrap(assembly,
                 ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
 
             // Bootstrap the user roles of the application.
             roleBootstrapper
-                .BindClaims(AllClaims)
+                .BindClaims(Claims.All)
                 .ToModules(allModules)
                 .BootstrapTo(Role.Administrateur.ToString());
             roleBootstrapper
-                .BindClaims(ReadOnlyClaims)
-                .ToModules("Enumerations", "Default")
-                .BindClaims(AllClaims)
-                .ToModules("Membres")
-                .BindClaims(FullModifyClaims)
-                .ToModules("Commanditaires")
-                .BootstrapTo(Role.Capitaine.ToString());
-            roleBootstrapper
-                .BindClaims(ReadOnlyClaims)
+                .BindClaims(Claims.ReadWriteOnly)
                 .ToModules(allModules)
-                .BootstrapTo(Role.Noob.ToString());
+                .BootstrapTo(Role.Collaborateur.ToString());
+            roleBootstrapper
+                .BindClaims(Claims.ReadOnly)
+                .ToModules(allModules)
+                .BootstrapTo(Role.Lecteur.ToString());
         }
     }
 }

@@ -6,7 +6,6 @@
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
-    using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Database.Repositories;
@@ -18,15 +17,14 @@
     [RoutePrefix(BasePath + "/{codeUniversel}/profil")]
     public class ProfilController : BaseSecureService, IProfilService
     {
-        private readonly IEntityRepository<Int32, Club> clubRepository;
         private readonly IEntityRepository<ContactUrgenceId, ContactUrgence> contactUrgenceRepository;
         private readonly IEntityRepository<Int32, Profil> profilRepository;
 
-        public ProfilController(IEntityRepository<Int32, Profil> profilRepository, IEntityRepository<Int32, Club> clubRepository,
+        public ProfilController(
+            IEntityRepository<Int32, Profil> profilRepository,
             IEntityRepository<ContactUrgenceId, ContactUrgence> contactUrgenceRepository)
         {
             this.profilRepository = profilRepository;
-            this.clubRepository = clubRepository;
             this.contactUrgenceRepository = contactUrgenceRepository;
         }
 
@@ -45,6 +43,21 @@
         }
 
         /// <summary>
+        /// Gets the preferences of the profil entity from the system.
+        /// </summary>
+        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
+        /// <returns>The profil's preferences.</returns>
+        [HttpGet, Route("preferences")]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.VeryLong)]
+        public IEnumerable<WithId<Int32, PreferenceDto>> GetPreferences(String codeUniversel)
+        {
+            return this.profilRepository
+                .GetUnique(profil => codeUniversel == profil.CodeUniversel)
+                .Preferences
+                .MapAllWithIds<Preference, PreferenceDto>();
+        }
+
+        /// <summary>
         /// Updates the profil object in the system.
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
@@ -60,19 +73,6 @@
                 .GetUnique(profil2 => codeUniversel == profil2.CodeUniversel)
                 .MapFrom(profil);
             this.profilRepository.Update(profilEntity);
-        }
-
-        /// <summary>
-        /// Gets all club entities from the system.
-        /// </summary>
-        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
-        /// <returns>All club entities subscribed to.</returns>
-        [HttpGet, Route("clubs")]
-        public IEnumerable<WithId<Int32, ClubDto>> GetClubsSubscribedTo(String codeUniversel)
-        {
-            return this.clubRepository
-                .GetAll(club => club.Membres.Any(membre => membre.CodeUniversel == codeUniversel))
-                .MapAllWithIds<Club, ClubDto>();
         }
 
         /// <summary>

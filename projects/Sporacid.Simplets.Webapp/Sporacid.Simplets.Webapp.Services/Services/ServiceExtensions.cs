@@ -1,6 +1,7 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
     using Sporacid.Simplets.Webapp.Core.Repositories;
@@ -35,6 +36,19 @@
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
         /// <param name="sourceEntitiesQuery">The source entities query.</param>
         /// <returns>The query for destination entities.</returns>
+        public static IEnumerable<TEntityDestination> MapAll<TEntitySource, TEntityDestination>(this IEnumerable<TEntitySource> sourceEntitiesQuery)
+        {
+            return sourceEntitiesQuery
+                .Select(Mapper.Map<TEntitySource, TEntityDestination>);
+        }
+
+        /// <summary>
+        /// Maps all entities of a source query into a query of destination entity.
+        /// </summary>
+        /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
+        /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
+        /// <param name="sourceEntitiesQuery">The source entities query.</param>
+        /// <returns>The query for destination entities.</returns>
         public static IQueryable<TEntityDestination> MapAll<TEntitySource, TEntityDestination>(this IQueryable<TEntitySource> sourceEntitiesQuery)
         {
             return sourceEntitiesQuery
@@ -49,10 +63,40 @@
         /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
         /// <param name="sourceEntitiesQuery">The source entities query.</param>
         /// <returns>The query for destination entities with their ids.</returns>
+        public static IEnumerable<WithId<Int32, TEntityDestination>> MapAllWithIds<TEntitySource, TEntityDestination>(this IEnumerable<TEntitySource> sourceEntitiesQuery)
+            where TEntitySource : IHasId<Int32>
+        {
+            return sourceEntitiesQuery.MapAllWithIds<Int32, TEntitySource, TEntityDestination>();
+        }
+
+        /// <summary>
+        /// Maps all entities of a source query to a query of destination entity.
+        /// All destination entity will be paired with the source's id.
+        /// </summary>
+        /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
+        /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
+        /// <param name="sourceEntitiesQuery">The source entities query.</param>
+        /// <returns>The query for destination entities with their ids.</returns>
         public static IQueryable<WithId<Int32, TEntityDestination>> MapAllWithIds<TEntitySource, TEntityDestination>(this IQueryable<TEntitySource> sourceEntitiesQuery)
             where TEntitySource : IHasId<Int32>
         {
             return sourceEntitiesQuery.MapAllWithIds<Int32, TEntitySource, TEntityDestination>();
+        }
+
+        /// <summary>
+        /// Maps all entities of a source query to a query of destination entity.
+        /// All destination entity will be paired with the source's id.
+        /// </summary>
+        /// <typeparam name="TEntitySource">Type of the source entity.</typeparam>
+        /// <typeparam name="TEntitySourceId">Type of the source entity id.</typeparam>
+        /// <typeparam name="TEntityDestination">Type of the destination entity.</typeparam>
+        /// <param name="sourceEntitiesQuery">The source entities query.</param>
+        /// <returns>The query for destination entities with their ids.</returns>
+        public static IEnumerable<WithId<TEntitySourceId, TEntityDestination>> MapAllWithIds<TEntitySourceId, TEntitySource, TEntityDestination>(
+            this IEnumerable<TEntitySource> sourceEntitiesQuery) where TEntitySource : IHasId<TEntitySourceId>
+        {
+            return sourceEntitiesQuery
+                .Select(sourceEntity => sourceEntity.MapWithId<TEntitySourceId, TEntitySource, TEntityDestination>());
         }
 
         /// <summary>

@@ -9,10 +9,14 @@
     public class OnFirstAuthenticationCreatePrincipal : IEventSubscriber<PrincipalAuthenticated, PrincipalAuthenticatedEventArgs>
     {
         private readonly IPrincipalAdministrationService principalAdministrationService;
+        private readonly IContextAdministrationService contextAdministrationService;
 
-        public OnFirstAuthenticationCreatePrincipal(IPrincipalAdministrationService principalAdministrationService)
+        public OnFirstAuthenticationCreatePrincipal(
+            IPrincipalAdministrationService principalAdministrationService,
+            IContextAdministrationService contextAdministrationService)
         {
             this.principalAdministrationService = principalAdministrationService;
+            this.contextAdministrationService = contextAdministrationService;
         }
 
         /// <summary>
@@ -25,11 +29,16 @@
             // Check if the user is logged in for the first time.
             var principal = @event.EventArgs.Principal;
             var identity = principal.Identity.Name;
-            if (!this.principalAdministrationService.Exists(identity))
-            {
-                // User logged in for first time. Create its principal.
-                this.principalAdministrationService.Create(identity);
-            }
+
+            // If not, no-op.
+            if (this.principalAdministrationService.Exists(identity))
+                return;
+
+            // User logged in for first time. Create its principal.
+            this.principalAdministrationService.Create(identity);
+
+            // Merge readonly role on the system context with the current claims of the user.
+            this.contextAdministrationService.MergeClaimsOfPrincipalWithRole(SecurityConfig.SystemContext, SecurityConfig.Role.Lecteur.ToString(), identity);
         }
     }
 }

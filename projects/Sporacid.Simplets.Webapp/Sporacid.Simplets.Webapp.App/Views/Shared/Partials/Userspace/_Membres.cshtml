@@ -1,9 +1,4 @@
-﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
-@using Sporacid.Simplets.Webapp.App.Resources.Labels
-@using Sporacid.Simplets.Webapp.App.Resources.Messages
-@using Sporacid.Simplets.Webapp.App.Resources.Titles
-
-<div id="membres" data-bind="foreach: membres">
+﻿<div id="membres" data-bind="foreach: membres">
     <div class="col-md-3">
         <div class="panel panel-primary membre">
             <div class="panel-heading">
@@ -24,10 +19,10 @@
 
                     <div class="profil-spinner">
                         <div class="col-md-7">
-                            <div class="profil-spinner-face" data-bind:"with: profil, visible: !activeindex()">
+                            <div class="profil-spinner-face" data-bind="with: profil, visible: !activeindex()">
                                 <div>CONTENT FACE 1</div>
                             </div>
-                            <div class="profil-spinner-face" data-bind:"with: profil, visible: activeindex()">
+                            <div class="profil-spinner-face" data-bind="with: profil, visible: activeindex()">
                                 <div>CONTENT FACE 2</div>
                             </div>
                         </div>

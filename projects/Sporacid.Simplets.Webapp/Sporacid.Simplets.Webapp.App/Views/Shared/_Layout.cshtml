@@ -49,13 +49,13 @@
     </div>
 
     @RenderSection("ScriptsImportBottom", required: false)
-    
-    <script type="text/javascript">
+
+  <script type="text/javascript">
       jQuery(function ($) {
-        var $login = $("#login");
-        ko.applyBindings(new LoginModelView($login), $login[0]);
+          var $login = $("#login");
+          ko.applyBindings(new LoginModelView($login), $login[0]);
       });
-    </script>
+  </script>
 
   </body>
 </html>

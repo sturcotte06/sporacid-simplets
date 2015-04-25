@@ -81,6 +81,24 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ClubService_GetClubsSubscribedTo_EnsuresNonNullClubs {
+            get {
+                return ResourceManager.GetString("ClubService_GetClubsSubscribedTo_EnsuresNonNullClubs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ClubService_GetClubsSubscribedTo_RequiresAuthenticatedPrincipal {
+            get {
+                return ResourceManager.GetString("ClubService_GetClubsSubscribedTo_RequiresAuthenticatedPrincipal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string CommanditaireService_Create_RequiresClubName {
             get {
                 return ResourceManager.GetString("CommanditaireService_Create_RequiresClubName", resourceCulture);
@@ -480,6 +498,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string ContextService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule {
             get {
                 return ResourceManager.GetString("ContextService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextService_GetAllClaimsOnContext_RequiresAuthenticatedPrincipal {
+            get {
+                return ResourceManager.GetString("ContextService_GetAllClaimsOnContext_RequiresAuthenticatedPrincipal", resourceCulture);
             }
         }
         
@@ -1137,6 +1164,24 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string ProfilService_GetClubsSubscribedTo_RequiresCodeUniversel {
             get {
                 return ResourceManager.GetString("ProfilService_GetClubsSubscribedTo_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ProfilService_GetPreferences_EnsuresNonNullPreferences {
+            get {
+                return ResourceManager.GetString("ProfilService_GetPreferences_EnsuresNonNullPreferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ProfilService_GetPreferences_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ProfilService_GetPreferences_RequiresCodeUniversel", resourceCulture);
             }
         }
         

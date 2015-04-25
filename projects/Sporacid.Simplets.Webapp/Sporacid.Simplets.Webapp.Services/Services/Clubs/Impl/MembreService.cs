@@ -10,12 +10,11 @@
     using Sporacid.Simplets.Webapp.Services.Database.Repositories;
     using Sporacid.Simplets.Webapp.Services.Services.Security.Administration;
     using Sporacid.Simplets.Webapp.Services.Services.Userspace;
-    using Sporacid.Simplets.Webapp.Tools.Collections;
     using WebApi.OutputCache.V2;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/membre")]
+    [RoutePrefix(BasePath + "/{clubName}/membre")]
     public class MembreController : BaseSecureService, IMembreService
     {
         private readonly IEntityRepository<Int32, Club> clubRepository;
@@ -110,7 +109,7 @@
                 this.principalAdministrationService.Create(codeUniversel);
             }
 
-            var defaultRole = SecurityConfig.Role.Noob.ToString();
+            var defaultRole = SecurityConfig.Role.Lecteur.ToString();
             var clubEntity = this.clubRepository.GetUnique(club => club.Nom == clubName);
             var membreEntity = clubEntity.Membres.SingleOrDefault(membre => membre.CodeUniversel == codeUniversel);
 

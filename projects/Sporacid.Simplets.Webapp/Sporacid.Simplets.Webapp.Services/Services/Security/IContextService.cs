@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.Web;
     using Sporacid.Simplets.Webapp.Core.Exceptions;
     using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
@@ -38,11 +39,11 @@
         public IEnumerable<KeyValuePair<String, Claims>> GetAllClaimsOnContext(String context)
         {
             // Preconditions.
+            Contract.Requires(HttpContext.Current.User != null, ContractStrings.ContextService_GetAllClaimsOnContext_RequiresAuthenticatedPrincipal);
             Contract.Requires(!String.IsNullOrEmpty(context), ContractStrings.ContextService_GetAllClaimsOnContext_RequiresContext);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<KeyValuePair<String, Claims>>>() != null,
-                ContractStrings.ContextService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule);
+            Contract.Ensures(Contract.Result<IEnumerable<KeyValuePair<String, Claims>>>() != null, ContractStrings.ContextService_GetAllClaimsOnContext_EnsuresNonNullClaimsByModule);
 
             // Dummy return.
             return default(IEnumerable<KeyValuePair<String, Claims>>);

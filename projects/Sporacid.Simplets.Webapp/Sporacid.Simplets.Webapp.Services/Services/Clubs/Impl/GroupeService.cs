@@ -12,7 +12,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/groupe")]
+    [RoutePrefix(BasePath + "/{clubName}/groupe")]
     public class GroupeController : BaseSecureService, IGroupeService
     {
         private readonly IEntityRepository<Int32, Club> clubRepository;
@@ -20,7 +20,7 @@
         private readonly IEntityRepository<Int32, Groupe> groupeRepository;
 
         public GroupeController(IEntityRepository<Int32, Groupe> groupeRepository, IEntityRepository<Int32, Club> clubRepository,
-            IEntityRepository<GroupeMembreId, GroupeMembre> groupeMembreRepository)
+                                IEntityRepository<GroupeMembreId, GroupeMembre> groupeMembreRepository)
         {
             this.groupeRepository = groupeRepository;
             this.clubRepository = clubRepository;
@@ -36,7 +36,7 @@
         /// <returns>The groupe entities.</returns>
         [HttpGet, Route("")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
-        public IEnumerable<WithId<int, GroupeDto>> GetAll(String clubName, [FromUri] uint? skip = null, [FromUri] uint? take = null)
+        public IEnumerable<WithId<Int32, GroupeDto>> GetAll(String clubName, [FromUri] UInt32? skip = null, [FromUri] UInt32? take = null)
         {
             return this.groupeRepository
                 .GetAll(groupe => groupe.Club.Nom == clubName)
@@ -52,7 +52,7 @@
         /// <returns>The groupe entity.</returns>
         [HttpGet, Route("{groupeId:int}")]
         [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
-        public GroupeDto Get(String clubName, int groupeId)
+        public GroupeDto Get(String clubName, Int32 groupeId)
         {
             return this.groupeRepository
                 .GetUnique(groupe => groupe.Club.Nom == clubName && groupe.Id == groupeId)
@@ -67,7 +67,7 @@
         /// <returns>The created groupe id.</returns>
         [HttpPost, Route("")]
         [InvalidateCacheOutput("GetAll")]
-        public int Create(String clubName, GroupeDto groupe)
+        public Int32 Create(String clubName, GroupeDto groupe)
         {
             var clubEntity = this.clubRepository.GetUnique(club => clubName == club.Nom);
             var groupeEntity = groupe.MapTo<GroupeDto, Groupe>();
@@ -87,7 +87,7 @@
         /// <param name="membreIds">The enumeration of group ids.</param>
         [HttpPost, Route("{groupeId:int}/membre")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
-        public void AddAllMembreToGroupe(String clubName, int groupeId, IEnumerable<int> membreIds)
+        public void AddAllMembreToGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds)
         {
             this.groupeMembreRepository
                 .DeleteAll(gp => gp.GroupeId == groupeId && membreIds.Contains(gp.MembreId));
@@ -101,7 +101,7 @@
         /// <param name="membreIds">The enumeration of group ids.</param>
         [HttpDelete, Route("{groupeId:int}/membre")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
-        public void DeleteAllMembreToGroupe(String clubName, int groupeId, IEnumerable<int> membreIds)
+        public void DeleteAllMembreToGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds)
         {
             var groupeMembreEntities = membreIds.Select(membreId => new GroupeMembre {GroupeId = groupeId, MembreId = membreId});
             this.groupeMembreRepository.AddAll(groupeMembreEntities);
@@ -115,7 +115,7 @@
         /// <param name="groupe">The groupe.</param>
         [HttpPut, Route("{groupeId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll")]
-        public void Update(String clubName, int groupeId, GroupeDto groupe)
+        public void Update(String clubName, Int32 groupeId, GroupeDto groupe)
         {
             var groupeEntity = this.groupeRepository
                 .GetUnique(groupe2 => groupe2.Club.Nom == clubName && groupe2.Id == groupeId)
@@ -130,7 +130,7 @@
         /// <param name="groupeId">The groupe id.</param>
         [HttpDelete, Route("{groupeId:int}")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
-        public void Delete(String clubName, int groupeId)
+        public void Delete(String clubName, Int32 groupeId)
         {
             // Somewhat trash call to make sure the groupe is in this context. 
             var groupeEntity = this.groupeRepository

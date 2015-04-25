@@ -3,47 +3,47 @@ var apiUrl = "http://localhost/services/api/v1/";
 
 // Enumeration of all supported rest operations.
 var operations = {
-    "get": function () {
+    "get": function() {
         return "GET";
     },
-    "create": function () {
+    "create": function() {
         return "POST";
     },
-    "update": function () {
+    "update": function() {
         return "PUT";
     },
-    "delete": function () {
+    "delete": function() {
         return "DELETE";
     }
 };
 
 // Enumeration of all model view modes.
 var viewmodes = {
-    "view": function () {
+    "view": function() {
         return "v";
     },
-    "edition": function () {
+    "edition": function() {
         return "e";
     },
-    "creation": function () {
+    "creation": function() {
         return "c";
     },
-    "deletion": function () {
+    "deletion": function() {
         return "d";
     }
 };
 
 // Utility function for rest api calls.
-function restCall(uri, method, auth, data) {
+function restCall(uri, operation, auth, data) {
     var request = {
         url: uri,
-        type: method,
-        cache: method === operations.get(),
-        dataType: 'json',
+        type: operation,
+        cache: operation === operations.get(),
+        dataType: "json",
         accepts: "application/json",
         contentType: "application/json",
         data: JSON.stringify(data),
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             // Set the authorization header if the information exists.
             if (auth) {
                 xhr.setRequestHeader("Authorization", auth);
@@ -51,17 +51,17 @@ function restCall(uri, method, auth, data) {
         },
         // Invokes the rest call request. To be called whenever callbacks have been set
         // and no race condition can happen.
-        invoke: function () {
+        invoke: function() {
             // Invoke the request using jquery ajax.
             $.ajax(this);
         },
         // Adds a callback on request success.
-        done: function (func) {
+        done: function(func) {
             // Get the old callback.
             var callback = this.success;
 
             // Recreate the real ajax callback on success with the new callback. 
-            this.success = function (payload, textStatus, jqxhr) {
+            this.success = function(payload, textStatus, jqxhr) {
                 if (callback) callback(payload, textStatus, jqxhr);
                 func(payload, textStatus, jqxhr);
             };
@@ -70,12 +70,12 @@ function restCall(uri, method, auth, data) {
             return this;
         },
         // Adds a callback on request failure.
-        fail: function (func) {
+        fail: function(func) {
             // Get the old callback.
             var callback = this.error;
 
             // Recreate the real ajax callback on error with the new callback. 
-            this.error = function (jqhxr, textStatus, exception) {
+            this.error = function(jqhxr, textStatus, exception) {
                 if (callback) callback(jqhxr, textStatus, exception);
                 func(jqhxr, textStatus, exception);
             };
@@ -145,7 +145,7 @@ function buildUrl() {
 // Create a new method on array prototype to chain the as store method.
 Array.prototype.asStore = function() {
     return asStore(this);
-}
+};
 
 // Utility function to transform an array of objects to a data store.
 function asStore(data) {
@@ -167,7 +167,7 @@ function asStore(data) {
 }
 
 // Flag the jquery element as waiting for an async request.
-jQuery.fn.waiting = function () {
+jQuery.fn.waiting = function() {
     var zIndex = parseInt(this.css("z-index"));
     var $loadingIcon = $("<i></i>")
         .addClass("metro-icon metro-refresh-trans metro-icon-animate");
@@ -193,7 +193,7 @@ jQuery.fn.waiting = function () {
             .height(this.height())
             .width(this.width());
     }
-    
+
     // Prepend the loading screen.
     this.prepend($loading);
 
@@ -202,26 +202,26 @@ jQuery.fn.waiting = function () {
         .css("top", (this.outerHeight() - $loadingIcon.height()) / 2)
         .css("left", (this.outerWidth() - $loadingIcon.width()) / 2);
     return this;
-}
+};
 
 // Flag the jquery element as done with the async request and active again.
-jQuery.fn.active = function () {
+jQuery.fn.active = function() {
     this.find(".loading").remove();
     return this;
 };
 
 // Returns whether the jQuery element has any children matching the selector.
-jQuery.fn.exists = function (selector) {
+jQuery.fn.exists = function(selector) {
     return this.find(selector).length > 0;
 };
 
 // Returns whether the jQuery element has any element.
-jQuery.fn.exists = function () {
+jQuery.fn.exists = function() {
     return this.length > 0;
 };
 
 // Get or set the id of the element.
-jQuery.fn.id = function (id) {
+jQuery.fn.id = function(id) {
     if (id == undefined) {
         return this.attr("id");
     } else {
@@ -231,10 +231,10 @@ jQuery.fn.id = function (id) {
 
 // Capture ENTER key in element and trigger a function (<div id="xxx" data-bind="enterkey: functionX">)
 ko.bindingHandlers.enterkey = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
         var allBindings = allBindingsAccessor();
 
-        $(element).on('keypress', 'input, textarea, select', function (e) {
+        $(element).on("keypress", "input, textarea, select", function(e) {
             var keyCode = e.which || e.keyCode;
             if (keyCode !== 13) {
                 return true;

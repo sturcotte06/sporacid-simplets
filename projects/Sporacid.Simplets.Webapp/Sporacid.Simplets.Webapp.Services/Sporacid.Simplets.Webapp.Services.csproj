@@ -238,12 +238,14 @@
     </Compile>
     <Compile Include="Services\Clubs\Administration\IClubAdministrationService.cs" />
     <Compile Include="Services\BaseSecureService.cs" />
+    <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ICommanditaireService.cs" />
     <Compile Include="Services\Clubs\ICommanditeService.cs" />
     <Compile Include="Services\Clubs\IFournisseurService.cs" />
     <Compile Include="Services\Clubs\IGroupeService.cs" />
     <Compile Include="Services\Clubs\IInventaireService.cs" />
     <Compile Include="Services\Clubs\IMeetingService.cs" />
+    <Compile Include="Services\Clubs\Impl\ClubService.cs" />
     <Compile Include="Services\Clubs\Impl\CommanditaireService.cs" />
     <Compile Include="Services\Clubs\Impl\CommanditeService.cs" />
     <Compile Include="Services\Clubs\Impl\FournisseurService.cs" />

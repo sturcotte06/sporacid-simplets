@@ -2,7 +2,7 @@
 {
     using System;
     using Newtonsoft.Json;
-    using Simplets.Webapp.Tools.Reflection;
+    using Sporacid.Simplets.Webapp.Tools.Reflection;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -37,7 +37,7 @@
         /// <param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter" /> to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The calling serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Object value, JsonSerializer serializer)
         {
             var withId = value as dynamic;
             var toSerialize = new {Id = withId.Id}.ToDynamic();
@@ -55,7 +55,7 @@
         /// <returns>
         /// The object value.
         /// </returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override Object ReadJson(JsonReader reader, Type objectType, Object existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
@@ -67,7 +67,7 @@
         /// <returns>
         /// <c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.
         /// </returns>
-        public override bool CanConvert(Type objectType)
+        public override Boolean CanConvert(Type objectType)
         {
             return typeof (WithId<,>).IsAssignableFrom(objectType);
         }
