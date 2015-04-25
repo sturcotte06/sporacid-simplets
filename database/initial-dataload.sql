@@ -165,8 +165,30 @@ AS
 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		INSERT INTO [security].[PrincipalsModulesContextsClaims]
-		VALUES (@principalId, @moduleId, @contextId, @claims)
+		DECLARE @currentClaims [int];
+
+		-- Check if claims alredy exist for the current principal, context and module.
+		SELECT @currentClaims = [PMCC].[Claims] 
+		FROM [security].[PrincipalsModulesContextsClaims] [PMCC]
+		WHERE [PMCC].[ContextId] = @contextId
+			AND [PMCC].[ModuleId] = @moduleId
+			AND [PMCC].[PrincipalId] = @principalId;
+
+		PRINT @currentClaims;
+
+		IF (EXISTS(SELECT @currentClaims))
+		BEGIN
+			UPDATE [security].[PrincipalsModulesContextsClaims]
+			SET [Claims] = [Claims] | @currentClaims
+			WHERE [ContextId] = @contextId
+				AND [ModuleId] = @moduleId
+				AND [PrincipalId] = @principalId;
+		END
+		ELSE
+		BEGIN
+			INSERT INTO [security].[PrincipalsModulesContextsClaims]
+			VALUES (@principalId, @moduleId, @contextId, @claims)
+		END
 
 		FETCH NEXT FROM roleTemplateCursor
 		INTO @moduleId, @claims;
