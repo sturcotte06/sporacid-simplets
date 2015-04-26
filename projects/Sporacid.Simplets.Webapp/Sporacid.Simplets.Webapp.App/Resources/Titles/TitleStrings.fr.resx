@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FirstLoginProfileEdition_MainTitle" xml:space="preserve">
+    <value>Completez les informations de votre profil *</value>
+  </data>
+  <data name="Login_MainTitle" xml:space="preserve">
+    <value>Authentifiez vous  *</value>
+  </data>
   <data name="ProfilAvance_MainTitle" xml:space="preserve">
     <value>Votre profil avancé</value>
   </data>

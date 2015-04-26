@@ -1,5 +1,18 @@
-// Base url for the rest api.
-var apiUrl = "http://localhost/services/api/v1/";
+// Enumeration of all supported user preferences.
+var userPreferences = {
+    // First connect detect
+    "hasLoggedOn": function() {
+        return "app.auth.hasLoggedOn";
+    },
+    // Language preference
+    "locale": function() {
+        return "app.locale";
+    },
+    // Default club selected after login
+    "defaultClub": function() {
+        return "app.context.defaultClub";
+    }
+};
 
 // Enumeration of all supported rest operations.
 var operations = {
@@ -140,6 +153,10 @@ function buildUrl() {
     }
 
     return url;
+}
+
+function buildSkipTakeUrl(skip, take) {
+    return skip && take ? sprintf("skip=%d&take=%d", skip, take) : "";
 }
 
 // Create a new method on array prototype to chain the as store method.

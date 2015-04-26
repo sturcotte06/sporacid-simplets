@@ -86,8 +86,8 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="membreId">The membre id.</param>
         /// <returns>The membre entity.</returns>
-        // [HttpGet, Route("{codeUniversel}")]
-        // [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
+        [HttpGet, Route("{membreId:int}")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium, ClientTimeSpan = (Int32) CacheDuration.Medium)]
         public MembreDto Get(String clubName, Int32 membreId)
         {
             return this.membreRepository
@@ -100,7 +100,7 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The id of the member entity.</param>
-        [HttpPost, Route("inscrire/{codeUniversel}")]
+        [HttpPost, Route("subscribe/{codeUniversel}")]
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
             if (!this.principalAdministrationService.Exists(codeUniversel))
@@ -142,7 +142,7 @@
         /// </summary>
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The universal code that represents the user.</param>
-        [HttpDelete, Route("desinscrire/{codeUniversel}")]
+        [HttpDelete, Route("unsubscribe/{codeUniversel}")]
         public void UnsubscribeFromClub(String clubName, String codeUniversel)
         {
             var membreEntity = this.membreRepository

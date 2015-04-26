@@ -89,8 +89,10 @@
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
         public void AddAllMembreToGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds)
         {
-            this.groupeMembreRepository
-                .DeleteAll(gp => gp.GroupeId == groupeId && membreIds.Contains(gp.MembreId));
+            var groupeEntity = this.groupeRepository
+                .GetUnique(groupe => groupe.Club.Nom == clubName && groupe.Id == groupeId);
+            var groupeMembreEntities = membreIds.Select(membreId => new GroupeMembre { GroupeId = groupeEntity.Id, MembreId = membreId });
+            this.groupeMembreRepository.AddAll(groupeMembreEntities);
         }
 
         /// <summary>
@@ -101,10 +103,10 @@
         /// <param name="membreIds">The enumeration of group ids.</param>
         [HttpDelete, Route("{groupeId:int}/membre")]
         [InvalidateCacheOutput("Get"), InvalidateCacheOutput("GetAll"), InvalidateCacheOutput("GetAllInGroupe", typeof (MembreController))]
-        public void DeleteAllMembreToGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds)
+        public void DeleteAllMembreFromGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds)
         {
-            var groupeMembreEntities = membreIds.Select(membreId => new GroupeMembre {GroupeId = groupeId, MembreId = membreId});
-            this.groupeMembreRepository.AddAll(groupeMembreEntities);
+            this.groupeMembreRepository
+                .DeleteAll(gp => gp.Groupe.Club.Nom == clubName && gp.GroupeId == groupeId && membreIds.Contains(gp.MembreId));
         }
 
         /// <summary>

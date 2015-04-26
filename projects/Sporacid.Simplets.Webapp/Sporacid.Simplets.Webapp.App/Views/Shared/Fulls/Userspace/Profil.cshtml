@@ -1,30 +1,9 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Titles
-
 @{
   ViewBag.Title = @Html.Raw(TitleStrings.Profil_MainTitle);
 }
 
 <div id="page-wrapper">
-
-  <div class="row">
-    <div class="col-lg-6">
-      <h1>@Html.Raw(TitleStrings.Profil_MainTitle)</h1>
-      <br/>
-    </div>
-  </div>
-  @*<div class="col-lg-6" >
-      <h4>Votre niveau</h4>
-      <div style="position: relative;">
-        <div style="position: absolute; height: 40px; font-size: 30px;">33</div>
-        <div class="progress" style="height: 40px; margin-left: 60px; margin-right: 60px;">
-          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-            <h4>Xp: 5174 / 8000</h4>
-          </div>
-        </div>
-        <div style="position: absolute; height: 40px; font-size: 30px; right: 0px; top: 0px;">34</div>
-      </div>
-    </div>
-  </div>*@
 
   <div class="row">
     <div class="col-md-6">
@@ -34,7 +13,7 @@
       @Html.Partial("Partials/Userspace/_ProfilAvance")
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-primary">
@@ -43,34 +22,48 @@
         </div>
         <table class="table">
           <thead>
-            <tr>
-              <th>Titre</th>
-              <th>Description</th>
-              <th>Public</th>
-              <th class="sets-fixed-width-cell1"></th>
-              <th class="sets-fixed-width-cell1"></th>
-            </tr>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Public</th>
+            <th class="sets-fixed-width-cell1"></th>
+            <th class="sets-fixed-width-cell1"></th>
+          </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Chauffer une grue</td>
-              <td>Je chauffe des grues dans mes temps libres.</td>
-              <td><input type="checkbox" class="form-control text-left" style="width: 40px;" checked></td>
-              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-edit"></div></td>
-              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-delete"></div></td>
-            </tr>
-            <tr>
-              <td><input class="form-control" placeholder="Titre de la formation" /></td>
-              <td><input class="form-control" placeholder="Description de la formation" /></td>
-              <td><input type="checkbox" class="form-control text-left" style="width: 40px;"></td>
-              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-add"></div></td>
-              <td class="sets-fixed-width-cell1"></td>
-            </tr>
+          <tr>
+            <td>Chauffer une grue</td>
+            <td>Je chauffe des grues dans mes temps libres.</td>
+            <td>
+              <input type="checkbox" class="form-control text-left" style="width: 40px;" checked>
+            </td>
+            <td class="sets-fixed-width-cell1">
+              <div class="metro-icon metro-edit"></div>
+            </td>
+            <td class="sets-fixed-width-cell1">
+              <div class="metro-icon metro-delete"></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-control" placeholder="Titre de la formation"/>
+            </td>
+            <td>
+              <input class="form-control" placeholder="Description de la formation"/>
+            </td>
+            <td>
+              <input type="checkbox" class="form-control text-left" style="width: 40px;">
+            </td>
+            <td class="sets-fixed-width-cell1">
+              <div class="metro-icon metro-add"></div>
+            </td>
+            <td class="sets-fixed-width-cell1"></td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
-    
+
     <div class="col-md-6">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -78,29 +71,43 @@
         </div>
         <table class="table">
           <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Description</th>
-              <th>Public</th>
-              <th class="sets-fixed-width-cell1"></th>
-              <th class="sets-fixed-width-cell1"></th>
-            </tr>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Public</th>
+            <th class="sets-fixed-width-cell1"></th>
+            <th class="sets-fixed-width-cell1"></th>
+          </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Peanut</td>
-              <td>Je meurs si je suis en contact avec une peanut.</td>
-              <td><input type="checkbox" class="form-control text-left" style="width: 40px;" checked></td>
-              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-edit"></div></td>
-              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-delete"></div></td>
-            </tr>
-            <tr>
-              <td><input class="form-control" placeholder="Nom de l'allergie" /></td>
-              <td><input class="form-control" placeholder="Description" /></td>
-              <td><input type="checkbox" class="form-control text-left" style="width: 40px;"></td>
-              <td class="sets-fixed-width-cell1"><div class="metro-icon metro-add"></div></td>
-              <td class="sets-fixed-width-cell1"></td>
-            </tr>
+          <tr>
+            <td>Peanut</td>
+            <td>Je meurs si je suis en contact avec une peanut.</td>
+            <td>
+              <input type="checkbox" class="form-control text-left" style="width: 40px;" checked>
+            </td>
+            <td class="sets-fixed-width-cell1">
+              <div class="metro-icon metro-edit"></div>
+            </td>
+            <td class="sets-fixed-width-cell1">
+              <div class="metro-icon metro-delete"></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-control" placeholder="Nom de l'allergie"/>
+            </td>
+            <td>
+              <input class="form-control" placeholder="Description"/>
+            </td>
+            <td>
+              <input type="checkbox" class="form-control text-left" style="width: 40px;">
+            </td>
+            <td class="sets-fixed-width-cell1">
+              <div class="metro-icon metro-add"></div>
+            </td>
+            <td class="sets-fixed-width-cell1"></td>
+          </tr>
           </tbody>
         </table>
       </div>
@@ -123,7 +130,7 @@
 
     .table > tbody > tr > td {
       vertical-align: middle;
-      min-width: 40px
+      min-width: 40px;
     }
 
     .profil-avatar {

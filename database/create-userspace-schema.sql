@@ -80,6 +80,9 @@ GO
 CREATE NONCLUSTERED INDEX IXPreferencesProfilId ON [userspace].[Preferences] ([ProfilId])
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX IXPreferencesProfilIdName ON [userspace].[Preferences] ([ProfilId], [Name])
+GO
+
 /****** Object:  Table [userspace].[Formations]  Script Date: 12/12/2014 2:40:31 PM ******/
 CREATE TABLE [userspace].[Formations](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,

@@ -388,6 +388,9 @@
   <ItemGroup>
     <Content Include="Views\Shared\Fulls\Userspace\Membres.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\Userspace\_FirstLoginProfilEdition.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

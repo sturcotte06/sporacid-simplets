@@ -56,7 +56,7 @@
         /// <param name="groupeId">The groupe id.</param>
         /// <param name="membreIds">The enumeration of group ids.</param>
         [RequiredClaims(Claims.DeleteAll)]
-        void DeleteAllMembreToGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds);
+        void DeleteAllMembreFromGroupe(String clubName, Int32 groupeId, IEnumerable<Int32> membreIds);
 
         /// <summary>
         /// Udates a groupe in a club context.

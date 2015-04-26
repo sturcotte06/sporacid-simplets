@@ -179,7 +179,7 @@ AS
 		IF (EXISTS(SELECT @currentClaims))
 		BEGIN
 			UPDATE [security].[PrincipalsModulesContextsClaims]
-			SET [Claims] = [Claims] | @currentClaims
+			SET [Claims] = @claims | @currentClaims
 			WHERE [ContextId] = @contextId
 				AND [ModuleId] = @moduleId
 				AND [PrincipalId] = @principalId;

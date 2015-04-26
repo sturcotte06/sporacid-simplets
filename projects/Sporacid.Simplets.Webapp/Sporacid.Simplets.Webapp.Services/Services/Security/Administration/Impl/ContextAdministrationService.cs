@@ -15,7 +15,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{context:alpha}/administration")]
+    [RoutePrefix(BasePath + "/{context}/administration")]
     public class ContextAdministrationController : BaseSecureService, IContextAdministrationService
     {
         private readonly ISecurityRepository<Int32, Context> contextRepository;
