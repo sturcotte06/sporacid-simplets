@@ -1,8 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services
 {
-    using System.Net.Http;
     using System.Reflection;
-    using System.Web;
     using System.Web.Http;
     using Autofac;
     using Autofac.Integration.WebApi;
@@ -15,13 +13,13 @@
         public static void Register(HttpConfiguration config)
         {
             var builder = new ContainerBuilder();
-            
+
             // Register all modules.
             builder.RegisterModule<ToolsModule>();
             builder.RegisterModule<CoreModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<FilterModule>();
-            
+
             // Let the dependency injector filters.
             builder.RegisterWebApiFilterProvider(config);
 

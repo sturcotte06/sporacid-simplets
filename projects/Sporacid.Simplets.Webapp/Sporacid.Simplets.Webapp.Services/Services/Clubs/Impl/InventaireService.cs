@@ -11,7 +11,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/inventaire")]
+    [RoutePrefix(BasePath + "/{clubName}/inventaire")]
     public class InventaireController : BaseSecureService, IInventaireService
     {
         private readonly IEntityRepository<Int32, Club> clubRepository;

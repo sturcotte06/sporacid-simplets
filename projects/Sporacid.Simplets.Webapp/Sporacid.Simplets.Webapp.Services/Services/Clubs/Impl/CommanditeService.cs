@@ -12,7 +12,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/commanditaire/{commanditaireId:int}/commandite")]
+    [RoutePrefix(BasePath + "/{clubName}/commanditaire/{commanditaireId:int}/commandite")]
     public class CommanditeController : BaseSecureService, ICommanditeService
     {
         private readonly IEntityRepository<Int32, Commanditaire> commanditaireRepository;

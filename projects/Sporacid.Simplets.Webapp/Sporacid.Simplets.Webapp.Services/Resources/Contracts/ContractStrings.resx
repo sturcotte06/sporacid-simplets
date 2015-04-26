@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AntecedentService_Create_EnsuresPositiveAntecedentId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Create_RequiresAntecedent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Create_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Delete_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Delete_RequiresPositiveAntecedentId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_GetAll_EnsuresNonNullAntecedents" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_GetAll_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Get_EnsuresNonNullAntecedent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Get_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Get_RequiresPositiveAntecedentId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Update_RequiresAntecedent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Update_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AntecedentService_Update_RequiresPositiveAntecedentId" xml:space="preserve">
+    <value />
+  </data>
   <data name="ClubAdministrationService_CreateClub_EnsuresPositiveClubId" xml:space="preserve">
     <value />
   </data>
@@ -227,6 +269,48 @@
   </data>
   <data name="CommanditeService_Update_RequiresPositiveCommanditeId" xml:space="preserve">
     <value>A positive sponsor id is required to update a sponsor.</value>
+  </data>
+  <data name="ContactUrgenceService_Create_EnsuresPositiveContactUrgenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Create_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Create_RequiresContactUrgence" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Delete_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Delete_RequiresPositiveContactUrgenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_GetAll_EnsuresNonNullContactsUrgence" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_GetAll_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Get_EnsuresNonNullContactUrgence" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Get_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Get_RequiresPositiveContactUrgenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Update_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Update_RequiresContactUrgence" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactUrgenceService_Update_RequiresPositiveContactUrgenceId" xml:space="preserve">
+    <value />
   </data>
   <data name="ContextAdministrationService_BindRoleToPrincipal_RequiresContext" xml:space="preserve">
     <value>A context is required to bind a role to a user.</value>
@@ -462,6 +546,48 @@
   <data name="MembreService_UnsubscribeFromClub_RequiresCodeUniversel" xml:space="preserve">
     <value />
   </data>
+  <data name="PreferenceService_Create_EnsuresPositivePreferenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Create_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Create_RequiresPreference" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Delete_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Delete_RequiresPositivePreferenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_GetAll_EnsuresNonNullPreferences" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_GetAll_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Get_EnsuresNonNullPreference" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Get_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Get_RequiresPositivePreferenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Update_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Update_RequiresPositivePreferenceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreferenceService_Update_RequiresPreference" xml:space="preserve">
+    <value />
+  </data>
   <data name="PrincipalAdministrationService_CreatePrincipal_EnsuresPositivePrincipalId" xml:space="preserve">
     <value />
   </data>
@@ -478,12 +604,6 @@
     <value />
   </data>
   <data name="ProfilService_GetClubsSubscribedTo_RequiresCodeUniversel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ProfilService_GetPreferences_EnsuresNonNullPreferences" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ProfilService_GetPreferences_RequiresCodeUniversel" xml:space="preserve">
     <value />
   </data>
   <data name="ProfilService_GetPublic_EnsuresNonNullPublicProfil" xml:space="preserve">

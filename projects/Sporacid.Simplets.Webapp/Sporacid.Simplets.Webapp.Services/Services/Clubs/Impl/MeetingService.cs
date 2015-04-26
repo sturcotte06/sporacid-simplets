@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Sporacid.Simplets.Webapp.Core.Repositories;
     using Sporacid.Simplets.Webapp.Services.Database;
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
@@ -13,7 +12,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/meeting")]
+    [RoutePrefix(BasePath + "/{clubName}/meeting")]
     public class MeetingController : BaseSecureService, IMeetingService
     {
         private readonly IEntityRepository<Int32, Club> clubRepository;

@@ -11,7 +11,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [RoutePrefix(BasePath + "/{clubName:alpha}/fournisseur")]
+    [RoutePrefix(BasePath + "/{clubName}/fournisseur")]
     public class FournisseurController : BaseSecureService, IFournisseurService
     {
         private readonly IEntityRepository<Int32, Club> clubRepository;

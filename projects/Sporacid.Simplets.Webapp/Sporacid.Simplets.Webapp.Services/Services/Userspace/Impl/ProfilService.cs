@@ -1,11 +1,9 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Userspace.Impl
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Services.Database;
-    using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Database.Repositories;
@@ -43,21 +41,6 @@
         }
 
         /// <summary>
-        /// Gets the preferences of the profil entity from the system.
-        /// </summary>
-        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
-        /// <returns>The profil's preferences.</returns>
-        [HttpGet, Route("preferences")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.VeryLong)]
-        public IEnumerable<WithId<Int32, PreferenceDto>> GetPreferences(String codeUniversel)
-        {
-            return this.profilRepository
-                .GetUnique(profil => codeUniversel == profil.CodeUniversel)
-                .Preferences
-                .MapAllWithIds<Preference, PreferenceDto>();
-        }
-
-        /// <summary>
         /// Updates the profil object in the system.
         /// </summary>
         /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
@@ -91,7 +74,9 @@
             var profilPublic = profilEntity.MapTo<Profil, ProfilPublicDto>();
 
             // Sets all non-public data to null.
-            profilPublic.ProfilAvance = profilPublic.ProfilAvance.Public ? profilPublic.ProfilAvance : null;
+            profilPublic.ProfilAvance = profilPublic.ProfilAvance.Public
+                ? profilPublic.ProfilAvance
+                : null;
             profilPublic.Formations = profilPublic.Formations.Where(formation => formation.Public);
             profilPublic.Antecedents = profilPublic.Antecedents.Where(antecedent => antecedent.Public);
 

@@ -18,6 +18,11 @@
     [RoutePrefix(BasePath)]
     public class DescriptionController : BaseService, IDescriptionService
     {
+        public DescriptionController()
+        {
+            Console.WriteLine();
+        }
+
         /// <summary>
         /// Describes the api entities. This can be used to discover what entities are used in the api.
         /// </summary>

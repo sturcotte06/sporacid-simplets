@@ -1,10 +1,8 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Services.Userspace
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
-    using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
 
@@ -30,14 +28,6 @@
         /// <returns>The public profil.</returns>
         [RequiredClaims(Claims.None)]
         ProfilPublicDto GetPublic(String codeUniversel);
-
-        /// <summary>
-        /// Gets the preferences of the profil entity from the system.
-        /// </summary>
-        /// <param name="codeUniversel">The universal code that represents the profil entity.</param>
-        /// <returns>The profil's preferences.</returns>
-        [RequiredClaims(Claims.Read | Claims.ReadAll)]
-        IEnumerable<WithId<Int32, PreferenceDto>> GetPreferences(String codeUniversel);
 
         /// <summary>
         /// Updates the profil entity in the system.
@@ -75,18 +65,6 @@
 
             // Dummy return.
             return default(ProfilPublicDto);
-        }
-
-        public IEnumerable<WithId<Int32, PreferenceDto>> GetPreferences(String codeUniversel)
-        {
-            // Preconditions.
-            Contract.Requires(!String.IsNullOrEmpty(codeUniversel), ContractStrings.ProfilService_GetPreferences_RequiresCodeUniversel);
-
-            // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, PreferenceDto>>>() != null, ContractStrings.ProfilService_GetPreferences_EnsuresNonNullPreferences);
-
-            // Dummy return.
-            return default(IEnumerable<WithId<Int32, PreferenceDto>>);
         }
 
         public void Update(String codeUniversel, ProfilDto profil)

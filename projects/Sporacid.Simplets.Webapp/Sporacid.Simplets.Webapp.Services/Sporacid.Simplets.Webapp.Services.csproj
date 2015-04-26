@@ -170,9 +170,6 @@
     <Compile Include="Installers\CoreModule.cs" />
     <Compile Include="Installers\ServicesModule.cs" />
     <Compile Include="Installers\ToolsModule.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="App_Start\SecurityConfig.cs" />
     <Compile Include="App_Start\SerializationConfig.cs" />
     <Compile Include="Database\Database.designer.cs">
@@ -263,12 +260,18 @@
     <Compile Include="Services\Security\IContextService.cs" />
     <Compile Include="Services\Security\Impl\ContextService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
+    <Compile Include="Services\Userspace\IAntecedentService.cs" />
+    <Compile Include="Services\Userspace\Impl\AntecedentService.cs" />
+    <Compile Include="Services\Userspace\Impl\ContactUrgenceService.cs" />
+    <Compile Include="Services\Userspace\Impl\PreferenceService.cs" />
     <Compile Include="Services\Userspace\Impl\ProfilService.cs" />
     <Compile Include="Services\Public\Impl\EnumerationService.cs" />
     <Compile Include="Services\Security\Administration\Impl\PrincipalAdministrationService.cs" />
     <Compile Include="Services\Clubs\Impl\MembreService.cs" />
     <Compile Include="Services\Security\Administration\IContextAdministrationService.cs" />
     <Compile Include="Services\Security\Administration\IPrincipalAdministrationService.cs" />
+    <Compile Include="Services\Userspace\IContactUrgenceService.cs" />
+    <Compile Include="Services\Userspace\IPreferenceService.cs" />
     <Compile Include="Services\Userspace\IProfilService.cs" />
     <Compile Include="Services\Clubs\IMembreService.cs" />
     <Compile Include="WebApi2\Description\Impl\XmlDocumentationProvider.cs" />

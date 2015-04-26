@@ -63,6 +63,132 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AntecedentService_Create_EnsuresPositiveAntecedentId {
+            get {
+                return ResourceManager.GetString("AntecedentService_Create_EnsuresPositiveAntecedentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Create_RequiresAntecedent {
+            get {
+                return ResourceManager.GetString("AntecedentService_Create_RequiresAntecedent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Create_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("AntecedentService_Create_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Delete_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("AntecedentService_Delete_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Delete_RequiresPositiveAntecedentId {
+            get {
+                return ResourceManager.GetString("AntecedentService_Delete_RequiresPositiveAntecedentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Get_EnsuresNonNullAntecedent {
+            get {
+                return ResourceManager.GetString("AntecedentService_Get_EnsuresNonNullAntecedent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Get_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("AntecedentService_Get_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Get_RequiresPositiveAntecedentId {
+            get {
+                return ResourceManager.GetString("AntecedentService_Get_RequiresPositiveAntecedentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_GetAll_EnsuresNonNullAntecedents {
+            get {
+                return ResourceManager.GetString("AntecedentService_GetAll_EnsuresNonNullAntecedents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_GetAll_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("AntecedentService_GetAll_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("AntecedentService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Update_RequiresAntecedent {
+            get {
+                return ResourceManager.GetString("AntecedentService_Update_RequiresAntecedent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Update_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("AntecedentService_Update_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AntecedentService_Update_RequiresPositiveAntecedentId {
+            get {
+                return ResourceManager.GetString("AntecedentService_Update_RequiresPositiveAntecedentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ClubAdministrationService_CreateClub_EnsuresPositiveClubId {
             get {
                 return ResourceManager.GetString("ClubAdministrationService_CreateClub_EnsuresPositiveClubId", resourceCulture);
@@ -390,6 +516,132 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string CommanditeService_Update_RequiresPositiveCommanditeId {
             get {
                 return ResourceManager.GetString("CommanditeService_Update_RequiresPositiveCommanditeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Create_EnsuresPositiveContactUrgenceId {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Create_EnsuresPositiveContactUrgenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Create_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Create_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Create_RequiresContactUrgence {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Create_RequiresContactUrgence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Delete_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Delete_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Delete_RequiresPositiveContactUrgenceId {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Delete_RequiresPositiveContactUrgenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Get_EnsuresNonNullContactUrgence {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Get_EnsuresNonNullContactUrgence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Get_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Get_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Get_RequiresPositiveContactUrgenceId {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Get_RequiresPositiveContactUrgenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_GetAll_EnsuresNonNullContactsUrgence {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_GetAll_EnsuresNonNullContactsUrgence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_GetAll_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_GetAll_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Update_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Update_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Update_RequiresContactUrgence {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Update_RequiresContactUrgence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContactUrgenceService_Update_RequiresPositiveContactUrgenceId {
+            get {
+                return ResourceManager.GetString("ContactUrgenceService_Update_RequiresPositiveContactUrgenceId", resourceCulture);
             }
         }
         
@@ -1098,6 +1350,132 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string PreferenceService_Create_EnsuresPositivePreferenceId {
+            get {
+                return ResourceManager.GetString("PreferenceService_Create_EnsuresPositivePreferenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Create_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("PreferenceService_Create_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Create_RequiresPreference {
+            get {
+                return ResourceManager.GetString("PreferenceService_Create_RequiresPreference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Delete_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("PreferenceService_Delete_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Delete_RequiresPositivePreferenceId {
+            get {
+                return ResourceManager.GetString("PreferenceService_Delete_RequiresPositivePreferenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Get_EnsuresNonNullPreference {
+            get {
+                return ResourceManager.GetString("PreferenceService_Get_EnsuresNonNullPreference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Get_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("PreferenceService_Get_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Get_RequiresPositivePreferenceId {
+            get {
+                return ResourceManager.GetString("PreferenceService_Get_RequiresPositivePreferenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_GetAll_EnsuresNonNullPreferences {
+            get {
+                return ResourceManager.GetString("PreferenceService_GetAll_EnsuresNonNullPreferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_GetAll_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("PreferenceService_GetAll_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("PreferenceService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Update_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("PreferenceService_Update_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Update_RequiresPositivePreferenceId {
+            get {
+                return ResourceManager.GetString("PreferenceService_Update_RequiresPositivePreferenceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PreferenceService_Update_RequiresPreference {
+            get {
+                return ResourceManager.GetString("PreferenceService_Update_RequiresPreference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string PrincipalAdministrationService_CreatePrincipal_EnsuresPositivePrincipalId {
             get {
                 return ResourceManager.GetString("PrincipalAdministrationService_CreatePrincipal_EnsuresPositivePrincipalId", resourceCulture);
@@ -1164,24 +1542,6 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string ProfilService_GetClubsSubscribedTo_RequiresCodeUniversel {
             get {
                 return ResourceManager.GetString("ProfilService_GetClubsSubscribedTo_RequiresCodeUniversel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ProfilService_GetPreferences_EnsuresNonNullPreferences {
-            get {
-                return ResourceManager.GetString("ProfilService_GetPreferences_EnsuresNonNullPreferences", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ProfilService_GetPreferences_RequiresCodeUniversel {
-            get {
-                return ResourceManager.GetString("ProfilService_GetPreferences_RequiresCodeUniversel", resourceCulture);
             }
         }
         
