@@ -25,7 +25,7 @@ CREATE TABLE [userspace].[Profils](
 	[CodeUniversel] [varchar](10) NOT NULL,
 	[Nom] [varchar](50) NULL,
 	[Prenom] [varchar](50) NULL,
-	[Avatar] [varbinary](4000) NULL,
+	[Avatar] [varbinary](max) NULL,
 	[Xp] [int] NOT NULL,
 	[Actif] [bit] NOT NULL,
 	[Public] [bit] NOT NULL,
