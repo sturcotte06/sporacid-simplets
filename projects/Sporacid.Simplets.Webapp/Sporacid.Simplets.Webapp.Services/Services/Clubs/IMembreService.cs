@@ -66,20 +66,20 @@
     [ContractClassFor(typeof (IMembreService))]
     internal abstract class MembreServiceContract : IMembreService
     {
-        public IEnumerable<WithId<int, MembreDto>> GetAll(string clubName, uint? skip, uint? take)
+        public IEnumerable<WithId<Int32, MembreDto>> GetAll(String clubName, UInt32? skip, UInt32? take)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_GetAll_RequiresClubName);
             Contract.Requires(take == null || take > 0, ContractStrings.MembreService_GetAll_RequiresUndefinedOrPositiveTake);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<WithId<int, MembreDto>>>() != null, ContractStrings.MembreService_GetAll_EnsuresNonNullMembres);
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, MembreDto>>>() != null, ContractStrings.MembreService_GetAll_EnsuresNonNullMembres);
 
             // Dummy return.
-            return default(IEnumerable<WithId<int, MembreDto>>);
+            return default(IEnumerable<WithId<Int32, MembreDto>>);
         }
 
-        public IEnumerable<WithId<int, MembreDto>> GetAllFromGroupe(string clubName, int groupeId, uint? skip, uint? take)
+        public IEnumerable<WithId<Int32, MembreDto>> GetAllFromGroupe(String clubName, Int32 groupeId, UInt32? skip, UInt32? take)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_GetAllFromGroupe_RequiresClubName);
@@ -87,13 +87,13 @@
             Contract.Requires(groupeId > 0, ContractStrings.MembreService_GetAllFromGroupe_RequiresPositiveGroupeId);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<IEnumerable<WithId<int, MembreDto>>>() != null, ContractStrings.MembreService_GetAllFromGroupe_EnsuresNonNullMembres);
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, MembreDto>>>() != null, ContractStrings.MembreService_GetAllFromGroupe_EnsuresNonNullMembres);
 
             // Dummy return.
-            return default(IEnumerable<WithId<int, MembreDto>>);
+            return default(IEnumerable<WithId<Int32, MembreDto>>);
         }
 
-        public MembreDto Get(string clubName, int membreId)
+        public MembreDto Get(String clubName, Int32 membreId)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.MembreService_Get_RequiresClubName);

@@ -34,12 +34,12 @@
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilDto_Actif_Required")]
-        public bool Actif { get; set; }
+        public Boolean Actif { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilDto_Public_Required")]
-        public bool Public { get; set; }
+        public Boolean Public { get; set; }
 
         public Binary Avatar { get; set; }
 

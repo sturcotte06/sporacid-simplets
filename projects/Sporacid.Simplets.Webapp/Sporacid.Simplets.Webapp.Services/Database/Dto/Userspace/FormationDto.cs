@@ -28,6 +28,6 @@
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "FormationDto_Public_Required")]
-        public bool Public { get; set; }
+        public Boolean Public { get; set; }
     }
 }

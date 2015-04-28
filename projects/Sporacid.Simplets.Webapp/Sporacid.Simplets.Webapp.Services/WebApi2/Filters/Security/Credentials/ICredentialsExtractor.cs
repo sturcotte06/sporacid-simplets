@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="scheme">The authentication scheme.</param>
         /// <returns> Whether the authentication scheme is supported.</returns>
-        bool IsSupported(AuthenticationScheme scheme);
+        Boolean IsSupported(AuthenticationScheme scheme);
 
         /// <summary>
         /// The supported authentication schemes, as flags.

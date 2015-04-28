@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
+namespace Sporacid.Simplets.Webapp.App.Resources.Menus {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class TitleStrings {
+    public class MenuStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal TitleStrings() {
+        internal MenuStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sporacid.Simplets.Webapp.App.Resources.Titles.TitleStrings", typeof(TitleStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sporacid.Simplets.Webapp.App.Resources.Menus.MenuStrings", typeof(MenuStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,74 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Medical History.
+        ///   Looks up a localized string similar to Sponsors.
         /// </summary>
-        public static string Antecedents_MainTitle {
+        public static string ClubMenu_Commanditaires {
             get {
-                return ResourceManager.GetString("Antecedents_MainTitle", resourceCulture);
+                return ResourceManager.GetString("ClubMenu_Commanditaires", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Complete your profile information*.
+        ///   Looks up a localized string similar to Consult Sponsors.
         /// </summary>
-        public static string FirstLoginProfileEdition_MainTitle {
+        public static string ClubMenu_Commanditaires_Consulter {
             get {
-                return ResourceManager.GetString("FirstLoginProfileEdition_MainTitle", resourceCulture);
+                return ResourceManager.GetString("ClubMenu_Commanditaires_Consulter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Training.
+        ///   Looks up a localized string similar to Members.
         /// </summary>
-        public static string Formations_MainTitle {
+        public static string ClubMenu_Membres {
             get {
-                return ResourceManager.GetString("Formations_MainTitle", resourceCulture);
+                return ResourceManager.GetString("ClubMenu_Membres", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authenticate yourself *.
+        ///   Looks up a localized string similar to Consult Members.
         /// </summary>
-        public static string Login_MainTitle {
+        public static string ClubMenu_Membres_Consulter {
             get {
-                return ResourceManager.GetString("Login_MainTitle", resourceCulture);
+                return ResourceManager.GetString("ClubMenu_Membres_Consulter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Profile.
+        ///   Looks up a localized string similar to Context.
         /// </summary>
-        public static string Profil_MainTitle {
+        public static string MainMenu_Contexte {
             get {
-                return ResourceManager.GetString("Profil_MainTitle", resourceCulture);
+                return ResourceManager.GetString("MainMenu_Contexte", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Advanced Profile.
+        ///   Looks up a localized string similar to Logout.
         /// </summary>
-        public static string ProfilAvance_MainTitle {
+        public static string MainMenu_Deconnexion {
             get {
-                return ResourceManager.GetString("ProfilAvance_MainTitle", resourceCulture);
+                return ResourceManager.GetString("MainMenu_Deconnexion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Base Profile.
+        ///   Looks up a localized string similar to Preferences.
         /// </summary>
-        public static string ProfilBase_MainTitle {
+        public static string MainMenu_Preferences {
             get {
-                return ResourceManager.GetString("ProfilBase_MainTitle", resourceCulture);
+                return ResourceManager.GetString("MainMenu_Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string MainMenu_Profil {
+            get {
+                return ResourceManager.GetString("MainMenu_Profil", resourceCulture);
             }
         }
     }

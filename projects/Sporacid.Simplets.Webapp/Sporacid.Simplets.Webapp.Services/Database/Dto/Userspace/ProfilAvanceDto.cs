@@ -16,7 +16,7 @@
             ErrorMessageResourceName = "ProfilAvanceDto_CodePermament_StringLength")]
         public String CodePermanent { get; set; }
 
-        [JsonConverter(typeof(DateConverter))]
+        [JsonConverter(typeof (DateConverter))]
         public DateTime? DateNaissance { get; set; }
 
         [RegularExpression("[0-9]{10}",
@@ -35,14 +35,14 @@
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilAvanceDto_Public_Required")]
-        public bool Public { get; set; }
+        public Boolean Public { get; set; }
     }
 
-    class DateConverter : IsoDateTimeConverter
+    internal class DateConverter : IsoDateTimeConverter
     {
         public DateConverter()
         {
-            base.DateTimeFormat = "yyyy-MM-dd";
+            this.DateTimeFormat = "yyyy-MM-dd";
         }
     }
 }

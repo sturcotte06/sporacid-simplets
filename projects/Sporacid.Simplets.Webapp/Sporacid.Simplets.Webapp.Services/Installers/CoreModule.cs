@@ -59,7 +59,7 @@
             // Security registrations.
             builder.RegisterType<AuthenticationTokenFactory>().As<ITokenFactory>()
                 .WithParameter(TypedParameter.From(TimeSpan.FromHours(6)))
-                .WithParameter(TypedParameter.From((uint) 64));
+                .WithParameter(TypedParameter.From((UInt32) 64));
             builder.RegisterType<ActiveDirectorySearcher>().As<ILdapSearcher>()
                 .WithParameter(TypedParameter.From(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]));
             builder.RegisterType<AuthorizationModule>().As<IAuthorizationModule>();
@@ -68,7 +68,7 @@
             builder.RegisterType<KerberosAuthenticationModule>().As<IAuthenticationModule>()
                 .WithParameter(TypedParameter.From(ConfigurationManager.AppSettings["ActiveDirectoryDomainName"]));
             builder.RegisterType<TokenAuthenticationModule>().As<IAuthenticationModule>();
-            
+
             // Register event bus registrations.
             builder.RegisterGeneric(typeof (SyncTransientEventBus<,>)).As(typeof (IEventBus<,>));
 

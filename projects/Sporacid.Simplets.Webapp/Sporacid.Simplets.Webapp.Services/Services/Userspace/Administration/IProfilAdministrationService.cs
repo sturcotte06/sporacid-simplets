@@ -12,7 +12,7 @@
     /// <version>1.9.0</version>
     [Module("ProfilAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
-    [ContractClass(typeof(ProfilAdministrationServiceContract))]
+    [ContractClass(typeof (ProfilAdministrationServiceContract))]
     public interface IProfilAdministrationService : IService
     {
         /// <summary>
@@ -36,7 +36,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [ContractClassFor(typeof(IProfilAdministrationService))]
+    [ContractClassFor(typeof (IProfilAdministrationService))]
     internal abstract class ProfilAdministrationServiceContract : IProfilAdministrationService
     {
         public Int32 CreateBaseProfil(String codeUniversel)

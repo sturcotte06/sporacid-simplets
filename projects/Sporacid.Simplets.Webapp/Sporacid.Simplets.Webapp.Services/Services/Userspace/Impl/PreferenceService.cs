@@ -49,7 +49,7 @@
         /// <param name="preferenceId">The preferences id.</param>
         /// <returns>The preference entity.</returns>
         [HttpGet, Route("{preferenceId:int}")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Medium)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Medium)]
         public PreferenceDto Get(String codeUniversel, Int32 preferenceId)
         {
             return this.preferenceRepository

@@ -7,7 +7,7 @@
     /// <version>1.9.0</version>
     public class ClubCreated : Event<ClubCreatedEventArgs>
     {
-        public ClubCreated(object sender, ClubCreatedEventArgs eventArgs)
+        public ClubCreated(Object sender, ClubCreatedEventArgs eventArgs)
             : base(sender, eventArgs)
         {
         }

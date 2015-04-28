@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Antecedents_MainTitle" xml:space="preserve">
+    <value>Your Medical History</value>
+  </data>
   <data name="FirstLoginProfileEdition_MainTitle" xml:space="preserve">
     <value>Complete your profile information*</value>
+  </data>
+  <data name="Formations_MainTitle" xml:space="preserve">
+    <value>Your Training</value>
   </data>
   <data name="Login_MainTitle" xml:space="preserve">
     <value>Authenticate yourself *</value>

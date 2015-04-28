@@ -27,8 +27,8 @@
             // Specific cache configurations registrations.
             builder.RegisterGeneric(typeof (ConfigurableCache<,>)).As(typeof (ICache<,>))
                 .SingleInstance();
-            builder.RegisterGeneric(typeof(ReaderWriterLockingPolicy<,>)).As(typeof(ICachePolicy<,>));
-            builder.RegisterGeneric(typeof(TimeBasedInvalidationPolicy<,>)).As(typeof(ICachePolicy<,>))
+            builder.RegisterGeneric(typeof (ReaderWriterLockingPolicy<,>)).As(typeof (ICachePolicy<,>));
+            builder.RegisterGeneric(typeof (TimeBasedInvalidationPolicy<,>)).As(typeof (ICachePolicy<,>))
                 .WithParameter(TypedParameter.From(TimeSpan.FromHours(6)));
 
 

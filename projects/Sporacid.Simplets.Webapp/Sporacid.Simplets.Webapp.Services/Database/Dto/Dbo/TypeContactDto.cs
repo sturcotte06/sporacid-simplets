@@ -18,7 +18,7 @@
         public String Nom { get; set; }
 
         [StringLength(150,
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "TypeContactDto_Description_StringLength")]
         public String Description { get; set; }
     }

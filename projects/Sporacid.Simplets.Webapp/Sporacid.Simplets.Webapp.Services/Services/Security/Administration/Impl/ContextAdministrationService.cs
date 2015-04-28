@@ -23,7 +23,7 @@
         private readonly ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository;
 
         public ContextAdministrationController(ISecurityRepository<Int32, Principal> principalRepository, ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository,
-            ISecurityRepository<Int32, Context> contextRepository)
+                                               ISecurityRepository<Int32, Context> contextRepository)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;

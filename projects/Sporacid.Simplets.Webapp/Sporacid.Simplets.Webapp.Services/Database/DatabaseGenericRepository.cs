@@ -1,8 +1,5 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.Database
 {
-    using Sporacid.Simplets.Webapp.Core.Repositories;
-    using Sporacid.Simplets.Webapp.Core.Repositories.Impl;
-
     // /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     // /// <version>1.9.0</version>
     // public class DatabaseGenericRepository<TEntityId, TEntity> : GenericRepository<TEntityId, TEntity>,

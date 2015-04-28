@@ -13,12 +13,13 @@
     /// <version>1.9.0</version>
     [Module("ClubAdministration")]
     [FixedContext(SecurityConfig.SystemContext)]
-    [ContractClass(typeof(ClubAdministrationServiceContract))]
+    [ContractClass(typeof (ClubAdministrationServiceContract))]
     public interface IClubAdministrationService : IService
     {
         /// <summary>
         /// Creates a club entity into the system.
-        /// Creating a club will creates its security context and will give all rights on the context to the principal creating the club.
+        /// Creating a club will creates its security context and will give all rights on the context to the principal creating the
+        /// club.
         /// </summary>
         /// <param name="club">The club entity.</param>
         /// <exception cref="NotAuthorizedException">
@@ -37,8 +38,8 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [ContractClassFor(typeof(IClubAdministrationService))]
-    abstract class ClubAdministrationServiceContract : IClubAdministrationService
+    [ContractClassFor(typeof (IClubAdministrationService))]
+    internal abstract class ClubAdministrationServiceContract : IClubAdministrationService
     {
         public Int32 CreateClub(ClubDto club)
         {

@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Data.Linq;
     using Sporacid.Simplets.Webapp.Services.Resources.Validation;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -24,5 +25,7 @@
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ClubDto_Description_StringLength")]
         public String Description { get; set; }
+
+        public Binary Logo { get; set; }
     }
 }

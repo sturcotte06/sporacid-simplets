@@ -22,7 +22,7 @@
         private readonly IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository;
 
         public EnumerationController(IEntityRepository<Int32, TypeContact> typeContactRepository, IEntityRepository<Int32, Concentration> concentrationRepository,
-            IEntityRepository<Int32, StatutSuivie> statutSuivieRepository, IEntityRepository<Int32, Unite> uniteRepository, IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository)
+                                     IEntityRepository<Int32, StatutSuivie> statutSuivieRepository, IEntityRepository<Int32, Unite> uniteRepository, IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository)
         {
             this.typeContactRepository = typeContactRepository;
             this.concentrationRepository = concentrationRepository;

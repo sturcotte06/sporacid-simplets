@@ -11,10 +11,10 @@
     public class FournisseurDto
     {
         [Required(
-    ErrorMessageResourceType = typeof(ValidationStrings),
-    ErrorMessageResourceName = "FournisseurDto_TypeFournisseurId_Required")]
+            ErrorMessageResourceType = typeof (ValidationStrings),
+            ErrorMessageResourceName = "FournisseurDto_TypeFournisseurId_Required")]
         [Range(1, Int32.MaxValue,
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "FournisseurDto_TypeFournisseurId_Range")]
         public Int32 TypeFournisseurId { get; set; }
 

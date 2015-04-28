@@ -18,7 +18,7 @@
         private readonly ISecurityRepository<Int32, Principal> principalRepository;
 
         public PrincipalAdministrationController(IEventBus<PrincipalCreated, PrincipalCreatedEventArgs> principalCreatedEventBus,
-            ISecurityRepository<Int32, Principal> principalRepository)
+                                                 ISecurityRepository<Int32, Principal> principalRepository)
         {
             this.principalRepository = principalRepository;
             this.principalCreatedEventBus = principalCreatedEventBus;

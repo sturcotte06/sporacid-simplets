@@ -27,7 +27,7 @@
         /// </exception>
         /// <returns>Whether the principal exists.</returns>
         [RequiredClaims(Claims.Admin | Claims.Read)]
-        bool Exists(String identity);
+        Boolean Exists(String identity);
 
         /// <summary>
         /// Creates a principal in the system.

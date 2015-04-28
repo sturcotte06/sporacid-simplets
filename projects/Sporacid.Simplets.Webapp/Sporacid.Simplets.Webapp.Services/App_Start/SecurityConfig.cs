@@ -6,6 +6,7 @@
     using System.Web.Http;
     using Sporacid.Simplets.Webapp.Core.Security.Authorization;
     using Sporacid.Simplets.Webapp.Core.Security.Bootstrap;
+    using Sporacid.Simplets.Webapp.Services.Services;
     using Sporacid.Simplets.Webapp.Tools.Reflection;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -20,6 +21,10 @@
             Collaborateur,
             Lecteur
         }
+
+        private const Claims ReadOnly = Claims.Read | Claims.ReadAll;
+        private const Claims ReadWriteOnly = ReadOnly | Claims.Create | Claims.CreateAll | Claims.Update | Claims.UpdateAll | Claims.Delete | Claims.DeleteAll;
+        private const Claims All = ReadWriteOnly | Claims.Admin;
 
         /// <summary>
         /// Fixed context for system administration.
@@ -40,19 +45,19 @@
 
             // Bootstrap the security database.
             securityDatabaseBootstrapper.Bootstrap(assembly,
-                ReflectionExtensions.GetChildrenNamespaces(assembly, "Sporacid.Simplets.Webapp.Services.Services").ToArray());
+                ReflectionExtensions.GetChildrenNamespaces(assembly, typeof (IService).Namespace).ToArray());
 
             // Bootstrap the user roles of the application.
             roleBootstrapper
-                .BindClaims(Claims.All)
+                .BindClaims(All)
                 .ToModules(allModules)
                 .BootstrapTo(Role.Administrateur.ToString());
             roleBootstrapper
-                .BindClaims(Claims.ReadWriteOnly)
+                .BindClaims(ReadWriteOnly)
                 .ToModules(allModules)
                 .BootstrapTo(Role.Collaborateur.ToString());
             roleBootstrapper
-                .BindClaims(Claims.ReadOnly)
+                .BindClaims(ReadOnly)
                 .ToModules(allModules)
                 .BootstrapTo(Role.Lecteur.ToString());
         }

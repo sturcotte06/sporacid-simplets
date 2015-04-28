@@ -61,6 +61,33 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Formations_Description {
+            get {
+                return ResourceManager.GetString("Formations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public.
+        /// </summary>
+        public static string Formations_Public {
+            get {
+                return ResourceManager.GetString("Formations_Public", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Formations_Titre {
+            get {
+                return ResourceManager.GetString("Formations_Titre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Universal Code.
         /// </summary>
         public static string Login_CodeUniversel {
@@ -88,7 +115,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Permanent code.
+        ///   Looks up a localized string similar to Permanent Code.
         /// </summary>
         public static string ProfilAvance_CodePermanent {
             get {
@@ -115,7 +142,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mark as public.
+        ///   Looks up a localized string similar to Mark as Public.
         /// </summary>
         public static string ProfilAvance_Public {
             get {
@@ -151,7 +178,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last name.
+        ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string ProfilBase_Nom {
             get {
@@ -160,7 +187,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First name.
+        ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string ProfilBase_Prenom {
             get {
@@ -169,7 +196,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mark as public.
+        ///   Looks up a localized string similar to Mark as Public.
         /// </summary>
         public static string ProfilBase_Public {
             get {

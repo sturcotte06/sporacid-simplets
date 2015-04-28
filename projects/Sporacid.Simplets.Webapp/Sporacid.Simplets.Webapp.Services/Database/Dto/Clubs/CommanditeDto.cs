@@ -11,10 +11,10 @@
     public class CommanditeDto
     {
         [Required(
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "CommanditeDto_TypeCommanditeId_Required")]
         [Range(1, Int32.MaxValue,
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "CommanditeDto_TypeCommanditeId_Range")]
         public Int32 TypeCommanditeId { get; set; }
 
@@ -32,12 +32,12 @@
         public Boolean Recu { get; set; }
 
         [StringLength(250,
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "CommanditeDto_Commentaire_StringLength")]
         public String Commentaire { get; set; }
 
         [Required(
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "CommanditeDto_Suivies_Required")]
         public IEnumerable<SuivieDto> Suivies { get; set; }
     }

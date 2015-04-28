@@ -91,7 +91,7 @@
         {
             var groupeEntity = this.groupeRepository
                 .GetUnique(groupe => groupe.Club.Nom == clubName && groupe.Id == groupeId);
-            var groupeMembreEntities = membreIds.Select(membreId => new GroupeMembre { GroupeId = groupeEntity.Id, MembreId = membreId });
+            var groupeMembreEntities = membreIds.Select(membreId => new GroupeMembre {GroupeId = groupeEntity.Id, MembreId = membreId});
             this.groupeMembreRepository.AddAll(groupeMembreEntities);
         }
 

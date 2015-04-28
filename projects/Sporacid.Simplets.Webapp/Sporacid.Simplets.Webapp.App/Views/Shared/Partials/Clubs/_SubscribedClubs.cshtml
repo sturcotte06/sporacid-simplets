@@ -1,0 +1,16 @@
+﻿<ul id="subscribed-clubs" class="dropdown-menu" data-bind="foreach: clubs">
+  <li data-bind="click: $parent.select">
+    <a href="#">
+      <div class="subscribed-club-logo" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
+      <span data-bind="text: nom" class="subscribed-club-text"></span>
+      <input class="subscribed-club-isdefault" type="checkbox"/>
+    </a>
+  </li>
+  <li class="divider" data-bind="visible: $index() !== ($parent.clubs().length - 1)"></li>
+</ul>
+
+<script type="text/javascript">
+  jQuery(function($) {
+    $("#subscribed-clubs .subscribed-club-isdefault").bootstrapSwitch();
+  });
+</script>

@@ -117,52 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Formations_Description" xml:space="preserve">
-    <value>Description</value>
+  <data name="ClubMenu_Commanditaires" xml:space="preserve">
+    <value>Sponsors</value>
   </data>
-  <data name="Formations_Public" xml:space="preserve">
-    <value>Public</value>
+  <data name="ClubMenu_Commanditaires_Consulter" xml:space="preserve">
+    <value>Consult Sponsors</value>
   </data>
-  <data name="Formations_Titre" xml:space="preserve">
-    <value>Titre</value>
+  <data name="ClubMenu_Membres" xml:space="preserve">
+    <value>Members</value>
   </data>
-  <data name="Login_CodeUniversel" xml:space="preserve">
-    <value>Code universel</value>
+  <data name="ClubMenu_Membres_Consulter" xml:space="preserve">
+    <value>Consult Members</value>
   </data>
-  <data name="Login_MotDePasse" xml:space="preserve">
-    <value>Mot de passe</value>
+  <data name="MainMenu_Contexte" xml:space="preserve">
+    <value>Context</value>
   </data>
-  <data name="ProfilAvance_CodePermanent" xml:space="preserve">
-    <value>Code permanent</value>
+  <data name="MainMenu_Deconnexion" xml:space="preserve">
+    <value>Logout</value>
   </data>
-  <data name="ProfilAvance_Courriel" xml:space="preserve">
-    <value>Courriel</value>
+  <data name="MainMenu_Preferences" xml:space="preserve">
+    <value>Preferences</value>
   </data>
-  <data name="ProfilAvance_DateNaissance" xml:space="preserve">
-    <value>Date de naissance</value>
-  </data>
-  <data name="ProfilAvance_Public" xml:space="preserve">
-    <value>Rendre vos informations publiques</value>
-  </data>
-  <data name="ProfilAvance_Telephone" xml:space="preserve">
-    <value>Téléphone</value>
-  </data>
-  <data name="ProfilBase_Avatar" xml:space="preserve">
-    <value>Avatar</value>
-  </data>
-  <data name="ProfilBase_Concentration" xml:space="preserve">
-    <value>Concentration</value>
-  </data>
-  <data name="ProfilBase_Nom" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="ProfilBase_Prenom" xml:space="preserve">
-    <value>Prénom</value>
-  </data>
-  <data name="ProfilBase_Public" xml:space="preserve">
-    <value>Rendre vos informations publiques</value>
-  </data>
-  <data name="Profil_DefaultValue" xml:space="preserve">
-    <value>Non-spécifié</value>
+  <data name="MainMenu_Profil" xml:space="preserve">
+    <value>Profile</value>
   </data>
 </root>

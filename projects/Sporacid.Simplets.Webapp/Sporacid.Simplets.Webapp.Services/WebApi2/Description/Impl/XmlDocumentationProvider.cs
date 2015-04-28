@@ -75,7 +75,9 @@
         public String GetDocumentation(MemberInfo member)
         {
             var memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
-            var expression = member.MemberType == MemberTypes.Field ? FieldExpression : PropertyExpression;
+            var expression = member.MemberType == MemberTypes.Field
+                ? FieldExpression
+                : PropertyExpression;
             var selectExpression = String.Format(CultureInfo.InvariantCulture, expression, memberName);
             var propertyNode = this._documentNavigator.SelectSingleNode(selectExpression);
             return GetTagValue(propertyNode, "summary");

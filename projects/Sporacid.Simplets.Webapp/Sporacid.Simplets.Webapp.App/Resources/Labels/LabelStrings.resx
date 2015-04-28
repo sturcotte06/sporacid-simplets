@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Formations_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Formations_Public" xml:space="preserve">
+    <value>Public</value>
+  </data>
+  <data name="Formations_Titre" xml:space="preserve">
+    <value>Title</value>
+  </data>
   <data name="Login_CodeUniversel" xml:space="preserve">
     <value>Universal Code</value>
   </data>
@@ -124,7 +133,7 @@
     <value>Password</value>
   </data>
   <data name="ProfilAvance_CodePermanent" xml:space="preserve">
-    <value>Permanent code</value>
+    <value>Permanent Code</value>
   </data>
   <data name="ProfilAvance_Courriel" xml:space="preserve">
     <value>Email</value>
@@ -133,7 +142,7 @@
     <value>Birthdate</value>
   </data>
   <data name="ProfilAvance_Public" xml:space="preserve">
-    <value>Mark as public</value>
+    <value>Mark as Public</value>
   </data>
   <data name="ProfilAvance_Telephone" xml:space="preserve">
     <value>Phone</value>
@@ -145,13 +154,13 @@
     <value>Program</value>
   </data>
   <data name="ProfilBase_Nom" xml:space="preserve">
-    <value>Last name</value>
+    <value>Last Name</value>
   </data>
   <data name="ProfilBase_Prenom" xml:space="preserve">
-    <value>First name</value>
+    <value>First Name</value>
   </data>
   <data name="ProfilBase_Public" xml:space="preserve">
-    <value>Mark as public</value>
+    <value>Mark as Public</value>
   </data>
   <data name="Profil_DefaultValue" xml:space="preserve">
     <value>Non-sepcified</value>

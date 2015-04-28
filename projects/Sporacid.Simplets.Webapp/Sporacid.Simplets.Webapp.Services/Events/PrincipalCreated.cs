@@ -7,7 +7,7 @@
     /// <version>1.9.0</version>
     public class PrincipalCreated : Event<PrincipalCreatedEventArgs>
     {
-        public PrincipalCreated(object sender, PrincipalCreatedEventArgs eventArgs) : base(sender, eventArgs)
+        public PrincipalCreated(Object sender, PrincipalCreatedEventArgs eventArgs) : base(sender, eventArgs)
         {
         }
     }
@@ -17,9 +17,9 @@
     public class PrincipalCreatedEventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// Initializes a new instance of the <see cref="T:System.Object" /> class.
         /// </summary>
-        public PrincipalCreatedEventArgs(string identity)
+        public PrincipalCreatedEventArgs(String identity)
         {
             this.Identity = identity;
         }

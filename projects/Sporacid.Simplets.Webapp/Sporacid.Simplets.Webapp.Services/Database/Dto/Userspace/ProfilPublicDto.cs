@@ -11,7 +11,7 @@
     {
         public String Nom { get; set; }
         public String Prenom { get; set; }
-        public bool Actif { get; set; }
+        public Boolean Actif { get; set; }
         public Binary Avatar { get; set; }
         public ProfilAvanceDto ProfilAvance { get; set; }
         public IEnumerable<FormationDto> Formations { get; set; }

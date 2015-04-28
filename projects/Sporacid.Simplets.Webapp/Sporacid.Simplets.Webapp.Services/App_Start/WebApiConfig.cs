@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics;
-    using System.Reflection;
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Controllers;
@@ -48,7 +47,7 @@
             {
             }
 
-            private static bool IsHttpEndpoint(Type t)
+            private static Boolean IsHttpEndpoint(Type t)
             {
                 return t != null &&
                        t.IsClass &&

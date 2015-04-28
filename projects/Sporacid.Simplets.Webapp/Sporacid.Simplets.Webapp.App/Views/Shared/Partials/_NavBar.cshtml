@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle nav-bar-expander" data-toggle="collapse" data-target=".navbar-ex1-collapse">
       <span class="sr-only">Toggle navigation</span>
@@ -6,105 +8,134 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-      
 
-      <div class="navbar-header pull-left navbar-toggle nav-bar-static-item">
-          <a class="navbar-brand pull-left" href="index.html">SimplETS</a>
-       </div>
+    <div class="navbar-header pull-left navbar-toggle nav-bar-static-item">
+      <a class="navbar-brand pull-left" href="/">SimplETS</a>
+    </div>
 
-        <!-- 'Sticky' (non-collapsing) right-side menu item(s) -->
-        <div class="navbar-header pull-right navbar-toggle nav-bar-static-item">
-            <ul class="nav pull-left">
-                <li class="dropdown pull-right">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="icon-container fa fa-2x btn-info vcenter"><span class="fa fa-share white"></span></span><b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Chinook</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">PRECI</a></li>
-                    </ul>
-                </li>
-                <li class="pull-right">
-                    <a href="@Url.Action("", null, null, Request.Url.Scheme)" class="dropdown-toggle">
-                        <span class="icon-container fa fa-2x vcenter btn-success"><span class="fa fa-user white"></span></span>
-                    </a>
-                </li>
-                <li class="pull-right">
-                    <a class="dropdown-toggle">
-                        <span class="icon-container fa fa-2x vcenter btn-warning"><span class="fa fa-cogs white"></span></span>
-                    </a>
-                </li>
-                <li class="pull-right">
-                    <a class="dropdown-toggle">
-                        <span class="icon-container fa fa-2x vcenter btn-danger"><span class="fa fa fa-sign-out white"></span></span>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
+    <!-- Container for the top menu when the device screen is small (mobile). -->
+    <div class="main-menu-xs-container navbar-header pull-right nav-bar-static-item"></div>
   </div>
 
-  <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul id="active" class="nav navbar-nav side-nav">
-        <li class="dropdown">
-            <a class=" dropdown-toggle" data-toggle="dropdown">
-                <span class="icon-container fa btn-default fa-2x vcenter"><span class="fa fa-users white"></span></span><span class="vcenter">Membres</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="item">
-                    <a href="/app/home/membres">
-                        <i class="fa fa-sitemap"></i>
-                        Consulter les membres
-                    </a>
-                </li>
-            </ul>
-        </li>
+  <!-- Container for the top menu when the device screen is large enough. -->
+  <div class="main-menu-md-container collapse navbar-collapse">
+    <a class="navbar-brand" href="@Url.Content("~")">SimplETS</a>
+  </div>
 
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa icon-container fa-folder-open-o fa btn-default fa-2x vcenter"></i> Commandites
+  <!-- Main menu. -->
+  <ul id="main-menu" class="nav" data-bind="css: { 'pull-left': isXs(), 'navbar-nav': !isXs(), 'navbar-right': !isXs() }">
+    <!-- Context option to choose a club. -->
+    <li class="dropdown" data-bind="css: { 'pull-left': isXs() }, with: subscribedClubsModelView">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="icon-container fa fa-2x btn-info vcenter">
+          <span class="fa fa-share white"></span>
+        </span> 
+        <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Contexte)</span>
+        <b class="caret hidden-xs"></b>
+      </a>
+      @Html.Partial("Partials/Clubs/_SubscribedClubs")
+    </li>
+    <!-- Preferences option. -->
+    <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
+      <a href="#" class="dropdown-toggle">
+        <span class="icon-container fa fa-2x vcenter btn-warning">
+          <span class="fa fa-cogs white"></span>
+        </span> 
+        <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Preferences)</span>
+        <b class="caret hidden-xs"></b>
+      </a>
+    </li> 
+    <!-- Profile option. -->
+    <li data-bind="css: { 'pull-left': isXs() }">
+      <a href="@Url.Action("Index", "Home")" class="dropdown-toggle">
+        <span class="icon-container fa fa-2x vcenter btn-success">
+          <span class="fa fa-user white"></span>
+        </span>
+        <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Profil)</span>
+      </a>
+    </li> 
+    <!-- Logout option. -->
+    <li data-bind="css: { 'pull-left': isXs() }">
+      <a href="#" class="dropdown-toggle">
+        <span class="icon-container fa fa-2x vcenter btn-danger">   
+          <span class="fa fa-sign-out white"></span></span> 
+        <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Deconnexion)</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Club menu. -->
+  <div id="club-menu" class="collapse navbar-collapse navbar-ex1-collapse">
+    <!-- Process each menu entries. -->
+    <ul id="active" class="nav navbar-nav side-nav" data-bind="foreach: entries">
+      <li data-bind="css: { 'dropdown': entries }">
+        <a class="dropdown-toggle" data-toggle="dropdown" data-bind="href: href ? href : '#', css: { 'dropdown-toggle': entries }, attr: { 'data-toggle': entries ? 'dropdown' : '' }">
+          <span data-bind="attr: { 'class': 'icon-container fa btn-default fa-2x vcenter' + (buttonClass ? ' ' + buttonClass : '') }">
+            <i data-bind="attr: {'class': iconClass ? 'fa white ' + iconClass : 'fa white' }"></i>
+          </span>
+          <span class="vcenter" data-bind="text: text"></span>
+        </a>
+        <!-- Process each submenu entries. -->
+        <ul class="dropdown-menu" data-bind="foreach: entries">
+          <li class="item">
+            <a data-bind="href: href ? href : '#'">
+              <i data-bind="attr: {'class': iconClass ? 'fa ' + iconClass : 'fa' }"></i>
+              <span class="vcenter" data-bind="text: text"></span>
             </a>
-            <ul class="dropdown-menu">
-                <li class="item">
-                    <a href="/app/home/members">
-                        <i class="fa fa-sitemap"></i>
-                        Consulter les commandites
-                    </a>
-                </li>
-            </ul>
-        </li>
+          </li>
+        </ul>
+      </li>
     </ul>
-      </div>
-    <div class="collapse navbar-collapse">
-
-        <a class="navbar-brand" href="index.html">SimplETS</a>
-        <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="icon-container fa fa-2x btn-info vcenter"><span class="fa fa-share white"></span></span> <span class="vcenter">Context</span>  <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Chinook</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">PRECI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="@Url.Action("", null, null, Request.Url.Scheme)" class="dropdown-toggle">
-                        <span class="icon-container fa fa-2x vcenter btn-success"><span class="fa fa-user white"></span></span> <span class="vcenter">Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-toggle">
-                        <span class="icon-container fa fa-2x vcenter btn-warning"><span class="fa fa-cogs white"></span></span> <span class="vcenter">Paramètres</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle">
-                        <span class="icon-container fa fa-2x vcenter btn-danger"><span class="fa fa fa-sign-out white"></span></span> <span class="vcenter">Déconnexion</span>
-                    </a>
-                </li>
-            </ul>
-    </div>
+  </div>
 </nav>
+
+<script type="text/javascript">
+  // The club menu entry array. 
+  // This would be the menu entries if one was admin.
+  var clubMenuEntries = [
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires)",
+      buttonClass: "btn-success",
+      iconClass: "fa-folder-open-o",
+      href: null,
+      module: modules.commanditaires(),
+      entries: [
+        {
+          text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires_Consulter)",
+          iconClass: "fa-sitemap",
+          href: buildUrl(baseApplicationUrl, "commanditaires"),
+          requiredClaims: claims.readAll()
+        }
+      ]
+    },
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Membres)",
+      buttonClass: "btn-info",
+      iconClass: "fa-users",
+      href: null,
+      module: modules.membres(),
+      entries: [
+        {
+          text: "@Html.Raw(MenuStrings.ClubMenu_Membres_Consulter)",
+          iconClass: "fa-sitemap",
+          href: buildUrl(baseApplicationUrl, "membres"),
+          requiredClaims: claims.readAll()
+        }
+      ]
+    }
+  ];
+
+  jQuery(function ($) {
+    // Get all required selectors for knockout bindings.
+    var $clubMenu = $("#club-menu");
+    var $mainMenu = $("#main-menu");
+    var $xsContainer = $(".main-menu-xs-container");
+    var $mdContainer = $(".main-menu-md-container");
+
+    // Apply both menus bindings when the user has logged in.
+    $("#login").on("logged-in", function () {
+      ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer), $mainMenu[0]);
+      ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
+    });
+  });
+</script>

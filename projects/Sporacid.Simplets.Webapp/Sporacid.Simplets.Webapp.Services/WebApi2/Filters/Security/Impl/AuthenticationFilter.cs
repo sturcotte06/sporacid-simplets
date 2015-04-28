@@ -3,12 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http;
@@ -31,7 +29,7 @@
         private readonly IPrincipalAdministrationService principalAdministrationService;
 
         public AuthenticationFilter(IEnumerable<IAuthenticationModule> authenticationModules, IEnumerable<ICredentialsExtractor> credentialsExtractors,
-            IPrincipalAdministrationService principalAdministrationService)
+                                    IPrincipalAdministrationService principalAdministrationService)
         {
             this.authenticationModules = authenticationModules;
             this.credentialsExtractors = credentialsExtractors;
@@ -49,7 +47,9 @@
             var authorization = request.Headers.Authorization;
 
             var cultureHeader = request.Headers.AcceptLanguage.FirstOrDefault();
-            Thread.CurrentThread.ToCulture(cultureHeader != null ? cultureHeader.Value : ConfigurationManager.AppSettings["DefaultLanguage"]);
+            Thread.CurrentThread.ToCulture(cultureHeader != null
+                ? cultureHeader.Value
+                : ConfigurationManager.AppSettings["DefaultLanguage"]);
 
             // If there are no credentials, throw.
             if (authorization == null)

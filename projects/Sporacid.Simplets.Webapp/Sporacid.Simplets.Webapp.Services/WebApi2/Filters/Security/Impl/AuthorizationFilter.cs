@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Impl
 {
     using System.Configuration;
-    using System.Globalization;
     using System.Linq;
     using System.Net.Http;
     using System.Reflection;
@@ -39,7 +38,9 @@
 
             // Sets the culture if possible.
             var cultureHeader = request.Headers.AcceptLanguage.FirstOrDefault();
-            Thread.CurrentThread.ToCulture(cultureHeader != null ? cultureHeader.Value : ConfigurationManager.AppSettings["DefaultLanguage"]);
+            Thread.CurrentThread.ToCulture(cultureHeader != null
+                ? cultureHeader.Value
+                : ConfigurationManager.AppSettings["DefaultLanguage"]);
 
             var serviceType = actionContext.ControllerContext.Controller.GetType();
             var serviceMethod = GetMethodInfoFromActionContext(actionContext);

@@ -57,7 +57,7 @@ var api = {
         preferences: {
             // Get operation for all preferences of a user.
             getAll: function(identity, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, identity, "preference", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, identity, "preference", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a preference of a user.
             get: function(identity, id, auth) {
@@ -79,7 +79,7 @@ var api = {
         antecedents: {
             // Get operation for all antecedents of a user.
             getAll: function(identity, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, identity, "antecedent", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, identity, "antecedent", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a antecedent of a user.
             get: function(identity, id, auth) {
@@ -101,7 +101,7 @@ var api = {
         contactsUrgence: {
             // Get operation for all contacts urgence of a user.
             getAll: function(identity, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, identity, "contact-urgence", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, identity, "contact-urgence", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a contact urgence of a user.
             get: function(identity, id, auth) {
@@ -134,7 +134,7 @@ var api = {
         commanditaires: {
             // Get operation for all commanditaires of a club.
             getAll: function(club, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "commanditaire", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "commanditaire", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a commanditaire of a club.
             get: function(club, id, auth) {
@@ -156,7 +156,7 @@ var api = {
         commandites: {
             // Get operation for all commandites of a commanditaire of a club.
             getAll: function (club, commanditaireId, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "commanditaire", commanditaireId, "commandite", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "commanditaire", commanditaireId, "commandite", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a commandite of a commanditaire of a club.
             get: function (club, commanditaireId, id, auth) {
@@ -178,7 +178,7 @@ var api = {
         fournisseurs: {
             // Get operation for all fournisseurs of a club.
             getAll: function(club, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "fournisseur", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "fournisseur", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a fournisseur of a club.
             get: function(club, id, auth) {
@@ -200,7 +200,7 @@ var api = {
         groupes: {
             // Get operation for all groupes of a club.
             getAll: function(club, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "groupe", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "groupe", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a groupe of a club.
             get: function(club, id, auth) {
@@ -230,11 +230,11 @@ var api = {
         membres: {
             // Get operation for all membres of a club.
             getAll: function(club, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "membre", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "membre", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for all membres of a groupe of a club.
             getAllFromGroupe: function(club, groupeId, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "membre", "in", groupeId, "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "membre", "in", groupeId, "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a membre of a club.
             get: function (club, id, auth) {
@@ -252,7 +252,7 @@ var api = {
         meetings: {
             // Get operation for all meetings of a club.
             getAll: function (club, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "meeting", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "meeting", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a meeting of a club.
             get: function (club, id, auth) {
@@ -274,7 +274,7 @@ var api = {
         inventaire: {
             // Get operation for all items of a club.
             getAll: function (club, skip, take, auth) {
-                return restCall(buildUrl(apiUrl, club, "inventaire", "?" + buildSkipTakeUrl(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
+                return restCall(buildUrl(apiUrl, club, "inventaire", "?" + buildSkipTakeQueryString(skip, take)), operations.get(), auth ? auth : buildTokenAuthHeader());
             },
             // Get operation for a item of a club.
             get: function (club, id, auth) {

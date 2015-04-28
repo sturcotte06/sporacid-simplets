@@ -48,7 +48,9 @@
             }
 
             HttpStatusCode httpStatusCode;
-            return this.TryGetValue(exceptionType, out httpStatusCode) ? httpStatusCode : HttpStatusCode.InternalServerError;
+            return this.TryGetValue(exceptionType, out httpStatusCode)
+                ? httpStatusCode
+                : HttpStatusCode.InternalServerError;
         }
     }
 }

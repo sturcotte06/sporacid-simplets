@@ -159,6 +159,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LabelStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Menus\MenuStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MenuStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Messages\MessageStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,16 +181,20 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\css\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-switch.min.css" />
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\icons.css" />
-    <Content Include="Content\css\local.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-dark-theme.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\avatar-placeholder.png" />
+    <Content Include="Content\img\club-logo-placeholder.png" />
     <Content Include="Content\img\metro-icons\metro-add.png" />
     <Content Include="Content\img\metro-icons\metro-cancel-trans.png" />
     <Content Include="Content\img\metro-icons\metro-cancel.png" />
+    <Content Include="Content\img\metro-icons\metro-context-change-trans.png" />
     <Content Include="Content\img\metro-icons\metro-context-change.png" />
     <Content Include="Content\img\metro-icons\metro-dashboard.png" />
     <Content Include="Content\img\metro-icons\metro-delete.png" />
@@ -203,8 +212,12 @@
     <Content Include="Content\img\metro-icons\metro-save.png" />
     <Content Include="Content\img\metro-icons\metro-search.png" />
     <Content Include="Content\img\metro-icons\metro-settings.png" />
+    <Content Include="Content\bootstrap\js\bootstrap-switch.js" />
+    <Content Include="Content\bootstrap\js\bootstrap-switch.min.js" />
     <Content Include="Content\js\core\simplets-api-client-0.9.js" />
     <Content Include="Content\js\core\simplets-modelviews-0.9.js" />
+    <Content Include="Content\js\log4javascript-1.4.11.js" />
+    <Content Include="Content\js\log4javascript-1.4.11.min.js" />
     <Content Include="Content\js\moment.js" />
     <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\sprintf.js" />
@@ -229,7 +242,6 @@
     <Folder Include="Views\Shared\Fulls\Administration\" />
     <Folder Include="Views\Shared\Fulls\Clubs\" />
     <Folder Include="Views\Shared\Partials\Administration\" />
-    <Folder Include="Views\Shared\Partials\Clubs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -365,6 +377,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LabelStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Menus\MenuStrings.fr.resx" />
+    <EmbeddedResource Include="Resources\Menus\MenuStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MenuStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages\MessageStrings.fr.resx" />
     <EmbeddedResource Include="Resources\Messages\MessageStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -390,6 +407,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\Userspace\_FirstLoginProfilEdition.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\Clubs\_SubscribedClubs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\Userspace\_Antecedents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\Userspace\_Formations.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

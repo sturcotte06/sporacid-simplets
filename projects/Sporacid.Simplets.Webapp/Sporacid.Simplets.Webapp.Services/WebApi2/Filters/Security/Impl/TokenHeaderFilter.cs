@@ -1,7 +1,6 @@
 ﻿namespace Sporacid.Simplets.Webapp.Services.WebApi2.Filters.Security.Impl
 {
     using System;
-    using System.Net.Http;
     using System.Text;
     using System.Threading;
     using System.Web;
@@ -34,13 +33,13 @@
             {
                 return;
             }
-            
+
             var tokenAndPrincipal = Thread.CurrentPrincipal as ITokenAndPrincipal;
             if (tokenAndPrincipal == null)
             {
                 return;
             }
-            
+
             var response = HttpContext.Current.Response;
             var token = tokenAndPrincipal.Token;
             var base64Token = Convert.ToBase64String(Encoding.ASCII.GetBytes(token.Key));

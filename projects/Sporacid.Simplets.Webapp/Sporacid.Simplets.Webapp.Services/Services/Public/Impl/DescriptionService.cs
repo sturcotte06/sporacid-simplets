@@ -28,7 +28,7 @@
         /// </summary>
         /// <returns>An enumeration of all available api entities.</returns>
         [HttpGet, Route("describe-entities")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Maximum, ClientTimeSpan = (Int32)CacheDuration.Maximum)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Maximum, ClientTimeSpan = (Int32) CacheDuration.Maximum)]
         public IEnumerable<ApiEntityDescriptionDto> DescribeApiEntities()
         {
             // Do not mind the ugliness of this method. The goal is not readability, nor performance.
@@ -42,7 +42,7 @@
                 "Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace",
                 "Sporacid.Simplets.Webapp.Services.Database.Dto.Description"
             };
-            
+
             // Get all data transfer object types from above assemblies.
             var assembly = Assembly.GetExecutingAssembly();
             var dtoTypes = assembly.GetTypes().Where(type => type.IsClass && type.Namespace != null && dtoNamespaces.Contains(type.Namespace));
@@ -107,7 +107,7 @@
         /// </summary>
         /// <returns>An enumeration of all available api methods.</returns>
         [HttpGet, Route("describe-api")]
-        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Maximum, ClientTimeSpan = (Int32)CacheDuration.Maximum)]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Maximum, ClientTimeSpan = (Int32) CacheDuration.Maximum)]
         public IEnumerable<ApiModuleDescriptionDto> DescribeApiMethods()
         {
             // Do not mind the ugliness of this method. The goal is not readability, nor performance.
@@ -120,7 +120,9 @@
             {
                 // Group all method descriptions by module.
                 var moduleAttr = d.ActionDescriptor.ControllerDescriptor.ControllerType.GetAllCustomAttributes<ModuleAttribute>().FirstOrDefault();
-                return moduleAttr != null ? moduleAttr.Name : null;
+                return moduleAttr != null
+                    ? moduleAttr.Name
+                    : null;
             }).ForEach(module =>
             {
                 var apiMethodDescriptionDtos = new List<ApiMethodDescriptionDto>();
@@ -136,12 +138,16 @@
                         {
                             Name = parameterDescription.Name,
                             Documentation = parameterDescription.Documentation,
-                            Type = parameterDescription.ParameterDescriptor != null ? parameterDescription.ParameterDescriptor.ParameterType.Name : null,
+                            Type = parameterDescription.ParameterDescriptor != null
+                                ? parameterDescription.ParameterDescriptor.ParameterType.Name
+                                : null,
                             IsOptional = parameterDescription.ParameterDescriptor != null && parameterDescription.ParameterDescriptor.IsOptional
                         }).OrderBy(p => p.Name),
                         Response = new ApiResponseDescriptionDto
                         {
-                            Type = apiDescription.ResponseDescription.DeclaredType != null ? apiDescription.ResponseDescription.DeclaredType.Name : "void",
+                            Type = apiDescription.ResponseDescription.DeclaredType != null
+                                ? apiDescription.ResponseDescription.DeclaredType.Name
+                                : "void",
                             Documentation = apiDescription.ResponseDescription.Documentation
                         }
                     };
@@ -154,7 +160,9 @@
                         if (method != null)
                         {
                             var requiredClaimsAttr = method.GetAllCustomAttributes<RequiredClaimsAttribute>().FirstOrDefault();
-                            apiDescriptionDto.RequiredClaims = requiredClaimsAttr != null ? requiredClaimsAttr.RequiredClaims : Claims.None;
+                            apiDescriptionDto.RequiredClaims = requiredClaimsAttr != null
+                                ? requiredClaimsAttr.RequiredClaims
+                                : Claims.None;
                         }
                     }
 

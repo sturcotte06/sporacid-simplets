@@ -54,12 +54,14 @@
         /// </summary>
         /// <param name="exception">The source exception.</param>
         /// <returns>An error object.</returns>
-        private object CreateErrorObject(Exception exception)
+        private Object CreateErrorObject(Exception exception)
         {
             return new
             {
                 exception.Message,
-                Cause = exception.InnerException != null ? this.CreateErrorObject(exception.InnerException) : null
+                Cause = exception.InnerException != null
+                    ? this.CreateErrorObject(exception.InnerException)
+                    : null
             };
         }
     }

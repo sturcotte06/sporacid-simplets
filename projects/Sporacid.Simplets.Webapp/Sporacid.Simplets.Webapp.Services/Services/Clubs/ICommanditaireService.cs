@@ -66,7 +66,7 @@
     [ContractClassFor(typeof (ICommanditaireService))]
     internal abstract class CommanditaireServiceContract : ICommanditaireService
     {
-        public IEnumerable<WithId<Int32, CommanditaireDto>> GetAll(String clubName, uint? skip, uint? take)
+        public IEnumerable<WithId<Int32, CommanditaireDto>> GetAll(String clubName, UInt32? skip, UInt32? take)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.CommanditaireService_GetAll_RequiresClubName);
@@ -80,7 +80,7 @@
             return default(IEnumerable<WithId<Int32, CommanditaireDto>>);
         }
 
-        public CommanditaireDto Get(String clubName, int commanditaireId)
+        public CommanditaireDto Get(String clubName, Int32 commanditaireId)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.CommanditaireService_Get_RequiresClubName);
@@ -93,7 +93,7 @@
             return default(CommanditaireDto);
         }
 
-        public int Create(String clubName, CommanditaireDto commanditaire)
+        public Int32 Create(String clubName, CommanditaireDto commanditaire)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.CommanditaireService_Create_RequiresClubName);
@@ -106,7 +106,7 @@
             return default(Int32);
         }
 
-        public void Update(String clubName, int commanditaireId, CommanditaireDto commanditaire)
+        public void Update(String clubName, Int32 commanditaireId, CommanditaireDto commanditaire)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.CommanditaireService_Update_RequiresClubName);
@@ -114,7 +114,7 @@
             Contract.Requires(commanditaire != null, ContractStrings.CommanditaireService_Update_RequiresCommanditaire);
         }
 
-        public void Delete(String clubName, int commanditaireId)
+        public void Delete(String clubName, Int32 commanditaireId)
         {
             // Preconditions.
             Contract.Requires(!String.IsNullOrEmpty(clubName), ContractStrings.CommanditaireService_Delete_RequiresClubName);

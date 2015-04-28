@@ -25,7 +25,7 @@
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
-    [ContractClassFor(typeof(IDescriptionService))]
+    [ContractClassFor(typeof (IDescriptionService))]
     internal abstract class DescriptionServiceContract : IDescriptionService
     {
         public IEnumerable<ApiModuleDescriptionDto> DescribeApiMethods()

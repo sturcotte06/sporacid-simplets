@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="scheme">The authentication scheme.</param>
         /// <returns> Whether the authentication scheme is supported.</returns>
-        public bool IsSupported(AuthenticationScheme scheme)
+        public Boolean IsSupported(AuthenticationScheme scheme)
         {
             return scheme == AuthenticationScheme.Token;
         }

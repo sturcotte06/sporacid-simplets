@@ -10,25 +10,25 @@
     public class MeetingDto
     {
         [Range(1, Int32.MaxValue,
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "MeetingDto_ConvocateurId_Range")]
         public Int32? ConvocateurId { get; set; }
 
         [Required(
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "MeetingDto_DateDebut_Required")]
         public DateTime DateDebut { get; set; }
 
         [Required(
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "MeetingDto_DateFin_Required")]
         public DateTime DateFin { get; set; }
 
         [Required(
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "MeetingDto_Commentaire_Required")]
         [StringLength(250,
-            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "MeetingDto_Commentaire_StringLength")]
         public String Commentaire { get; set; }
     }

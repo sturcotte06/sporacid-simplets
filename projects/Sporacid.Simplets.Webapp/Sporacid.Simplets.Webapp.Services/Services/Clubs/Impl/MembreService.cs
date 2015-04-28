@@ -24,7 +24,7 @@
         private readonly IProfilService profilService;
 
         public MembreController(IContextAdministrationService contextAdministrationService, IPrincipalAdministrationService principalAdministrationService,
-            IProfilService profilService, IEntityRepository<Int32, Club> clubRepository, IEntityRepository<Int32, Membre> membreRepository)
+                                IProfilService profilService, IEntityRepository<Int32, Club> clubRepository, IEntityRepository<Int32, Membre> membreRepository)
         {
             this.contextAdministrationService = contextAdministrationService;
             this.principalAdministrationService = principalAdministrationService;
@@ -101,6 +101,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The id of the member entity.</param>
         [HttpPost, Route("subscribe/{codeUniversel}")]
+        [InvalidateCacheOutput("GetClubsSubscribedTo", typeof (ClubController))]
         public void SubscribeToClub(String clubName, String codeUniversel)
         {
             if (!this.principalAdministrationService.Exists(codeUniversel))
@@ -143,6 +144,7 @@
         /// <param name="clubName">The unique club name of the club entity.</param>
         /// <param name="codeUniversel">The universal code that represents the user.</param>
         [HttpDelete, Route("unsubscribe/{codeUniversel}")]
+        [InvalidateCacheOutput("GetClubsSubscribedTo", typeof (ClubController))]
         public void UnsubscribeFromClub(String clubName, String codeUniversel)
         {
             var membreEntity = this.membreRepository

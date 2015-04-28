@@ -108,11 +108,12 @@
     partial class GroupeMembre : IHasId<GroupeMembreId>
     {
         private GroupeMembreId id;
+
         public GroupeMembreId Id
         {
             get
             {
-                return id ?? (id = new GroupeMembreId
+                return this.id ?? (this.id = new GroupeMembreId
                 {
                     GroupeId = this.GroupeId,
                     MembreId = this.MembreId
@@ -120,14 +121,16 @@
             }
         }
     }
+
     partial class ContactUrgence : IHasId<ContactUrgenceId>
     {
         private ContactUrgenceId id;
+
         public ContactUrgenceId Id
         {
             get
             {
-                return id ?? (id = new ContactUrgenceId
+                return this.id ?? (this.id = new ContactUrgenceId
                 {
                     ProfilId = this.ProfilId,
                     ContactId = this.ContactId
@@ -141,7 +144,7 @@
         public Int32 GroupeId { get; set; }
         public Int32 MembreId { get; set; }
     }
-    
+
     public class ContactUrgenceId
     {
         public Int32 ProfilId { get; set; }

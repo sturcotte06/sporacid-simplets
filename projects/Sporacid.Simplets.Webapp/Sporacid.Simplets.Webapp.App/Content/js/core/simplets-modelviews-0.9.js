@@ -4,6 +4,12 @@ var authenticationToken = null;
 // The preferences of the current authenticated user.
 var currentUserPreferences = null;
 
+// The current club context of the current authenticated user.
+var currentClubContext = null;
+
+// The current club context claims of the current authenticated user.
+var currentClubContextClaims = null;
+
 // The stores underlying data for immutable collections.
 var storeData = {};
 
@@ -19,7 +25,7 @@ jQuery(function($) {
             storeData.concentrations().push(concentration);
         });
 
-        stores.concentrations = concentrations.asStore();
+        stores.concentrations = asStore(concentrations);
     }).invoke();
 
     // Load contacts types as a data store.
@@ -30,7 +36,7 @@ jQuery(function($) {
             storeData.typesContacts().push(typeContact);
         });
 
-        stores.typesContacts = typesContacts.asStore();
+        stores.typesContacts = asStore(typesContacts);
     }).invoke();
 
     // Load statuts suivies as a data store.
@@ -41,7 +47,7 @@ jQuery(function($) {
             storeData.statutsSuivies().push(statutSuivie);
         });
 
-        stores.statutsSuivies = statutsSuivies.asStore();
+        stores.statutsSuivies = asStore(statutsSuivies);
     }).invoke();
 
     // Load unites as a data store.
@@ -52,7 +58,7 @@ jQuery(function($) {
             storeData.statutsSuivies().push(unite);
         });
 
-        stores.unites = unites.asStore();
+        stores.unites = asStore(unites);
     }).invoke();
 
     // Load commanditaire types as a data store.
@@ -63,7 +69,7 @@ jQuery(function($) {
             storeData.typesCommanditaires().push(typeCommanditaire);
         });
 
-        stores.typesCommanditaires = typesCommanditaires.asStore();
+        stores.typesCommanditaires = asStore(typesCommanditaires);
     }).invoke();
 });
 
@@ -153,7 +159,9 @@ function ProfilBaseModelView($self, validationModelView) {
             self.concentration(profil.concentrationId ? stores.concentrations[profil.concentrationId] : null);
 
             // Set either the user avatar or a placeholder everywhere it's required.
-            var avatarImageSrc = profil.avatar ? sprintf("url(data:image/jpg;base64,%s)", profil.avatar) : "url(/app/Content/img/avatar-placeholder.png)";
+            var avatarImageSrc = profil.avatar
+                ? sprintf("url(%s)", buildImageDataUri(profil.avatar))
+                : "url(/app/Content/img/avatar-placeholder.png)";
             $self.find(".profil-avatar").each(function() {
                 $(this).css("background-image", avatarImageSrc);
             });
@@ -163,9 +171,6 @@ function ProfilBaseModelView($self, validationModelView) {
             $self.trigger("loaded");
         }).invoke();
     }();
-
-    // Load the entity.
-    // self.load();
 }
 
 // Model view for the profil avance object.
@@ -254,10 +259,7 @@ function ProfilAvanceModelView($self, validationModelView) {
             $panel.active();
             $self.trigger("loaded");
         }).invoke();
-    };
-
-    // Load the entity.
-    self.load();
+    }();
 }
 
 // Prototype for a validation exception model view.
@@ -273,9 +275,11 @@ function ValidationExceptionModelView($self) {
     self.load = function(validation) {
         var states = [];
         for (var key in validation.modelState) {
-            var propertyStates = validation.modelState[key];
-            for (var iState = 0; iState < propertyStates.length; iState++) {
-                states.push({ property: key, message: propertyStates[iState] });
+            if (validation.modelState.hasOwnProperty(key)) {
+                var propertyStates = validation.modelState[key];
+                for (var iState = 0; iState < propertyStates.length; iState++) {
+                    states.push({ property: key, message: propertyStates[iState] });
+                }
             }
         }
 
@@ -283,6 +287,8 @@ function ValidationExceptionModelView($self) {
         self.message(validation.message);
         self.states(states);
     };
+
+    // Clear all validation messages.
     self.clear = function() {
         self.message = ko.observable("");
         self.states.removeAll();
@@ -337,7 +343,7 @@ function LoginModelView($self) {
 
         // Try to do a no-op on the rest server.
         // If the user's credentials are wrong, this will throw.
-        api.utility.noop(buildKerberosAuthHeader(self.username(), self.password())).done(function (data, textStatus, jqxhr) {
+        api.utility.noop(buildKerberosAuthHeader(self.username(), self.password())).done(function(data, textStatus, jqxhr) {
             // Succeeded. Extract the authentication token for further calls to the api and end the login procedure.
             self.endLogin({
                 token: jqxhr.getResponseHeader("Authorization-Token"),
@@ -345,7 +351,7 @@ function LoginModelView($self) {
                 emittedAt: moment(jqxhr.getResponseHeader("Authorization-Token-Emitted-At"), moment().ISO_8601),
                 expiresAt: moment(jqxhr.getResponseHeader("Authorization-Token-Expires-At"), moment().ISO_8601)
             });
-        }).fail(function (jqhxr, textStatus, ex) {
+        }).fail(function(jqhxr, textStatus, ex) {
             self.error(createErrorObject(jqhxr, textStatus, ex));
         }).invoke();
     };
@@ -359,7 +365,7 @@ function LoginModelView($self) {
         $.cookie("Authorization-Token", JSON.stringify(authenticationToken), { path: "/" });
 
         // Load the current user preferences
-        api.userspace.preferences.getAll(authenticationToken.emittedFor).done(function (preferences) {
+        api.userspace.preferences.getAll(authenticationToken.emittedFor).done(function(preferences) {
             currentUserPreferences = preferences;
         }).invoke();
 
@@ -422,17 +428,16 @@ function FirstLoginModelView($self) {
         reader.readAsDataURL(file);
     };
 
-    self.load = function () {
-        api.userspace.profil(authenticationToken.emittedFor).done(function (profil) {
+    self.load = function() {
+        api.userspace.profil(authenticationToken.emittedFor).done(function(profil) {
             self.profil(profil);
             // self.avatar(profil.avatar ? sprintf("data:image/jpg;base64,%s", profil.avatar) : "http://placehold.it/80");
         }).invoke();
     };
 
     self.beforeLoad = function() {
-        
-    }
 
+    };
     self.save = function() {
         return true;
     };
@@ -457,7 +462,7 @@ function MembersModelView($self) {
         $panel.waiting();
 
         // Load the profilList entity.
-        restCall(buildUrl(apiUrl, "demandespecial/membre"), operations.get(), buildTokenAuthHeader()).done(function(membres) {
+        api.clubs.membres.getAll(currentClubContext.nom).done(function(membres) {
 
             $.each(membres, function() {
                 this.nom = sprintf("%s %s", this.profilPublic.prenom, this.profilPublic.nom);
@@ -470,12 +475,7 @@ function MembersModelView($self) {
             $panel.active();
             $self.trigger("loaded");
         }).invoke();
-    };
-
-
-// Load the entity.
-    self.load();
-
+    }();
 }
 
 // Model view for the commanditaire object.
@@ -506,13 +506,129 @@ function CommanditaireListModelView($self, validationModelView) {
 
 }
 
+// Model view for the main menu (top menu).
+function MainMenuModelView($self, $xsContainer, $mdContainer) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all jquery selectors.
+    var $subscribedClubs = $self.find("#subscribed-clubs");
+
+    // Define all observable properties.
+    self.subscribedClubsModelView = ko.observable(new SubscribedClubsModelView($subscribedClubs));
+    self.isXs = ko.observable($(".body > .visible-xs:visible").exists());
+    
+    // Bind a on resize event to switch between mobile container and medium device container.
+    $(window).on("resize", function() {
+        // Update is xs viewport flag.
+        self.isXs($(".body > .visible-xs:visible").exists());
+
+        // Append in the good container.
+        if (self.isXs()) {
+            $xsContainer.append($self);
+        } else {
+            $mdContainer.append($self);
+        }
+    }).trigger("resize");
+}
+
 // Model view for the commanditaire object.
 function SubscribedClubsModelView($self) {
     // Define closure safe properties.
     var self = this;
 
-    // Loads the profil entity from the rest services.
-    self.load = function() {
+    // Define all onservable properties.
+    self.clubs = ko.observableArray();
 
+    // Selects the current club.
+    self.select = function(item) {
+        currentClubContext = item;
+
+        // Load the user's claims on the club.
+        api.security.contexts.getClaims(item.nom).done(function(contextClaims) {
+            currentClubContextClaims = contextClaims;
+        }).invoke();
+    };
+
+    // Loads the club entities from the rest services.
+    self.load = function() {
+        api.clubs.getSubscribedClubs().done(function(clubs) {
+            $.each(clubs, function (i, club) {
+                if (club.logo)
+                    club.logo = buildImageDataUri(club.logo);
+            });
+
+            self.clubs(clubs);
+            self.select(clubs[0]);
+        }).invoke();
     }();
+}
+
+// Model view for the club menu (left menu).
+function ClubMenuModelView($self, entries) {
+    // Define closure safe properties.
+    var self = this;
+    var originalEntries = entries;
+
+    // Disposable function that cleans the menu entries of actions that would be unauthorized.
+    var cleanEntries = function(ent, currentModule) {
+        var indicesToRm = [];
+        $.each(ent, function(i, entry) {
+            // If module of the entry is defined, set current module.
+            if (entry.module)
+                currentModule = entry.module;
+
+            // If claims of the entry is defined, check whether entries need to be removed.
+            if (entry.claims) {
+                // Get the module in the user's claim list on context.
+                var contextModuleClaims;
+                $.each(currentClubContextClaims, function(j, moduleClaims) {
+                    if (moduleClaims.nom === currentModule) {
+                        contextModuleClaims = moduleClaims.nom;
+                        return;
+                    }
+                });
+
+                // By default, remove entry if module does not exist.
+                if (contextModuleClaims == null) {
+                    indicesToRm.push(i);
+                    return;
+                }
+
+                // Check if every required claims are present.
+                var moduleClaimsArray = contextModuleClaims.claims.split(", ");
+                var requiredClaimsArray = entry.claims.split(", ");
+                $.each(requiredClaimsArray, function(j, requiredClaim) {
+                    if (!$.inArray(requiredClaim, moduleClaimsArray)) {
+                        // Claim is not present, remove the entry.
+                        indicesToRm.push(i);
+                        return;
+                    }
+                });
+            }
+
+            // Remove all indices to remove.
+            $.each(indicesToRm, function(j, indexToRemove) {
+                ent.remove(indexToRemove);
+            });
+
+            // If submenu of the entry is defined, recursivity.
+            if (entry.entries)
+                cleanEntries(entry.entries, currentModule);
+        });
+    };
+
+    // Define all observable properties.
+    self.entries = ko.observableArray(entries);
+    self.isXs = ko.observable($("body > .visible-xs:visible").exists());
+    
+    // Refreshes the menu entries to match the current club.
+    self.refresh = function() {
+        // self.entries(cleanEntries(originalEntries));
+    }();
+
+    $(window).on("resize", function () {
+        // Update is xs viewport flag.
+        self.isXs($("body > .visible-xs:visible").exists());
+    });
 }
