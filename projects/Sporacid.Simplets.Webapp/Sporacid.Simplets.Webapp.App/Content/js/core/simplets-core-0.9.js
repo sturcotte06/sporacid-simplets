@@ -34,8 +34,8 @@ var app = {
                 func($);
             });
         } else {
-            jQuery(function ($) {
-                $("#login").on("logged-in", function () {
+            jQuery(function($) {
+                $("#login").on("logged-in", function() {
                     func($);
                 });
             });
@@ -295,6 +295,11 @@ var app = {
             deleteAll: "Delete, DeleteAll",
             admin: "Admin",
             all: "Read, ReadAll, Create, CreateAll, Update, UpdateAll, Delete, DeleteAll, Admin"
+        },
+        // Enumeration of all of the application's cookies.
+        cookies: {
+            username: "app.user.current.name",
+            token: "app.user.current.token"
         }
     },
     // Namespace that represents all loaded and cached data of the application.

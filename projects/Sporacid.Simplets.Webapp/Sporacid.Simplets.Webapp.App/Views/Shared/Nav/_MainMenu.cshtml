@@ -55,9 +55,9 @@
       <b class="caret hidden-xs"></b>
     </a>
   </li>
-  <!-- Profile option. -->
+  <!-- Profil option. -->
   <li data-bind="css: { 'pull-left': isXs() }">
-    <a href="@Url.Action("Index", "Home")" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" data-bind="click: $('#page-wrapper').load('@Url.Action("Profil", "Userspace")')">
       <span class="icon-container fa fa-2x vcenter btn-success">
         <span class="fa fa-user white"></span>
       </span>
@@ -65,7 +65,7 @@
     </a>
   </li>
   <!-- Logout option. -->
-  <li data-bind="css: { 'pull-left': isXs() }">
+  <li data-bind="css: { 'pull-left': isXs() }, click: logout">
     <a href="#" class="dropdown-toggle">
       <span class="icon-container fa fa-2x vcenter btn-danger">
         <span class="fa fa-sign-out white"></span>

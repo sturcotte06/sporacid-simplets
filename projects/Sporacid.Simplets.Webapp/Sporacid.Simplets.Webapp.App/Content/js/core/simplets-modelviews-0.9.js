@@ -418,8 +418,6 @@ function ValidationExceptionModelView($self) {
 function LoginModelView($self) {
     // Define closure safe properties.
     var self = this;
-    var usernameCookieKey = "app.user.current.name";
-    var tokenCookieKey = "app.user.current.token";
 
     // Define all onservable properties.
     self.username = ko.observable();
@@ -435,8 +433,8 @@ function LoginModelView($self) {
         $("#page-wrapper").hide();
 
         // If cookie is present, do not ask for user's credentials.
-        var usernameCookie = $.cookie(usernameCookieKey);
-        var tokenCookie = $.cookie(tokenCookieKey);
+        var usernameCookie = $.cookie(app.enums.cookies.username);
+        var tokenCookie = $.cookie(app.enums.cookies.token);
 
         if (tokenCookie && tokenCookie !== "null" && tokenCookie !== "undefined" &&
             usernameCookie && usernameCookie !== "null" && usernameCookie !== "undefined") {
@@ -448,8 +446,8 @@ function LoginModelView($self) {
                 self.endLogin(usernameCookie, token);
             }).fail(function() {
                 // Failed, force reauthentication.
-                $.cookie(usernameCookieKey, null);
-                $.cookie(tokenCookieKey, null);
+                $.cookie(app.enums.cookies.username, null, { path: "/" });
+                $.cookie(app.enums.cookies.token, null, { path: "/" });
 
                 self.beginLogin();
             }).invoke();
@@ -495,8 +493,8 @@ function LoginModelView($self) {
         }).invoke();
 
         // Save the user's by token credentials in the cookie.
-        $.cookie(usernameCookieKey, app.user.current.name);
-        $.cookie(tokenCookieKey, JSON.stringify(app.user.current.token));
+        $.cookie(app.enums.cookies.username, app.user.current.name, { path: "/" });
+        $.cookie(app.enums.cookies.token, JSON.stringify(app.user.current.token), { path: "/" });
 
         // Hide the login modal.
         $self.modal("hide");
@@ -642,6 +640,15 @@ function MainMenuModelView($self, $xsContainer, $mdContainer) {
     // Define all observable properties.
     self.subscribedClubsModelView = ko.observable(new SubscribedClubsModelView($subscribedClubs));
     self.isXs = ko.observable($("body > .visible-xs:visible").exists());
+
+    self.logout = function () {
+        // Set the current user saved credentials to null.
+        $.cookie(app.enums.cookies.username, null, { path: "/" });
+        $.cookie(app.enums.cookies.token, null, { path: "/" });
+
+        // Redirect to default page.
+        window.location = app.url;
+    }
 
     // Bind a on resize event to switch between mobile container and medium device container.
     $(window).on("resize", function() {

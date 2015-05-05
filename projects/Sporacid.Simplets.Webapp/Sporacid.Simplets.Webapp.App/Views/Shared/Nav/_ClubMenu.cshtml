@@ -1,1 +1,65 @@
-﻿
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
+<div id="club-menu" class="collapse navbar-collapse navbar-ex1-collapse">
+  <!-- Process each menu entries. -->
+  <ul id="active" class="nav navbar-nav side-nav" data-bind="foreach: entries">
+    <li data-bind="css: { 'dropdown': entries }">
+      <a class="dropdown-toggle" data-toggle="dropdown" data-bind="href: href ? href : '#', css: { 'dropdown-toggle': entries }, attr: { 'data-toggle': entries ? 'dropdown' : '' }">
+        <span data-bind="attr: { 'class': 'icon-container fa btn-default fa-2x vcenter' + (buttonClass ? ' ' + buttonClass : '') }">
+          <i data-bind="attr: {'class': iconClass ? 'fa white ' + iconClass : 'fa white' }"></i>
+        </span>
+        <span class="vcenter" data-bind="text: text"></span>
+      </a>
+      <!-- Process each submenu entries. -->
+      <ul class="dropdown-menu" data-bind="foreach: entries">
+        <li class="item">
+          <a data-bind="href: href ? href : '#'">
+            <i data-bind="attr: {'class': iconClass ? 'fa ' + iconClass : 'fa' }"></i>
+            <span class="vcenter" data-bind="text: text"></span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<script type="text/javascript">
+  // The club menu entry array. 
+  // This would be the menu entries if one was admin.
+  var clubMenuEntries = [
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires)",
+      buttonClass: "btn-success",
+      iconClass: "fa-folder-open-o",
+      href: null,
+      module: app.enums.modules.commanditaires,
+      entries: [
+        {
+          text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires_Consulter)",
+          iconClass: "fa-sitemap",
+          href: "@Url.Action("Commanditaires", "Club")",
+          requiredClaims: app.enums.claims.readAll
+        }
+      ]
+    },
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Membres)",
+      buttonClass: "btn-info",
+      iconClass: "fa-users",
+      href: null,
+      module: app.enums.modules.membres,
+      entries: [
+        {
+          text: "@Html.Raw(MenuStrings.ClubMenu_Membres_Consulter)",
+          iconClass: "fa-sitemap",
+          href: "@Url.Action("Membres", "Club")",
+          requiredClaims: app.enums.claims.readAll
+        }
+      ]
+    }
+  ];
+
+  app.ready(function($) {
+    var $clubMenu = $("#club-menu");
+    ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
+  });
+</script>

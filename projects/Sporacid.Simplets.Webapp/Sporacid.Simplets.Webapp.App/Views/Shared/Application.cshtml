@@ -6,14 +6,17 @@
 <script type="text/javascript">
   // Start login process anytime the page loads.
   jQuery(function ($) {
+    // Setup logging.
+    app.loggers.setup();
+
     var $login = $("#login");
     ko.applyBindings(new LoginModelView($login), $login[0]);
   });
 
   // Once the application is ready, bootstrap the current user's default view.
   app.ready(function ($) {
-    // Setup logging.
-    app.loggers.setup();
+    // Load all static required data.
+    app.data.load();
 
     // Loads the user profil.
     $("#page-wrapper").load("@Url.Action("Profil","Userspace")");

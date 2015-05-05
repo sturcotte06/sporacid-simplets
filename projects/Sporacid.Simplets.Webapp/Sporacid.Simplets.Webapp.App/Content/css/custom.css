@@ -1,6 +1,4 @@
-﻿h1 {
-    margin-bottom: 20px;
-}
+﻿h1 { margin-bottom: 20px; }
 
 .metro-icon {
     -ms-background-size: 100% 100%;
@@ -158,6 +156,7 @@
 #formations table > tbody > tr > td { vertical-align: middle; }
 
 #profil-base .profil-avatar {
+    -ms-background-size: 100% auto;
     background-size: 100% auto;
     background-repeat: no-repeat;
 }
@@ -173,9 +172,7 @@ button.btn {
     text-align: center;
 }
 
-.panel {
-    font-size: 18px;
-}
+.panel { font-size: 18px; }
 
 .panel .panel-title {
     font-size: 20px;
