@@ -86,5 +86,14 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Messages {
                 return ResourceManager.GetString("ProfilBase_PublicDisclaimer", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double click to delete..
+        /// </summary>
+        public static string RemoveButton_DoubleClickAdvice {
+            get {
+                return ResourceManager.GetString("RemoveButton_DoubleClickAdvice", resourceCulture);
+            }
+        }
     }
 }

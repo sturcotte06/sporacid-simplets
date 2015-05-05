@@ -86,7 +86,7 @@
             Contract.Requires(antecedentId > 0, ContractStrings.AntecedentService_Get_RequiresPositiveAntecedentId);
 
             // Postconditions.
-            Contract.Ensures(Contract.Result<PreferenceDto>() != null, ContractStrings.AntecedentService_Get_EnsuresNonNullAntecedent);
+            Contract.Ensures(Contract.Result<AntecedentDto>() != null, ContractStrings.AntecedentService_Get_EnsuresNonNullAntecedent);
 
             // Dummy return.
             return default(AntecedentDto);

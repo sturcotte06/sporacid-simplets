@@ -12,28 +12,24 @@
   </script>
 
   @Scripts.Render("~/bundles/scripts")
-
-  @RenderSection("ScriptsImportTop", required: false)
-
+  
   @Styles.Render("~/bundles/styles")
-
-  @RenderSection("StylesImport", required: false)
 
 </head>
 <body id="body">
 
-@Html.Partial("Partials/Authentication/_Login");
+@Html.Partial("Authentication/_Login")
 
 <div id="wrapper">
-
-  @RenderPage("Partials/_NavBar.cshtml")
+  
+  @Html.Partial("Nav/_NavBar")
 
   <div id="page-wrapper">
-    <div class="row">
+    @*<div class="row">
       <div class="col-lg-12">
         <div id="content-header" class="clearfix">
           <h1>@ViewBag.Title</h1>
-          @*<div class="pull-left">
+          <div class="pull-left">
             <ol class="breadcrumb">
               <li>
                 <a href="#">Home</a>
@@ -43,33 +39,24 @@
               </li>
             </ol>
             <h1>@ViewBag.Title</h1>
-          </div>*@
-          @*<div class="pull-right hidden-xs">
+          </div>
+          <div class="pull-right hidden-xs">
             <div class="pull-left">
               <div class="abel">
                 <b><i class="fa fa-trophy"></i> 3500 </b> vierges sacrifiées
               </div>
             </div>
-          </div>*@
+          </div>
         </div>
       </div>
-    </div>
-
+    </div>*@
+    @*<div id="content-wrapper">
+      @RenderBody()
+    </div>*@
     @RenderBody()
-
   </div>
 </div>
-
-@RenderSection("ScriptsImportBottom", required: false)
-
-<script type="text/javascript">
-  jQuery(function($) {
-    // Start login process anytime the page loads.
-    var $login = $("#login");
-    ko.applyBindings(new LoginModelView($login), $login[0]);
-  });
-</script>
-
+  
 <div class="device-xs visible-xs"></div>
 <div class="device-sm visible-sm"></div>
 <div class="device-md visible-md"></div>

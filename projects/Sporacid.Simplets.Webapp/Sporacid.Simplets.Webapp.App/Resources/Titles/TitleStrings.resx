@@ -120,6 +120,15 @@
   <data name="Antecedents_MainTitle" xml:space="preserve">
     <value>Your Medical History</value>
   </data>
+  <data name="ApiDescription_MainTitle" xml:space="preserve">
+    <value>Simplets Api Description</value>
+  </data>
+  <data name="Application_MainTitle" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="EntitiesDescription_MainTitle" xml:space="preserve">
+    <value>Simplets Entities Description</value>
+  </data>
   <data name="FirstLoginProfileEdition_MainTitle" xml:space="preserve">
     <value>Complete your profile information*</value>
   </data>
@@ -128,6 +137,9 @@
   </data>
   <data name="Login_MainTitle" xml:space="preserve">
     <value>Authenticate yourself *</value>
+  </data>
+  <data name="Membre_MainTitle" xml:space="preserve">
+    <value>Member List</value>
   </data>
   <data name="ProfilAvance_MainTitle" xml:space="preserve">
     <value>Your Advanced Profile</value>

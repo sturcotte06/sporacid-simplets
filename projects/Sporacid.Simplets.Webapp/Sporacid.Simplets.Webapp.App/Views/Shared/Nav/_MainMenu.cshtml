@@ -1,0 +1,89 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
+
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle nav-bar-expander" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+
+  <div class="navbar-header pull-left navbar-toggle nav-bar-static-item">
+    <a class="navbar-brand pull-left" href="/">SimplETS</a>
+  </div>
+
+  <!-- Container for the main menu when the device screen is small (mobile). -->
+  <div class="main-menu-xs-container navbar-header pull-right nav-bar-static-item"></div>
+</div>
+
+<!-- Container for the main menu when the device screen is large enough. -->
+<div class="main-menu-md-container collapse navbar-collapse">
+  <a class="navbar-brand" href="@Url.Content("~")">SimplETS</a>
+</div>
+
+<!-- Main menu. -->
+<ul id="main-menu" class="nav" data-bind="css: { 'pull-left': isXs(), 'navbar-nav': !isXs(), 'navbar-right': !isXs() }">
+  <!-- Context option to choose a club. -->
+  <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="icon-container fa fa-2x btn-info vcenter">
+        <span class="fa fa-share white"></span>
+      </span>
+      <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Contexte)</span>
+      <b class="caret hidden-xs"></b>
+    </a>
+    <!-- ko with: subscribedClubsModelView -->
+    <ul id="subscribed-clubs" class="dropdown-menu pull-right" data-bind="foreach: clubs">
+      <li data-bind="click: $parent.select">
+        <a href="#">
+          <div class="subscribed-club-logo" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
+          <span data-bind="text: nom" class="subscribed-club-text"></span>
+          @*<input class="subscribed-club-isdefault" type="checkbox"/>*@
+        </a>
+      </li>
+      <li class="divider" data-bind="visible: $index() !== ($parent.clubs().length - 1)"></li>
+    </ul>
+    <!-- /ko -->
+  </li>
+  <!-- Preferences option. -->
+  <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
+    <a href="#" class="dropdown-toggle">
+      <span class="icon-container fa fa-2x vcenter btn-warning">
+        <span class="fa fa-cogs white"></span>
+      </span>
+      <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Preferences)</span>
+      <b class="caret hidden-xs"></b>
+    </a>
+  </li>
+  <!-- Profile option. -->
+  <li data-bind="css: { 'pull-left': isXs() }">
+    <a href="@Url.Action("Index", "Home")" class="dropdown-toggle">
+      <span class="icon-container fa fa-2x vcenter btn-success">
+        <span class="fa fa-user white"></span>
+      </span>
+      <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Profil)</span>
+    </a>
+  </li>
+  <!-- Logout option. -->
+  <li data-bind="css: { 'pull-left': isXs() }">
+    <a href="#" class="dropdown-toggle">
+      <span class="icon-container fa fa-2x vcenter btn-danger">
+        <span class="fa fa-sign-out white"></span>
+      </span>
+      <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Deconnexion)</span>
+    </a>
+  </li>
+</ul>
+
+<script type="text/javascript">
+  jQuery(function ($) {
+    var $mainMenu = $("#main-menu");
+    var $xsContainer = $(".main-menu-xs-container");
+    var $mdContainer = $(".main-menu-md-container");
+
+    // Apply both menus bindings when the user has logged in.
+    $("#login").on("logged-in", function () {
+      ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer), $mainMenu[0]);
+    });
+  });
+</script>

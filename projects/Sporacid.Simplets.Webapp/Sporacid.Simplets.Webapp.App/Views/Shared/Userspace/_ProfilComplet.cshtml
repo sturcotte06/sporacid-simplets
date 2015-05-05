@@ -1,0 +1,22 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<h1>@Html.Raw(TitleStrings.Profil_MainTitle)</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    @Html.Partial("Userspace/_ProfilBase")
+  </div>
+  <div class="col-md-6">
+    @Html.Partial("Userspace/_ProfilAvance")
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    @Html.Partial("Userspace/_Formations")
+  </div>
+
+  <div class="col-md-6">
+    @Html.Partial("Userspace/_Antecedents")
+  </div>
+</div>

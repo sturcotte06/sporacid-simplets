@@ -9,13 +9,18 @@
     [Serializable]
     public class AntecedentDto
     {
-        [Required(
-            ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AntecedentDto_Nom_Required")]
-        [StringLength(50,
-            ErrorMessageResourceType = typeof (ValidationStrings),
-            ErrorMessageResourceName = "AntecedentDto_Nom_StringLength")]
-        public String Nom { get; set; }
+        [Range(1, Int32.MaxValue,
+            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceName = "AntecedentDto_TypeAntecedentId_Range")]
+        public Int32 TypeAntecedentId { get; set; }
+
+        //[Required(
+        //    ErrorMessageResourceType = typeof (ValidationStrings),
+        //    ErrorMessageResourceName = "AntecedentDto_Nom_Required")]
+        //[StringLength(50,
+        //    ErrorMessageResourceType = typeof (ValidationStrings),
+        //    ErrorMessageResourceName = "AntecedentDto_Nom_StringLength")]
+        //public String Nom { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
@@ -24,7 +29,7 @@
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "AntecedentDto_Description_StringLength")]
         public String Description { get; set; }
-
+        
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "AntecedentDto_Public_Required")]

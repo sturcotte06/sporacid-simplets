@@ -810,6 +810,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string EnumerationService_GetAllTypeAntecedents_EnsuresNonNullTypeAntecedents {
+            get {
+                return ResourceManager.GetString("EnumerationService_GetAllTypeAntecedents_EnsuresNonNullTypeAntecedents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string EnumerationService_GetAllTypeCommanditaires_EnsuresNonNullTypeCommanditaires {
             get {
                 return ResourceManager.GetString("EnumerationService_GetAllTypeCommanditaires_EnsuresNonNullTypeCommanditaires", resourceCulture);
@@ -831,6 +840,132 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         internal static string EnumerationService_GetAllUnites_EnsuresNonNullUnites {
             get {
                 return ResourceManager.GetString("EnumerationService_GetAllUnites_EnsuresNonNullUnites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Create_EnsuresPositiveFormationId {
+            get {
+                return ResourceManager.GetString("FormationService_Create_EnsuresPositiveFormationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Create_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("FormationService_Create_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Create_RequiresFormation {
+            get {
+                return ResourceManager.GetString("FormationService_Create_RequiresFormation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Delete_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("FormationService_Delete_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Delete_RequiresPositiveFormationId {
+            get {
+                return ResourceManager.GetString("FormationService_Delete_RequiresPositiveFormationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Get_EnsuresNonNullFormation {
+            get {
+                return ResourceManager.GetString("FormationService_Get_EnsuresNonNullFormation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Get_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("FormationService_Get_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Get_RequiresPositiveFormationId {
+            get {
+                return ResourceManager.GetString("FormationService_Get_RequiresPositiveFormationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_GetAll_EnsuresNonNullFormations {
+            get {
+                return ResourceManager.GetString("FormationService_GetAll_EnsuresNonNullFormations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_GetAll_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("FormationService_GetAll_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_GetAll_RequiresUndefinedOrPositiveTake {
+            get {
+                return ResourceManager.GetString("FormationService_GetAll_RequiresUndefinedOrPositiveTake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Update_RequiresCodeUniversel {
+            get {
+                return ResourceManager.GetString("FormationService_Update_RequiresCodeUniversel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Update_RequiresFormation {
+            get {
+                return ResourceManager.GetString("FormationService_Update_RequiresFormation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormationService_Update_RequiresPositiveFormationId {
+            get {
+                return ResourceManager.GetString("FormationService_Update_RequiresPositiveFormationId", resourceCulture);
             }
         }
         

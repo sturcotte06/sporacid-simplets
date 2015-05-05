@@ -13,7 +13,7 @@
   </ul>
   <div id="profil-avance" style="padding: 20px;" data-bind="with: profilAvance">
     <!-- Advanced profil view mode. -->
-    <div id="view-profil-avance" data-bind="visible: $root.viewmode() == viewmodes.view()">
+    <div id="view-profil-avance" data-bind="visible: $root.viewmode() == app.enums.viewmodes.view">
       <div class="form-group">
         <label>@Html.Raw(LabelStrings.ProfilAvance_CodePermanent)</label>
         <p data-bind="text: codePermanent || '@Html.Raw(LabelStrings.Profil_DefaultValue)'"></p>
@@ -28,12 +28,15 @@
       </div>
       <div class="form-group">
         <label>@Html.Raw(LabelStrings.ProfilAvance_Courriel)</label>
-        <p data-bind=" text: courriel || '@Html.Raw(LabelStrings.Profil_DefaultValue)'"></p>
+        <p data-bind="text: courriel || '@Html.Raw(LabelStrings.Profil_DefaultValue)'"></p>
       </div>
-      <button data-bind="click: $root.beginEdit" type="submit" class="btn btn-primary"><i class="metro-icon metro-edit-trans"></i>@Html.Raw(ButtonStrings.Edit)</button>
+      <button data-bind="click: $root.beginEdit" type="submit" class="btn btn-primary">
+        <i class="fa fa-2x fa-pencil-square-o vcenter white"></i>
+        <span class="vcenter">@Html.Raw(ButtonStrings.Edit)</span>
+      </button>
     </div>
     <!-- Advanced profil edition mode. -->
-    <div id="edit-profil-avance" data-bind="visible: $root.viewmode() == viewmodes.edition()">
+    <div id="edit-profil-avance" data-bind="visible: $root.viewmode() == app.enums.viewmodes.edition">
       <form role="form">
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_CodePermanent)</label>
@@ -53,12 +56,30 @@
         </div>
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_Public)</label>
-          <input data-bind="checked: public" type="checkbox" class="form-control text-left" style="width: 40px;"/>
+          <input data-bind="checked: public" type="checkbox" class="form-control text-left" style="width: 40px;" />
           <p class="help-block">@Html.Raw(MessageStrings.ProfilAvance_PublicDisclaimer)</p>
         </div>
-        <button data-bind="click: $root.edit" type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>@Html.Raw(ButtonStrings.Save)</button>
-        <button data-bind="click: $root.cancelEdit" class="btn btn-default"><i class="metro-icon metro-cancel-trans"></i>@Html.Raw(ButtonStrings.Cancel)</button>
+        <button data-bind="click: $root.edit" type="submit" class="btn btn-success">
+          <i class="fa fa-2x fa-check vcenter white"></i>
+          <span class="vcenter">@Html.Raw(ButtonStrings.Save)</span>
+        </button>
+        <button data-bind="click: $root.cancelEdit" class="btn btn-danger">
+          <i class="fa fa-2x fa-times vcenter white"></i>
+          <span class="vcenter">@Html.Raw(ButtonStrings.Cancel)</span>
+        </button>
       </form>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  app.ready(function($) {
+    var $profilAvanceValidation = $("#profil-avance-validation-errors");
+    var $profilAvance = $("#profil-avance");
+    var profilAvanceValidationMv = new ValidationExceptionModelView($profilAvanceValidation);
+    var profilAvanceMv = new ProfilAvanceModelView($profilAvance, profilAvanceValidationMv);
+
+    ko.applyBindings(profilAvanceValidationMv, $profilAvanceValidation[0]);
+    ko.applyBindings(profilAvanceMv, $profilAvance[0]);
+  });
+</script>

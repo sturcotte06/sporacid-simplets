@@ -63,6 +63,42 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
+        public static string Antecedents_Description {
+            get {
+                return ResourceManager.GetString("Antecedents_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Antecedents_Nom {
+            get {
+                return ResourceManager.GetString("Antecedents_Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public.
+        /// </summary>
+        public static string Antecedents_Public {
+            get {
+                return ResourceManager.GetString("Antecedents_Public", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Antecedents_Type {
+            get {
+                return ResourceManager.GetString("Antecedents_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
         public static string Formations_Description {
             get {
                 return ResourceManager.GetString("Formations_Description", resourceCulture);

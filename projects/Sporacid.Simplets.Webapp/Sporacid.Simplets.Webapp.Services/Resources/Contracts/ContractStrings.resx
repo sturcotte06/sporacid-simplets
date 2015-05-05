@@ -366,6 +366,9 @@
   <data name="EnumerationService_GetAllStatutsSuivie_EnsuresNonNullStatusSuivie" xml:space="preserve">
     <value />
   </data>
+  <data name="EnumerationService_GetAllTypeAntecedents_EnsuresNonNullTypeAntecedents" xml:space="preserve">
+    <value />
+  </data>
   <data name="EnumerationService_GetAllTypeCommanditaires_EnsuresNonNullTypeCommanditaires" xml:space="preserve">
     <value />
   </data>
@@ -373,6 +376,48 @@
     <value />
   </data>
   <data name="EnumerationService_GetAllUnites_EnsuresNonNullUnites" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Create_EnsuresPositiveFormationId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Create_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Create_RequiresFormation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Delete_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Delete_RequiresPositiveFormationId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_GetAll_EnsuresNonNullFormations" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_GetAll_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_GetAll_RequiresUndefinedOrPositiveTake" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Get_EnsuresNonNullFormation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Get_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Get_RequiresPositiveFormationId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Update_RequiresCodeUniversel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Update_RequiresFormation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormationService_Update_RequiresPositiveFormationId" xml:space="preserve">
     <value />
   </data>
   <data name="FournisseurService_Create_EnsuresPositiveFournisseurId" xml:space="preserve">

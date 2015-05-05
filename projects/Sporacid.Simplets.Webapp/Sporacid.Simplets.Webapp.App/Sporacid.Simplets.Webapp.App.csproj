@@ -143,7 +143,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
+    <Compile Include="Controllers\DescriptionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserspaceController.cs" />
     <Compile Include="Filters\LocalizationFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -215,7 +218,11 @@
     <Content Include="Content\bootstrap\js\bootstrap-switch.js" />
     <Content Include="Content\bootstrap\js\bootstrap-switch.min.js" />
     <Content Include="Content\js\core\simplets-api-client-0.9.js" />
+    <Content Include="Content\js\core\simplets-jq-addons-0.9.js" />
+    <Content Include="Content\js\core\simplets-ko-addons-0.9.js" />
     <Content Include="Content\js\core\simplets-modelviews-0.9.js" />
+    <Content Include="Content\js\knockout-mapping-2.4.1.js" />
+    <Content Include="Content\js\knockout-mapping-2.4.1.min.js" />
     <Content Include="Content\js\log4javascript-1.4.11.js" />
     <Content Include="Content\js\log4javascript-1.4.11.min.js" />
     <Content Include="Content\js\moment.js" />
@@ -235,13 +242,16 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Shared\Administration\" />
+    <Folder Include="Views\Shared\Club\" />
+    <Folder Include="Views\Shared\Description\" />
     <Folder Include="Views\Shared\Fulls\Administration\" />
     <Folder Include="Views\Shared\Fulls\Clubs\" />
     <Folder Include="Views\Shared\Partials\Administration\" />
+    <Folder Include="Views\Shared\Partials\Clubs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -346,25 +356,25 @@
     <Content Include="Content\font-awesome\scss\font-awesome.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_NavBar.cshtml" />
+    <Content Include="Views\Shared\Nav\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Userspace\Profil.cshtml" />
+    <Content Include="Views\Shared\Userspace\_ProfilComplet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\Authentication\_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Userspace\_ProfilBase.cshtml" />
+    <Content Include="Views\Shared\Userspace\_ProfilBase.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Userspace\_ProfilAvance.cshtml" />
+    <Content Include="Views\Shared\Userspace\_ProfilAvance.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Description\ApiHelp.cshtml" />
+    <Content Include="Views\Shared\Fulls\Description\_ApiDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Description\EntitiesHelp.cshtml" />
+    <Content Include="Views\Shared\Fulls\Description\_EntitiesDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Buttons\ButtonStrings.fr.resx" />
@@ -409,13 +419,19 @@
     <Content Include="Views\Shared\Partials\Userspace\_FirstLoginProfilEdition.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Clubs\_SubscribedClubs.cshtml" />
+    <Content Include="Views\Shared\Userspace\_Antecedents.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Userspace\_Antecedents.cshtml" />
+    <Content Include="Views\Shared\Userspace\_Formations.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Userspace\_Formations.cshtml" />
+    <Content Include="Views\Shared\Application.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Nav\_ClubMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Nav\_MainMenu.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,4 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
-
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle nav-bar-expander" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -25,7 +24,7 @@
   <!-- Main menu. -->
   <ul id="main-menu" class="nav" data-bind="css: { 'pull-left': isXs(), 'navbar-nav': !isXs(), 'navbar-right': !isXs() }">
     <!-- Context option to choose a club. -->
-    <li class="dropdown" data-bind="css: { 'pull-left': isXs() }, with: subscribedClubsModelView">
+    <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <span class="icon-container fa fa-2x btn-info vcenter">
           <span class="fa fa-share white"></span>
@@ -33,7 +32,18 @@
         <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Contexte)</span>
         <b class="caret hidden-xs"></b>
       </a>
-      @Html.Partial("Partials/Clubs/_SubscribedClubs")
+      <!-- ko with: subscribedClubsModelView -->
+      <ul id="subscribed-clubs" class="dropdown-menu pull-right" data-bind="foreach: clubs">
+        <li data-bind="click: $parent.select">
+          <a href="#">
+            <div class="subscribed-club-logo" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
+            <span data-bind="text: nom" class="subscribed-club-text"></span>
+            @*<input class="subscribed-club-isdefault" type="checkbox"/>*@
+          </a>
+        </li>
+        <li class="divider" data-bind="visible: $index() !== ($parent.clubs().length - 1)"></li>
+      </ul>
+      <!-- /ko -->
     </li>
     <!-- Preferences option. -->
     <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
@@ -44,7 +54,7 @@
         <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Preferences)</span>
         <b class="caret hidden-xs"></b>
       </a>
-    </li> 
+    </li>
     <!-- Profile option. -->
     <li data-bind="css: { 'pull-left': isXs() }">
       <a href="@Url.Action("Index", "Home")" class="dropdown-toggle">
@@ -53,7 +63,7 @@
         </span>
         <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Profil)</span>
       </a>
-    </li> 
+    </li>
     <!-- Logout option. -->
     <li data-bind="css: { 'pull-left': isXs() }">
       <a href="#" class="dropdown-toggle">
@@ -98,13 +108,13 @@
       buttonClass: "btn-success",
       iconClass: "fa-folder-open-o",
       href: null,
-      module: modules.commanditaires(),
+      module: app.enums.modules.commanditaires,
       entries: [
         {
           text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires_Consulter)",
           iconClass: "fa-sitemap",
-          href: buildUrl(baseApplicationUrl, "commanditaires"),
-          requiredClaims: claims.readAll()
+          href: "@Url.Action("Commanditaires", "Club")",
+          requiredClaims: app.enums.claims.readAll
         }
       ]
     },
@@ -113,29 +123,27 @@
       buttonClass: "btn-info",
       iconClass: "fa-users",
       href: null,
-      module: modules.membres(),
+      module: app.enums.modules.membres,
       entries: [
         {
           text: "@Html.Raw(MenuStrings.ClubMenu_Membres_Consulter)",
           iconClass: "fa-sitemap",
-          href: buildUrl(baseApplicationUrl, "membres"),
-          requiredClaims: claims.readAll()
+          href: "@Url.Action("Membres", "Club")",
+          requiredClaims: app.enums.claims.readAll
         }
       ]
     }
   ];
 
-  jQuery(function ($) {
+  // Apply both menus bindings when the user has logged in.
+  app.ready(function($) {
     // Get all required selectors for knockout bindings.
     var $clubMenu = $("#club-menu");
     var $mainMenu = $("#main-menu");
     var $xsContainer = $(".main-menu-xs-container");
     var $mdContainer = $(".main-menu-md-container");
 
-    // Apply both menus bindings when the user has logged in.
-    $("#login").on("logged-in", function () {
-      ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer), $mainMenu[0]);
-      ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
-    });
+    ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer), $mainMenu[0]);
+    ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
   });
 </script>

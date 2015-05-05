@@ -1,0 +1,79 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Labels
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
+@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">@Html.Raw(TitleStrings.Antecedents_MainTitle)</h3>
+  </div>
+  <!-- Table for all formations. -->
+  <table id="antecedents" class="table">
+    <thead>
+      <tr>
+        <th>@Html.Raw(LabelStrings.Antecedents_Type)</th>
+        <th>@Html.Raw(LabelStrings.Antecedents_Description)</th>
+        <th>@Html.Raw(LabelStrings.Antecedents_Public)</th>
+        <th style="width: 40px;"></th>
+        <th style="width: 40px;"></th>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: antecedents">
+      <!-- Data row when the formation entity is in view mode. -->
+      <tr data-bind="visible: viewmode() == app.enums.viewmodes.view">
+        <td data-bind="text: typeAntecedent"></td>
+        <td data-bind="text: description"></td>
+        <td>
+          <input type="checkbox" class="form-control text-left" style="width: 40px;" data-bind="checked: public" disabled />
+        </td>
+        <td>
+          <!-- Edit button. -->
+          <button data-bind="click: $root.beginEdit" type="submit" class="btn btn-warning">
+            <i class="fa fa-2x fa-pencil-square-o white"></i>
+          </button>
+        </td>
+        <td>
+          <!-- Delete button. -->
+          <button data-bind="click: $root.delete" type="submit" class="btn btn-danger"
+                  data-toggle="tooltip" data-original-title="@Html.Raw(MessageStrings.RemoveButton_DoubleClickAdvice)">
+            <i class="fa fa-2x fa-times white"></i>
+          </button>
+        </td>
+      </tr>
+      <!-- Data row when the formation entity is in edition or creation mode. -->
+      <tr data-bind="visible: viewmode() == app.enums.viewmodes.creation || viewmode() == app.enums.viewmodes.edition">
+        <td>
+          <select data-bind="
+              options: $root.typesAntecedents,
+              optionsValue: 'id',
+              optionsText: function (typeAntecedent) { return typeAntecedent.toString(); },
+              value: typeAntecedentId" class="form-control"></select>
+        </td>
+        <td>
+          <input type="text" class="form-control" data-bind="value: description" />
+        </td>
+        <td>
+          <input type="checkbox" class="form-control text-left" style="width: 40px;" data-bind="checked: public" />
+        </td>
+        <td>
+          <!-- Add button. -->
+          <button data-bind="click: $root.add, visible: viewmode() == app.enums.viewmodes.creation" type="submit" class="btn btn-success">
+            <i class="fa fa-2x fa-plus white"></i>
+          </button>
+
+          <!-- Save button. -->
+          <button data-bind="click: $root.edit, visible: viewmode() == app.enums.viewmodes.edition" type="submit" class="btn btn-success">
+            <i class="fa fa-2x fa-check white"></i>
+          </button>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  app.ready(function($) {
+    var $antecedents = $("#antecedents");
+    ko.applyBindings(new AntecedentsModelView($antecedents), $antecedents[0]);
+  });
+</script>

@@ -70,6 +70,33 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Simplets Api Description.
+        /// </summary>
+        public static string ApiDescription_MainTitle {
+            get {
+                return ResourceManager.GetString("ApiDescription_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        public static string Application_MainTitle {
+            get {
+                return ResourceManager.GetString("Application_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simplets Entities Description.
+        /// </summary>
+        public static string EntitiesDescription_MainTitle {
+            get {
+                return ResourceManager.GetString("EntitiesDescription_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Complete your profile information*.
         /// </summary>
         public static string FirstLoginProfileEdition_MainTitle {
@@ -93,6 +120,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         public static string Login_MainTitle {
             get {
                 return ResourceManager.GetString("Login_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member List.
+        /// </summary>
+        public static string Membre_MainTitle {
+            get {
+                return ResourceManager.GetString("Membre_MainTitle", resourceCulture);
             }
         }
         

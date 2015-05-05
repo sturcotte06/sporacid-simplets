@@ -1,0 +1,26 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Titles
+@{
+  ViewBag.Title = TitleStrings.Application_MainTitle;
+}
+
+<script type="text/javascript">
+  // Start login process anytime the page loads.
+  jQuery(function ($) {
+    var $login = $("#login");
+    ko.applyBindings(new LoginModelView($login), $login[0]);
+  });
+
+  // Once the application is ready, bootstrap the current user's default view.
+  app.ready(function ($) {
+    // Setup logging.
+    app.loggers.setup();
+
+    // Loads the user profil.
+    $("#page-wrapper").load("@Url.Action("Profil","Userspace")");
+
+    // var defaultClub = app.user.current.preferences[app.enums.preferences.defaultClub];
+    // if (defaultClub) {
+    // 
+    // }
+  });
+</script>

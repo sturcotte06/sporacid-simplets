@@ -126,4 +126,7 @@
   <data name="ProfilBase_PublicDisclaimer" xml:space="preserve">
     <value>* If checked, users of SimplETS will be able to see your base profile.</value>
   </data>
+  <data name="RemoveButton_DoubleClickAdvice" xml:space="preserve">
+    <value>Double click to delete.</value>
+  </data>
 </root>

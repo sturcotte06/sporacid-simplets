@@ -1,96 +1,34 @@
-// The authentication token of an authenticated user.
-var authenticationToken = null;
-
-// The preferences of the current authenticated user.
-var currentUserPreferences = null;
-
-// The current club context of the current authenticated user.
-var currentClubContext = null;
-
-// The current club context claims of the current authenticated user.
-var currentClubContextClaims = null;
-
-// The stores underlying data for immutable collections.
-var storeData = {};
-
-// The stores for immutable collections.
-var stores = {};
-
-jQuery(function($) {
-    // Load concentrations as a data store.
-    storeData.concentrations = ko.observableArray();
-    api.enumerations.concentrations().done(function(concentrations) {
-        $.each(concentrations, function(i, concentration) {
-            concentration.toString = function() { return sprintf("%s - %s", concentration.acronyme, concentration.description); };
-            storeData.concentrations().push(concentration);
-        });
-
-        stores.concentrations = asStore(concentrations);
-    }).invoke();
-
-    // Load contacts types as a data store.
-    storeData.typesContacts = ko.observableArray();
-    api.enumerations.typesContacts().done(function(typesContacts) {
-        $.each(typesContacts, function(i, typeContact) {
-            typeContact.toString = function() { return typeContact.nom; };
-            storeData.typesContacts().push(typeContact);
-        });
-
-        stores.typesContacts = asStore(typesContacts);
-    }).invoke();
-
-    // Load statuts suivies as a data store.
-    storeData.statutsSuivies = ko.observableArray();
-    api.enumerations.statutsSuivies().done(function(statutsSuivies) {
-        $.each(statutsSuivies, function(i, statutSuivie) {
-            statutSuivie.toString = function() { return sprintf("%s - %s", statutSuivie.code, statutSuivie.description); };
-            storeData.statutsSuivies().push(statutSuivie);
-        });
-
-        stores.statutsSuivies = asStore(statutsSuivies);
-    }).invoke();
-
-    // Load unites as a data store.
-    storeData.unites = ko.observableArray();
-    api.enumerations.unites().done(function(unites) {
-        $.each(unites, function(i, unite) {
-            unite.toString = function() { return sprintf("%s - %s", unite.systeme, unite.code); };
-            storeData.statutsSuivies().push(unite);
-        });
-
-        stores.unites = asStore(unites);
-    }).invoke();
-
-    // Load commanditaire types as a data store.
-    storeData.typesCommanditaires = ko.observableArray();
-    api.enumerations.typesCommanditaires().done(function(typesCommanditaires) {
-        $.each(typesCommanditaires, function(i, typeCommanditaire) {
-            typeCommanditaire.toString = function() { return typeCommanditaire.nom; };
-            storeData.typesCommanditaires().push(typeCommanditaire);
-        });
-
-        stores.typesCommanditaires = asStore(typesCommanditaires);
-    }).invoke();
-});
-
 // Model view for the base profil object.
 function ProfilBaseModelView($self, validationModelView) {
     // Define closure safe properties.
     var self = this;
 
     // Define all onservable properties.
-    self.viewmode = ko.observable(viewmodes.view());
-    self.concentrations = storeData.concentrations;
+    self.viewmode = ko.observable(app.enums.viewmodes.view);
+    self.concentrations = app.data.enums.concentrations.observable;
     self.profil = ko.observable();
-    self.concentration = ko.observable();
 
     // Define all jquery selectors.
     var $panel = $self.parents(".panel").first();
+    var $avatars = $self.find(".profil-avatar");
+
+    $(window).on("resize", function() {
+        self.resizeAvatar();
+    });
+
+    // Resize the avatar elements so their height matches their width.
+    self.resizeAvatar = function() {
+        $avatars.each(function() {
+            var $avatar = $(this);
+            app.loggers.mv.debug("Avatar width: ", $avatar.width(), "px.");
+            $avatar.height($avatar.width());
+        });
+    };
 
     // Begin edition of base profil entity.
     self.beginEdit = function() {
         // Switch to edition mode.
-        self.viewmode(viewmodes.edition());
+        self.viewmode(app.enums.viewmodes.edition);
         $panel.removeClass("panel-primary").addClass("panel-warning");
     };
 
@@ -100,16 +38,15 @@ function ProfilBaseModelView($self, validationModelView) {
         $panel.waiting();
 
         // Update the profil entity.
-        api.userspace.profil.update(authenticationToken.emittedFor, self.profil()).done(function() {
-            self.profil.valueHasMutated();
+        api.userspace.profil.update(app.user.current.name, self.profil()).done(function () {
             self.endEdit();
-        }).fail(function(jqhxr, textStatus, ex) {
-            self.error(createErrorObject(jqhxr, textStatus, ex));
+        }).fail(function(exception) {
+            self.error(exception);
         }).invoke();
     };
 
     // Cancels the edition of profil entity.
-    self.cancelEdit = function() {
+    self.cancelEdit = function () {
         self.endEdit();
     };
 
@@ -119,20 +56,21 @@ function ProfilBaseModelView($self, validationModelView) {
         validationModelView.clear();
 
         // Switch to view mode.
-        self.viewmode(viewmodes.view());
+        self.viewmode(app.enums.viewmodes.view);
         $panel.removeClass("panel-warning").addClass("panel-primary");
 
         // Reactivate the view.
         $panel.active();
 
         // Try to get the concentration of the profil.
-        self.concentration(self.profil().concentrationId ? stores.concentrations[self.profil().concentrationId] : null);
+        self.profil().concentration = self.profil().concentrationId ? app.data.enums.concentrations.store[self.profil().concentrationId] : null;
 
-        // Set either the user avatar or a placeholder everywhere it's required.
-        var avatarImageSrc = profil.avatar ? sprintf("url(data:image/jpg;base64,%s)", profil.avatar) : "url(/app/Content/img/avatar-placeholder.png)";
-        $self.find(".profil-avatar").each(function() {
-            $(this).css("background-image", avatarImageSrc);
-        });
+        // Set either the user avatar or a placeholder for the profil's avatar.
+        self.profil().avatarDataUri = self.profil().avatar
+            ? app.utility.image.buildDataUri(self.profil().avatar)
+            : "/app/Content/img/avatar-placeholder.png";
+
+        self.profil.valueHasMutated();
     };
 
     // Manages an error that occured while managing the profil entity.
@@ -141,6 +79,9 @@ function ProfilBaseModelView($self, validationModelView) {
             // Bad request: validation error.
             validationModelView.load(error.response);
         }
+
+        // Log the error.
+        app.loggers.mv.error("Exception in ProfilBaseModelView(): ", error);
 
         // Reactivate the view.
         $panel.active();
@@ -152,19 +93,17 @@ function ProfilBaseModelView($self, validationModelView) {
         $panel.waiting();
 
         // Load the profil entity.
-        api.userspace.profil.get(authenticationToken.emittedFor).done(function(profil) {
+        api.userspace.profil.get(app.user.current.name).done(function (profil) {
+            // Get the concentration of the user from the given concentration id.
+            profil.concentration = profil.concentrationId ? app.data.enums.concentrations.store[profil.concentrationId] : null;
+
+            // Set either the user avatar or a placeholder for the profil's avatar.
+            profil.avatarDataUri = profil.avatar
+                ? app.utility.image.buildDataUri(profil.avatar)
+                : "/app/Content/img/avatar-placeholder.png";
+
+            // Set the observable profil object.
             self.profil(profil);
-
-            // Try to get the concentration of the user.
-            self.concentration(profil.concentrationId ? stores.concentrations[profil.concentrationId] : null);
-
-            // Set either the user avatar or a placeholder everywhere it's required.
-            var avatarImageSrc = profil.avatar
-                ? sprintf("url(%s)", buildImageDataUri(profil.avatar))
-                : "url(/app/Content/img/avatar-placeholder.png)";
-            $self.find(".profil-avatar").each(function() {
-                $(this).css("background-image", avatarImageSrc);
-            });
 
             // Reactivate the view.
             $panel.active();
@@ -179,7 +118,7 @@ function ProfilAvanceModelView($self, validationModelView) {
     var self = this;
 
     // Define all onservable properties.
-    self.viewmode = ko.observable(viewmodes.view());
+    self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.profilAvance = ko.observable();
 
     // Define all jquery selectors.
@@ -188,7 +127,7 @@ function ProfilAvanceModelView($self, validationModelView) {
     // Begin edition of profil entity.
     self.beginEdit = function() {
         // Switch to edition mode.
-        self.viewmode(viewmodes.edition());
+        self.viewmode(app.enums.viewmodes.edition);
         $panel.removeClass("panel-primary").addClass("panel-warning");
     };
 
@@ -200,17 +139,17 @@ function ProfilAvanceModelView($self, validationModelView) {
         // The separation between profil and profil avance is logical only.
         // This means the profil is the aggregation of both. Before posting the profil avance, reload
         // the base profil. If it has not changed, this will reload the cached value anyway.
-        api.userspace.profil.get(authenticationToken.emittedFor).done(function(profil) {
+        api.userspace.profil.get(app.user.current.name).done(function (profil) {
             profil.profilAvance = self.profilAvance();
             // Update the profil entity.
-            api.userspace.profil.update(authenticationToken.emittedFor, profil).done(function() {
+            api.userspace.profil.update(app.user.current.name, profil).done(function () {
                 self.endEdit();
                 self.profilAvance.valueHasMutated();
-            }).fail(function(jqhxr, textStatus, ex) {
-                self.error(createErrorObject(jqhxr, textStatus, ex));
+            }).fail(function (exception) {
+                self.error(exception);
             }).invoke();
-        }).fail(function(jqhxr, textStatus, ex) {
-            self.error(createErrorObject(jqhxr, textStatus, ex));
+        }).fail(function(exception) {
+            self.error(exception);
         }).invoke();
     };
 
@@ -225,7 +164,7 @@ function ProfilAvanceModelView($self, validationModelView) {
         validationModelView.clear();
 
         // Switch to view mode.
-        self.viewmode(viewmodes.view());
+        self.viewmode(app.enums.viewmodes.view);
         $panel.removeClass("panel-warning").addClass("panel-primary");
 
         // Reactivate the view.
@@ -234,16 +173,16 @@ function ProfilAvanceModelView($self, validationModelView) {
 
     // Manages an error that occured while managing the profil entity.
     self.error = function(error) {
+        if (error.httpStatus === 400) {
+            // Bad request: validation error.
+            validationModelView.load(error.response);
+        }
+
+        // Log the error.
+        app.loggers.mv.error("Exception in ProfilAvanceModelView(): ", error);
+
         // Reactivate the view.
         $panel.active();
-
-        if (error.httpStatus === 400) {
-            // Bad request == validation error.
-            validationModelView.load(error.response);
-        } else {
-            // Other error, cannot handle.
-            throw error;
-        }
     };
 
     // Loads the profil entity from the rest services.
@@ -252,12 +191,192 @@ function ProfilAvanceModelView($self, validationModelView) {
         $panel.waiting();
 
         // Load the profil entity.
-        api.userspace.profil.get(authenticationToken.emittedFor).done(function(profil) {
+        api.userspace.profil.get(app.user.current.name).done(function (profil) {
             // The separation between profil and profil avance is logical only.
             self.profilAvance(profil.profilAvance);
             // Reactivate the view.
             $panel.active();
             $self.trigger("loaded");
+        }).invoke();
+    }();
+}
+
+// Model view for the formation object list.
+function FormationsModelView($self) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all onservable properties.
+    self.formations = ko.observableArray();
+
+    // Adds a single formation entity.
+    self.add = function(formation) {
+        $self.waiting();
+        api.userspace.formations.create(app.user.current.name, formation).done(function(id) {
+            formation.id = id;
+            formation.viewmode(app.enums.viewmodes.view);
+            self.refresh();
+
+            self.addBlank();
+            $self.active();
+        }).invoke();
+    };
+
+    // Adds a blank formation entity in creation mode.
+    self.addBlank = function () {
+        self.formations.push({
+            viewmode: ko.observable(app.enums.viewmodes.creation),
+            titre: null,
+            description: null,
+            "public": false
+        });
+    };
+
+    // Deletes a single formation entity.
+    self.delete = function(formation) {
+        $self.waiting();
+        api.userspace.formations.delete(app.user.current.name, formation.id).done(function () {
+            // Remove from the observable formation array.
+            self.formations.remove(function(f) {
+                return formation.id === f.id;
+            });
+            $self.active();
+        }).invoke();
+    };
+
+    // Begin edition of a single formation entity.
+    self.beginEdit = function(formation) {
+        // Switch view mode.
+        formation.viewmode(app.enums.viewmodes.edition);
+        self.refresh();
+    };
+
+    // Edit a single formation entity.
+    self.edit = function(formation) {
+        $self.waiting();
+        api.userspace.formations.update(app.user.current.name, formation.id, formation).done(function () {
+            formation.viewmode(app.enums.viewmodes.view);
+            self.refresh();
+            $self.active();
+        }).invoke();
+    };
+
+    // Refreshes the observable array of formations.
+    self.refresh = function() {
+        var formations = self.formations().slice(0);
+        self.formations([]);
+        self.formations(formations);
+    };
+
+    // Loads the formation list from the rest services.
+    self.load = function() {
+        $self.waiting();
+        api.userspace.formations.getAll(app.user.current.name).done(function (formations) {
+            // Add a viewmode to each formation to keep track of view state.
+            $.each(formations, function(i, formation) {
+                formation.viewmode = ko.observable(app.enums.viewmodes.view);
+            });
+
+            self.formations(formations);
+            self.addBlank();
+            $self.active();
+        }).invoke();
+    }();
+}
+
+// Model view for the antecedent object list.
+function AntecedentsModelView($self) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all onservable properties.
+    self.antecedents = ko.observableArray();
+    self.typesAntecedents = app.data.enums.typesAntecedents.observable;
+
+    // Updates the type antecedent object from the new type antecedent id.
+    self.refreshTypeAntecedent = function(antecedent) {
+        antecedent.typeAntecedent = antecedent.typeAntecedentId
+            ? app.data.enums.typesAntecedents.store[antecedent.typeAntecedentId]
+            : null;
+    };
+
+    // Adds a single antecedent entity.
+    self.add = function (antecedent) {
+        $self.waiting();
+        api.userspace.antecedents.create(app.user.current.name, antecedent).done(function (id) {
+            antecedent.id = id;
+            antecedent.viewmode(app.enums.viewmodes.view);
+            self.refreshTypeAntecedent(antecedent);
+
+            self.refresh();
+            self.addBlank();
+            $self.active();
+        }).invoke();
+    };
+
+    // Adds a blank antecedent entity in creation mode.
+    self.addBlank = function () {
+        self.antecedents.push({
+            viewmode: ko.observable(app.enums.viewmodes.creation),
+            nom: null,
+            description: null,
+            typeAntecedentId: 0,
+            typeAntecedent: null,
+            "public": false
+        });
+    };
+
+    // Deletes a single antecedent entity.
+    self.delete = function (antecedent) {
+        $self.waiting();
+        api.userspace.antecedents.delete(app.user.current.name, antecedent.id).done(function () {
+            // Remove from the observable antecedent array.
+            self.antecedents.remove(function (a) {
+                return antecedent.id === a.id;
+            });
+            $self.active();
+        }).invoke();
+    };
+
+    // Begin edition of a single antecedent entity.
+    self.beginEdit = function (antecedent) {
+        // Switch view mode.
+        antecedent.viewmode(app.enums.viewmodes.edition);
+        self.refresh();
+    };
+
+    // Edit a single antecedent entity.
+    self.edit = function (antecedent) {
+        $self.waiting();
+        api.userspace.antecedents.update(app.user.current.name, antecedent.id, antecedent).done(function () {
+            antecedent.viewmode(app.enums.viewmodes.view);
+            self.refreshTypeAntecedent(antecedent);
+
+            self.refresh();
+            $self.active();
+        }).invoke();
+    };
+
+    // Refreshes the observable array of antecedents.
+    self.refresh = function () {
+        var antecedents = self.antecedents().slice(0);
+        self.antecedents([]);
+        self.antecedents(antecedents);
+    };
+
+    // Loads the antecedent list from the rest services.
+    self.load = function () {
+        $self.waiting();
+        api.userspace.antecedents.getAll(app.user.current.name).done(function (antecedents) {
+            // Add a viewmode to each formation to keep track of view state.
+            $.each(antecedents, function (i, antecedent) {
+                antecedent.viewmode = ko.observable(app.enums.viewmodes.view);
+                self.refreshTypeAntecedent(antecedent);
+            });
+
+            self.antecedents(antecedents);
+            self.addBlank();
+            $self.active();
         }).invoke();
     }();
 }
@@ -299,6 +418,8 @@ function ValidationExceptionModelView($self) {
 function LoginModelView($self) {
     // Define closure safe properties.
     var self = this;
+    var usernameCookieKey = "app.user.current.name";
+    var tokenCookieKey = "app.user.current.token";
 
     // Define all onservable properties.
     self.username = ko.observable();
@@ -308,21 +429,28 @@ function LoginModelView($self) {
     var $loginError = $self.find(".login-error");
     var $modal;
 
+    // Begins the login process. If the user already has a valid token, the login process will be skipped.
     self.beginLogin = function() {
         // Hide the main content wrapper while authenticating the user.
         $("#page-wrapper").hide();
 
         // If cookie is present, do not ask for user's credentials.
-        var authCookie = $.cookie("Authorization-Token");
-        if (authCookie && authCookie !== "null" && authCookie !== "undefined") {
+        var usernameCookie = $.cookie(usernameCookieKey);
+        var tokenCookie = $.cookie(tokenCookieKey);
+
+        if (tokenCookie && tokenCookie !== "null" && tokenCookie !== "undefined" &&
+            usernameCookie && usernameCookie !== "null" && usernameCookie !== "undefined") {
             // Try to log in with the token.
-            var token = JSON.parse(authCookie);
-            api.utility.noop(buildTokenAuthHeader(token.token)).done(function() {
+            var token = JSON.parse(tokenCookie);
+
+            api.utility.noop(app.utility.auth.token.header(token)).done(function () {
                 // Worked, token is still valid.
-                self.endLogin(token);
+                self.endLogin(usernameCookie, token);
             }).fail(function() {
                 // Failed, force reauthentication.
-                $.cookie("Authorization-Token", null, { path: "/" });
+                $.cookie(usernameCookieKey, null);
+                $.cookie(tokenCookieKey, null);
+
                 self.beginLogin();
             }).invoke();
         } else {
@@ -335,53 +463,53 @@ function LoginModelView($self) {
             $modal = $self.find(".modal-dialog");
             $self.focus();
         }
-    };
+    }();
 
+    // Logs the user in. A rest call will be tried to assert the user's credentials validity.
     self.login = function() {
         // Deactivate the view.
         $modal.waiting();
 
         // Try to do a no-op on the rest server.
         // If the user's credentials are wrong, this will throw.
-        api.utility.noop(buildKerberosAuthHeader(self.username(), self.password())).done(function(data, textStatus, jqxhr) {
+        api.utility.noop(app.utility.auth.kerberos.header(self.username(), self.password())).done(function(data, textStatus, jqxhr) {
             // Succeeded. Extract the authentication token for further calls to the api and end the login procedure.
-            self.endLogin({
-                token: jqxhr.getResponseHeader("Authorization-Token"),
-                emittedFor: self.username(),
-                emittedAt: moment(jqxhr.getResponseHeader("Authorization-Token-Emitted-At"), moment().ISO_8601),
-                expiresAt: moment(jqxhr.getResponseHeader("Authorization-Token-Expires-At"), moment().ISO_8601)
-            });
-        }).fail(function(jqhxr, textStatus, ex) {
-            self.error(createErrorObject(jqhxr, textStatus, ex));
+            self.endLogin(self.username(), app.utility.auth.token.from(data, textStatus, jqxhr));
+        }).fail(function(exception) {
+            self.error(exception);
         }).invoke();
     };
 
-    self.endLogin = function(token) {
+    // End the login process.
+    self.endLogin = function (username, token) {
         // Reactivate the view.
         if ($modal) $modal.active();
 
-        // Set the static authentication token.
-        authenticationToken = token;
-        $.cookie("Authorization-Token", JSON.stringify(authenticationToken), { path: "/" });
+        // Setup the current user data.
+        app.user.current.name = username;
+        app.user.current.token = token;
 
         // Load the current user preferences
-        api.userspace.preferences.getAll(authenticationToken.emittedFor).done(function(preferences) {
-            currentUserPreferences = preferences;
+        api.userspace.preferences.getAll(app.user.current.name).done(function (preferences) {
+            app.user.current.preferences = preferences;
         }).invoke();
+
+        // Save the user's by token credentials in the cookie.
+        $.cookie(usernameCookieKey, app.user.current.name);
+        $.cookie(tokenCookieKey, JSON.stringify(app.user.current.token));
 
         // Hide the login modal.
         $self.modal("hide");
 
         // Remove the content's blur.
-        $("#page-wrapper").show();
-
-        // Blur the content.
         $("#wrapper").removeClass("blurred");
+        $("#page-wrapper").show();
 
         // Trigger a new event to wake up model views waiting on this event.
         $self.trigger("logged-in");
     };
 
+    // Manages an error that occured while logging the user in.
     self.error = function(error) {
         // Reactivate the view.
         if ($modal) $modal.active();
@@ -392,9 +520,6 @@ function LoginModelView($self) {
         // Restart login.
         self.beginLogin();
     };
-
-    // Force authentication.
-    self.beginLogin();
 }
 
 function FirstLoginModelView($self) {
@@ -516,12 +641,12 @@ function MainMenuModelView($self, $xsContainer, $mdContainer) {
 
     // Define all observable properties.
     self.subscribedClubsModelView = ko.observable(new SubscribedClubsModelView($subscribedClubs));
-    self.isXs = ko.observable($(".body > .visible-xs:visible").exists());
-    
+    self.isXs = ko.observable($("body > .visible-xs:visible").exists());
+
     // Bind a on resize event to switch between mobile container and medium device container.
     $(window).on("resize", function() {
         // Update is xs viewport flag.
-        self.isXs($(".body > .visible-xs:visible").exists());
+        self.isXs($("body > .visible-xs:visible").exists());
 
         // Append in the good container.
         if (self.isXs()) {
@@ -540,13 +665,13 @@ function SubscribedClubsModelView($self) {
     // Define all onservable properties.
     self.clubs = ko.observableArray();
 
-    // Selects the current club.
+    // Selects a club context to be the current context.
     self.select = function(item) {
-        currentClubContext = item;
+        app.user.current.context.current = item;
 
         // Load the user's claims on the club.
         api.security.contexts.getClaims(item.nom).done(function(contextClaims) {
-            currentClubContextClaims = contextClaims;
+            app.user.current.context.claims = contextClaims;
         }).invoke();
     };
 
@@ -554,8 +679,7 @@ function SubscribedClubsModelView($self) {
     self.load = function() {
         api.clubs.getSubscribedClubs().done(function(clubs) {
             $.each(clubs, function (i, club) {
-                if (club.logo)
-                    club.logo = buildImageDataUri(club.logo);
+                club.logo = club.logo ? app.utility.image.buildDataUri(club.logo) : null;
             });
 
             self.clubs(clubs);
@@ -579,7 +703,7 @@ function ClubMenuModelView($self, entries) {
                 currentModule = entry.module;
 
             // If claims of the entry is defined, check whether entries need to be removed.
-            if (entry.claims) {
+            if (entry.requiredClaims) {
                 // Get the module in the user's claim list on context.
                 var contextModuleClaims;
                 $.each(currentClubContextClaims, function(j, moduleClaims) {
@@ -597,7 +721,7 @@ function ClubMenuModelView($self, entries) {
 
                 // Check if every required claims are present.
                 var moduleClaimsArray = contextModuleClaims.claims.split(", ");
-                var requiredClaimsArray = entry.claims.split(", ");
+                var requiredClaimsArray = entry.requiredClaims.split(", ");
                 $.each(requiredClaimsArray, function(j, requiredClaim) {
                     if (!$.inArray(requiredClaim, moduleClaimsArray)) {
                         // Claim is not present, remove the entry.
@@ -621,14 +745,47 @@ function ClubMenuModelView($self, entries) {
     // Define all observable properties.
     self.entries = ko.observableArray(entries);
     self.isXs = ko.observable($("body > .visible-xs:visible").exists());
-    
+
     // Refreshes the menu entries to match the current club.
     self.refresh = function() {
         // self.entries(cleanEntries(originalEntries));
     }();
 
-    $(window).on("resize", function () {
+    // Refresh the is xs flag whenever the window is resized.
+    $(window).on("resize", function() {
         // Update is xs viewport flag.
         self.isXs($("body > .visible-xs:visible").exists());
     });
 }
+
+// Model view for the api description help list.
+function ApiDescriptionModelView($self) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all observable properties.
+    self.modules = ko.observableArray();
+
+    // Loads the api description from the rest services.
+    self.load = function() {
+        api.utility.apiDescription().done(function (modules) {
+            self.modules(modules);
+        }).invoke();
+    }();
+};
+
+// Model view for the entities description help list.
+function EntitiesDescriptionModelView($self) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all observable properties.
+    self.entities = ko.observableArray();
+
+    // Loads the entities description from the rest services.
+    self.load = function () {
+        api.utility.entitiesDescription().done(function (entities) {
+            self.entities(entities);
+        }).invoke();
+    }();
+};

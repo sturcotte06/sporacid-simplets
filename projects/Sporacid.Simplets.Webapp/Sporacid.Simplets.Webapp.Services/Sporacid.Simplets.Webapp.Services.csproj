@@ -260,7 +260,9 @@
     <Compile Include="Services\Security\IContextService.cs" />
     <Compile Include="Services\Security\Impl\ContextService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
+    <Compile Include="Services\Userspace\IFormationService.cs" />
     <Compile Include="Services\Userspace\IAntecedentService.cs" />
+    <Compile Include="Services\Userspace\Impl\FormationService.cs" />
     <Compile Include="Services\Userspace\Impl\AntecedentService.cs" />
     <Compile Include="Services\Userspace\Impl\ContactUrgenceService.cs" />
     <Compile Include="Services\Userspace\Impl\PreferenceService.cs" />

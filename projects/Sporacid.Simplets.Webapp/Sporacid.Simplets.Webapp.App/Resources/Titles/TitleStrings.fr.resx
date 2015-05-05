@@ -120,6 +120,15 @@
   <data name="Antecedents_MainTitle" xml:space="preserve">
     <value>Vos antécédents</value>
   </data>
+  <data name="ApiDescription_MainTitle" xml:space="preserve">
+    <value>Description de l'api de Simplets</value>
+  </data>
+  <data name="Application_MainTitle" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="EntitiesDescription_MainTitle" xml:space="preserve">
+    <value>Description des entitiés de Simplets</value>
+  </data>
   <data name="FirstLoginProfileEdition_MainTitle" xml:space="preserve">
     <value>Completez les informations de votre profil *</value>
   </data>
@@ -128,6 +137,9 @@
   </data>
   <data name="Login_MainTitle" xml:space="preserve">
     <value>Authentifiez vous  *</value>
+  </data>
+  <data name="Membre_MainTitle" xml:space="preserve">
+    <value>Liste des membres</value>
   </data>
   <data name="ProfilAvance_MainTitle" xml:space="preserve">
     <value>Votre profil avancé</value>

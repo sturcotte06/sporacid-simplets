@@ -3753,7 +3753,7 @@ ko.bindingHandlers['foreach'] = {
                 'includeDestroyed': unwrappedValue['includeDestroyed'],
                 'afterAdd': unwrappedValue['afterAdd'],
                 'beforeRemove': unwrappedValue['beforeRemove'],
-                'afterRender': unwrappedValue['afterRender'],
+                resizeAvatar: unwrappedValue["resizeAvatar"],
                 'beforeMove': unwrappedValue['beforeMove'],
                 'afterMove': unwrappedValue['afterMove'],
                 'templateEngine': ko.nativeTemplateEngine.instance
@@ -4746,8 +4746,8 @@ ko.exportSymbol('__tr_ambtns', ko.templateRewriting.applyMemoizedBindingsToNextS
 
         if (haveAddedNodesToParent) {
             activateBindingsOnContinuousNodeArray(renderedNodesArray, bindingContext);
-            if (options['afterRender'])
-                ko.dependencyDetection.ignore(options['afterRender'], null, [renderedNodesArray, bindingContext['$data']]);
+            if (options["resizeAvatar"])
+                ko.dependencyDetection.ignore(options["resizeAvatar"], null, [renderedNodesArray, bindingContext['$data']]);
         }
 
         return renderedNodesArray;
@@ -4824,8 +4824,8 @@ ko.exportSymbol('__tr_ambtns', ko.templateRewriting.applyMemoizedBindingsToNextS
         // This will be called whenever setDomNodeChildrenFromArrayMapping has added nodes to targetNode
         var activateBindingsCallback = function(arrayValue, addedNodesArray, index) {
             activateBindingsOnContinuousNodeArray(addedNodesArray, arrayItemContext);
-            if (options['afterRender'])
-                options['afterRender'](addedNodesArray, arrayValue);
+            if (options["resizeAvatar"])
+                options["resizeAvatar"](addedNodesArray, arrayValue);
         };
 
         return ko.dependentObservable(function () {

@@ -1,0 +1,34 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Titles
+@{
+  ViewBag.Title = TitleStrings.EntitiesDescription_MainTitle;
+}
+
+<ul id="entities-description" data-bind="foreach: entities">
+  <li>
+    <hr/>
+    <h3>
+      <b data-bind="text: name"></b>
+    </h3>
+    <div data-bind="visible: properties.length">
+      <ul data-bind="foreach: properties">
+        <li>
+          <h4>
+            <b data-bind="text: name"></b> -
+            <span data-bind="text: type"></span>
+          </h4>
+          <h5>Constraints</h5>
+          <span data-bind="text: constraints.join(', ')"></span>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>
+
+<script type="text/javascript">
+  jQuery(function($) {
+    $("#login").on("logged-in", function() {
+      var $entitiesDescription = $("#entities-description");
+      ko.applyBindings(new EntitiesDescriptionModelView($entitiesDescription), $entitiesDescription[0]);
+    });
+  });
+</script>

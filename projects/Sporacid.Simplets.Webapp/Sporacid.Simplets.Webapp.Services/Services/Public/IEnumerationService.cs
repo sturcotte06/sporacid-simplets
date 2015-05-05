@@ -7,6 +7,7 @@
     using Sporacid.Simplets.Webapp.Services.Database.Dto;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Clubs;
     using Sporacid.Simplets.Webapp.Services.Database.Dto.Dbo;
+    using Sporacid.Simplets.Webapp.Services.Database.Dto.Userspace;
     using Sporacid.Simplets.Webapp.Services.Resources.Contracts;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -50,6 +51,13 @@
         /// <returns>Enumeration of all commanditaire types.</returns>
         [RequiredClaims(Claims.None)]
         IEnumerable<WithId<Int32, TypeCommanditaireDto>> GetAllTypeCommanditaires();
+
+        /// <summary>
+        /// Returns all antecedent types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all antecedent types.</returns>
+        [RequiredClaims(Claims.None)]
+        IEnumerable<WithId<Int32, TypeAntecedentDto>> GetAllTypeAntecedents();
     }
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
@@ -57,10 +65,6 @@
     [ContractClassFor(typeof (IEnumerationService))]
     internal abstract class EnumerationServiceContract : IEnumerationService
     {
-        /// <summary>
-        /// Returns all type contact entities from the system.
-        /// </summary>
-        /// <returns>Enumeration of all type contact entities.</returns>
         public IEnumerable<WithId<Int32, TypeContactDto>> GetAllTypesContacts()
         {
             // Postconditions.
@@ -70,10 +74,6 @@
             return default(IEnumerable<WithId<Int32, TypeContactDto>>);
         }
 
-        /// <summary>
-        /// Returns all statut suivie entities from the system.
-        /// </summary>
-        /// <returns>Enumeration of all statuts suivie entities.</returns>
         public IEnumerable<WithId<Int32, StatutSuivieDto>> GetAllStatutsSuivie()
         {
             // Postconditions.
@@ -83,10 +83,6 @@
             return default(IEnumerable<WithId<Int32, StatutSuivieDto>>);
         }
 
-        /// <summary>
-        /// Returns all concentration entities from the system.
-        /// </summary>
-        /// <returns>Enumeration of all concentration entities.</returns>
         public IEnumerable<WithId<Int32, ConcentrationDto>> GetAllConcentrations()
         {
             // Postconditions.
@@ -96,10 +92,6 @@
             return default(IEnumerable<WithId<Int32, ConcentrationDto>>);
         }
 
-        /// <summary>
-        /// Returns all unite entities from the system.
-        /// </summary>
-        /// <returns>Enumeration of all unite entities.</returns>
         public IEnumerable<WithId<Int32, UniteDto>> GetAllUnites()
         {
             // Postconditions.
@@ -109,10 +101,6 @@
             return default(IEnumerable<WithId<Int32, UniteDto>>);
         }
 
-        /// <summary>
-        /// Returns all commanditaire types from the system.
-        /// </summary>
-        /// <returns>Enumeration of all unite entities.</returns>
         public IEnumerable<WithId<Int32, TypeCommanditaireDto>> GetAllTypeCommanditaires()
         {
             // Postconditions.
@@ -120,6 +108,15 @@
 
             // Dummy return.
             return default(IEnumerable<WithId<Int32, TypeCommanditaireDto>>);
+        }
+
+        public IEnumerable<WithId<Int32, TypeAntecedentDto>> GetAllTypeAntecedents()
+        {
+            // Postconditions.
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, TypeAntecedentDto>>>() != null, ContractStrings.EnumerationService_GetAllTypeAntecedents_EnsuresNonNullTypeAntecedents);
+
+            // Dummy return.
+            return default(IEnumerable<WithId<Int32, TypeAntecedentDto>>);
         }
     }
 }
