@@ -11,9 +11,10 @@ var app = {
         setup: function() {
             // Setup default console appender.
             var appender = new log4javascript.BrowserConsoleAppender();
-            var appenderLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %logger %-5p - %m%n");
+            var appenderLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m%n");
             appender.setLayout(appenderLayout);
 
+            // Setup all loggers with the default appender.
             app.loggers.core.setLevel(log4javascript.Level.DEBUG);
             app.loggers.core.addAppender(appender);
             app.loggers.mv.setLevel(log4javascript.Level.DEBUG);
@@ -43,6 +44,18 @@ var app = {
     },
     // Namespace of all utility functions of the application.
     utility: {
+        // Namespace for all ajax related utility functions.
+        ajax: {
+            // Utility function to load an url into the main content.
+            loadContent: function (url) {
+                var $content = $("#page-wrapper");
+                $content.hide();
+                $content.load(url, null, function (html) {
+                    $content.html(html);
+                    $content.show();
+                });
+            }
+        },
         // Namespace for all rest services utility functions.
         rest: {
             // Utility function for rest api calls.
@@ -61,7 +74,10 @@ var app = {
                             xhr.setRequestHeader("Authorization", auth);
                         }
 
-                        app.loggers.core.debug("Sending", operation, "request at", uri);
+                        app.loggers.core.debug(
+                            "Sending", operation,
+                            "request at", uri,
+                            "with data", JSON.stringify(data));
                     },
                     // Invokes the rest call request. To be called whenever callbacks have been set
                     // and no race condition can happen.
@@ -86,12 +102,12 @@ var app = {
                     // Adds a callback on request failure.
                     fail: function(func) {
                         // Get the old callback.
-                        var callback = this.error;
+                        var previousFunc = this.error;
 
                         // Recreate the real ajax callback on error with the new callback. 
-                        this.error = function(jqhxr, textStatus, ex) {
-                            var exception = app.utility.rest.exception(jqhxr, textStatus, ex);
-                            if (callback) callback(exception);
+                        this.error = function(jqhxr) {
+                            var exception = app.utility.rest.exception(jqhxr);
+                            if (previousFunc) previousFunc(jqhxr);
                             func(exception);
                         };
 
@@ -99,16 +115,19 @@ var app = {
                         return this;
                     }
                 };
+                //// Add a default error handler that logs the exception.
+                //.fail(function(exception) {
+                //    app.loggers.core.error("Error for", operation, "request at", uri, ": ", JSON.stringify(exception));
+                //});
 
                 return request;
             },
             // Utility function to return an exception object from a rest call error.
-            exception: function(jqhxr, textStatus, ex) {
-                var response = JSON.parse(jqhxr.responseText);
+            exception: function(jqhxr) {
+                var data = JSON.parse(jqhxr.responseText);
                 return {
-                    httpStatus: jqhxr.status,
-                    httpStatusText: textStatus,
-                    response: response
+                    data: data,
+                    status: jqhxr.status
                 };
             }
         },
@@ -298,8 +317,8 @@ var app = {
         },
         // Enumeration of all of the application's cookies.
         cookies: {
-            username: "app.user.current.name",
-            token: "app.user.current.token"
+            username: "app_user_current_name",
+            token: "app_user_current_token"
         }
     },
     // Namespace that represents all loaded and cached data of the application.
@@ -335,19 +354,19 @@ var app = {
         load: function() {
             app.ready(function($) {
                 // Load concentrations as a data store.
-                api.enumerations.concentrations().done(function (concentrations) {
-                    $.each(concentrations, function (i, concentration) {
-                        concentration.toString = function () { return sprintf("%s - %s", concentration.acronyme, concentration.description); };
+                api.enumerations.concentrations().done(function(concentrations) {
+                    $.each(concentrations, function(i, concentration) {
+                        concentration.toString = function() { return sprintf("%s - %s", concentration.acronyme, concentration.description); };
                     });
-                    
+
                     app.data.enums.concentrations.observable(concentrations);
                     app.data.enums.concentrations.store = app.collection.store(concentrations);
                 }).invoke();
 
                 // Load contacts types as a data store.
-                api.enumerations.typesContacts().done(function (typesContacts) {
-                    $.each(typesContacts, function (i, typeContact) {
-                        typeContact.toString = function () { return typeContact.nom; };
+                api.enumerations.typesContacts().done(function(typesContacts) {
+                    $.each(typesContacts, function(i, typeContact) {
+                        typeContact.toString = function() { return typeContact.nom; };
                     });
 
                     app.data.enums.typesContacts.observable(typesContacts);
@@ -355,9 +374,9 @@ var app = {
                 }).invoke();
 
                 // Load statuts suivies as a data store.
-                api.enumerations.statutsSuivies().done(function (statutsSuivies) {
-                    $.each(statutsSuivies, function (i, statutSuivie) {
-                        statutSuivie.toString = function () { return sprintf("%s - %s", statutSuivie.code, statutSuivie.description); };
+                api.enumerations.statutsSuivies().done(function(statutsSuivies) {
+                    $.each(statutsSuivies, function(i, statutSuivie) {
+                        statutSuivie.toString = function() { return sprintf("%s - %s", statutSuivie.code, statutSuivie.description); };
                     });
 
                     app.data.enums.statutsSuivies.observable(statutsSuivies);
@@ -365,9 +384,9 @@ var app = {
                 }).invoke();
 
                 // Load unites as a data store.
-                api.enumerations.unites().done(function (unites) {
-                    $.each(unites, function (i, unite) {
-                        unite.toString = function () { return sprintf("%s - %s", unite.systeme, unite.code); };
+                api.enumerations.unites().done(function(unites) {
+                    $.each(unites, function(i, unite) {
+                        unite.toString = function() { return sprintf("%s - %s", unite.systeme, unite.code); };
                     });
 
                     app.data.enums.unites.observable(unites);
@@ -375,19 +394,19 @@ var app = {
                 }).invoke();
 
                 // Load commanditaire types as a data store.
-                api.enumerations.typesCommanditaires().done(function (typesCommanditaires) {
-                    $.each(typesCommanditaires, function (i, typeCommanditaire) {
-                        typeCommanditaire.toString = function () { return typeCommanditaire.nom; };
+                api.enumerations.typesCommanditaires().done(function(typesCommanditaires) {
+                    $.each(typesCommanditaires, function(i, typeCommanditaire) {
+                        typeCommanditaire.toString = function() { return typeCommanditaire.nom; };
                     });
-                    
+
                     app.data.enums.typesCommanditaires.observable(typesCommanditaires);
                     app.data.enums.typesCommanditaires.store = app.collection.store(typesCommanditaires);
                 }).invoke();
 
                 // Load antecedent types as a data store.
-                api.enumerations.typesAntecedents().done(function (typesAntecedents) {
-                    $.each(typesAntecedents, function (i, typeAntecedent) {
-                        typeAntecedent.toString = function () { return typeAntecedent.nom; };
+                api.enumerations.typesAntecedents().done(function(typesAntecedents) {
+                    $.each(typesAntecedents, function(i, typeAntecedent) {
+                        typeAntecedent.toString = function() { return typeAntecedent.nom; };
                     });
 
                     app.data.enums.typesAntecedents.observable(typesAntecedents);
@@ -398,10 +417,9 @@ var app = {
     }
 };
 
-app.ready(function($) {
+app.ready(function() {
     // Setup logging.
     app.loggers.setup();
-
     // Load all static required data.
     app.data.load();
 });

@@ -187,7 +187,6 @@
     <Content Include="Content\bootstrap\css\bootstrap-switch.css" />
     <Content Include="Content\bootstrap\css\bootstrap-switch.min.css" />
     <Content Include="Content\css\custom.css" />
-    <Content Include="Content\css\icons.css" />
     <Content Include="Content\bootstrap\css\bootstrap-dark-theme.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -221,21 +220,21 @@
     <Content Include="Content\js\core\simplets-jq-addons-0.9.js" />
     <Content Include="Content\js\core\simplets-ko-addons-0.9.js" />
     <Content Include="Content\js\core\simplets-modelviews-0.9.js" />
-    <Content Include="Content\js\knockout-mapping-2.4.1.js" />
-    <Content Include="Content\js\knockout-mapping-2.4.1.min.js" />
-    <Content Include="Content\js\log4javascript-1.4.11.js" />
-    <Content Include="Content\js\log4javascript-1.4.11.min.js" />
-    <Content Include="Content\js\moment.js" />
-    <Content Include="Content\js\moment.min.js" />
-    <Content Include="Content\js\sprintf.js" />
-    <Content Include="Content\js\jquery.cookie.min.js" />
-    <Content Include="Content\js\core\simplets-core-0.9.js" />
-    <Content Include="Content\js\jquery-1.11.2.js" />
-    <Content Include="Content\js\jquery-1.11.2.min.js" />
-    <Content Include="Content\js\jquery.cookie.js" />
-    <Content Include="Content\js\knockout-3.2.0.js" />
-    <Content Include="Content\js\knockout-3.2.0.min.js" />
-    <Content Include="Content\js\sprintf.min.js" />
+    <Content Include="Content\js\lib\knockout-mapping-2.4.1.js" />
+    <Content Include="Content\js\lib\knockout-mapping-2.4.1.min.js" />
+    <Content Include="Content\js\lib\log4javascript-1.4.11.js" />
+    <Content Include="Content\js\lib\log4javascript-1.4.11.min.js" />
+    <Content Include="Content\js\lib\moment.js" />
+    <Content Include="Content\js\lib\moment.min.js" />
+    <Content Include="Content\js\lib\sprintf.js" />
+    <Content Include="Content\js\lib\jquery.cookie.min.js" />
+    <Content Include="Content\js\core\simplets-app-0.9.js" />
+    <Content Include="Content\js\lib\jquery-1.11.2.js" />
+    <Content Include="Content\js\lib\jquery-1.11.2.min.js" />
+    <Content Include="Content\js\lib\jquery.cookie.js" />
+    <Content Include="Content\js\lib\knockout-3.2.0.js" />
+    <Content Include="Content\js\lib\knockout-3.2.0.min.js" />
+    <Content Include="Content\js\lib\sprintf.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -246,12 +245,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\Administration\" />
-    <Folder Include="Views\Shared\Club\" />
-    <Folder Include="Views\Shared\Description\" />
-    <Folder Include="Views\Shared\Fulls\Administration\" />
-    <Folder Include="Views\Shared\Fulls\Clubs\" />
-    <Folder Include="Views\Shared\Partials\Administration\" />
-    <Folder Include="Views\Shared\Partials\Clubs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -362,7 +355,7 @@
     <Content Include="Views\Shared\Userspace\_ProfilComplet.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Authentication\_Login.cshtml" />
+    <Content Include="Views\Shared\Authentication\_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Userspace\_ProfilBase.cshtml" />
@@ -371,10 +364,10 @@
     <Content Include="Views\Shared\Userspace\_ProfilAvance.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Description\_ApiDescription.cshtml" />
+    <Content Include="Views\Shared\Description\_ApiDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Description\_EntitiesDescription.cshtml" />
+    <Content Include="Views\Shared\Description\_EntitiesDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Buttons\ButtonStrings.fr.resx" />
@@ -410,13 +403,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Userspace\_Membres.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Fulls\Userspace\Membres.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Partials\Userspace\_FirstLoginProfilEdition.cshtml" />
+    <Content Include="Views\Shared\Club\_Membres.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Userspace\_Antecedents.cshtml" />
@@ -432,6 +419,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Nav\_MainMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Userspace\_FirstLoginProfilEdition.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Exception\_RestException.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

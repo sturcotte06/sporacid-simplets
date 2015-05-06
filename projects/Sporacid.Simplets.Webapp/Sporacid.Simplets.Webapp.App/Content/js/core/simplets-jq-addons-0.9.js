@@ -2,7 +2,7 @@
 jQuery.fn.waiting = function() {
     var zIndex = parseInt(this.css("z-index"));
     var $loadingIcon = $("<i></i>")
-        .addClass("metro-icon metro-refresh-trans metro-icon-animate");
+        .addClass("fa fa-3x fa-spinner fa-spin");
     var $loading = $("<div></div>")
         .addClass("loading")
         .css("z-index", zIndex ? zIndex + 1 : 1000)

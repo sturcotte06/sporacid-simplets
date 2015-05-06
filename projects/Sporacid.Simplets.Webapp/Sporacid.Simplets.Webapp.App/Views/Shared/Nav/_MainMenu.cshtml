@@ -38,7 +38,6 @@
         <a href="#">
           <div class="subscribed-club-logo" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
           <span data-bind="text: nom" class="subscribed-club-text"></span>
-          @*<input class="subscribed-club-isdefault" type="checkbox"/>*@
         </a>
       </li>
       <li class="divider" data-bind="visible: $index() !== ($parent.clubs().length - 1)"></li>

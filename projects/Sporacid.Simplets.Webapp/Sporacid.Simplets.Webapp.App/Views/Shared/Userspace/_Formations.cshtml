@@ -6,6 +6,10 @@
   <div class="panel-heading">
     <h3 class="panel-title">@Html.Raw(TitleStrings.Formations_MainTitle)</h3>
   </div>
+  <!-- Rest exception container. -->
+  <div id="formations-rest-exception">
+    @Html.Partial("Exception/_RestException")
+  </div>
   <!-- Table for all formations. -->
   <table id="formations" class="table">
     <thead>
@@ -71,6 +75,6 @@
 <script type="text/javascript">
   app.ready(function($) {
     var $formations = $("#formations");
-    ko.applyBindings(new FormationsModelView($formations), $formations[0]);
+    ko.applyBindings(new FormationsModelView($formations, $("#formations-rest-exception")), $formations[0]);
   });
 </script>

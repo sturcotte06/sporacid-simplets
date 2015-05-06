@@ -58,8 +58,8 @@
         {
             return new
             {
-                exception.Message,
-                Cause = exception.InnerException != null
+                ExceptionMessage = exception.Message,
+                InnerException = exception.InnerException != null
                     ? this.CreateErrorObject(exception.InnerException)
                     : null
             };

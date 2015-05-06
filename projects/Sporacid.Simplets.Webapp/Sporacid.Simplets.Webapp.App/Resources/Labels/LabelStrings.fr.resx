@@ -177,4 +177,7 @@
   <data name="Profil_DefaultValue" xml:space="preserve">
     <value>Non-spécifié</value>
   </data>
+  <data name="RestException_Cause" xml:space="preserve">
+    <value>Causé par</value>
+  </data>
 </root>

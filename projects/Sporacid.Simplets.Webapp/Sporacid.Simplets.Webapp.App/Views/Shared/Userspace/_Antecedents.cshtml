@@ -6,6 +6,10 @@
   <div class="panel-heading">
     <h3 class="panel-title">@Html.Raw(TitleStrings.Antecedents_MainTitle)</h3>
   </div>
+  <!-- Rest exception container. -->
+  <div id="antecedents-rest-exception">
+    @Html.Partial("Exception/_RestException")
+  </div>
   <!-- Table for all formations. -->
   <table id="antecedents" class="table">
     <thead>
@@ -33,8 +37,7 @@
         </td>
         <td>
           <!-- Delete button. -->
-          <button data-bind="click: $root.delete" type="submit" class="btn btn-danger"
-                  data-toggle="tooltip" data-original-title="@Html.Raw(MessageStrings.RemoveButton_DoubleClickAdvice)">
+          <button data-bind="click: $root.delete" type="submit" class="btn btn-danger">
             <i class="fa fa-2x fa-times white"></i>
           </button>
         </td>
@@ -65,7 +68,12 @@
             <i class="fa fa-2x fa-check white"></i>
           </button>
         </td>
-        <td></td>
+        <td>
+          <!-- Cancel button. -->
+          <button data-bind="click: $root.cancelEdit, visible: viewmode() == app.enums.viewmodes.edition" type="submit" class="btn btn-warning">
+            <i class="fa fa-2x fa-times white"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -74,6 +82,6 @@
 <script type="text/javascript">
   app.ready(function($) {
     var $antecedents = $("#antecedents");
-    ko.applyBindings(new AntecedentsModelView($antecedents), $antecedents[0]);
+    ko.applyBindings(new AntecedentsModelView($antecedents, $("#antecedents-rest-exception")), $antecedents[0]);
   });
 </script>

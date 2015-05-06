@@ -19,11 +19,11 @@
     app.data.load();
 
     // Loads the user profil.
-    $("#page-wrapper").load("@Url.Action("Profil","Userspace")");
+    app.utility.ajax.loadContent("@Url.Action("Profil","Userspace")");
 
     // var defaultClub = app.user.current.preferences[app.enums.preferences.defaultClub];
     // if (defaultClub) {
-    // 
+    //
     // }
   });
 </script>

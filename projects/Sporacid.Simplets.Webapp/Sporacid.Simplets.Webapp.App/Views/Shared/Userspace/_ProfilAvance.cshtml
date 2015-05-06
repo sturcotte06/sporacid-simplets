@@ -7,10 +7,10 @@
   <div class="panel-heading">
     <h3 class="panel-title">@Html.Raw(TitleStrings.ProfilAvance_MainTitle)</h3>
   </div>
-  <!-- Validation state view. -->
-  <ul id="profil-avance-validation-errors" class="validation-errors" data-bind="foreach: states">
-    <li><b data-bind="text: property"></b> - <span data-bind="  text: message"></span></li>
-  </ul>
+  <!-- Rest exception container. -->
+  <div id="profil-avance-rest-exception">
+    @Html.Partial("Exception/_RestException")
+  </div>
   <div id="profil-avance" style="padding: 20px;" data-bind="with: profilAvance">
     <!-- Advanced profil view mode. -->
     <div id="view-profil-avance" data-bind="visible: $root.viewmode() == app.enums.viewmodes.view">
@@ -40,23 +40,23 @@
       <form role="form">
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_CodePermanent)</label>
-          <input data-bind="value: codePermanent" class="form-control" placeholder="Votre code permament" />
+          <input data-bind="value: codePermanent" class="form-control" placeholder="Votre code permament"/>
         </div>
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_DateNaissance)</label>
-          <input data-bind="value: dateNaissance" type="date" class="form-control" />
+          <input data-bind="value: dateNaissance" type="date" class="form-control"/>
         </div>
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_Telephone)</label>
-          <input data-bind="value: telephone" class="form-control" placeholder="Votre numéro de téléphone" />
+          <input data-bind="value: telephone" class="form-control" placeholder="Votre numéro de téléphone"/>
         </div>
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_Courriel)</label>
-          <input data-bind="value: courriel" type="email" class="form-control" placeholder="Votre courriel" />
+          <input data-bind="value: courriel" type="email" class="form-control" placeholder="Votre courriel"/>
         </div>
         <div class="form-group">
           <label>@Html.Raw(LabelStrings.ProfilAvance_Public)</label>
-          <input data-bind="checked: public" type="checkbox" class="form-control text-left" style="width: 40px;" />
+          <input data-bind="checked: public" type="checkbox" class="form-control text-left" style="width: 40px;"/>
           <p class="help-block">@Html.Raw(MessageStrings.ProfilAvance_PublicDisclaimer)</p>
         </div>
         <button data-bind="click: $root.edit" type="submit" class="btn btn-success">
@@ -74,12 +74,7 @@
 
 <script type="text/javascript">
   app.ready(function($) {
-    var $profilAvanceValidation = $("#profil-avance-validation-errors");
     var $profilAvance = $("#profil-avance");
-    var profilAvanceValidationMv = new ValidationExceptionModelView($profilAvanceValidation);
-    var profilAvanceMv = new ProfilAvanceModelView($profilAvance, profilAvanceValidationMv);
-
-    ko.applyBindings(profilAvanceValidationMv, $profilAvanceValidation[0]);
-    ko.applyBindings(profilAvanceMv, $profilAvance[0]);
+    ko.applyBindings(new ProfilAvanceModelView($profilAvance, $("#profil-avance-rest-exception")), $profilAvance[0]);
   });
 </script>

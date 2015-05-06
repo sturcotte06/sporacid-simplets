@@ -9,7 +9,8 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/scripts")
                 .IncludeDirectory("~/Content/bootstrap/js", "*.js", true)
-                .IncludeDirectory("~/Content/js", "*.js", true));
+                .IncludeDirectory("~/Content/js/lib", "*.js", true)
+                .IncludeDirectory("~/Content/js/core", "*.js", true));
 
             bundles.Add(new StyleBundle("~/bundles/styles")
                 .Include(

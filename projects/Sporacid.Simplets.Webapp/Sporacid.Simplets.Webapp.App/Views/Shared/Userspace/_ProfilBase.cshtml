@@ -7,10 +7,10 @@
   <div class="panel-heading">
     <h3 class="panel-title">@Html.Raw(TitleStrings.ProfilBase_MainTitle)</h3>
   </div>
-  <!-- Validation state view. -->
-  <ul id="profil-base-validation-errors" class="validation-errors" data-bind="foreach: states">
-    <li><b data-bind="text: property"></b> - <span data-bind="text: message"></span></li>
-  </ul>
+  <!-- Rest exception container. -->
+  <div id="profil-base-rest-exception">
+    @Html.Partial("Exception/_RestException")
+  </div>
   <div id="profil-base" style="padding: 20px;" data-bind="with: profil">
     <!-- Base profil view mode. -->
     <div id="view-profil-base" class="row" data-bind="visible: $root.viewmode() == app.enums.viewmodes.view">
@@ -83,12 +83,7 @@
 
 <script type="text/javascript">
   app.ready(function($) {
-    var $profilBaseValidation = $("#profil-base-validation-errors");
     var $profilBase = $("#profil-base");
-    var profilBaseValidationMv = new ValidationExceptionModelView($profilBaseValidation);
-    var profilBaseMv = new ProfilBaseModelView($profilBase, profilBaseValidationMv);
-
-    ko.applyBindings(profilBaseValidationMv, $profilBaseValidation[0]);
-    ko.applyBindings(profilBaseMv, $profilBase[0]);
+    ko.applyBindings(new ProfilBaseModelView($profilBase, $("#profil-base-rest-exception")), $profilBase[0]);
   });
 </script>

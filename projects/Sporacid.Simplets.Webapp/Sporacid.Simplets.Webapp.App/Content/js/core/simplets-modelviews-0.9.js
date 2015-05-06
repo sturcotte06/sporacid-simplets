@@ -1,9 +1,14 @@
 // Model view for the base profil object.
-function ProfilBaseModelView($self, validationModelView) {
+function ProfilBaseModelView($self, $error) {
     // Define closure safe properties.
     var self = this;
 
-    // Define all onservable properties.
+    // Define all properties.
+    self.beforeEdit = null;
+    self.errorModelView = new RestExceptionModelView($error);
+    ko.applyBindings(self.errorModelView, $error[0]);
+
+    // Define all observable properties.
     self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.concentrations = app.data.enums.concentrations.observable;
     self.profil = ko.observable();
@@ -20,7 +25,6 @@ function ProfilBaseModelView($self, validationModelView) {
     self.resizeAvatar = function() {
         $avatars.each(function() {
             var $avatar = $(this);
-            app.loggers.mv.debug("Avatar width: ", $avatar.width(), "px.");
             $avatar.height($avatar.width());
         });
     };
@@ -30,6 +34,9 @@ function ProfilBaseModelView($self, validationModelView) {
         // Switch to edition mode.
         self.viewmode(app.enums.viewmodes.edition);
         $panel.removeClass("panel-primary").addClass("panel-warning");
+
+        // Save the current version of the object.
+        self.beforeEdit = jQuery.extend(true, {}, self.profil());
     };
 
     // Commits the edited properties of the base profil entity.
@@ -40,20 +47,21 @@ function ProfilBaseModelView($self, validationModelView) {
         // Update the profil entity.
         api.userspace.profil.update(app.user.current.name, self.profil()).done(function () {
             self.endEdit();
-        }).fail(function(exception) {
+        }).fail(function (exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Cancels the edition of profil entity.
     self.cancelEdit = function () {
+        self.profil(self.beforeEdit);
         self.endEdit();
     };
 
     // Ends the edition of profil entity.
     self.endEdit = function() {
-        // Clear validation messages.
-        validationModelView.clear();
+        // Clear rest exception messages.
+        self.errorModelView.clear();
 
         // Switch to view mode.
         self.viewmode(app.enums.viewmodes.view);
@@ -74,15 +82,9 @@ function ProfilBaseModelView($self, validationModelView) {
     };
 
     // Manages an error that occured while managing the profil entity.
-    self.error = function(error) {
-        if (error.httpStatus === 400) {
-            // Bad request: validation error.
-            validationModelView.load(error.response);
-        }
-
-        // Log the error.
-        app.loggers.mv.error("Exception in ProfilBaseModelView(): ", error);
-
+    self.error = function (exception) {
+        // Load the exception in the error model view.
+        self.errorModelView.load(exception);
         // Reactivate the view.
         $panel.active();
     };
@@ -106,17 +108,22 @@ function ProfilBaseModelView($self, validationModelView) {
             self.profil(profil);
 
             // Reactivate the view.
-            $panel.active();
             $self.trigger("loaded");
+            $panel.active();
         }).invoke();
     }();
 }
 
 // Model view for the profil avance object.
-function ProfilAvanceModelView($self, validationModelView) {
+function ProfilAvanceModelView($self, $error) {
     // Define closure safe properties.
     var self = this;
 
+    // Define all properties.
+    self.beforeEdit = null;
+    self.errorModelView = new RestExceptionModelView($error);
+    ko.applyBindings(self.errorModelView, $error[0]);
+    
     // Define all onservable properties.
     self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.profilAvance = ko.observable();
@@ -129,6 +136,9 @@ function ProfilAvanceModelView($self, validationModelView) {
         // Switch to edition mode.
         self.viewmode(app.enums.viewmodes.edition);
         $panel.removeClass("panel-primary").addClass("panel-warning");
+
+        // Save the current version of the object.
+        self.beforeEdit = jQuery.extend(true, {}, self.profilAvance());
     };
 
     // Commits the edited properties of the profil entity.
@@ -154,14 +164,15 @@ function ProfilAvanceModelView($self, validationModelView) {
     };
 
     // Cancels the edition of profil entity.
-    self.cancelEdit = function() {
+    self.cancelEdit = function () {
+        self.profilAvance(self.beforeEdit);
         self.endEdit();
     };
 
     // Ends the edition of profil entity.
     self.endEdit = function() {
-        // Clear valdiation messages.
-        validationModelView.clear();
+        // Clear rest exception messages.
+        self.errorModelView.clear();
 
         // Switch to view mode.
         self.viewmode(app.enums.viewmodes.view);
@@ -171,16 +182,10 @@ function ProfilAvanceModelView($self, validationModelView) {
         $panel.active();
     };
 
-    // Manages an error that occured while managing the profil entity.
-    self.error = function(error) {
-        if (error.httpStatus === 400) {
-            // Bad request: validation error.
-            validationModelView.load(error.response);
-        }
-
-        // Log the error.
-        app.loggers.mv.error("Exception in ProfilAvanceModelView(): ", error);
-
+    // Manages an error that occured while managing the profil avance entity.
+    self.error = function (exception) {
+        // Load the exception in the error model view.
+        self.errorModelView.load(exception);
         // Reactivate the view.
         $panel.active();
     };
@@ -202,23 +207,33 @@ function ProfilAvanceModelView($self, validationModelView) {
 }
 
 // Model view for the formation object list.
-function FormationsModelView($self) {
+function FormationsModelView($self, $error) {
     // Define closure safe properties.
     var self = this;
 
-    // Define all onservable properties.
+    // Define all properties.
+    self.errorModelView = new RestExceptionModelView($error);
+    ko.applyBindings(self.errorModelView, $error[0]);
+
+    // Define all observable properties.
     self.formations = ko.observableArray();
+
+    // Define all jquery selectors.
+    var $panel = $self.parents(".panel").first();
 
     // Adds a single formation entity.
     self.add = function(formation) {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.formations.create(app.user.current.name, formation).done(function(id) {
             formation.id = id;
             formation.viewmode(app.enums.viewmodes.view);
-            self.refresh();
 
+            self.errorModelView.clear();
+            self.refresh();
             self.addBlank();
-            $self.active();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
     };
 
@@ -234,13 +249,17 @@ function FormationsModelView($self) {
 
     // Deletes a single formation entity.
     self.delete = function(formation) {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.formations.delete(app.user.current.name, formation.id).done(function () {
             // Remove from the observable formation array.
             self.formations.remove(function(f) {
                 return formation.id === f.id;
             });
-            $self.active();
+
+            self.errorModelView.clear();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
     };
 
@@ -253,12 +272,24 @@ function FormationsModelView($self) {
 
     // Edit a single formation entity.
     self.edit = function(formation) {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.formations.update(app.user.current.name, formation.id, formation).done(function () {
             formation.viewmode(app.enums.viewmodes.view);
+
+            self.errorModelView.clear();
             self.refresh();
-            $self.active();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
+    };
+
+    // Manages an error that occured while managing a formation entity.
+    self.error = function (exception) {
+        // Load the exception in the error model view.
+        self.errorModelView.load(exception);
+        // Reactivate the view.
+        $panel.active();
     };
 
     // Refreshes the observable array of formations.
@@ -270,7 +301,7 @@ function FormationsModelView($self) {
 
     // Loads the formation list from the rest services.
     self.load = function() {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.formations.getAll(app.user.current.name).done(function (formations) {
             // Add a viewmode to each formation to keep track of view state.
             $.each(formations, function(i, formation) {
@@ -279,19 +310,28 @@ function FormationsModelView($self) {
 
             self.formations(formations);
             self.addBlank();
-            $self.active();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
     }();
 }
 
 // Model view for the antecedent object list.
-function AntecedentsModelView($self) {
+function AntecedentsModelView($self, $error) {
     // Define closure safe properties.
     var self = this;
 
-    // Define all onservable properties.
+    // Define all properties.
+    self.errorModelView = new RestExceptionModelView($error);
+    ko.applyBindings(self.errorModelView, $error[0]);
+
+    // Define all observable properties.
     self.antecedents = ko.observableArray();
     self.typesAntecedents = app.data.enums.typesAntecedents.observable;
+
+    // Define all jquery selectors.
+    var $panel = $self.parents(".panel").first();
 
     // Updates the type antecedent object from the new type antecedent id.
     self.refreshTypeAntecedent = function(antecedent) {
@@ -302,15 +342,18 @@ function AntecedentsModelView($self) {
 
     // Adds a single antecedent entity.
     self.add = function (antecedent) {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.antecedents.create(app.user.current.name, antecedent).done(function (id) {
             antecedent.id = id;
             antecedent.viewmode(app.enums.viewmodes.view);
             self.refreshTypeAntecedent(antecedent);
 
+            self.errorModelView.clear();
             self.refresh();
             self.addBlank();
-            $self.active();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
     };
 
@@ -328,18 +371,25 @@ function AntecedentsModelView($self) {
 
     // Deletes a single antecedent entity.
     self.delete = function (antecedent) {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.antecedents.delete(app.user.current.name, antecedent.id).done(function () {
             // Remove from the observable antecedent array.
             self.antecedents.remove(function (a) {
                 return antecedent.id === a.id;
             });
-            $self.active();
+
+            self.errorModelView.clear();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
     };
 
     // Begin edition of a single antecedent entity.
     self.beginEdit = function (antecedent) {
+        // Save the current version of the object.
+        antecedent.beforeEdit = jQuery.extend(true, {}, antecedent);
+
         // Switch view mode.
         antecedent.viewmode(app.enums.viewmodes.edition);
         self.refresh();
@@ -347,14 +397,32 @@ function AntecedentsModelView($self) {
 
     // Edit a single antecedent entity.
     self.edit = function (antecedent) {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.antecedents.update(app.user.current.name, antecedent.id, antecedent).done(function () {
             antecedent.viewmode(app.enums.viewmodes.view);
             self.refreshTypeAntecedent(antecedent);
 
+            self.errorModelView.clear();
             self.refresh();
-            $self.active();
+            $panel.active();
+        }).fail(function(exception) {
+            self.error(exception);
         }).invoke();
+    };
+
+    // Cancels the edition of profil entity.
+    self.cancelEdit = function (antecedent) {
+        $.extend(antecedent, antecedent.beforeEdit);
+        antecedent.viewmode(app.enums.viewmodes.view);
+        self.refreshTypeAntecedent(antecedent);
+    };
+    
+    // Manages an error that occured while managing an antecedent entity.
+    self.error = function (exception) {
+        // Load the exception in the error model view.
+        self.errorModelView.load(exception);
+        // Reactivate the view.
+        $panel.active();
     };
 
     // Refreshes the observable array of antecedents.
@@ -366,7 +434,7 @@ function AntecedentsModelView($self) {
 
     // Loads the antecedent list from the rest services.
     self.load = function () {
-        $self.waiting();
+        $panel.waiting();
         api.userspace.antecedents.getAll(app.user.current.name).done(function (antecedents) {
             // Add a viewmode to each formation to keep track of view state.
             $.each(antecedents, function (i, antecedent) {
@@ -376,41 +444,29 @@ function AntecedentsModelView($self) {
 
             self.antecedents(antecedents);
             self.addBlank();
-            $self.active();
+            $panel.active();
+        }).fail(function (exception) {
+            self.error(exception);
         }).invoke();
     }();
 }
 
-// Prototype for a validation exception model view.
-function ValidationExceptionModelView($self) {
+// Model view for an exception coming from the rest services.
+function RestExceptionModelView($self) {
     // Define closure safe properties.
     var self = this;
 
     // Define all onservable properties.
-    self.message = ko.observable();
-    self.states = ko.observableArray();
+    self.exception = ko.observable();
 
-    // Load all validation messages.
-    self.load = function(validation) {
-        var states = [];
-        for (var key in validation.modelState) {
-            if (validation.modelState.hasOwnProperty(key)) {
-                var propertyStates = validation.modelState[key];
-                for (var iState = 0; iState < propertyStates.length; iState++) {
-                    states.push({ property: key, message: propertyStates[iState] });
-                }
-            }
-        }
-
-        // Refresh observables.
-        self.message(validation.message);
-        self.states(states);
+    // Clears the exception from the model view.
+    self.clear = function() {
+        self.exception(null);
     };
 
-    // Clear all validation messages.
-    self.clear = function() {
-        self.message = ko.observable("");
-        self.states.removeAll();
+    // Loads an exception into the model view.
+    self.load = function (exception) {
+        self.exception(exception);
     };
 }
 

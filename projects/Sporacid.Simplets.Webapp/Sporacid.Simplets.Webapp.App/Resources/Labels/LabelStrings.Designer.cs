@@ -239,5 +239,14 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
                 return ResourceManager.GetString("ProfilBase_Public", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caused by.
+        /// </summary>
+        public static string RestException_Cause {
+            get {
+                return ResourceManager.GetString("RestException_Cause", resourceCulture);
+            }
+        }
     }
 }

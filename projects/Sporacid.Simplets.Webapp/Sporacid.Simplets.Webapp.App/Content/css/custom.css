@@ -1,5 +1,7 @@
 ﻿h1 { margin-bottom: 20px; }
 
+input[type=checkbox] { margin: 0; }
+
 .metro-icon {
     -ms-background-size: 100% 100%;
     background-size: 100% 100%;
@@ -61,22 +63,23 @@
     cursor: progress;
 }
 
-.loading > .metro-icon {
+.loading > .fa.fa-spinner {
+    display: block;
     position: absolute;
-    height: 75px;
-    width: 75px;
 }
 
-.validation-errors {
+.rest-exception-container .validation-exception {
     list-style-type: lower-roman;
     margin: 0;
     padding: 0;
     margin-left: 35px;
 }
 
-.validation-errors > li:first-child { padding-top: 20px; }
+.rest-exception-container .validation-exception > li:first-child { padding-top: 20px; }
 
-.validation-errors > li { padding: 5px; }
+.rest-exception-container .validation-exception > li:last-child { padding-bottom: 20px; }
+
+.rest-exception-container .validation-exception > li { padding: 5px; }
 
 #content-header {
     margin: -45px -15px 20px -15px;
@@ -172,9 +175,9 @@ button.btn {
     text-align: center;
 }
 
-.panel { font-size: 18px; }
+.panel { font-size: 16px; }
 
 .panel .panel-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }

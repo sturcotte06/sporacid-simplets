@@ -1,0 +1,32 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Labels
+
+<div class="rest-exception-container" data-bind="with: exception">
+  <!-- Validation exception entity state. --> 
+  <!-- ko if: status == 400 -->
+  <!-- ko with: data -->
+  <ul class="validation-exception" data-bind="keyvalue: modelState">
+    <li>
+      <b data-bind="text: key"></b>
+      <span> - </span>  
+      <span data-bind="foreach: value">
+        <span data-bind="text: $data"></span>
+      </span>
+    </li>
+  </ul>
+  <!-- /ko -->
+  <!-- /ko -->
+
+  <!-- Standard rest exception. -->
+  <!-- ko if: status != 400 -->
+  <span class="rest-exception" data-bind="with: data">
+    <span data-bind="text: exceptionMessage"></span>
+    <!-- ko if: innerException -->
+    <span data-bind="with: innerException">
+      <br />
+      <span>@Html.Raw(LabelStrings.RestException_Cause): </span>
+      <span data-bind="text: exceptionMessage"></span>
+    </span>    
+    <!-- /ko -->
+  </span>
+  <!-- /ko -->
+</div>
