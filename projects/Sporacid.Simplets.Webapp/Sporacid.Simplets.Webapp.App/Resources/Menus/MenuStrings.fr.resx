@@ -138,6 +138,9 @@
   <data name="MainMenu_Preferences" xml:space="preserve">
     <value>Préférences</value>
   </data>
+  <data name="MainMenu_Preferences_Avance" xml:space="preserve">
+    <value>Plus de preferences...</value>
+  </data>
   <data name="MainMenu_Profil" xml:space="preserve">
     <value>Profil</value>
   </data>

@@ -141,6 +141,9 @@
   <data name="Membre_MainTitle" xml:space="preserve">
     <value>Member List</value>
   </data>
+  <data name="Preferences_MainTitle" xml:space="preserve">
+    <value>Your Preferences</value>
+  </data>
   <data name="ProfilAvance_MainTitle" xml:space="preserve">
     <value>Your Advanced Profile</value>
   </data>

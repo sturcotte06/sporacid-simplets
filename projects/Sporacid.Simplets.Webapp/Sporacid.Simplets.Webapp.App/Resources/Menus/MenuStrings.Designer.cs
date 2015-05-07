@@ -124,6 +124,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Menus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More Preferences....
+        /// </summary>
+        public static string MainMenu_Preferences_Avance {
+            get {
+                return ResourceManager.GetString("MainMenu_Preferences_Avance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
         public static string MainMenu_Profil {

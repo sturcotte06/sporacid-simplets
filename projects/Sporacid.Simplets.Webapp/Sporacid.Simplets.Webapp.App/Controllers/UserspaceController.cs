@@ -12,7 +12,7 @@
 
         public ActionResult Preferences()
         {
-            throw new NotImplementedException();
+            return this.PartialView("Userspace/_Preferences");
         }
     }
 }

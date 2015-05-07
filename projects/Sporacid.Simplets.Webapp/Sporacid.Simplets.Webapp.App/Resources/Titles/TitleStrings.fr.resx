@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Antecedents_MainTitle" xml:space="preserve">
-    <value>Vos antécédents</value>
+    <value>Vos antécédents médicaux</value>
   </data>
   <data name="ApiDescription_MainTitle" xml:space="preserve">
     <value>Description de l'api de Simplets</value>
@@ -140,6 +140,9 @@
   </data>
   <data name="Membre_MainTitle" xml:space="preserve">
     <value>Liste des membres</value>
+  </data>
+  <data name="Preferences_MainTitle" xml:space="preserve">
+    <value>Vos préférences</value>
   </data>
   <data name="ProfilAvance_MainTitle" xml:space="preserve">
     <value>Votre profil avancé</value>

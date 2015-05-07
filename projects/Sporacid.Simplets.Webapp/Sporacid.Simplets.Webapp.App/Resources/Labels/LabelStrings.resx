@@ -120,8 +120,8 @@
   <data name="Antecedents_Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="Antecedents_Nom" xml:space="preserve">
-    <value>Name</value>
+  <data name="Antecedents_Description_Placeholder" xml:space="preserve">
+    <value>Describe the medical condition</value>
   </data>
   <data name="Antecedents_Public" xml:space="preserve">
     <value>Public</value>
@@ -129,8 +129,14 @@
   <data name="Antecedents_Type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Antecedents_Type_Placeholder" xml:space="preserve">
+    <value>Choose the medical condition type</value>
+  </data>
   <data name="Formations_Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Formations_Description_Placeholder" xml:space="preserve">
+    <value>Describe the training</value>
   </data>
   <data name="Formations_Public" xml:space="preserve">
     <value>Public</value>
@@ -138,17 +144,32 @@
   <data name="Formations_Titre" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="Formations_Titre_Placeholder" xml:space="preserve">
+    <value>Name the training</value>
+  </data>
   <data name="Login_CodeUniversel" xml:space="preserve">
     <value>Universal Code</value>
+  </data>
+  <data name="Login_CodeUniversel_Placeholder" xml:space="preserve">
+    <value>Your Universal Code</value>
   </data>
   <data name="Login_MotDePasse" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Login_MotDePasse_Placeholder" xml:space="preserve">
+    <value>Your Password</value>
+  </data>
   <data name="ProfilAvance_CodePermanent" xml:space="preserve">
     <value>Permanent Code</value>
   </data>
+  <data name="ProfilAvance_CodePermanent_Placeholder" xml:space="preserve">
+    <value>Your Permanent Code</value>
+  </data>
   <data name="ProfilAvance_Courriel" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="ProfilAvance_Courriel_Placeholder" xml:space="preserve">
+    <value>Your Email (This is not necessarily your ÉTS email)</value>
   </data>
   <data name="ProfilAvance_DateNaissance" xml:space="preserve">
     <value>Birthdate</value>
@@ -159,17 +180,29 @@
   <data name="ProfilAvance_Telephone" xml:space="preserve">
     <value>Phone</value>
   </data>
+  <data name="ProfilAvance_Telephone_Placeholder" xml:space="preserve">
+    <value>Your Phone Number (10 digits)</value>
+  </data>
   <data name="ProfilBase_Avatar" xml:space="preserve">
     <value>Avatar</value>
   </data>
   <data name="ProfilBase_Concentration" xml:space="preserve">
     <value>Program</value>
   </data>
+  <data name="ProfilBase_Concentration_Placeholder" xml:space="preserve">
+    <value>Choose your program</value>
+  </data>
   <data name="ProfilBase_Nom" xml:space="preserve">
     <value>Last Name</value>
   </data>
+  <data name="ProfilBase_Nom_Placeholder" xml:space="preserve">
+    <value>Your Last Name</value>
+  </data>
   <data name="ProfilBase_Prenom" xml:space="preserve">
     <value>First Name</value>
+  </data>
+  <data name="ProfilBase_Prenom_Placeholder" xml:space="preserve">
+    <value>Your First Name</value>
   </data>
   <data name="ProfilBase_Public" xml:space="preserve">
     <value>Mark as Public</value>

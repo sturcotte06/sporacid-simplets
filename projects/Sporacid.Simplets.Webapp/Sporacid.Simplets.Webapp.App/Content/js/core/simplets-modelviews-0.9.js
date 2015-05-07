@@ -112,7 +112,7 @@ function ProfilBaseModelView($self, $error) {
             $panel.active();
         }).invoke();
     }();
-}
+};
 
 // Model view for the profil avance object.
 function ProfilAvanceModelView($self, $error) {
@@ -204,7 +204,7 @@ function ProfilAvanceModelView($self, $error) {
             $self.trigger("loaded");
         }).invoke();
     }();
-}
+};
 
 // Model view for the formation object list.
 function FormationsModelView($self, $error) {
@@ -264,7 +264,10 @@ function FormationsModelView($self, $error) {
     };
 
     // Begin edition of a single formation entity.
-    self.beginEdit = function(formation) {
+    self.beginEdit = function (formation) {
+        // Save the current version of the object.
+        formation.beforeEdit = jQuery.extend(true, {}, formation);
+
         // Switch view mode.
         formation.viewmode(app.enums.viewmodes.edition);
         self.refresh();
@@ -282,6 +285,13 @@ function FormationsModelView($self, $error) {
         }).fail(function (exception) {
             self.error(exception);
         }).invoke();
+    };
+
+    // Cancels the edition of profil entity.
+    self.cancelEdit = function (formation) {
+        $.extend(formation, formation.beforeEdit);
+        formation.viewmode(app.enums.viewmodes.view);
+        self.refreshTypeAntecedent(formation);
     };
 
     // Manages an error that occured while managing a formation entity.
@@ -315,7 +325,7 @@ function FormationsModelView($self, $error) {
             self.error(exception);
         }).invoke();
     }();
-}
+};
 
 // Model view for the antecedent object list.
 function AntecedentsModelView($self, $error) {
@@ -449,7 +459,7 @@ function AntecedentsModelView($self, $error) {
             self.error(exception);
         }).invoke();
     }();
-}
+};
 
 // Model view for an exception coming from the rest services.
 function RestExceptionModelView($self) {
@@ -468,7 +478,7 @@ function RestExceptionModelView($self) {
     self.load = function (exception) {
         self.exception(exception);
     };
-}
+};
 
 // Prototype for the authentication model view.
 function LoginModelView($self) {
@@ -485,18 +495,12 @@ function LoginModelView($self) {
 
     // Begins the login process. If the user already has a valid token, the login process will be skipped.
     self.beginLogin = function() {
-        // Hide the main content wrapper while authenticating the user.
-        $("#page-wrapper").hide();
-
         // If cookie is present, do not ask for user's credentials.
         var usernameCookie = $.cookie(app.enums.cookies.username);
         var tokenCookie = $.cookie(app.enums.cookies.token);
-
-        if (tokenCookie && tokenCookie !== "null" && tokenCookie !== "undefined" &&
-            usernameCookie && usernameCookie !== "null" && usernameCookie !== "undefined") {
+        if (tokenCookie && tokenCookie !== "null" && tokenCookie !== "undefined" && usernameCookie && usernameCookie !== "null" && usernameCookie !== "undefined") {
             // Try to log in with the token.
             var token = JSON.parse(tokenCookie);
-
             api.utility.noop(app.utility.auth.token.header(token)).done(function () {
                 // Worked, token is still valid.
                 self.endLogin(usernameCookie, token);
@@ -504,13 +508,9 @@ function LoginModelView($self) {
                 // Failed, force reauthentication.
                 $.cookie(app.enums.cookies.username, null, { path: "/" });
                 $.cookie(app.enums.cookies.token, null, { path: "/" });
-
-                self.beginLogin();
+                window.location = window.location;
             }).invoke();
         } else {
-            // Blur the content.
-            $("#wrapper").addClass("blurred");
-
             // Show the login modal.
             $self.modal({ backdrop: "static", keyboard: false });
             $self.modal("show");
@@ -555,10 +555,6 @@ function LoginModelView($self) {
         // Hide the login modal.
         $self.modal("hide");
 
-        // Remove the content's blur.
-        $("#wrapper").removeClass("blurred");
-        $("#page-wrapper").show();
-
         // Trigger a new event to wake up model views waiting on this event.
         $self.trigger("logged-in");
     };
@@ -574,7 +570,7 @@ function LoginModelView($self) {
         // Restart login.
         self.beginLogin();
     };
-}
+};
 
 function FirstLoginModelView($self) {
     var self = this;
@@ -624,7 +620,7 @@ function FirstLoginModelView($self) {
     self.cancel = function() {
         return true;
     };
-}
+};
 
 // Model view for the base profil object.
 function MembersModelView($self) {
@@ -655,7 +651,7 @@ function MembersModelView($self) {
             $self.trigger("loaded");
         }).invoke();
     }();
-}
+};
 
 // Model view for the commanditaire object.
 function CommanditaireListModelView($self, validationModelView) {
@@ -683,20 +679,23 @@ function CommanditaireListModelView($self, validationModelView) {
     // Load the entity.
     self.load();
 
-}
+};
 
 // Model view for the main menu (top menu).
-function MainMenuModelView($self, $xsContainer, $mdContainer) {
+function MainMenuModelView($self, $xsContainer, $mdContainer, parameters) {
     // Define closure safe properties.
     var self = this;
 
     // Define all jquery selectors.
     var $subscribedClubs = $self.find("#subscribed-clubs");
+    var $onOffParameters = $self.find("#on-off-parameters");
 
     // Define all observable properties.
     self.subscribedClubsModelView = ko.observable(new SubscribedClubsModelView($subscribedClubs));
+    self.onOffParametersModelView = ko.observable(new OnOffParametersModelView($onOffParameters, parameters));
     self.isXs = ko.observable($("body > .visible-xs:visible").exists());
-
+    
+    // Logs the user out.
     self.logout = function () {
         // Set the current user saved credentials to null.
         $.cookie(app.enums.cookies.username, null, { path: "/" });
@@ -718,7 +717,7 @@ function MainMenuModelView($self, $xsContainer, $mdContainer) {
             $mdContainer.append($self);
         }
     }).trigger("resize");
-}
+};
 
 // Model view for the commanditaire object.
 function SubscribedClubsModelView($self) {
@@ -749,7 +748,16 @@ function SubscribedClubsModelView($self) {
             self.select(clubs[0]);
         }).invoke();
     }();
-}
+};
+
+// Model view for the on/off parameters of the user.
+function OnOffParametersModelView($self, parameters) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all onservable properties.
+    self.parameters = ko.observableArray(parameters);
+};
 
 // Model view for the club menu (left menu).
 function ClubMenuModelView($self, entries) {
@@ -819,7 +827,7 @@ function ClubMenuModelView($self, entries) {
         // Update is xs viewport flag.
         self.isXs($("body > .visible-xs:visible").exists());
     });
-}
+};
 
 // Model view for the api description help list.
 function ApiDescriptionModelView($self) {

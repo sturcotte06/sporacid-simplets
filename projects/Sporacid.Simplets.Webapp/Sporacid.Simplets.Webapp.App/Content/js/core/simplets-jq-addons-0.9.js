@@ -1,8 +1,13 @@
 // Flag the jquery element as waiting for an async request.
-jQuery.fn.waiting = function() {
+jQuery.fn.waiting = function () {
+    // Get the z-index of the element, to make sure the loading appears over the element.
     var zIndex = parseInt(this.css("z-index"));
+
+    // Create the loading icon element.
     var $loadingIcon = $("<i></i>")
         .addClass("fa fa-3x fa-spinner fa-spin");
+
+    // Create the actual loading panel element.
     var $loading = $("<div></div>")
         .addClass("loading")
         .css("z-index", zIndex ? zIndex + 1 : 1000)

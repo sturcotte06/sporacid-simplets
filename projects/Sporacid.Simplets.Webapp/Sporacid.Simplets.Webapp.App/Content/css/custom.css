@@ -2,7 +2,9 @@
 
 input[type=checkbox] { margin: 0; }
 
-.metro-icon {
+.form-control { color: black; }
+
+/*.metro-icon {
     -ms-background-size: 100% 100%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -16,9 +18,9 @@ input[type=checkbox] { margin: 0; }
     left: 7px;
     height: 36px;
     width: 36px;
-}
+}*/
 
-.navbar-right > li > ul.dropdown-menu > li > a { position: relative; }
+/*.navbar-right > li > ul.dropdown-menu > li > a { position: relative; }
 
 .navbar-right > li > ul.dropdown-menu > li > a > i.context-icon {
     position: absolute;
@@ -30,9 +32,16 @@ input[type=checkbox] { margin: 0; }
     background-size: 100% auto;
     background-position: left center;
     background-repeat: no-repeat;
+}*/
+
+nav .parameter-option > span {
+    margin-left: 10px;
 }
 
-.btn .metro-icon {
+nav .parameter-option > .bootstrap-switch {
+}
+
+/*.btn .metro-icon {
     position: absolute;
     height: 35px;
     width: 35px;
@@ -40,17 +49,16 @@ input[type=checkbox] { margin: 0; }
     left: 1px;
     -ms-border-radius: 4px;
     border-radius: 4px;
-}
+}*/
 
-.form-control { color: black; }
 
-#wrapper.blurred {
+/*#wrapper.blurred {
     -webkit-filter: blur(7px);
     -moz-filter: blur(15px);
     -o-filter: blur(15px);
-    /*-ms-filter: blur(7px);*/
+    -ms-filter: blur(7px);
     filter: blur(15px);
-}
+}*/
 
 .loading {
     background: rgb(34, 34, 34);

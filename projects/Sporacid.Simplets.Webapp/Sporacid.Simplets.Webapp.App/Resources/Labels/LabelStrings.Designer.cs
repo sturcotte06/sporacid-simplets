@@ -70,11 +70,11 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Describe the medical condition.
         /// </summary>
-        public static string Antecedents_Nom {
+        public static string Antecedents_Description_Placeholder {
             get {
-                return ResourceManager.GetString("Antecedents_Nom", resourceCulture);
+                return ResourceManager.GetString("Antecedents_Description_Placeholder", resourceCulture);
             }
         }
         
@@ -97,11 +97,29 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose the medical condition type.
+        /// </summary>
+        public static string Antecedents_Type_Placeholder {
+            get {
+                return ResourceManager.GetString("Antecedents_Type_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Formations_Description {
             get {
                 return ResourceManager.GetString("Formations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Describe the training.
+        /// </summary>
+        public static string Formations_Description_Placeholder {
+            get {
+                return ResourceManager.GetString("Formations_Description_Placeholder", resourceCulture);
             }
         }
         
@@ -124,6 +142,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name the training.
+        /// </summary>
+        public static string Formations_Titre_Placeholder {
+            get {
+                return ResourceManager.GetString("Formations_Titre_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Universal Code.
         /// </summary>
         public static string Login_CodeUniversel {
@@ -133,11 +160,29 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Universal Code.
+        /// </summary>
+        public static string Login_CodeUniversel_Placeholder {
+            get {
+                return ResourceManager.GetString("Login_CodeUniversel_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Login_MotDePasse {
             get {
                 return ResourceManager.GetString("Login_MotDePasse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Password.
+        /// </summary>
+        public static string Login_MotDePasse_Placeholder {
+            get {
+                return ResourceManager.GetString("Login_MotDePasse_Placeholder", resourceCulture);
             }
         }
         
@@ -160,11 +205,29 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Permanent Code.
+        /// </summary>
+        public static string ProfilAvance_CodePermanent_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfilAvance_CodePermanent_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string ProfilAvance_Courriel {
             get {
                 return ResourceManager.GetString("ProfilAvance_Courriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Email (This is not necessarily your ÉTS email).
+        /// </summary>
+        public static string ProfilAvance_Courriel_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfilAvance_Courriel_Placeholder", resourceCulture);
             }
         }
         
@@ -196,6 +259,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Phone Number (10 digits).
+        /// </summary>
+        public static string ProfilAvance_Telephone_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfilAvance_Telephone_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Avatar.
         /// </summary>
         public static string ProfilBase_Avatar {
@@ -214,6 +286,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose your program.
+        /// </summary>
+        public static string ProfilBase_Concentration_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfilBase_Concentration_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string ProfilBase_Nom {
@@ -223,11 +304,29 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Last Name.
+        /// </summary>
+        public static string ProfilBase_Nom_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfilBase_Nom_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string ProfilBase_Prenom {
             get {
                 return ResourceManager.GetString("ProfilBase_Prenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your First Name.
+        /// </summary>
+        public static string ProfilBase_Prenom_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfilBase_Prenom_Placeholder", resourceCulture);
             }
         }
         

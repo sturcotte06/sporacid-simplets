@@ -7,7 +7,7 @@
     {
         public ActionResult Membres()
         {
-            return this.View("Fulls/Userspace/Membres");
+            return this.PartialView("Club/_Membres");
         }
 
         public ActionResult Commanditaires()

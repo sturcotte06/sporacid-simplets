@@ -1,4 +1,10 @@
-﻿<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+﻿<nav class="navbar navbar-inverse navbar-fixed-top hidden" role="navigation">
   @Html.Partial("Nav/_MainMenu")
   @Html.Partial("Nav/_ClubMenu")
 </nav>
+
+<script type="text/javascript">
+  app.ready(function($) {
+    $("nav.navbar").removeClass("hidden");
+  });
+</script>

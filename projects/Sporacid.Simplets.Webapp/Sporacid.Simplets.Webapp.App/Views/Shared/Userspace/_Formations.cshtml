@@ -44,12 +44,14 @@
         </td>
       </tr>
     <!-- Data row when the formation entity is in edition or creation mode. -->
-      <tr data-bind="visible: viewmode() == app.enums.viewmodes.creation || viewmode() == app.enums.viewmodes.edition">
+      <tr data-bind="
+        visible: viewmode() == app.enums.viewmodes.creation || viewmode() == app.enums.viewmodes.edition,
+        enterkey: viewmode() == app.enums.viewmodes.creation ? $root.add : $root.edit">
         <td>
-          <input type="text" class="form-control" data-bind="value: titre" />
+          <input type="text" class="form-control" data-bind="value: titre" placeholder="@Html.Raw(LabelStrings.Formations_Titre_Placeholder)" />
         </td>
         <td>
-          <input type="text" class="form-control" data-bind="value: description" />
+          <input type="text" class="form-control" data-bind="value: description" placeholder="@Html.Raw(LabelStrings.Formations_Description_Placeholder)" />
         </td>
         <td>
           <input type="checkbox" class="form-control text-left" style="width: 40px;" data-bind="checked: public" />
@@ -65,7 +67,12 @@
             <i class="fa fa-2x fa-check white"></i>
           </button>
         </td>
-        <td></td>
+        <td>
+          <!-- Cancel button. -->
+          <button data-bind="click: $root.cancelEdit, visible: viewmode() == app.enums.viewmodes.edition" type="submit" class="btn btn-warning">
+            <i class="fa fa-2x fa-times white"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

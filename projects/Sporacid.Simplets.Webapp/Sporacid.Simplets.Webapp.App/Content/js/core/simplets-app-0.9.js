@@ -1,26 +1,6 @@
 // Namespace that represents the running application.
 var app = {
     url: "/app",
-    // Dictionary of all loggers.
-    loggers: {
-        // Logger for the core section of the application.
-        core: log4javascript.getLogger("app.loggers.core"),
-        // Logger for the modelview section of the application.
-        mv: log4javascript.getLogger("app.loggers.modelviews"),
-        // Setups the logging. This method invokes itself, it is therefore not required to call it.
-        setup: function() {
-            // Setup default console appender.
-            var appender = new log4javascript.BrowserConsoleAppender();
-            var appenderLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m%n");
-            appender.setLayout(appenderLayout);
-
-            // Setup all loggers with the default appender.
-            app.loggers.core.setLevel(log4javascript.Level.DEBUG);
-            app.loggers.core.addAppender(appender);
-            app.loggers.mv.setLevel(log4javascript.Level.DEBUG);
-            app.loggers.mv.addAppender(appender);
-        }
-    },
     // Shortcut for callbacks whenever the document has been loaded and 
     // the application bootstrapping is ready to be processed.
     ready: function(func) {
@@ -47,7 +27,7 @@ var app = {
         // Namespace for all ajax related utility functions.
         ajax: {
             // Utility function to load an url into the main content.
-            loadContent: function (url) {
+            loadContent: function(url) {
                 var $content = $("#page-wrapper");
                 $content.hide();
                 $content.load(url, null, function (html) {
@@ -327,99 +307,123 @@ var app = {
         enums: {
             concentrations: {
                 observable: ko.observableArray(),
-                store: null
+                store: null,
+                // Loads the concentration enumeration as both an observable array and a data store.
+                load: function() {
+                    api.enumerations.concentrations().done(function(concentrations) {
+                        $.each(concentrations, function(i, concentration) {
+                            concentration.toString = function() { return sprintf("%s - %s", concentration.acronyme, concentration.description); };
+                        });
+
+                        app.data.enums.concentrations.observable(concentrations);
+                        app.data.enums.concentrations.store = app.collection.store(concentrations);
+                    }).invoke();
+                }
             },
             typesContacts: {
                 observable: ko.observableArray(),
-                store: null
+                store: null,
+                // Loads the types contacts enumeration as both an observable array and a data store.
+                load: function() {
+                    // Load contacts types as a data store.
+                    api.enumerations.typesContacts().done(function(typesContacts) {
+                        $.each(typesContacts, function(i, typeContact) {
+                            typeContact.toString = function() { return typeContact.nom; };
+                        });
+
+                        app.data.enums.typesContacts.observable(typesContacts);
+                        app.data.enums.typesContacts.store = app.collection.store(typesContacts);
+                    }).invoke();
+                }
             },
             statutsSuivies: {
                 observable: ko.observableArray(),
-                store: null
+                store: null,
+                // Loads the statuts suivies enumeration as both an observable array and a data store.
+                load: function() {
+                    api.enumerations.statutsSuivies().done(function(statutsSuivies) {
+                        $.each(statutsSuivies, function(i, statutSuivie) {
+                            statutSuivie.toString = function() { return sprintf("%s - %s", statutSuivie.code, statutSuivie.description); };
+                        });
+
+                        app.data.enums.statutsSuivies.observable(statutsSuivies);
+                        app.data.enums.statutsSuivies.store = app.collection.store(statutsSuivies);
+                    }).invoke();
+                }
             },
             unites: {
                 observable: ko.observableArray(),
-                store: null
+                store: null,
+                // Loads the unites enumeration as both an observable array and a data store.
+                load: function() {
+                    api.enumerations.unites().done(function(unites) {
+                        $.each(unites, function(i, unite) {
+                            unite.toString = function() { return sprintf("%s - %s", unite.systeme, unite.code); };
+                        });
+
+                        app.data.enums.unites.observable(unites);
+                        app.data.enums.unites.store = app.collection.store(unites);
+                    }).invoke();
+                }
             },
             typesCommanditaires: {
                 observable: ko.observableArray(),
-                store: null
+                store: null,
+                // Loads the types commanditaires enumeration as both an observable array and a data store.
+                load: function() {
+                    api.enumerations.typesCommanditaires().done(function(typesCommanditaires) {
+                        $.each(typesCommanditaires, function(i, typeCommanditaire) {
+                            typeCommanditaire.toString = function() { return typeCommanditaire.nom; };
+                        });
+
+                        app.data.enums.typesCommanditaires.observable(typesCommanditaires);
+                        app.data.enums.typesCommanditaires.store = app.collection.store(typesCommanditaires);
+                    }).invoke();
+                }
             },
             typesAntecedents: {
                 observable: ko.observableArray(),
-                store: null
+                store: null,
+                // Loads the types antecedents enumeration as both an observable array and a data store.
+                load: function () {
+                    api.enumerations.typesAntecedents().done(function(typesAntecedents) {
+                        $.each(typesAntecedents, function(i, typeAntecedent) {
+                            typeAntecedent.toString = function() { return typeAntecedent.nom; };
+                        });
+
+                        app.data.enums.typesAntecedents.observable(typesAntecedents);
+                        app.data.enums.typesAntecedents.store = app.collection.store(typesAntecedents);
+                    }).invoke();
+                }
+            },
+            // Loads all enumerations.
+            loadAll: function() {
+                for (var e in app.data.enums) {
+                    if (app.data.enums.hasOwnProperty(e) && app.data.enums[e].load) {
+                        app.data.enums[e].load();
+                    }
+                }
             }
-        },
-        // Loads and cache the application's required data.
-        load: function() {
-            app.ready(function($) {
-                // Load concentrations as a data store.
-                api.enumerations.concentrations().done(function(concentrations) {
-                    $.each(concentrations, function(i, concentration) {
-                        concentration.toString = function() { return sprintf("%s - %s", concentration.acronyme, concentration.description); };
-                    });
+        }
+    },
+    // Dictionary of all loggers.
+    loggers: {
+        // Logger for the core section of the application.
+        core: log4javascript.getLogger("app.loggers.core"),
+        // Logger for the modelview section of the application.
+        mv: log4javascript.getLogger("app.loggers.modelviews"),
+        // Setups the logging. This method invokes itself, it is therefore not required to call it.
+        setup: function() {
+            // Setup default console appender.
+            var appender = new log4javascript.BrowserConsoleAppender();
+            var appenderLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m%n");
+            appender.setLayout(appenderLayout);
 
-                    app.data.enums.concentrations.observable(concentrations);
-                    app.data.enums.concentrations.store = app.collection.store(concentrations);
-                }).invoke();
-
-                // Load contacts types as a data store.
-                api.enumerations.typesContacts().done(function(typesContacts) {
-                    $.each(typesContacts, function(i, typeContact) {
-                        typeContact.toString = function() { return typeContact.nom; };
-                    });
-
-                    app.data.enums.typesContacts.observable(typesContacts);
-                    app.data.enums.typesContacts.store = app.collection.store(typesContacts);
-                }).invoke();
-
-                // Load statuts suivies as a data store.
-                api.enumerations.statutsSuivies().done(function(statutsSuivies) {
-                    $.each(statutsSuivies, function(i, statutSuivie) {
-                        statutSuivie.toString = function() { return sprintf("%s - %s", statutSuivie.code, statutSuivie.description); };
-                    });
-
-                    app.data.enums.statutsSuivies.observable(statutsSuivies);
-                    app.data.enums.statutsSuivies.store = app.collection.store(statutsSuivies);
-                }).invoke();
-
-                // Load unites as a data store.
-                api.enumerations.unites().done(function(unites) {
-                    $.each(unites, function(i, unite) {
-                        unite.toString = function() { return sprintf("%s - %s", unite.systeme, unite.code); };
-                    });
-
-                    app.data.enums.unites.observable(unites);
-                    app.data.enums.unites.store = app.collection.store(unites);
-                }).invoke();
-
-                // Load commanditaire types as a data store.
-                api.enumerations.typesCommanditaires().done(function(typesCommanditaires) {
-                    $.each(typesCommanditaires, function(i, typeCommanditaire) {
-                        typeCommanditaire.toString = function() { return typeCommanditaire.nom; };
-                    });
-
-                    app.data.enums.typesCommanditaires.observable(typesCommanditaires);
-                    app.data.enums.typesCommanditaires.store = app.collection.store(typesCommanditaires);
-                }).invoke();
-
-                // Load antecedent types as a data store.
-                api.enumerations.typesAntecedents().done(function(typesAntecedents) {
-                    $.each(typesAntecedents, function(i, typeAntecedent) {
-                        typeAntecedent.toString = function() { return typeAntecedent.nom; };
-                    });
-
-                    app.data.enums.typesAntecedents.observable(typesAntecedents);
-                    app.data.enums.typesAntecedents.store = app.collection.store(typesAntecedents);
-                }).invoke();
-            });
+            // Setup all loggers with the default appender.
+            app.loggers.core.setLevel(log4javascript.Level.DEBUG);
+            app.loggers.core.addAppender(appender);
+            app.loggers.mv.setLevel(log4javascript.Level.DEBUG);
+            app.loggers.mv.addAppender(appender);
         }
     }
 };
-
-app.ready(function() {
-    // Setup logging.
-    app.loggers.setup();
-    // Load all static required data.
-    app.data.load();
-});

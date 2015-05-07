@@ -1,4 +1,5 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
+
 <div id="club-menu" class="collapse navbar-collapse navbar-ex1-collapse">
   <!-- Process each menu entries. -->
   <ul id="active" class="nav navbar-nav side-nav" data-bind="foreach: entries">
@@ -23,7 +24,12 @@
 </div>
 
 <script type="text/javascript">
-  // The club menu entry array. 
+  app.ready(function ($) {
+    var $clubMenu = $("#club-menu");
+    ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
+  });
+
+  // The club menu entry array.
   // This would be the menu entries if one was admin.
   var clubMenuEntries = [
     {
@@ -57,9 +63,4 @@
       ]
     }
   ];
-
-  app.ready(function($) {
-    var $clubMenu = $("#club-menu");
-    ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
-  });
 </script>

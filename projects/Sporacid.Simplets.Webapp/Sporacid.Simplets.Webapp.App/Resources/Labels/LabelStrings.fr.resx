@@ -120,6 +120,9 @@
   <data name="Antecedents_Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Antecedents_Description_Placeholder" xml:space="preserve">
+    <value>Décrivez l'antécédent médical</value>
+  </data>
   <data name="Antecedents_Nom" xml:space="preserve">
     <value>Nom</value>
   </data>
@@ -129,8 +132,14 @@
   <data name="Antecedents_Type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Antecedents_Type_Placeholder" xml:space="preserve">
+    <value>Choisissez le type d'antécédent</value>
+  </data>
   <data name="Formations_Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Formations_Description_Placeholder" xml:space="preserve">
+    <value>Décrivez la formation</value>
   </data>
   <data name="Formations_Public" xml:space="preserve">
     <value>Public</value>
@@ -138,17 +147,32 @@
   <data name="Formations_Titre" xml:space="preserve">
     <value>Titre</value>
   </data>
+  <data name="Formations_Titre_Placeholder" xml:space="preserve">
+    <value>Donnez un nom à la formation</value>
+  </data>
   <data name="Login_CodeUniversel" xml:space="preserve">
     <value>Code universel</value>
+  </data>
+  <data name="Login_CodeUniversel_Placeholder" xml:space="preserve">
+    <value>Votre code universel</value>
   </data>
   <data name="Login_MotDePasse" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
+  <data name="Login_MotDePasse_Placeholder" xml:space="preserve">
+    <value>Votre mot de passe</value>
+  </data>
   <data name="ProfilAvance_CodePermanent" xml:space="preserve">
     <value>Code permanent</value>
   </data>
+  <data name="ProfilAvance_CodePermanent_Placeholder" xml:space="preserve">
+    <value>Votre code permanent</value>
+  </data>
   <data name="ProfilAvance_Courriel" xml:space="preserve">
     <value>Courriel</value>
+  </data>
+  <data name="ProfilAvance_Courriel_Placeholder" xml:space="preserve">
+    <value>Votre courriel (Cette adresse n'est pas obligatoire l'adresse de l'école)</value>
   </data>
   <data name="ProfilAvance_DateNaissance" xml:space="preserve">
     <value>Date de naissance</value>
@@ -159,17 +183,29 @@
   <data name="ProfilAvance_Telephone" xml:space="preserve">
     <value>Téléphone</value>
   </data>
+  <data name="ProfilAvance_Telephone_Placeholder" xml:space="preserve">
+    <value>Votre numéro de téléphone (10 chiffres)</value>
+  </data>
   <data name="ProfilBase_Avatar" xml:space="preserve">
     <value>Avatar</value>
   </data>
   <data name="ProfilBase_Concentration" xml:space="preserve">
     <value>Concentration</value>
   </data>
+  <data name="ProfilBase_Concentration_Placeholder" xml:space="preserve">
+    <value>Choisissez votre concentration</value>
+  </data>
   <data name="ProfilBase_Nom" xml:space="preserve">
     <value>Nom</value>
   </data>
+  <data name="ProfilBase_Nom_Placeholder" xml:space="preserve">
+    <value>Votre nom</value>
+  </data>
   <data name="ProfilBase_Prenom" xml:space="preserve">
     <value>Prénom</value>
+  </data>
+  <data name="ProfilBase_Prenom_Placeholder" xml:space="preserve">
+    <value>Votre prénom</value>
   </data>
   <data name="ProfilBase_Public" xml:space="preserve">
     <value>Rendre vos informations publiques</value>

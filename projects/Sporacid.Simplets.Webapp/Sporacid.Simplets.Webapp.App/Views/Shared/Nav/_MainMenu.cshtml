@@ -46,17 +46,32 @@
   </li>
   <!-- Preferences option. -->
   <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       <span class="icon-container fa fa-2x vcenter btn-warning">
         <span class="fa fa-cogs white"></span>
       </span>
       <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Preferences)</span>
       <b class="caret hidden-xs"></b>
     </a>
+    <!-- ko with: onOffParametersModelView -->
+    <ul id="on-off-parameters" class="dropdown-menu pull-right" data-bind="foreach: parameters">
+      <li class="parameter-option">
+        <span data-bind="text: name"></span>
+        <input type="checkbox" class="switch" data-bind="attr: { 'data-on-text': onValue, 'data-off-text': offValue }"
+               data-size="small" data-on-color="primary" data-off-color="danger" />
+      </li>
+      <li class="divider" data-bind="visible: $index() !== ($parent.parameters().length - 1)"></li>
+      @*<li>
+        <a href="javascript: app.utility.ajax.loadContent('@Url.Action("Preferences", "Userspace")')">
+          @Html.Raw(MenuStrings.MainMenu_Preferences_Avance)
+        </a>
+      </li>*@
+    </ul>
+    <!-- /ko -->
   </li>
   <!-- Profil option. -->
   <li data-bind="css: { 'pull-left': isXs() }">
-    <a href="#" class="dropdown-toggle" data-bind="click: $('#page-wrapper').load('@Url.Action("Profil", "Userspace")')">
+    <a href="javascript: app.utility.ajax.loadContent('@Url.Action("Profil", "Userspace")')" class="dropdown-toggle">
       <span class="icon-container fa fa-2x vcenter btn-success">
         <span class="fa fa-user white"></span>
       </span>
@@ -75,14 +90,17 @@
 </ul>
 
 <script type="text/javascript">
-  jQuery(function ($) {
+  app.ready(function($) {
     var $mainMenu = $("#main-menu");
     var $xsContainer = $(".main-menu-xs-container");
     var $mdContainer = $(".main-menu-md-container");
+    ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer, parameterOptions), $mainMenu[0]);
 
-    // Apply both menus bindings when the user has logged in.
-    $("#login").on("logged-in", function () {
-      ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer), $mainMenu[0]);
-    });
+    $("nav .switch").bootstrapSwitch();
+    $("nav .parameter-option").on("click", function () { return false; });
   });
+
+  var parameterOptions = [
+    { name: "Langue", onValue: "fr", offValue: "en" }
+  ];
 </script>

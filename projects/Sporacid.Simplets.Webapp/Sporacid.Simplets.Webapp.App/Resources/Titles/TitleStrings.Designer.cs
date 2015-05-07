@@ -133,6 +133,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Preferences.
+        /// </summary>
+        public static string Preferences_MainTitle {
+            get {
+                return ResourceManager.GetString("Preferences_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your Profile.
         /// </summary>
         public static string Profil_MainTitle {
