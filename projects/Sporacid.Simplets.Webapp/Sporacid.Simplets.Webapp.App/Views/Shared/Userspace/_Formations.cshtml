@@ -80,7 +80,7 @@
 
 <!-- Modelview bindings. -->
 <script type="text/javascript">
-  app.ready(function($) {
+  app.events.ready(function ($) {
     var $formations = $("#formations");
     ko.applyBindings(new FormationsModelView($formations, $("#formations-rest-exception")), $formations[0]);
   });

@@ -1,6 +1,43 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Labels
 
-<div class="rest-exception-container" data-bind="with: exception">
+<!-- ko with: exception -->
+<div class="rest-exception-container alert alert-dismissable"
+     data-bind="visible: $data, css: { 'alert-danger': status != 400, 'alert-warning': status == 400 }">
+  <button type="button" class="close" data-bind="click: $root.clear ">
+    <i class="fa fa-2x fa-times white"></i>
+  </button>
+  <!-- Validation exception entity state. -->
+  <!-- ko if: status == 400 -->
+  <!-- ko with: data -->
+  <h4>@Html.Raw(LabelStrings.RestException_Validation_Prefix)</h4>
+  <ul class="validation-exception" data-bind="keyvalue: modelState">
+    <li>
+      <b data-bind="text: key"></b>
+      <span> - </span>
+      <span data-bind="foreach: value">
+        <span data-bind="text: $data"></span>
+      </span>
+    </li>
+  </ul>
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- Standard rest exception. -->
+  <!-- ko if: status != 400 -->
+  <div class="rest-exception" data-bind="with: data">
+    <h4>@Html.Raw(LabelStrings.RestException_Prefix)</h4>
+    <span data-bind="text: exceptionMessage ? exceptionMessage : ''"></span>
+    <!-- ko if: $data.innerException -->
+    <div data-bind="with: $data.innerException">
+      <span>@Html.Raw(LabelStrings.RestException_Cause): </span>
+      <span data-bind="text: $data.exceptionMessage"></span>
+    </div>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+</div>
+<!-- /ko -->
+
+@*<div class="rest-exception-container" data-bind="with: exception">
   <!-- Validation exception entity state. --> 
   <!-- ko if: status == 400 -->
   <!-- ko with: data -->
@@ -18,15 +55,15 @@
 
   <!-- Standard rest exception. -->
   <!-- ko if: status != 400 -->
-  <span class="rest-exception" data-bind="with: data">
-    <span data-bind="text: exceptionMessage"></span>
-    <!-- ko if: innerException -->
-    <span data-bind="with: innerException">
-      <br />
+  <div class="rest-exception" data-bind="with: data">
+    <div>
+      <label class="label-danger">@Html.Raw(LabelStrings.RestException_Prefix)</label>
+      <span data-bind="text: exceptionMessage ? exceptionMessage : ''"></span>
+    </div>
+    <div data-bind="if: $parent.innerException, with: innerException">
       <span>@Html.Raw(LabelStrings.RestException_Cause): </span>
-      <span data-bind="text: exceptionMessage"></span>
-    </span>    
-    <!-- /ko -->
-  </span>
+      <span data-bind="text: exceptionMessage ? exceptionMessage : ''"></span>
+    </div>
+  </div>
   <!-- /ko -->
-</div>
+</div>*@

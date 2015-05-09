@@ -82,7 +82,7 @@
 </div>
 
 <script type="text/javascript">
-  app.ready(function($) {
+  app.events.ready(function ($) {
     var $antecedents = $("#antecedents");
     ko.applyBindings(new AntecedentsModelView($antecedents, $("#antecedents-rest-exception")), $antecedents[0]);
   });

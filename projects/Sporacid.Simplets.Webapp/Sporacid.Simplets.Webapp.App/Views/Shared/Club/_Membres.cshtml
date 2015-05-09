@@ -52,24 +52,11 @@
 </div>
 
 <script type="text/javascript">
-  app.ready(function($) {
-    // Cache important jquery selectors.
+  app.events.ready(function ($) {
     var $membres = $("#membres");
-
-    $membres.on("loaded", function () {
-      $(".page-wrapper").active();
-      $(".page-wrapper").show();
-    });
-
-    // Create modelviews.
-    var membresMv = new MembersModelView($membres);
-
-    // Apply all bindings.
-    ko.applyBindings(membresMv, $membres[0]);
+    ko.applyBindings(new MembresModelView($membres), $membres[0]);
   });
 </script>
-
-
 
 
 

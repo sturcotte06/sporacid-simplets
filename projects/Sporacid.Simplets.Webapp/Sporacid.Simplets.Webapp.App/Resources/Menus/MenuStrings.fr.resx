@@ -123,6 +123,15 @@
   <data name="ClubMenu_Commanditaires_Consulter" xml:space="preserve">
     <value>Consulter les commanditaires</value>
   </data>
+  <data name="ClubMenu_Evenements" xml:space="preserve">
+    <value>Nouvelles</value>
+  </data>
+  <data name="ClubMenu_Fournisseurs" xml:space="preserve">
+    <value>Fournisseurs</value>
+  </data>
+  <data name="ClubMenu_Meeting_Organiser" xml:space="preserve">
+    <value>Organiser un meeting</value>
+  </data>
   <data name="ClubMenu_Membres" xml:space="preserve">
     <value>Membres</value>
   </data>
@@ -140,6 +149,9 @@
   </data>
   <data name="MainMenu_Preferences_Avance" xml:space="preserve">
     <value>Plus de preferences...</value>
+  </data>
+  <data name="MainMenu_Preferences_Langue" xml:space="preserve">
+    <value>Langue</value>
   </data>
   <data name="MainMenu_Profil" xml:space="preserve">
     <value>Profil</value>

@@ -1,25 +1,29 @@
 // Namespace that represents the running application.
 var app = {
     url: "/app",
-    // Shortcut for callbacks whenever the document has been loaded and 
-    // the application bootstrapping is ready to be processed.
-    ready: function(func) {
-        if (!func) {
-            loggers.core.warn("app.ready() callback func cannot be null.");
-            return;
-        }
+    events: {
+        // Event triggered when the application is ready for content to be loaded.
+        ready: function(func) {
+            if (!func) {
+                loggers.core.warn("app.events.ready() callback func cannot be null.");
+                return;
+            }
 
-        // Application is considered ready when the document is ready and the user is logged in.
-        if (app.user.current.token) {
+            // Application is considered ready when the document is ready and the user is logged in.
             jQuery(function($) {
-                func($);
-            });
-        } else {
-            jQuery(function($) {
-                $("#login").on("logged-in", function() {
+                if (!app.user.current.token) {
+                    $("#login").on("logged-in", function() { func($); });
+                } else {
                     func($);
-                });
+                }
             });
+        },
+        // Event triggered whenever the application's context changes.
+        contextChanged: function(func) {
+            if (!func) {
+                loggers.core.warn("app.ready() callback func cannot be null.");
+                return;
+            }
         }
     },
     // Namespace of all utility functions of the application.
@@ -29,9 +33,9 @@ var app = {
             // Utility function to load an url into the main content.
             loadContent: function(url) {
                 var $content = $("#page-wrapper");
+
                 $content.hide();
-                $content.load(url, null, function (html) {
-                    $content.html(html);
+                $content.load(url, null, function() {
                     $content.show();
                 });
             }
@@ -48,10 +52,10 @@ var app = {
                     accepts: "application/json",
                     contentType: "application/json",
                     data: JSON.stringify(data),
-                    beforeSend: function(xhr) {
+                    beforeSend: function (jqxhr) {
                         // Set the authorization header if the information exists.
                         if (auth) {
-                            xhr.setRequestHeader("Authorization", auth);
+                            jqxhr.setRequestHeader("Authorization", auth);
                         }
 
                         app.loggers.core.debug(
@@ -144,8 +148,11 @@ var app = {
                 var urlParts = arguments;
 
                 // For each url part given in argument.
-                for (var iUrlPart = 0; iUrlPart < urlParts.length; iUrlPart++) {
-                    var urlPart = urlParts[iUrlPart];
+                $.each(urlParts, function (i, urlPart) {
+                    if (!urlPart) {
+                        app.loggers.core.warn("app.utility.url.build(): url part at index", i, "was undefined and will be skipped.");
+                        return;
+                    }
 
                     // If url part starts with a slash, remove the slash.
                     if (urlPart[0] === "/") {
@@ -153,13 +160,13 @@ var app = {
                     }
 
                     // If url part does not end with a slash, add a slash.
-                    if (urlPart[urlPart.length - 1] !== "/" && iUrlPart < arguments.length - 1) {
+                    if (urlPart[urlPart.length - 1] !== "/" && i < urlParts.length - 1) {
                         urlPart += "/";
                     }
 
                     // Concatenate sanitized url part to url.
                     url += urlPart;
-                }
+                });
 
                 return url;
             },
@@ -224,21 +231,16 @@ var app = {
     // Namespace for all collection constructors.
     collection: {
         // Dictionary collection. The key is the id property of every datum.
-        store: function(data) {
+        store: function(data, keyFunc) {
+            if (!keyFunc) keyFunc = function(d) { return d.id };
             var store = {};
-            for (var iDatum = 0; iDatum < data.length; iDatum++) {
-                var datum = data[iDatum];
-                var datumId = datum.id;
 
-                // Stored objects require an unique identifier named "id".
-                if (!datumId) {
-                    continue;
-                }
-
-                // Store the object.
-                store[datumId] = datum;
-            }
-
+            $.each(data, function(i, datum) {
+                var key = keyFunc(datum);
+                if (!key) return;
+                store[key] = datum;
+            });
+            
             return store;
         }
     },
@@ -280,7 +282,9 @@ var app = {
         // Enumeration of all of the application's modules.
         modules: {
             commanditaires: "Commanditaires",
-            membres: "Membres"
+            membres: "Membres",
+            fournisseurs: "Fournisseurs",
+            evenements: "Evenements"
         },
         // Enumeration of all of the application's claims.
         claims: {

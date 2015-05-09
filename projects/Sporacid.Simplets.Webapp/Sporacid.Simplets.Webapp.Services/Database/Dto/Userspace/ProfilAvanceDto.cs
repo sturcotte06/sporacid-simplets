@@ -14,6 +14,9 @@
         [StringLength(12,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "ProfilAvanceDto_CodePermament_StringLength")]
+        [RegularExpression(@"[a-zA-Z]{4}[0-9]{8}",
+            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceName = "ProfilAvanceDto_Courriel_Regex")]
         public String CodePermanent { get; set; }
 
         [JsonConverter(typeof (DateConverter))]

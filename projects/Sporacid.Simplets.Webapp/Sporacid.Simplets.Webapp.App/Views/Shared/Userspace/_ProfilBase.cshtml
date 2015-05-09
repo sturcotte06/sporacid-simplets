@@ -82,7 +82,7 @@
 </div>
 
 <script type="text/javascript">
-  app.ready(function($) {
+  app.events.ready(function ($) {
     var $profilBase = $("#profil-base");
     ko.applyBindings(new ProfilBaseModelView($profilBase, $("#profil-base-rest-exception")), $profilBase[0]);
   });

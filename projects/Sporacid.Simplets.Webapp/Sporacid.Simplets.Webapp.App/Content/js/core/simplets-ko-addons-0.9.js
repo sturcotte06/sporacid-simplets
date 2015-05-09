@@ -50,3 +50,23 @@ ko.bindingHandlers.dblclick = {
         });
     }
 };
+
+ko.bindingHandlers.switch = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        var $element = $(element);
+        $element.bootstrapSwitch();
+        $element.bootstrapSwitch("state", ko.utils.unwrapObservable(valueAccessor())); // Set intial state
+        $element.on("switchChange.bootstrapSwitch", function (event, state) {
+            valueAccessor(state);
+            $element.prop("checked", state);
+        });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var $element = $(element);
+        var vStatus = $element.bootstrapSwitch("state");
+        var vmStatus = ko.utils.unwrapObservable(valueAccessor());
+        if (vStatus !== vmStatus) {
+            $element.bootstrapSwitch("state", vmStatus);
+        }
+    }
+};

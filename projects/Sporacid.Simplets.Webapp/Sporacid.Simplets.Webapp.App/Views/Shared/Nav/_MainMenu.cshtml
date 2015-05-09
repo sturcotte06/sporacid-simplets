@@ -40,7 +40,7 @@
           <span data-bind="text: nom" class="subscribed-club-text"></span>
         </a>
       </li>
-      <li class="divider" data-bind="visible: $index() !== ($parent.clubs().length - 1)"></li>
+      <li class="divider" data-bind="visible: $index() !== $parent.clubs().length - 1"></li>
     </ul>
     <!-- /ko -->
   </li>
@@ -53,19 +53,22 @@
       <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Preferences)</span>
       <b class="caret hidden-xs"></b>
     </a>
-    <!-- ko with: onOffParametersModelView -->
-    <ul id="on-off-parameters" class="dropdown-menu pull-right" data-bind="foreach: parameters">
+    <!-- ko with: onOffPreferencesModelView -->
+    <ul id="on-off-parameters" class="dropdown-menu pull-right">
+      <!-- ko foreach: preferences -->
       <li class="parameter-option">
-        <span data-bind="text: name"></span>
-        <input type="checkbox" class="switch" data-bind="attr: { 'data-on-text': onValue, 'data-off-text': offValue }"
-               data-size="small" data-on-color="primary" data-off-color="danger" />
+        <span data-bind="text: text"></span>
+        <input type="checkbox" class="switch" data-size="small" data-on-color="primary" data-off-color="danger"
+               data-bind="attr: { 'data-on-text': onValue, 'data-off-text': offValue }, 'switch': value,
+                  event: { 'switchChange.bootstrapSwitch': $parent.toggled }" />
       </li>
-      <li class="divider" data-bind="visible: $index() !== ($parent.parameters().length - 1)"></li>
-      @*<li>
+      <li class="divider"></li>
+      <!-- /ko -->
+      <li>
         <a href="javascript: app.utility.ajax.loadContent('@Url.Action("Preferences", "Userspace")')">
           @Html.Raw(MenuStrings.MainMenu_Preferences_Avance)
         </a>
-      </li>*@
+      </li>
     </ul>
     <!-- /ko -->
   </li>
@@ -90,17 +93,19 @@
 </ul>
 
 <script type="text/javascript">
-  app.ready(function($) {
+  app.events.ready(function ($) {
     var $mainMenu = $("#main-menu");
-    var $xsContainer = $(".main-menu-xs-container");
-    var $mdContainer = $(".main-menu-md-container");
-    ko.applyBindings(new MainMenuModelView($mainMenu, $xsContainer, $mdContainer, parameterOptions), $mainMenu[0]);
-
-    $("nav .switch").bootstrapSwitch();
+    ko.applyBindings(new MainMenuModelView($mainMenu, $(".main-menu-xs-container"), $(".main-menu-md-container"), preferences), $mainMenu[0]);
     $("nav .parameter-option").on("click", function () { return false; });
   });
-
-  var parameterOptions = [
-    { name: "Langue", onValue: "fr", offValue: "en" }
+  
+  var preferences = [
+    {
+      name: app.enums.preferences.locale,
+      value: true, //app.user.current.preferences[app.enums.preferences.locale] === "fr",
+      text: "@HttpUtility.JavaScriptStringEncode(MenuStrings.MainMenu_Preferences_Langue)",
+      onValue: "fr",
+      offValue: "en"
+    }
   ];
 </script>

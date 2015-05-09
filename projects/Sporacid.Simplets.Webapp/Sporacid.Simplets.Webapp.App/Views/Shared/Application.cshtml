@@ -16,7 +16,7 @@
   });
 
   // Once the application is ready, bootstrap the current user's default view.
-  app.ready(function ($) {
+  app.events.ready(function ($) {
     // Loads the user profil.
     app.utility.ajax.loadContent("@Url.Action("Profil","Userspace")");
 

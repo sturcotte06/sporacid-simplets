@@ -14,5 +14,15 @@
         {
             throw new NotImplementedException();
         }
+
+        public ActionResult Evenements()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult Meetings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

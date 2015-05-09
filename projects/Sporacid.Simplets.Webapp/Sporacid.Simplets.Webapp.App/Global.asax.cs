@@ -13,7 +13,8 @@
         {
             AreaRegistration.RegisterAllAreas();
 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            // FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            AutofacConfig.Register();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

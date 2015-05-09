@@ -208,9 +208,15 @@
     <value>Mark as Public</value>
   </data>
   <data name="Profil_DefaultValue" xml:space="preserve">
-    <value>Non-sepcified</value>
+    <value>Non-specified</value>
   </data>
   <data name="RestException_Cause" xml:space="preserve">
     <value>Caused by</value>
+  </data>
+  <data name="RestException_Prefix" xml:space="preserve">
+    <value>Web Services Error</value>
+  </data>
+  <data name="RestException_Validation_Prefix" xml:space="preserve">
+    <value>Web Services Validation Mismatch</value>
   </data>
 </root>

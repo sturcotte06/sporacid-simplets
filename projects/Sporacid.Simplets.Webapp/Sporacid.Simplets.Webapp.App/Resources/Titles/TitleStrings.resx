@@ -136,7 +136,7 @@
     <value>Your Training</value>
   </data>
   <data name="Login_MainTitle" xml:space="preserve">
-    <value>Authenticate yourself *</value>
+    <value>Log in *</value>
   </data>
   <data name="Membre_MainTitle" xml:space="preserve">
     <value>Member List</value>

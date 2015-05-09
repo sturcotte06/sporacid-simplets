@@ -45,16 +45,17 @@ function ProfilBaseModelView($self, $error) {
         $panel.waiting();
 
         // Update the profil entity.
-        api.userspace.profil.update(app.user.current.name, self.profil()).done(function () {
+        api.userspace.profil.update(app.user.current.name, self.profil()).done(function() {
             self.endEdit();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Cancels the edition of profil entity.
     self.cancelEdit = function () {
-        self.profil(self.beforeEdit);
+        var profil = self.profil();
+        jQuery.extend(profil, self.beforeEdit);
         self.endEdit();
     };
 
@@ -82,7 +83,7 @@ function ProfilBaseModelView($self, $error) {
     };
 
     // Manages an error that occured while managing the profil entity.
-    self.error = function (exception) {
+    self.error = function(exception) {
         // Load the exception in the error model view.
         self.errorModelView.load(exception);
         // Reactivate the view.
@@ -95,7 +96,7 @@ function ProfilBaseModelView($self, $error) {
         $panel.waiting();
 
         // Load the profil entity.
-        api.userspace.profil.get(app.user.current.name).done(function (profil) {
+        api.userspace.profil.get(app.user.current.name).done(function(profil) {
             // Get the concentration of the user from the given concentration id.
             profil.concentration = profil.concentrationId ? app.data.enums.concentrations.store[profil.concentrationId] : null;
 
@@ -110,6 +111,8 @@ function ProfilBaseModelView($self, $error) {
             // Reactivate the view.
             $self.trigger("loaded");
             $panel.active();
+        }).fail(function(exception) {
+            self.error(exception);
         }).invoke();
     }();
 };
@@ -123,7 +126,7 @@ function ProfilAvanceModelView($self, $error) {
     self.beforeEdit = null;
     self.errorModelView = new RestExceptionModelView($error);
     ko.applyBindings(self.errorModelView, $error[0]);
-    
+
     // Define all onservable properties.
     self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.profilAvance = ko.observable();
@@ -149,13 +152,13 @@ function ProfilAvanceModelView($self, $error) {
         // The separation between profil and profil avance is logical only.
         // This means the profil is the aggregation of both. Before posting the profil avance, reload
         // the base profil. If it has not changed, this will reload the cached value anyway.
-        api.userspace.profil.get(app.user.current.name).done(function (profil) {
+        api.userspace.profil.get(app.user.current.name).done(function(profil) {
             profil.profilAvance = self.profilAvance();
             // Update the profil entity.
-            api.userspace.profil.update(app.user.current.name, profil).done(function () {
+            api.userspace.profil.update(app.user.current.name, profil).done(function() {
                 self.endEdit();
                 self.profilAvance.valueHasMutated();
-            }).fail(function (exception) {
+            }).fail(function(exception) {
                 self.error(exception);
             }).invoke();
         }).fail(function(exception) {
@@ -164,7 +167,7 @@ function ProfilAvanceModelView($self, $error) {
     };
 
     // Cancels the edition of profil entity.
-    self.cancelEdit = function () {
+    self.cancelEdit = function() {
         self.profilAvance(self.beforeEdit);
         self.endEdit();
     };
@@ -183,7 +186,7 @@ function ProfilAvanceModelView($self, $error) {
     };
 
     // Manages an error that occured while managing the profil avance entity.
-    self.error = function (exception) {
+    self.error = function(exception) {
         // Load the exception in the error model view.
         self.errorModelView.load(exception);
         // Reactivate the view.
@@ -196,12 +199,15 @@ function ProfilAvanceModelView($self, $error) {
         $panel.waiting();
 
         // Load the profil entity.
-        api.userspace.profil.get(app.user.current.name).done(function (profil) {
+        api.userspace.profil.get(app.user.current.name).done(function(profil) {
             // The separation between profil and profil avance is logical only.
             self.profilAvance(profil.profilAvance);
+
             // Reactivate the view.
             $panel.active();
             $self.trigger("loaded");
+        }).fail(function(exception) {
+            self.error(exception);
         }).invoke();
     }();
 };
@@ -232,13 +238,13 @@ function FormationsModelView($self, $error) {
             self.refresh();
             self.addBlank();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Adds a blank formation entity in creation mode.
-    self.addBlank = function () {
+    self.addBlank = function() {
         self.formations.push({
             viewmode: ko.observable(app.enums.viewmodes.creation),
             titre: null,
@@ -250,7 +256,7 @@ function FormationsModelView($self, $error) {
     // Deletes a single formation entity.
     self.delete = function(formation) {
         $panel.waiting();
-        api.userspace.formations.delete(app.user.current.name, formation.id).done(function () {
+        api.userspace.formations.delete(app.user.current.name, formation.id).done(function() {
             // Remove from the observable formation array.
             self.formations.remove(function(f) {
                 return formation.id === f.id;
@@ -258,13 +264,13 @@ function FormationsModelView($self, $error) {
 
             self.errorModelView.clear();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Begin edition of a single formation entity.
-    self.beginEdit = function (formation) {
+    self.beginEdit = function(formation) {
         // Save the current version of the object.
         formation.beforeEdit = jQuery.extend(true, {}, formation);
 
@@ -276,26 +282,26 @@ function FormationsModelView($self, $error) {
     // Edit a single formation entity.
     self.edit = function(formation) {
         $panel.waiting();
-        api.userspace.formations.update(app.user.current.name, formation.id, formation).done(function () {
+        api.userspace.formations.update(app.user.current.name, formation.id, formation).done(function() {
             formation.viewmode(app.enums.viewmodes.view);
 
             self.errorModelView.clear();
             self.refresh();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Cancels the edition of profil entity.
-    self.cancelEdit = function (formation) {
+    self.cancelEdit = function(formation) {
         $.extend(formation, formation.beforeEdit);
         formation.viewmode(app.enums.viewmodes.view);
         self.refreshTypeAntecedent(formation);
     };
 
     // Manages an error that occured while managing a formation entity.
-    self.error = function (exception) {
+    self.error = function(exception) {
         // Load the exception in the error model view.
         self.errorModelView.load(exception);
         // Reactivate the view.
@@ -312,7 +318,7 @@ function FormationsModelView($self, $error) {
     // Loads the formation list from the rest services.
     self.load = function() {
         $panel.waiting();
-        api.userspace.formations.getAll(app.user.current.name).done(function (formations) {
+        api.userspace.formations.getAll(app.user.current.name).done(function(formations) {
             // Add a viewmode to each formation to keep track of view state.
             $.each(formations, function(i, formation) {
                 formation.viewmode = ko.observable(app.enums.viewmodes.view);
@@ -321,7 +327,7 @@ function FormationsModelView($self, $error) {
             self.formations(formations);
             self.addBlank();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     }();
@@ -351,9 +357,9 @@ function AntecedentsModelView($self, $error) {
     };
 
     // Adds a single antecedent entity.
-    self.add = function (antecedent) {
+    self.add = function(antecedent) {
         $panel.waiting();
-        api.userspace.antecedents.create(app.user.current.name, antecedent).done(function (id) {
+        api.userspace.antecedents.create(app.user.current.name, antecedent).done(function(id) {
             antecedent.id = id;
             antecedent.viewmode(app.enums.viewmodes.view);
             self.refreshTypeAntecedent(antecedent);
@@ -362,13 +368,13 @@ function AntecedentsModelView($self, $error) {
             self.refresh();
             self.addBlank();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Adds a blank antecedent entity in creation mode.
-    self.addBlank = function () {
+    self.addBlank = function() {
         self.antecedents.push({
             viewmode: ko.observable(app.enums.viewmodes.creation),
             nom: null,
@@ -380,23 +386,23 @@ function AntecedentsModelView($self, $error) {
     };
 
     // Deletes a single antecedent entity.
-    self.delete = function (antecedent) {
+    self.delete = function(antecedent) {
         $panel.waiting();
-        api.userspace.antecedents.delete(app.user.current.name, antecedent.id).done(function () {
+        api.userspace.antecedents.delete(app.user.current.name, antecedent.id).done(function() {
             // Remove from the observable antecedent array.
-            self.antecedents.remove(function (a) {
+            self.antecedents.remove(function(a) {
                 return antecedent.id === a.id;
             });
 
             self.errorModelView.clear();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     };
 
     // Begin edition of a single antecedent entity.
-    self.beginEdit = function (antecedent) {
+    self.beginEdit = function(antecedent) {
         // Save the current version of the object.
         antecedent.beforeEdit = jQuery.extend(true, {}, antecedent);
 
@@ -406,9 +412,9 @@ function AntecedentsModelView($self, $error) {
     };
 
     // Edit a single antecedent entity.
-    self.edit = function (antecedent) {
+    self.edit = function(antecedent) {
         $panel.waiting();
-        api.userspace.antecedents.update(app.user.current.name, antecedent.id, antecedent).done(function () {
+        api.userspace.antecedents.update(app.user.current.name, antecedent.id, antecedent).done(function() {
             antecedent.viewmode(app.enums.viewmodes.view);
             self.refreshTypeAntecedent(antecedent);
 
@@ -421,14 +427,14 @@ function AntecedentsModelView($self, $error) {
     };
 
     // Cancels the edition of profil entity.
-    self.cancelEdit = function (antecedent) {
+    self.cancelEdit = function(antecedent) {
         $.extend(antecedent, antecedent.beforeEdit);
         antecedent.viewmode(app.enums.viewmodes.view);
         self.refreshTypeAntecedent(antecedent);
     };
-    
+
     // Manages an error that occured while managing an antecedent entity.
-    self.error = function (exception) {
+    self.error = function(exception) {
         // Load the exception in the error model view.
         self.errorModelView.load(exception);
         // Reactivate the view.
@@ -436,18 +442,18 @@ function AntecedentsModelView($self, $error) {
     };
 
     // Refreshes the observable array of antecedents.
-    self.refresh = function () {
+    self.refresh = function() {
         var antecedents = self.antecedents().slice(0);
         self.antecedents([]);
         self.antecedents(antecedents);
     };
 
     // Loads the antecedent list from the rest services.
-    self.load = function () {
+    self.load = function() {
         $panel.waiting();
-        api.userspace.antecedents.getAll(app.user.current.name).done(function (antecedents) {
+        api.userspace.antecedents.getAll(app.user.current.name).done(function(antecedents) {
             // Add a viewmode to each formation to keep track of view state.
-            $.each(antecedents, function (i, antecedent) {
+            $.each(antecedents, function(i, antecedent) {
                 antecedent.viewmode = ko.observable(app.enums.viewmodes.view);
                 self.refreshTypeAntecedent(antecedent);
             });
@@ -455,7 +461,7 @@ function AntecedentsModelView($self, $error) {
             self.antecedents(antecedents);
             self.addBlank();
             $panel.active();
-        }).fail(function (exception) {
+        }).fail(function(exception) {
             self.error(exception);
         }).invoke();
     }();
@@ -475,7 +481,7 @@ function RestExceptionModelView($self) {
     };
 
     // Loads an exception into the model view.
-    self.load = function (exception) {
+    self.load = function(exception) {
         self.exception(exception);
     };
 };
@@ -501,14 +507,14 @@ function LoginModelView($self) {
         if (tokenCookie && tokenCookie !== "null" && tokenCookie !== "undefined" && usernameCookie && usernameCookie !== "null" && usernameCookie !== "undefined") {
             // Try to log in with the token.
             var token = JSON.parse(tokenCookie);
-            api.utility.noop(app.utility.auth.token.header(token)).done(function () {
+            api.utility.noop(app.utility.auth.token.header(token)).done(function() {
                 // Worked, token is still valid.
                 self.endLogin(usernameCookie, token);
             }).fail(function() {
                 // Failed, force reauthentication.
                 $.cookie(app.enums.cookies.username, null, { path: "/" });
                 $.cookie(app.enums.cookies.token, null, { path: "/" });
-                window.location = window.location;
+                window.location.reload();
             }).invoke();
         } else {
             // Show the login modal.
@@ -535,7 +541,7 @@ function LoginModelView($self) {
     };
 
     // End the login process.
-    self.endLogin = function (username, token) {
+    self.endLogin = function(username, token) {
         // Reactivate the view.
         if ($modal) $modal.active();
 
@@ -544,19 +550,19 @@ function LoginModelView($self) {
         app.user.current.token = token;
 
         // Load the current user preferences
-        api.userspace.preferences.getAll(app.user.current.name).done(function (preferences) {
-            app.user.current.preferences = preferences;
+        api.userspace.preferences.getAll(app.user.current.name).done(function(preferences) {
+            app.user.current.preferences = app.collection.store(preferences, function(p) { return p.name; });
+
+            // Save the user's by token credentials in the cookie.
+            $.cookie(app.enums.cookies.username, app.user.current.name, { path: "/" });
+            $.cookie(app.enums.cookies.token, JSON.stringify(app.user.current.token), { path: "/" });
+
+            // Hide the login modal.
+            $self.modal("hide");
+
+            // Trigger a new event to wake up model views waiting on this event.
+            $self.trigger("logged-in");
         }).invoke();
-
-        // Save the user's by token credentials in the cookie.
-        $.cookie(app.enums.cookies.username, app.user.current.name, { path: "/" });
-        $.cookie(app.enums.cookies.token, JSON.stringify(app.user.current.token), { path: "/" });
-
-        // Hide the login modal.
-        $self.modal("hide");
-
-        // Trigger a new event to wake up model views waiting on this event.
-        $self.trigger("logged-in");
     };
 
     // Manages an error that occured while logging the user in.
@@ -623,13 +629,14 @@ function FirstLoginModelView($self) {
 };
 
 // Model view for the base profil object.
-function MembersModelView($self) {
+function MembresModelView($self) {
     // Define closure safe properties.
     var self = this;
     var $panel = $self.parents(".panel").first();
 
+    // Define all observable properties.
     self.membres = ko.observableArray();
-    self.activeIndex = ko.observableArray();
+    self.activeIndex = ko.observable();
 
     // Loads the profil entity from the rest services.
     self.load = function() {
@@ -637,7 +644,7 @@ function MembersModelView($self) {
         $panel.waiting();
 
         // Load the profilList entity.
-        api.clubs.membres.getAll(currentClubContext.nom).done(function(membres) {
+        api.clubs.membres.getAll(app.user.current.context.current.name).done(function(membres) {
 
             $.each(membres, function() {
                 this.nom = sprintf("%s %s", this.profilPublic.prenom, this.profilPublic.nom);
@@ -682,30 +689,28 @@ function CommanditaireListModelView($self, validationModelView) {
 };
 
 // Model view for the main menu (top menu).
-function MainMenuModelView($self, $xsContainer, $mdContainer, parameters) {
+function MainMenuModelView($self, $xsContainer, $mdContainer, preferences) {
     // Define closure safe properties.
     var self = this;
 
     // Define all jquery selectors.
     var $subscribedClubs = $self.find("#subscribed-clubs");
-    var $onOffParameters = $self.find("#on-off-parameters");
+    var $onOffPreferences = $self.find("#on-off-parameters");
 
     // Define all observable properties.
     self.subscribedClubsModelView = ko.observable(new SubscribedClubsModelView($subscribedClubs));
-    self.onOffParametersModelView = ko.observable(new OnOffParametersModelView($onOffParameters, parameters));
+    self.onOffPreferencesModelView = ko.observable(new OnOffPreferencesModelView($onOffPreferences, preferences));
     self.isXs = ko.observable($("body > .visible-xs:visible").exists());
-    
+
     // Logs the user out.
-    self.logout = function () {
+    self.logout = function() {
         // Set the current user saved credentials to null.
         $.cookie(app.enums.cookies.username, null, { path: "/" });
         $.cookie(app.enums.cookies.token, null, { path: "/" });
 
         // Redirect to default page.
         window.location = app.url;
-    }
-
-    // Bind a on resize event to switch between mobile container and medium device container.
+    }; // Bind a on resize event to switch between mobile container and medium device container.
     $(window).on("resize", function() {
         // Update is xs viewport flag.
         self.isXs($("body > .visible-xs:visible").exists());
@@ -728,19 +733,20 @@ function SubscribedClubsModelView($self) {
     self.clubs = ko.observableArray();
 
     // Selects a club context to be the current context.
-    self.select = function(item) {
-        app.user.current.context.current = item;
+    self.select = function(club) {
+        app.user.current.context.current = club;
 
         // Load the user's claims on the club.
-        api.security.contexts.getClaims(item.nom).done(function(contextClaims) {
+        api.security.contexts.getClaims(club.nom).done(function (contextClaims) {
             app.user.current.context.claims = contextClaims;
+            $self.trigger("context-changed");
         }).invoke();
     };
 
     // Loads the club entities from the rest services.
     self.load = function() {
         api.clubs.getSubscribedClubs().done(function(clubs) {
-            $.each(clubs, function (i, club) {
+            $.each(clubs, function(i, club) {
                 club.logo = club.logo ? app.utility.image.buildDataUri(club.logo) : null;
             });
 
@@ -751,12 +757,45 @@ function SubscribedClubsModelView($self) {
 };
 
 // Model view for the on/off parameters of the user.
-function OnOffParametersModelView($self, parameters) {
+function OnOffPreferencesModelView($self, preferences) {
     // Define closure safe properties.
     var self = this;
 
     // Define all onservable properties.
-    self.parameters = ko.observableArray(parameters);
+    self.preferences = ko.observableArray();
+
+    // Event handler when a on/off parameter is toggled.
+    self.toggled = function(preference) {
+        var preferenceEntity = app.user.current.preferences[preference.name]; //_.find(app.user.current.preferences, function (p) { return p.name === preference.name; });
+        var request;
+
+        // Either create or update the preference.
+        if (preferenceEntity) {
+            preferenceEntity.value = preference.value ? preference.onValue : preference.offValue;
+            request = api.userspace.preferences.update(app.user.current.name, preferenceEntity.id, preferenceEntity);
+        } else {
+            preferenceEntity = { name: preference.name, value: preference.value ? preference.onValue : preference.offValue };
+            request = api.userspace.preferences.create(app.user.current.name, preferenceEntity);
+        }
+
+        request.done(function() {
+            window.location.reload(true);
+        }).invoke();
+    };
+
+    // Loads preferences into the model view.
+    self.load = function(prefs) {
+        $.each(prefs, function(i, pref) {
+            var userVal = app.user.current.preferences[pref.name]; //_.find(app.user.current.preferences, function (p) { return p.name === pref.name; });
+            pref.value = userVal ? userVal.value : pref.value;
+
+            prefs[i].value = ko.observable(pref.value);
+            prefs[i].value.subscribe(function(p) { self.toggled(p); });
+        });
+
+        self.preferences(prefs);
+        $self.trigger("loaded");
+    }(preferences);
 };
 
 // Model view for the club menu (left menu).
@@ -839,7 +878,7 @@ function ApiDescriptionModelView($self) {
 
     // Loads the api description from the rest services.
     self.load = function() {
-        api.utility.apiDescription().done(function (modules) {
+        api.utility.apiDescription().done(function(modules) {
             self.modules(modules);
         }).invoke();
     }();
@@ -854,8 +893,8 @@ function EntitiesDescriptionModelView($self) {
     self.entities = ko.observableArray();
 
     // Loads the entities description from the rest services.
-    self.load = function () {
-        api.utility.entitiesDescription().done(function (entities) {
+    self.load = function() {
+        api.utility.entitiesDescription().done(function(entities) {
             self.entities(entities);
         }).invoke();
     }();

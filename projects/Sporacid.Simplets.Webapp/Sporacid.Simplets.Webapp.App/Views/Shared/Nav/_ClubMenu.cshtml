@@ -4,27 +4,28 @@
   <!-- Process each menu entries. -->
   <ul id="active" class="nav navbar-nav side-nav" data-bind="foreach: entries">
     <li data-bind="css: { 'dropdown': entries }">
-      <a class="dropdown-toggle" data-toggle="dropdown" data-bind="href: href ? href : '#', css: { 'dropdown-toggle': entries }, attr: { 'data-toggle': entries ? 'dropdown' : '' }">
-        <span data-bind="attr: { 'class': 'icon-container fa btn-default fa-2x vcenter' + (buttonClass ? ' ' + buttonClass : '') }">
+      <a class="dropdown-toggle" data-toggle="dropdown"
+         data-bind="href: href ? sprintf('javascript: app.utility.ajax.loadContent(\'%s\')', href) : '#', css: { 'dropdown-toggle': entries }, attr: { 'data-toggle': entries ? 'dropdown' : '' }">
+        <span data-bind="attr: { 'class': 'icon-container fa fa-2x btn-default vcenter' + (buttonClass ? ' ' + buttonClass : '') }">
           <i data-bind="attr: {'class': iconClass ? 'fa white ' + iconClass : 'fa white' }"></i>
         </span>
         <span class="vcenter" data-bind="text: text"></span>
       </a>
       <!-- Process each submenu entries. -->
-      <ul class="dropdown-menu" data-bind="foreach: entries">
+      @*<ul class="dropdown-menu" data-bind="foreach: entries">
         <li class="item">
-          <a data-bind="href: href ? href : '#'">
-            <i data-bind="attr: {'class': iconClass ? 'fa ' + iconClass : 'fa' }"></i>
+          <a data-bind="href: href ? href : '#'" style="text-indent: 15px;">
+            <i data-bind="attr: {'class': iconClass ? 'fa ' + iconClass : 'fa' }" style="margin-right: 5px;"></i>
             <span class="vcenter" data-bind="text: text"></span>
           </a>
         </li>
-      </ul>
+      </ul>*@
     </li>
   </ul>
 </div>
 
 <script type="text/javascript">
-  app.ready(function ($) {
+  app.events.ready(function ($) {
     var $clubMenu = $("#club-menu");
     ko.applyBindings(new ClubMenuModelView($clubMenu, clubMenuEntries), $clubMenu[0]);
   });
@@ -33,34 +34,43 @@
   // This would be the menu entries if one was admin.
   var clubMenuEntries = [
     {
-      text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires)",
-      buttonClass: "btn-success",
-      iconClass: "fa-folder-open-o",
-      href: null,
-      module: app.enums.modules.commanditaires,
-      entries: [
-        {
-          text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires_Consulter)",
-          iconClass: "fa-sitemap",
-          href: "@Url.Action("Commanditaires", "Club")",
-          requiredClaims: app.enums.claims.readAll
-        }
-      ]
+      text: "@Html.Raw(MenuStrings.ClubMenu_Evenements)",
+      buttonClass: "btn-danger",
+      iconClass: "fa-newspaper-o",
+      href: "@Url.Action("Evenements", "Club")",
+      module: app.enums.modules.evenements,
+      entries: null
     },
     {
       text: "@Html.Raw(MenuStrings.ClubMenu_Membres)",
       buttonClass: "btn-info",
       iconClass: "fa-users",
-      href: null,
+      href: "@Url.Action("Membres", "Club")",
       module: app.enums.modules.membres,
-      entries: [
-        {
-          text: "@Html.Raw(MenuStrings.ClubMenu_Membres_Consulter)",
-          iconClass: "fa-sitemap",
-          href: "@Url.Action("Membres", "Club")",
-          requiredClaims: app.enums.claims.readAll
-        }
-      ]
+      entries: null
+    },
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Commanditaires)",
+      buttonClass: "btn-success",
+      iconClass: "fa-folder-open-o",
+      href: "@Url.Action("Commanditaires", "Club")",
+      module: app.enums.modules.commanditaires,
+      entries: null
+    },
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Fournisseurs)",
+      buttonClass: "btn-warning",
+      iconClass: "fa-truck",
+      href: "@Url.Action("Membres", "Club")",
+      module: app.enums.modules.membres,
+      entries: null
+    },
+    {
+      text: "@Html.Raw(MenuStrings.ClubMenu_Meeting_Organiser)",
+      buttonClass: "btn-primary",
+      iconClass: "fa-paper-plane",
+      href: "@Url.Action("Meetings", "Club")",
+      entries: null
     }
   ];
 </script>

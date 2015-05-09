@@ -216,4 +216,10 @@
   <data name="RestException_Cause" xml:space="preserve">
     <value>Causé par</value>
   </data>
+  <data name="RestException_Prefix" xml:space="preserve">
+    <value>Erreur des services web</value>
+  </data>
+  <data name="RestException_Validation_Prefix" xml:space="preserve">
+    <value>Validation des services web</value>
+  </data>
 </root>

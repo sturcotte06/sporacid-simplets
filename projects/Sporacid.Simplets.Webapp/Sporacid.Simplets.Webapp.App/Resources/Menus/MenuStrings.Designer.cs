@@ -79,6 +79,33 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Menus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to News.
+        /// </summary>
+        public static string ClubMenu_Evenements {
+            get {
+                return ResourceManager.GetString("ClubMenu_Evenements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suppliers.
+        /// </summary>
+        public static string ClubMenu_Fournisseurs {
+            get {
+                return ResourceManager.GetString("ClubMenu_Fournisseurs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule a Meeting.
+        /// </summary>
+        public static string ClubMenu_Meeting_Organiser {
+            get {
+                return ResourceManager.GetString("ClubMenu_Meeting_Organiser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string ClubMenu_Membres {
@@ -129,6 +156,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Menus {
         public static string MainMenu_Preferences_Avance {
             get {
                 return ResourceManager.GetString("MainMenu_Preferences_Avance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locale.
+        /// </summary>
+        public static string MainMenu_Preferences_Langue {
+            get {
+                return ResourceManager.GetString("MainMenu_Preferences_Langue", resourceCulture);
             }
         }
         

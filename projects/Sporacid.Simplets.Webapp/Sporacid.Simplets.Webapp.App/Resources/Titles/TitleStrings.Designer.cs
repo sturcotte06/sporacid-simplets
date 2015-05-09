@@ -115,7 +115,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authenticate yourself *.
+        ///   Looks up a localized string similar to Log in *.
         /// </summary>
         public static string Login_MainTitle {
             get {

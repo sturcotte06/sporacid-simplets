@@ -187,7 +187,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Non-sepcified.
+        ///   Looks up a localized string similar to Non-specified.
         /// </summary>
         public static string Profil_DefaultValue {
             get {
@@ -345,6 +345,24 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         public static string RestException_Cause {
             get {
                 return ResourceManager.GetString("RestException_Cause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web Services Error.
+        /// </summary>
+        public static string RestException_Prefix {
+            get {
+                return ResourceManager.GetString("RestException_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web Services Validation Mismatch.
+        /// </summary>
+        public static string RestException_Validation_Prefix {
+            get {
+                return ResourceManager.GetString("RestException_Validation_Prefix", resourceCulture);
             }
         }
     }
