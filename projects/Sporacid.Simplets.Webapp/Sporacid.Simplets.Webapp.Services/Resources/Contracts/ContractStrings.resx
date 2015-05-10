@@ -372,6 +372,9 @@
   <data name="EnumerationService_GetAllTypeCommanditaires_EnsuresNonNullTypeCommanditaires" xml:space="preserve">
     <value />
   </data>
+  <data name="EnumerationService_GetAllTypeFournisseurs_EnsuresNonNullTypeFournisseurs" xml:space="preserve">
+    <value />
+  </data>
   <data name="EnumerationService_GetAllTypesContacts_EnsuresNonNullTypesContact" xml:space="preserve">
     <value />
   </data>

@@ -291,6 +291,9 @@
   <data name="FournisseurDto_Adresse_Required" xml:space="preserve">
     <value />
   </data>
+  <data name="FournisseurDto_Commentaire_StringLength" xml:space="preserve">
+    <value />
+  </data>
   <data name="FournisseurDto_Contact_Required" xml:space="preserve">
     <value />
   </data>

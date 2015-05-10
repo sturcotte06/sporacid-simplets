@@ -21,10 +21,15 @@
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "FournisseurDto_Nom_Required")]
-        [StringLength(250,
+        [StringLength(100,
             ErrorMessageResourceType = typeof (ValidationStrings),
             ErrorMessageResourceName = "FournisseurDto_Nom_StringLength")]
         public String Nom { get; set; }
+
+        [StringLength(250,
+            ErrorMessageResourceType = typeof(ValidationStrings),
+            ErrorMessageResourceName = "FournisseurDto_Commentaire_StringLength")]
+        public String Commentaire { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof (ValidationStrings),

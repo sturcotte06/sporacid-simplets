@@ -21,13 +21,18 @@
         private readonly ISecurityRepository<Int32, Context> contextRepository;
         private readonly ISecurityRepository<Int32, Principal> principalRepository;
         private readonly ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository;
+        private readonly ISecurityRepository<PrincipalModuleContextClaimsId, PrincipalModuleContextClaims> principalModuleContextClaimsRepository;
 
-        public ContextAdministrationController(ISecurityRepository<Int32, Principal> principalRepository, ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository,
-                                               ISecurityRepository<Int32, Context> contextRepository)
+        public ContextAdministrationController(
+            ISecurityRepository<Int32, Principal> principalRepository,
+            ISecurityRepository<Int32, RoleTemplate> roleTemplateRepository,
+            ISecurityRepository<Int32, Context> contextRepository,
+            ISecurityRepository<PrincipalModuleContextClaimsId, PrincipalModuleContextClaims> principalModuleContextClaimsRepository)
         {
             this.principalRepository = principalRepository;
             this.roleTemplateRepository = roleTemplateRepository;
             this.contextRepository = contextRepository;
+            this.principalModuleContextClaimsRepository = principalModuleContextClaimsRepository;
         }
 
         /// <summary>
@@ -181,8 +186,8 @@
             var principalEntity = this.principalRepository
                 .GetUnique(principal => principal.Identity == identity);
 
-            var principalContextClaims = principalEntity.PrincipalModuleContextClaims
-                .Where(pmcc => pmcc.Context.Name == context)
+            var principalContextClaims = this.principalModuleContextClaimsRepository
+                .GetAll(pmcc => pmcc.Context.Name == context && pmcc.Principal.Identity == identity)
                 .ToList();
 
             // Foreach claims of the role template.

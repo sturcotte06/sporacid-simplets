@@ -585,6 +585,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Validation {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string FournisseurDto_Commentaire_StringLength {
+            get {
+                return ResourceManager.GetString("FournisseurDto_Commentaire_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string FournisseurDto_Contact_Required {
             get {
                 return ResourceManager.GetString("FournisseurDto_Contact_Required", resourceCulture);

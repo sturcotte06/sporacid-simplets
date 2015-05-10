@@ -828,6 +828,15 @@ namespace Sporacid.Simplets.Webapp.Services.Resources.Contracts {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string EnumerationService_GetAllTypeFournisseurs_EnsuresNonNullTypeFournisseurs {
+            get {
+                return ResourceManager.GetString("EnumerationService_GetAllTypeFournisseurs_EnsuresNonNullTypeFournisseurs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string EnumerationService_GetAllTypesContacts_EnsuresNonNullTypesContact {
             get {
                 return ResourceManager.GetString("EnumerationService_GetAllTypesContacts_EnsuresNonNullTypesContact", resourceCulture);

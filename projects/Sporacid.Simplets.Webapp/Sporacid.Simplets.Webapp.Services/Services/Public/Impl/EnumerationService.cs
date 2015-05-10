@@ -22,6 +22,7 @@
         private readonly IEntityRepository<Int32, Unite> uniteRepository;
         private readonly IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository;
         private readonly IEntityRepository<Int32, TypeAntecedent> typeAntecedentRepository;
+        private readonly IEntityRepository<Int32, TypeFournisseur> typeFournisseurRepository;
 
         public EnumerationController(
             IEntityRepository<Int32, TypeContact> typeContactRepository,
@@ -29,7 +30,8 @@
             IEntityRepository<Int32, StatutSuivie> statutSuivieRepository,
             IEntityRepository<Int32, Unite> uniteRepository,
             IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository,
-            IEntityRepository<Int32, TypeAntecedent> typeAntecedentRepository)
+            IEntityRepository<Int32, TypeAntecedent> typeAntecedentRepository,
+            IEntityRepository<Int32, TypeFournisseur> typeFournisseurRepository)
         {
             this.typeContactRepository = typeContactRepository;
             this.concentrationRepository = concentrationRepository;
@@ -37,6 +39,7 @@
             this.uniteRepository = uniteRepository;
             this.typeCommanditaireRepository = typeCommanditaireRepository;
             this.typeAntecedentRepository = typeAntecedentRepository;
+            this.typeFournisseurRepository = typeFournisseurRepository;
         }
 
         /// <summary>
@@ -102,6 +105,19 @@
             return this.typeCommanditaireRepository
                 .GetAll()
                 .MapAllWithIds<TypeCommanditaire, TypeCommanditaireDto>();
+        }
+
+        /// <summary>
+        /// Returns all fournisseur types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all fournisseur types.</returns>
+        [HttpGet, Route("types-fournisseurs")]
+        [CacheOutput(ServerTimeSpan = (Int32) CacheDuration.Maximum, ClientTimeSpan = (Int32) CacheDuration.Maximum)]
+        public IEnumerable<WithId<Int32, TypeFournisseurDto>> GetAllTypeFournisseurs()
+        {
+            return this.typeFournisseurRepository
+                .GetAll()
+                .MapAllWithIds<TypeFournisseur, TypeFournisseurDto>();
         }
 
         /// <summary>

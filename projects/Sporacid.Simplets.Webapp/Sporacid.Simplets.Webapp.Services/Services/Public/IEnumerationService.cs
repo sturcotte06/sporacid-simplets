@@ -53,6 +53,13 @@
         IEnumerable<WithId<Int32, TypeCommanditaireDto>> GetAllTypeCommanditaires();
 
         /// <summary>
+        /// Returns all fournisseur types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all fournisseur types.</returns>
+        [RequiredClaims(Claims.None)]
+        IEnumerable<WithId<Int32, TypeFournisseurDto>> GetAllTypeFournisseurs();
+
+        /// <summary>
         /// Returns all antecedent types from the system.
         /// </summary>
         /// <returns>Enumeration of all antecedent types.</returns>
@@ -108,6 +115,15 @@
 
             // Dummy return.
             return default(IEnumerable<WithId<Int32, TypeCommanditaireDto>>);
+        }
+
+        public IEnumerable<WithId<Int32, TypeFournisseurDto>> GetAllTypeFournisseurs()
+        {
+            // Postconditions.
+            Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, TypeFournisseurDto>>>() != null, ContractStrings.EnumerationService_GetAllTypeFournisseurs_EnsuresNonNullTypeFournisseurs);
+
+            // Dummy return.
+            return default(IEnumerable<WithId<Int32, TypeFournisseurDto>>);
         }
 
         public IEnumerable<WithId<Int32, TypeAntecedentDto>> GetAllTypeAntecedents()
