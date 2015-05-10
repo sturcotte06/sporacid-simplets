@@ -227,6 +227,8 @@
     <Content Include="Content\js\core\simplets-jq-addons-0.9.js" />
     <Content Include="Content\js\core\simplets-ko-addons-0.9.js" />
     <Content Include="Content\js\core\simplets-modelviews-0.9.js" />
+    <Content Include="Content\js\lib\jquery.tmpl.js" />
+    <Content Include="Content\js\lib\jquery.tmpl.min.js" />
     <Content Include="Content\js\lib\knockout-mapping-2.4.1.js" />
     <Content Include="Content\js\lib\knockout-mapping-2.4.1.min.js" />
     <Content Include="Content\js\lib\log4javascript-1.4.11.js" />
@@ -440,6 +442,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\js\lib\underscore-min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Club\_Fournisseurs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Common\_Contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Common\_Adresse.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

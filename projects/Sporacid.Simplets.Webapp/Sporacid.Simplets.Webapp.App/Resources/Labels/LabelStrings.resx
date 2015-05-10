@@ -147,6 +147,15 @@
   <data name="Formations_Titre_Placeholder" xml:space="preserve">
     <value>Name the training</value>
   </data>
+  <data name="Fournisseurs_Commentaire" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Fournisseurs_Nom" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Fournisseurs_Type" xml:space="preserve">
+    <value />
+  </data>
   <data name="Login_CodeUniversel" xml:space="preserve">
     <value>Universal Code</value>
   </data>

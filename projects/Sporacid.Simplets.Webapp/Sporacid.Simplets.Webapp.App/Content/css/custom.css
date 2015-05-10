@@ -12,6 +12,14 @@ nav .parameter-option > span {
     margin-left: 10px;
 }
 
+nav .side-nav {
+    /*background-image: url(../img/menu-bg-trans.png);
+    -ms-background-size: 100% 100%;
+    background-size: auto 100%;
+    background-position: center center;
+    background-repeat: no-repeat;*/
+}
+
 .loading {
     background: rgb(34, 34, 34);
     background: rgba(34, 34, 34, 0.85);

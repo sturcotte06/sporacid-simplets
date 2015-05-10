@@ -135,6 +135,9 @@
   <data name="Formations_MainTitle" xml:space="preserve">
     <value>Vos formations</value>
   </data>
+  <data name="Fournisseurs_MainTitle" xml:space="preserve">
+    <value>Liste des fournisseurs</value>
+  </data>
   <data name="Login_MainTitle" xml:space="preserve">
     <value>Authentifiez vous  *</value>
   </data>

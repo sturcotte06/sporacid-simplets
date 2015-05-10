@@ -151,6 +151,33 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Fournisseurs_Commentaire {
+            get {
+                return ResourceManager.GetString("Fournisseurs_Commentaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Fournisseurs_Nom {
+            get {
+                return ResourceManager.GetString("Fournisseurs_Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Fournisseurs_Type {
+            get {
+                return ResourceManager.GetString("Fournisseurs_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Universal Code.
         /// </summary>
         public static string Login_CodeUniversel {

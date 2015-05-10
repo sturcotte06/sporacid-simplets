@@ -1,0 +1,20 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
+@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<h1>@Html.Raw(TitleStrings.Fournisseurs_MainTitle)</h1>
+
+<!-- Add button. -->
+<button data-bind="click: $root.add" type="submit" class="btn btn-success">
+  <i class="fa fa-2x fa-plus white vcenter"></i>
+  <span class="vcenter">@Html.Raw(ButtonStrings.Add)</span>
+</button>
+
+<ul id="fournisseurs" data-bind="foreach: fournisseurs">
+  <li>
+    <div class="form-group">
+      <label></label>
+      <p></p>
+    </div>
+  </li>
+</ul>
+

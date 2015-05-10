@@ -22,8 +22,8 @@ function ProfilBaseModelView($self, $error) {
     });
 
     // Resize the avatar elements so their height matches their width.
-    self.resizeAvatar = function() {
-        $avatars.each(function() {
+    self.resizeAvatar = function () {
+        $avatars.each(function () {
             var $avatar = $(this);
             $avatar.height($avatar.width());
         });

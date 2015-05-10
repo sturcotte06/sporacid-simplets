@@ -115,6 +115,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Suppliers List.
+        /// </summary>
+        public static string Fournisseurs_MainTitle {
+            get {
+                return ResourceManager.GetString("Fournisseurs_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in *.
         /// </summary>
         public static string Login_MainTitle {

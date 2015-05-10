@@ -20,6 +20,11 @@
             throw new NotImplementedException();
         }
 
+        public ActionResult Fournisseurs()
+        {
+            return this.PartialView("Club/_Fournisseurs");
+        }
+
         public ActionResult Meetings()
         {
             throw new NotImplementedException();

@@ -11,7 +11,7 @@
   <div id="profil-base-rest-exception">
     @Html.Partial("Exception/_RestException")
   </div>
-  <div id="profil-base" style="padding: 20px;" data-bind="with: profil">
+  <div id="profil-base" style="padding: 20px;" data-bind="template: { data: profil, afterRender: resizeAvatar }">
     <!-- Base profil view mode. -->
     <div id="view-profil-base" class="row" data-bind="visible: $root.viewmode() == app.enums.viewmodes.view">
       <div class="col-md-4">
