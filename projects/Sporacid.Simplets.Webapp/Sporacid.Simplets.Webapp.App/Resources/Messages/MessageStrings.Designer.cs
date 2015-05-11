@@ -61,11 +61,29 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No club is selected. Select a club to load this menu..
+        /// </summary>
+        public static string ClubMenu_NoSelectedClub {
+            get {
+                return ResourceManager.GetString("ClubMenu_NoSelectedClub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to * You must an ÉTS student to authenticate..
         /// </summary>
         public static string Login_IsStudentNotice {
             get {
                 return ResourceManager.GetString("Login_IsStudentNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not subscribed to any club..
+        /// </summary>
+        public static string MainMenu_NoSubscribedClub {
+            get {
+                return ResourceManager.GetString("MainMenu_NoSubscribedClub", resourceCulture);
             }
         }
         

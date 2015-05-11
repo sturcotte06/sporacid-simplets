@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClubMenu_NoSelectedClub" xml:space="preserve">
+    <value>Aucun club n'est selectionnné. Veuillez sélectionner un club afin de charger ce menu.</value>
+  </data>
   <data name="Login_IsStudentNotice" xml:space="preserve">
     <value>* Vous devez être un étudiant de l'ÉTS pour vous authentifier.</value>
+  </data>
+  <data name="MainMenu_NoSubscribedClub" xml:space="preserve">
+    <value>Vous n'êtes pas inscrit dans un club.</value>
   </data>
   <data name="ProfilAvance_PublicDisclaimer" xml:space="preserve">
     <value>* Si coché, les utilisateurs de plateforme SimplETS pourront visionner votre profil avancé.</value>

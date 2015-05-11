@@ -20,6 +20,10 @@ nav .side-nav {
     background-repeat: no-repeat;*/
 }
 
+nav .main-menu-md-container .navbar-brand { width: 210px; }
+
+nav .side-nav { border-top: 10px solid #77b300; }
+
 .loading {
     background: rgb(34, 34, 34);
     background: rgba(34, 34, 34, 0.85);
@@ -36,9 +40,7 @@ nav .side-nav {
     position: absolute;
 }
 
-.rest-exception-container {
-    margin: 10px;
-}
+.rest-exception-container { margin: 10px; }
 
 .rest-exception-container > .validation-exception {
     list-style-type: lower-roman;
@@ -83,10 +85,6 @@ nav .side-nav {
 
 .navbar-right .dropdown-toggle { padding: 6px 12px; }
 
-.navbar-brand { padding: 14px; }
-
-.side-nav .dropdown-menu { background-color: #080808 !important; }
-
 .navbar-toggle { padding: 0; }
 
 .nav-bar-static-item {
@@ -99,6 +97,59 @@ nav .side-nav {
 .navbar-header .icon-container { margin-right: 0 !important; }
 
 .navbar-toggle { border: none !important; }
+
+#main-menu .subscribed-club-logo/*,
+#selected-club .subscribed-club-logo*/ {
+    display: inline-block;
+    -ms-background-size: 100% auto;
+    background-size: 100% auto;
+    background-position: center center;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#main-menu .subscribed-club-text/*,
+#selected-club .subscribed-club-text*/ { padding-left: 15px; }
+
+/*#selected-club > a {
+    display: block;
+    padding: 6px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+#selected-club > a:hover {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #2a9fd6
+}*/
+
+#profil-base .profil-avatar {
+    -ms-background-size: 100% auto;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+button span { margin-left: 5px; }
+
+/*button.btn {
+    -moz-min-width: 54px;
+    -ms-min-width: 54px;
+    -o-min-width: 54px;
+    -webkit-min-width: 54px;
+    min-width: 54px;
+    text-align: center;
+}*/
+
+.panel { font-size: 16px; }
+
+.panel .panel-title {
+    font-size: 18px;
+    font-weight: bold;
+}
 
 .main-menu-xs-container .fa-2x { font-size: 1.40em; }
 
@@ -116,41 +167,12 @@ nav .side-nav {
     min-width: 100%;
 }
 
-#subscribed-clubs .subscribed-club-logo {
-    display: inline-block;
-    -ms-background-size: 100% auto;
-    background-size: 100% auto;
-    background-position: center center;
-    height: 40px;
+.subscribed-club-logo {
     width: 40px;
+    height: 40px;
 }
 
-#subscribed-clubs .subscribed-club-text { padding-left: 15px; }
-
-#subscribed-clubs > li > a > * { vertical-align: middle; }
-
-#formations table > tbody > tr > td { vertical-align: middle; }
-
-#profil-base .profil-avatar {
-    -ms-background-size: 100% auto;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-}
-
-button span { margin-left: 5px; }
-
-button.btn {
-    -moz-min-width: 54px;
-    -ms-min-width: 54px;
-    -o-min-width: 54px;
-    -webkit-min-width: 54px;
-    min-width: 54px;
-    text-align: center;
-}
-
-.panel { font-size: 16px; }
-
-.panel .panel-title {
-    font-size: 18px;
-    font-weight: bold;
+.main-menu-xs-container .dropdown-toggle > .subscribed-club-logo {
+    width: 32px;
+    height: 30px;
 }

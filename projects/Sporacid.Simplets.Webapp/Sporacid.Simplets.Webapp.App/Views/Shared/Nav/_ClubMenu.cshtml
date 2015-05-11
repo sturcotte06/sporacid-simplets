@@ -1,9 +1,11 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
 
 <div id="club-menu" class="collapse navbar-collapse navbar-ex1-collapse">
   <!-- Process each menu entries. -->
-  <ul id="active" class="nav navbar-nav side-nav" data-bind="foreach: entries">
-    <li data-bind="css: { 'dropdown': entries }">
+  <ul id="active" class="nav navbar-nav side-nav">
+    <!-- ko foreach: entries -->
+    <li data-bind="css: { 'dropdown': entries }, visible: $parent.isClubSelected">
       <a class="dropdown-toggle" data-toggle="dropdown"
          data-bind="href: href ? sprintf('javascript: app.utility.ajax.loadContent(\'%s\')', href) : '#', css: { 'dropdown-toggle': entries }, attr: { 'data-toggle': entries ? 'dropdown' : '' }">
         <span data-bind="attr: { 'class': 'icon-container fa fa-2x btn-default vcenter' + (buttonClass ? ' ' + buttonClass : '') }">
@@ -20,6 +22,11 @@
           </a>
         </li>
       </ul>*@
+    </li>
+    <li class="divider"></li>
+    <!-- /ko -->
+    <li data-bind="visible: !isClubSelected()" style="padding: 50px 20px;">
+      @Html.Raw(MessageStrings.ClubMenu_NoSelectedClub)
     </li>
   </ul>
 </div>

@@ -1,4 +1,5 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
+@using Sporacid.Simplets.Webapp.App.Resources.Labels
 @using Sporacid.Simplets.Webapp.App.Resources.Titles
 
 <h1>@Html.Raw(TitleStrings.Fournisseurs_MainTitle)</h1>
@@ -9,12 +10,31 @@
   <span class="vcenter">@Html.Raw(ButtonStrings.Add)</span>
 </button>
 
+  <!-- Rest exception container. -->
+<div id="fournisseurs-rest-exception">
+  @Html.Partial("Exception/_RestException")
+</div>
+
 <ul id="fournisseurs" data-bind="foreach: fournisseurs">
-  <li>
+  <li class="form-inline">
     <div class="form-group">
-      <label></label>
-      <p></p>
+      <label>@Html.Raw(LabelStrings.Fournisseurs_Nom)</label>
+      <span data-bind="text: nom"></span>
+    </div>
+    <div class="form-group">
+      <label>@Html.Raw(LabelStrings.Fournisseurs_Type)</label>
+      <span data-bind="text: typeFournisseur.toString()"></span>
+    </div>
+    <div class="form-group">
+      <label>@Html.Raw(LabelStrings.Fournisseurs_Commentaire)</label>
+      <span data-bind="text: commentaire"></span>
     </div>
   </li>
 </ul>
 
+<script type="text/javascript">
+  app.events.ready(function($) {
+    var $fournisseurs = $("#fournisseurs");
+    ko.applyBindings(new FournisseursModelView($fournisseurs, $("#fournisseurs-rest-exception")), $fournisseurs[0]);
+  });
+</script>

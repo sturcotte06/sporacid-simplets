@@ -43,6 +43,10 @@ var api = {
         // Get all operation for types antecedents enumeration.
         typesAntecedents: function() {
             return app.utility.rest.call(app.utility.url.build(api.url, "enumeration/types-antecedents"), app.enums.operations.get);
+        },
+        // Get all operation for types fournisseurs enumeration.
+        typesFournisseurs: function () {
+            return app.utility.rest.call(app.utility.url.build(api.url, "enumeration/types-fournisseurs"), app.enums.operations.get);
         }
     },
     // Module for all operations on the userspace of a user.

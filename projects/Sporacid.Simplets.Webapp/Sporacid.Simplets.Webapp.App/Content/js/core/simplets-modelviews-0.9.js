@@ -688,6 +688,53 @@ function CommanditaireListModelView($self, validationModelView) {
 
 };
 
+// Model view for the fournisseur object list.
+function FournisseursModelView($self, $error) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all properties.
+    self.errorModelView = new RestExceptionModelView($error);
+    ko.applyBindings(self.errorModelView, $error[0]);
+
+    // Define all observable properties.
+    self.fournisseurs = ko.observableArray();
+    self.typesFournisseurs = app.data.enums.typesFournisseurs.observable;
+
+    // Updates the type fournisseur object from the new type fournisseur id.
+    self.refreshTypeFournisseur = function (fournisseur) {
+        fournisseur.typeFournisseur = fournisseur.typeFournisseurId
+            ? app.data.enums.typesFournisseurs.store[fournisseur.typeFournisseurId]
+            : null;
+    };
+
+    // Manages an error that occured while managing a fournisseur entity.
+    self.error = function (exception) {
+        // Load the exception in the error model view.
+        self.errorModelView.load(exception);
+
+        // Reactivate the view.
+        $self.active();
+    };
+
+    // Loads the fournisseur list from the rest services.
+    self.load = function () {
+        $self.waiting();
+        api.clubs.fournisseurs.getAll(/*app.user.current.context.current.name*/"preci2015").done(function (fournisseurs) {
+            // Add a viewmode to each fournisseur to keep track of view state.
+            $.each(fournisseurs, function (i, fournisseur) {
+                fournisseur.viewmode = ko.observable(app.enums.viewmodes.view);
+                self.refreshTypeFournisseur(fournisseur);
+            });
+
+            self.fournisseurs(fournisseurs);
+            $self.active();
+        }).fail(function (exception) {
+            self.error(exception);
+        }).invoke();
+    }();
+};
+
 // Model view for the main menu (top menu).
 function MainMenuModelView($self, $xsContainer, $mdContainer, preferences) {
     // Define closure safe properties.
@@ -731,13 +778,14 @@ function SubscribedClubsModelView($self) {
 
     // Define all onservable properties.
     self.clubs = ko.observableArray();
+    self.selected = ko.observable();
 
     // Selects a club context to be the current context.
-    self.select = function(club) {
-        app.user.current.context.current = club;
-
+    self.select = function (club) {
         // Load the user's claims on the club.
         api.security.contexts.getClaims(club.nom).done(function (contextClaims) {
+            self.selected(club);
+            app.user.current.context.current = club;
             app.user.current.context.claims = contextClaims;
             $self.trigger("context-changed");
         }).invoke();
@@ -749,11 +797,22 @@ function SubscribedClubsModelView($self) {
             $.each(clubs, function(i, club) {
                 club.logo = club.logo ? app.utility.image.buildDataUri(club.logo) : null;
             });
-
             self.clubs(clubs);
-            self.select(clubs[0]);
+            $self.trigger("loaded");
         }).invoke();
     }();
+};
+
+function SelectedClubModelView($self) {
+    // Define closure safe properties.
+    var self = this;
+
+    // Define all onservable properties.
+    self.selectedClub = ko.observable();
+
+    app.events.contextChanged(function($) {
+        self.selectedClub(app.user.current.context.current);
+    });
 };
 
 // Model view for the on/off parameters of the user.
@@ -855,11 +914,17 @@ function ClubMenuModelView($self, entries) {
     // Define all observable properties.
     self.entries = ko.observableArray(entries);
     self.isXs = ko.observable($("body > .visible-xs:visible").exists());
+    self.isClubSelected = ko.observable(app.user.current.context.current ? true : false);
 
     // Refreshes the menu entries to match the current club.
     self.refresh = function() {
         // self.entries(cleanEntries(originalEntries));
     }();
+
+    // Refresh the isClubSelected flag whenever the app's context is changed.
+    app.events.contextChanged(function($) {
+        self.isClubSelected(app.user.current.context.current ? true : false);
+    });
 
     // Refresh the is xs flag whenever the window is resized.
     $(window).on("resize", function() {

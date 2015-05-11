@@ -1,4 +1,5 @@
 ﻿@using Sporacid.Simplets.Webapp.App.Resources.Menus
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
 
 <div class="navbar-header">
   <button type="button" class="navbar-toggle nav-bar-expander" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -8,7 +9,7 @@
     <span class="icon-bar"></span>
   </button>
 
-  <div class="navbar-header pull-left navbar-toggle nav-bar-static-item">
+  <div class="pull-left navbar-toggle nav-bar-static-item">
     <a class="navbar-brand pull-left" href="/">SimplETS</a>
   </div>
 
@@ -25,25 +26,37 @@
 <ul id="main-menu" class="nav" data-bind="css: { 'pull-left': isXs(), 'navbar-nav': !isXs(), 'navbar-right': !isXs() }">
   <!-- Context option to choose a club. -->
   <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <!-- ko with: subscribedClubsModelView -->
+    <!-- Default context change view when no club is selected. -->
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bind="visible: !selected()">
       <span class="icon-container fa fa-2x btn-info vcenter">
         <span class="fa fa-share white"></span>
       </span>
       <span class="vcenter hidden-xs">@Html.Raw(MenuStrings.MainMenu_Contexte)</span>
-      <b class="caret hidden-xs"></b>
+      <b class="caret vcenter hidden-xs"></b>
     </a>
-    <!-- ko with: subscribedClubsModelView -->
-    <ul id="subscribed-clubs" class="dropdown-menu pull-right" data-bind="foreach: clubs">
+    <!-- Context change view when a club is selected. -->
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bind="visible: selected(), with: selected">
+      <div class="subscribed-club-logo vcenter" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
+      <span class="subscribed-club-text vcenter hidden-xs" data-bind="text: nom"></span>
+      <b class="caret vcenter hidden-xs"></b>
+    </a>
+    <ul id="subscribed-clubs" class="dropdown-menu pull-right">
+      <!-- ko foreach: clubs -->
       <li data-bind="click: $parent.select">
         <a href="#">
-          <div class="subscribed-club-logo" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
-          <span data-bind="text: nom" class="subscribed-club-text"></span>
+          <div class="subscribed-club-logo vcenter" data-bind="attr: { style: sprintf('background-image: url(\'%s\');', logo ? logo : '/app/content/img/club-logo-placeholder.png') }"></div>
+          <span class="subscribed-club-text vcenter" data-bind="text: nom"></span>
         </a>
       </li>
       <li class="divider" data-bind="visible: $index() !== $parent.clubs().length - 1"></li>
-    </ul>
+      <!-- /ko -->
+      <li data-bind="visible: clubs().length === 0" style="width: 200px; padding: 20px;">
+        @Html.Raw(MessageStrings.MainMenu_NoSubscribedClub)
+      </li>
+    </ul> 
     <!-- /ko -->
-  </li>
+  </li> 
   <!-- Preferences option. -->
   <li class="dropdown" data-bind="css: { 'pull-left': isXs() }">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -95,7 +108,9 @@
 <script type="text/javascript">
   app.events.ready(function ($) {
     var $mainMenu = $("#main-menu");
+    //var $selectedClub = $("#selected-club");
     ko.applyBindings(new MainMenuModelView($mainMenu, $(".main-menu-xs-container"), $(".main-menu-md-container"), preferences), $mainMenu[0]);
+    //ko.applyBindings(new SelectedClubModelView($selectedClub), $selectedClub[0]);
     $("nav .parameter-option").on("click", function () { return false; });
   });
   

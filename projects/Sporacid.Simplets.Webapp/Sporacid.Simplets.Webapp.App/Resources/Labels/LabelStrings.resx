@@ -148,13 +148,13 @@
     <value>Name the training</value>
   </data>
   <data name="Fournisseurs_Commentaire" xml:space="preserve">
-    <value />
+    <value>Comment</value>
   </data>
   <data name="Fournisseurs_Nom" xml:space="preserve">
-    <value />
+    <value>Name</value>
   </data>
   <data name="Fournisseurs_Type" xml:space="preserve">
-    <value />
+    <value>Type</value>
   </data>
   <data name="Login_CodeUniversel" xml:space="preserve">
     <value>Universal Code</value>

@@ -24,6 +24,12 @@ var app = {
                 loggers.core.warn("app.ready() callback func cannot be null.");
                 return;
             }
+
+            jQuery(function ($) {
+                $("#subscribed-clubs").on("context-changed", function() {
+                    func($);
+                });
+            });
         }
     },
     // Namespace of all utility functions of the application.
@@ -397,6 +403,21 @@ var app = {
 
                         app.data.enums.typesAntecedents.observable(typesAntecedents);
                         app.data.enums.typesAntecedents.store = app.collection.store(typesAntecedents);
+                    }).invoke();
+                }
+            },
+            typesFournisseurs: {
+                observable: ko.observableArray(),
+                store: null,
+                // Loads the types antecedents enumeration as both an observable array and a data store.
+                load: function () {
+                    api.enumerations.typesFournisseurs().done(function (typesFournisseurs) {
+                        $.each(typesFournisseurs, function (i, typeFournisseur) {
+                            typeFournisseur.toString = function () { return typeFournisseur.nom; };
+                        });
+
+                        app.data.enums.typesFournisseurs.observable(typesFournisseurs);
+                        app.data.enums.typesFournisseurs.store = app.collection.store(typesFournisseurs);
                     }).invoke();
                 }
             },

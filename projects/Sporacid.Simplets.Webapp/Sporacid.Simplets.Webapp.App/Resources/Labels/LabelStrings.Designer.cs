@@ -151,7 +151,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Fournisseurs_Commentaire {
             get {
@@ -160,7 +160,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Fournisseurs_Nom {
             get {
@@ -169,7 +169,7 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string Fournisseurs_Type {
             get {

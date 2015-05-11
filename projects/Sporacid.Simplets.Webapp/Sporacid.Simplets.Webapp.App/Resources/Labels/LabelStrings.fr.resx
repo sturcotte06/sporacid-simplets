@@ -150,6 +150,15 @@
   <data name="Formations_Titre_Placeholder" xml:space="preserve">
     <value>Donnez un nom à la formation</value>
   </data>
+  <data name="Fournisseurs_Commentaire" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="Fournisseurs_Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Fournisseurs_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="Login_CodeUniversel" xml:space="preserve">
     <value>Code universel</value>
   </data>
