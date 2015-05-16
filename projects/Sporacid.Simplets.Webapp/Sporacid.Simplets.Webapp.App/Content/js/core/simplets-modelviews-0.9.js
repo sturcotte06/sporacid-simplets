@@ -660,34 +660,6 @@ function MembresModelView($self) {
     }();
 };
 
-// Model view for the commanditaire object.
-function CommanditaireListModelView($self, validationModelView) {
-    // Define closure safe properties.
-    var self = this;
-
-    self.commanditairesList = ko.observableArray();
-
-    // Loads the profil entity from the rest services.
-    self.load = function() {
-        // Deactivate the view.
-        $panel.waiting();
-
-        // Load the profilList entity.
-        // ***GAGF url à déterminer, doit fournir le nom du club (dropdown)
-        restCall(buildUrl(apiUrl, "nomDuClub", "commanditaire"), operations.get(), buildTokenAuthHeader()).done(function(commanditairesList) {
-            self.commanditairesList(commanditairesList);
-
-            // Reactivate the view.
-            $panel.active();
-            $self.trigger("loaded");
-        }).invoke();
-    };
-
-    // Load the entity.
-    self.load();
-
-};
-
 // Model view for the fournisseur object list.
 function FournisseursModelView($self, $error) {
     // Define closure safe properties.
@@ -964,3 +936,153 @@ function EntitiesDescriptionModelView($self) {
         }).invoke();
     }();
 };
+
+// Model view for the commanditaire object.
+function CommanditairesModelView($self, $error) {
+    // Define closure safe properties.
+    var self = this;
+
+    self.commanditaires = ko.observableArray();
+    self.currentCommanditaire = ko.observable();
+
+    // Define all jquery selectors.
+    var $panel = $self.parents(".panel").first();
+
+    // Begin edition of a commanditaire.
+    self.beginEdit = function (commanditaire) {
+
+        // Blur the content.
+        $("#wrapper").addClass("blurred");
+
+        // Show the commanditaire modal.
+        $self.modal({ backdrop: "static", keyboard: false });
+        $self.modal("show");
+        $modal = $self.find(".modal-dialog");
+        $self.focus();
+
+    };
+
+    // Deletion of a commanditaire.
+    self.delete = function (commanditaire) {
+
+        // GAGF TODO delete confirmation
+
+        // Deactivate the view.
+        $panel.waiting();
+
+        // ***GAGF url à déterminer, doit fournir le nom du club (va provenir d'un dropdown)
+        api.clubs.commanditaires.delete(app.user.current.context.current.nom, commanditaire.id).done(function () {
+
+            self.commanditaires.remove(commanditaire);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+
+    };
+
+    // Begin adding a commanditaire.
+    self.beginAdd = function () {
+
+    };
+
+    // sur retour de la modal pour refresh de la liste
+    // Refreshes the observable array of antecedents.
+    //self.refresh = function () {
+    //    var antecedents = self.antecedents().slice(0);
+    //    self.antecedents([]);
+    //    self.antecedents(antecedents);
+    //};
+
+    // Loads the profil entity from the rest services.
+    self.load = function () {
+        // Deactivate the view.
+        $panel.waiting();
+
+        // Load the commanditairesList entity.
+        // ***GAGF url à déterminer, doit fournir le nom du club (va provenir d'un dropdown)
+        api.clubs.commanditaires.getAll(app.user.current.context.current.nom).done(function (commanditaires) {
+            self.commanditaires(commanditaires);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+    }();
+}
+
+// Model view for the commanditaire object.
+function CommanditaireModelView($self, validationModelView) {
+    // Define closure safe properties.
+    var self = this;
+
+    // operation type on modal exit
+    var operationType;
+
+    // GAGF TODO set dynamicaly viewmode
+    // Define all onservable properties.
+    self.viewmode = ko.observable(viewmodes.edition());
+    self.commanditaire = ko.observable();
+    self.typesCommanditaires = storeData.typesCommanditaires;
+    self.typeCommanditaire = ko.observable();
+
+    // GAGF TODO probablement pas besoin du load
+    // Loads the profil entity from the rest services.
+    self.load = function () {
+        // Deactivate the view.
+        $panel.waiting();
+
+        // Load the commanditaire entity.
+        // ***GAGF url à déterminer, doit fournir le nom du club (dropdown)
+        restCall(buildUrl(apiUrl, "Patate", "commanditaire", commanditaireId), operations.get(), buildTokenAuthHeader()).done(function (commanditaire) {
+            self.commanditaire(commanditaire);
+
+            if (commanditaire.TypeCommanditaireId) {
+                self.typeCommanditaire(stores.typesCommanditaires[commanditaire.TypeCommanditaireId]);
+            }
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+    };
+
+    self.save = function () {
+
+        if (self.viewmode == viewmodes.edition())
+            operation = operations.update();
+        else
+            operation = operations.create();
+
+        // ***GAGF url à déterminer, doit fournir le nom du club (va provenir d'un dropdown)
+        restCall(buildUrl(apiUrl, "Patate", "commanditaire", commanditaire), operation, buildTokenAuthHeader()).done(function () {
+
+            self.closeModal("commanditaire-saved");
+
+        }).invoke();
+
+    };
+
+    self.cancel = function () {
+        self.closeModal("commanditaire-closed");
+    };
+
+    self.closeModal = function (exitEvent) {
+        // Reactivate the view.
+        if ($modal) $modal.active();
+
+        // Hide the login modal.
+        $self.modal("hide");
+
+        // Remove the content's blur.
+        $("#page-wrapper").show();
+        $("#wrapper").removeClass("blurred");
+
+        // Trigger a new event to wake up model views waiting on this event.
+        $self.trigger(exitEvent);
+    };
+
+    // Load the entity.
+    self.load();
+}

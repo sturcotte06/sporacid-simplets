@@ -1,0 +1,29 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+@{
+  ViewBag.Title = @Html.Raw(TitleStrings.Commanditaire_MainTitle);
+}
+
+<h1>@Html.Raw(TitleStrings.Commanditaire_MainTitle)</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      @Html.Partial("Club/_Commanditaires")
+    </div>
+  </div>
+
+<script type="text/javascript">
+    app.events.ready(function ($) {
+
+        // Cache important jquery selectors.
+        var $commanditaires = $("#commanditaires");
+
+        //$("#commanditaires").on("loaded", function () {
+        //    $(".page-wrapper").active();
+        //    $(".page-wrapper").show();
+        //});
+
+        // Apply all bindings.
+        ko.applyBindings(new CommanditairesModelView($commanditaires), $commanditaires[0]);
+    });
+</script>

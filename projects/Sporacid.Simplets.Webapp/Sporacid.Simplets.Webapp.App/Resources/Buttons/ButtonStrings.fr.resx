@@ -126,6 +126,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Éditer</value>
   </data>

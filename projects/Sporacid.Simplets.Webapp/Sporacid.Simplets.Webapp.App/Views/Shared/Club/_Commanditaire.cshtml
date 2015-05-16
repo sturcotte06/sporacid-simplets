@@ -1,0 +1,54 @@
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
+@using Sporacid.Simplets.Webapp.App.Resources.Labels
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
+@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<div id="commanditaire" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Html.Raw(TitleStrings.Commanditaire_MainTitle)</h4>
+            </div>
+            <div class="modal-body">
+                <p class="login-error"></p>
+                <form role="form">
+                    <div class="form-group">
+                        <label>@Html.Raw(LabelStrings.Commanditaire_Nom)</label>
+                        <input data-bind="value: nom" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>@Html.Raw(LabelStrings.Commanditaire_Contact)</label>
+                        <input data-bind="value: contact" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>@Html.Raw(LabelStrings.Commanditaire_Adresse)</label>
+                        <input data-bind="value: adresse" class="form-control"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Partial("Common/_Adresse")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>@Html.Raw(LabelStrings.Commanditaire_TypeCommanditaire)</label>
+                        <select data-bind="
+                            options: $root.typesCommanditaires,
+                            optionsValue: 'id',
+                            optionsText: 'nom',
+                            value: typeCommanditaireId" class="form-control">
+                        </select>
+                        <input data-bind="value: typeCommanditaire" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>@Html.Raw(LabelStrings.Commanditaire_Commentaire)</label>
+                        <input data-bind="value: commentaire" class="form-control"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-bind="click: save" type="submit" class="btn btn-primary"><i class="metro-icon metro-save-trans"></i>@Html.Raw(ButtonStrings.Save)</button>
+                <button data-bind="click: cancel" type="submit" class="btn btn-primary"><i class="metro-icon metro-cancel-trans"></i>@Html.Raw(ButtonStrings.Cancel)</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Adresse_MainTitle" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
   <data name="Antecedents_MainTitle" xml:space="preserve">
     <value>Vos antécédents médicaux</value>
   </data>
@@ -125,6 +128,12 @@
   </data>
   <data name="Application_MainTitle" xml:space="preserve">
     <value>Application</value>
+  </data>
+  <data name="Commanditaires_MainTitle" xml:space="preserve">
+    <value>Commanditaires</value>
+  </data>
+  <data name="Commanditaire_MainTitle" xml:space="preserve">
+    <value>Commanditaire</value>
   </data>
   <data name="EntitiesDescription_MainTitle" xml:space="preserve">
     <value>Description des entitiés de Simplets</value>

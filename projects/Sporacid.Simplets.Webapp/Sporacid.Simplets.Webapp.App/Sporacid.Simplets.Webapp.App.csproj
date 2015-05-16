@@ -452,6 +452,13 @@
   <ItemGroup>
     <Content Include="Views\Shared\Common\_Adresse.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Club\_Commanditaire.cshtml" />
+    <Content Include="Views\Shared\Club\_Commanditaires.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Club\_CommanditairesComplets.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -470,7 +477,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2960</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/app</IISUrl>
+          <IISUrl>http://localhost:60000/app</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

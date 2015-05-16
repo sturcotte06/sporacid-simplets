@@ -135,6 +135,15 @@
   <data name="Antecedents_Type_Placeholder" xml:space="preserve">
     <value>Choisissez le type d'antécédent</value>
   </data>
+  <data name="Commanditaire_Commentaire" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="Commanditaire_DefaultValue" xml:space="preserve">
+    <value>Non-spécifié</value>
+  </data>
+  <data name="Commanditaire_Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
   <data name="Formations_Description" xml:space="preserve">
     <value>Description</value>
   </data>

@@ -12,7 +12,7 @@
 
         public ActionResult Commanditaires()
         {
-            throw new NotImplementedException();
+            return this.PartialView("Club/_CommanditairesComplets");
         }
 
         public ActionResult Evenements()

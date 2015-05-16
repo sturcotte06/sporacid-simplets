@@ -132,6 +132,15 @@
   <data name="Antecedents_Type_Placeholder" xml:space="preserve">
     <value>Choose the medical condition type</value>
   </data>
+  <data name="Commanditaire_Commentaire" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Commanditaire_DefaultValue" xml:space="preserve">
+    <value>Non-specified</value>
+  </data>
+  <data name="Commanditaire_Nom" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="Formations_Description" xml:space="preserve">
     <value>Description</value>
   </data>
