@@ -944,27 +944,27 @@ function CommanditairesModelView($self) {
     
     self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.commanditaires = ko.observableArray();
-    self.currentCommanditaire =
-        ko.observable({
-            nom: "test",
-            contact: "contact",
-            typeCommanditaireId: 1,
-            adresse: {
-                NoCivique: 350,
-                Rue: "des patates",
-                Appartement: "10abc",
-                Ville: "Stoke beach",
-                CodePostal: "H0H 0H0"
-            },
-            contact: {
-                TypeContactId: 1,
-                Nom: "Dlascrap",
-                Prenom: "Yvan",
-                Telephone: "123-456-7890",
-                Courriel: "bebelle@de.cul"
-            },
-            commentaire:"commentaire"
-        });
+    self.currentCommanditaire = ko.observable();
+        //ko.observable({
+        //    nom: "test",
+        //    contact: "contact",
+        //    typeCommanditaireId: 1,
+        //    adresse: {
+        //        NoCivique: 350,
+        //        Rue: "des patates",
+        //        Appartement: "10abc",
+        //        Ville: "Stoke beach",
+        //        CodePostal: "H0H 0H0"
+        //    },
+        //    contact: {
+        //        TypeContactId: 1,
+        //        Nom: "Dlascrap",
+        //        Prenom: "Yvan",
+        //        Telephone: "123-456-7890",
+        //        Courriel: "bebelle@de.cul"
+        //    },
+        //    commentaire:"commentaire"
+        //});
 
 
     self.typesCommanditaires = app.data.enums.typesCommanditaires.observable;
@@ -1055,6 +1055,12 @@ function CommanditairesModelView($self) {
             $panel.active();
             $self.trigger("loaded");
         }).invoke();
+
+        api.utility.empty("commanditaire").done(function (emptyCommanditaire) {
+            alert(JSON.stringify(emptyCommanditaire));
+            self.currentCommanditaire(emptyCommanditaire);
+        }).invoke();
+
     }();
 }
 

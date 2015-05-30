@@ -2,7 +2,7 @@
 // None of the method below does anything until the invoke method is called on the returned request.
 var api = {
     // Base url for the rest api.
-    url: "http://localhost/services/api/v1/",
+    url: "http://localhost:60000/services/api/v1/",
     // Module for all utility operations of the api.
     utility: {
         // No-op operation to test credentials and rights.
@@ -16,6 +16,9 @@ var api = {
         // Get all operation to get the api's entities description.
         entitiesDescription: function() {
             return app.utility.rest.call(app.utility.url.build(api.url, "describe-entities"), app.enums.operations.get);
+        },
+        empty: function (entityName, auth) {
+            return app.utility.rest.call(app.utility.url.build(api.url, sprintf("empty-%s", entityName)), app.enums.operations.get, auth ? auth : app.utility.auth.token.header());
         }
     },
     // Module for all get operations on enumeration entities.
