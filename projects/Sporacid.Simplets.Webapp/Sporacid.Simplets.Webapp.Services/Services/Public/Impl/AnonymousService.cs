@@ -6,6 +6,7 @@
   using System.Linq;
   using Sporacid.Simplets.Webapp.Core.Exceptions.Repositories;
   using WebApi.OutputCache.V2;
+  using Sporacid.Simplets.Webapp.Tools.Collections;
 
     /// <authors>Simon Turcotte-Langevin, Patrick Lavallée, Jean Bernier-Vibert</authors>
     /// <version>1.9.0</version>
@@ -45,7 +46,23 @@
             throw new EntityNotFoundException<Object>();
           }
 
-          return Activator.CreateInstance(dtoEntityType);
+          return EmptyInternal(dtoEntityType);
+        }
+
+        private dynamic EmptyInternal(Type dtoType)
+        {
+          var dtoInstance = Activator.CreateInstance(dtoType);
+
+          dtoType.GetProperties().ForEach(p => {
+            if (p.PropertyType.Name.EndsWith("Dto"))
+            {
+              var subDtoInstance = EmptyInternal(p.PropertyType);
+              p.SetValue(dtoInstance, subDtoInstance, null);
+            }
+
+          });
+
+          return dtoInstance;
         }
     }
 }
