@@ -2,7 +2,7 @@
 // None of the method below does anything until the invoke method is called on the returned request.
 var api = {
     // Base url for the rest api.
-    url: "http://localhost:60000/services/api/v1/",
+    url: "http://localhost/services/api/v1/",
     // Module for all utility operations of the api.
     utility: {
         // No-op operation to test credentials and rights.
