@@ -5,25 +5,32 @@
 }
 
 <h1>@Html.Raw(TitleStrings.Commanditaire_MainTitle)</h1>
-
+<div id="patatetest">
   <div class="row">
     <div class="col-md-12">
       @Html.Partial("Club/_Commanditaires")
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12">
+      @Html.Partial("Club/_Commanditaire")
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
-    app.events.ready(function ($) {
+  app.events.ready(function ($) {
 
-        // Cache important jquery selectors.
-        var $commanditaires = $("#commanditaires");
+    // Cache important jquery selectors.
+    //var $commanditaires = $("#commanditaires");
+    var $commanditaires = $("#patatetest");
 
-        //$("#commanditaires").on("loaded", function () {
-        //    $(".page-wrapper").active();
-        //    $(".page-wrapper").show();
-        //});
+    //$("#commanditaires").on("loaded", function () {
+    //    $(".page-wrapper").active();
+    //    $(".page-wrapper").show();
+    //});
 
-        // Apply all bindings.
-        ko.applyBindings(new CommanditairesModelView($commanditaires), $commanditaires[0]);
-    });
+    // Apply all bindings.
+    ko.applyBindings(new CommanditairesModelView($commanditaires), $commanditaires[0]);
+  });
 </script>

@@ -1,6 +1,39 @@
-﻿<div class="adresse">
-  <div class="form-group">
-    <label></label>
-    <p></p>
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
+@using Sporacid.Simplets.Webapp.App.Resources.Labels
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
+@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">@Html.Raw(TitleStrings.Adresse_MainTitle)</h3>
+  </div>
+  <div id="adresse" style="padding: 20px;" data-bind="with: adresse">
+    <!-- Base profil edition mode. -->
+    <div id="edit-profil-base" class="row">
+      <div class="col-md-8">
+        <form role="form">
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Adresse_NoCivique)</label>
+            <input data-bind="value: NoCivique" class="form-control" placeholder="Votre prenom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Adresse_Rue)</label>
+            <input data-bind="value: Rue" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Adresse_Appartement)</label>
+            <input data-bind="value: Appartement" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Adresse_Ville)</label>
+            <input data-bind="value: Ville" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Adresse_CodePostal)</label>
+            <input data-bind="value: CodePostal" class="form-control" placeholder="Votre nom" />
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

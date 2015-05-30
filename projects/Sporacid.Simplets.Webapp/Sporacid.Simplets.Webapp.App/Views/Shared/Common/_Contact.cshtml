@@ -1,1 +1,39 @@
-﻿
+﻿@using Sporacid.Simplets.Webapp.App.Resources.Buttons
+@using Sporacid.Simplets.Webapp.App.Resources.Labels
+@using Sporacid.Simplets.Webapp.App.Resources.Messages
+@using Sporacid.Simplets.Webapp.App.Resources.Titles
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">@Html.Raw(TitleStrings.Contact_MainTitle)</h3>
+  </div>
+  <div id="adresse" style="padding: 20px;" data-bind="with: contact">
+    <!-- Base profil edition mode. -->
+    <div id="edit-profil-base" class="row">
+      <div class="col-md-8">
+        <form role="form">
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Contact_Type)</label>
+            <input data-bind="value: Prenom" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Contact_Prenom)</label>
+            <input data-bind="value: Prenom" class="form-control" placeholder="Votre prenom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Contact_Nom)</label>
+            <input data-bind="value: Nom" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Contact_Telephone)</label>
+            <input data-bind="value: Telephone" class="form-control" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label>@Html.Raw(LabelStrings.Contact_Courriel)</label>
+            <input data-bind="value: Courriel" class="form-control" placeholder="Votre nom" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

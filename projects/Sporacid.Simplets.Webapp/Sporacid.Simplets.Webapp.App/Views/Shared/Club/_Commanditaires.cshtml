@@ -3,39 +3,45 @@
 @using Sporacid.Simplets.Webapp.App.Resources.Messages
 @using Sporacid.Simplets.Webapp.App.Resources.Titles
 
+<!-- Add button. -->
+<button data-bind="click: $root.add" type="submit" class="btn btn-success">
+  <i class="fa fa-2x fa-plus white vcenter"></i>
+  <span class="vcenter">@Html.Raw(ButtonStrings.Add)</span>
+</button>
+
 <div class="panel panel-primary">        
   <div class="panel-heading">
       <h3 class="panel-title">@Html.Raw(TitleStrings.Commanditaires_MainTitle)</h3>
   </div>
-    <table class="table" id="commanditaires">
-        <thead>
-        <tr>
-            <th>@Html.Raw(LabelStrings.Commanditaire_Nom)</th>
-            <th>@Html.Raw(LabelStrings.Commanditaire_Commentaire)</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-            <!-- ko foreach: commanditaires -->
-            <tr>
-                <td data-bind="text: nom"></td>
-                <td data-bind="text: commentaire"></td>
-                <td>
-                    <!-- Edit button. -->
-                    <button data-bind="click: $root.beginEdit" type="submit" class="btn btn-warning">
-                        <i class="fa fa-2x fa-eye white vcenter"></i><span class="vcenter">Visualiser</span>
-                    </button>
-                </td>
-            </tr>
-            <!-- /ko -->
-            <tr>
-                <td>
-                    <!-- Add button. -->
-                    <button data-bind="click: $root.add" type="submit" class="btn btn-success">
-                    <i class="fa fa-2x fa-plus white"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table" id="commanditaires">
+    <thead>
+    <tr>
+      <th>@Html.Raw(LabelStrings.Commanditaire_Nom)</th>
+      <th>@Html.Raw(LabelStrings.Commanditaire_Commentaire)</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <!-- ko foreach: commanditaires -->
+      <tr>
+        <td data-bind="text: nom"></td>
+        <td data-bind="text: commentaire"></td>
+        <td>
+          <!-- Edit button. -->
+          <button data-bind="click: $root.beginEdit" type="submit" class="btn btn-warning">
+              <i class="fa fa-2x fa-eye white vcenter"></i><span class="vcenter">Visualiser</span>
+          </button>
+        </td>
+      </tr>
+      <!-- /ko -->
+      <!--
+      <tr>
+        <td>
+          <button data-bind="click: $root.add" type="submit" class="btn btn-success">
+          <i class="fa fa-2x fa-plus white"></i>
+          </button>
+        </td>
+      </tr>-->
+    </tbody>
+  </table>
 </div>
