@@ -165,4 +165,7 @@
   <data name="Profil_MainTitle" xml:space="preserve">
     <value>Your Profile</value>
   </data>
+  <data name="Contact_MainTitle" xml:space="preserve">
+    <value>Contact</value>
+  </data>
 </root>

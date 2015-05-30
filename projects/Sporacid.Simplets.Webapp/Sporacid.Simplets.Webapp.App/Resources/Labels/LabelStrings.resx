@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Adresse_Appartement" xml:space="preserve">
+    <value>Appartment</value>
+  </data>
+  <data name="Adresse_CodePostal" xml:space="preserve">
+    <value>Zip code</value>
+  </data>
+  <data name="Adresse_NoCivique" xml:space="preserve">
+    <value>Street number</value>
+  </data>
+  <data name="Adresse_Rue" xml:space="preserve">
+    <value>Street name</value>
+  </data>
+  <data name="Adresse_Ville" xml:space="preserve">
+    <value>City</value>
+  </data>
   <data name="Antecedents_Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -132,14 +147,38 @@
   <data name="Antecedents_Type_Placeholder" xml:space="preserve">
     <value>Choose the medical condition type</value>
   </data>
+  <data name="Commanditaire_Adresse" xml:space="preserve">
+    <value>Address</value>
+  </data>
   <data name="Commanditaire_Commentaire" xml:space="preserve">
     <value>Comment</value>
+  </data>
+  <data name="Commanditaire_Contact" xml:space="preserve">
+    <value>Contact</value>
   </data>
   <data name="Commanditaire_DefaultValue" xml:space="preserve">
     <value>Non-specified</value>
   </data>
   <data name="Commanditaire_Nom" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Commanditaire_TypeCommanditaire" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Contact_Courriel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Contact_Nom" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Contact_Prenom" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Contact_Telephone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Contact_Type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="Formations_Description" xml:space="preserve">
     <value>Description</value>
@@ -236,5 +275,8 @@
   </data>
   <data name="RestException_Validation_Prefix" xml:space="preserve">
     <value>Web Services Validation Mismatch</value>
+  </data>
+  <data name="Téléphone" xml:space="preserve">
+    <value>Phone</value>
   </data>
 </root>

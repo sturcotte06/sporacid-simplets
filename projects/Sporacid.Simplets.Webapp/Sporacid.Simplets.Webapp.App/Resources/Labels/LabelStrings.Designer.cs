@@ -61,6 +61,51 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appartment.
+        /// </summary>
+        public static string Adresse_Appartement {
+            get {
+                return ResourceManager.GetString("Adresse_Appartement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip code.
+        /// </summary>
+        public static string Adresse_CodePostal {
+            get {
+                return ResourceManager.GetString("Adresse_CodePostal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street number.
+        /// </summary>
+        public static string Adresse_NoCivique {
+            get {
+                return ResourceManager.GetString("Adresse_NoCivique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street name.
+        /// </summary>
+        public static string Adresse_Rue {
+            get {
+                return ResourceManager.GetString("Adresse_Rue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string Adresse_Ville {
+            get {
+                return ResourceManager.GetString("Adresse_Ville", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Antecedents_Description {
@@ -106,11 +151,29 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Commanditaire_Adresse {
+            get {
+                return ResourceManager.GetString("Commanditaire_Adresse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Commanditaire_Commentaire {
             get {
                 return ResourceManager.GetString("Commanditaire_Commentaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string Commanditaire_Contact {
+            get {
+                return ResourceManager.GetString("Commanditaire_Contact", resourceCulture);
             }
         }
         
@@ -129,6 +192,60 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         public static string Commanditaire_Nom {
             get {
                 return ResourceManager.GetString("Commanditaire_Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Commanditaire_TypeCommanditaire {
+            get {
+                return ResourceManager.GetString("Commanditaire_TypeCommanditaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Contact_Courriel {
+            get {
+                return ResourceManager.GetString("Contact_Courriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string Contact_Nom {
+            get {
+                return ResourceManager.GetString("Contact_Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string Contact_Prenom {
+            get {
+                return ResourceManager.GetString("Contact_Prenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Contact_Telephone {
+            get {
+                return ResourceManager.GetString("Contact_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Contact_Type {
+            get {
+                return ResourceManager.GetString("Contact_Type", resourceCulture);
             }
         }
         
@@ -417,6 +534,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         public static string RestException_Validation_Prefix {
             get {
                 return ResourceManager.GetString("RestException_Validation_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Téléphone {
+            get {
+                return ResourceManager.GetString("Téléphone", resourceCulture);
             }
         }
     }

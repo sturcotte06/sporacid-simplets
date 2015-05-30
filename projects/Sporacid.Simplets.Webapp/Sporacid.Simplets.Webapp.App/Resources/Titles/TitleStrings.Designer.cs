@@ -115,6 +115,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string Contact_MainTitle {
+            get {
+                return ResourceManager.GetString("Contact_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Simplets Entities Description.
         /// </summary>
         public static string EntitiesDescription_MainTitle {

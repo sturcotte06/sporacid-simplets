@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Adresse_Appartement" xml:space="preserve">
+    <value>Appartement</value>
+  </data>
+  <data name="Adresse_CodePostal" xml:space="preserve">
+    <value>Zip code</value>
+  </data>
+  <data name="Adresse_NoCivique" xml:space="preserve">
+    <value>No civique</value>
+  </data>
+  <data name="Adresse_Rue" xml:space="preserve">
+    <value>Rue</value>
+  </data>
+  <data name="Adresse_Ville" xml:space="preserve">
+    <value>Ville</value>
+  </data>
   <data name="Antecedents_Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -135,14 +150,38 @@
   <data name="Antecedents_Type_Placeholder" xml:space="preserve">
     <value>Choisissez le type d'antécédent</value>
   </data>
+  <data name="Commanditaire_Adresse" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
   <data name="Commanditaire_Commentaire" xml:space="preserve">
     <value>Commentaire</value>
+  </data>
+  <data name="Commanditaire_Contact" xml:space="preserve">
+    <value>Contact</value>
   </data>
   <data name="Commanditaire_DefaultValue" xml:space="preserve">
     <value>Non-spécifié</value>
   </data>
   <data name="Commanditaire_Nom" xml:space="preserve">
     <value>Nom</value>
+  </data>
+  <data name="Commanditaire_TypeCommanditaire" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Contact_Courriel" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="Contact_Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Contact_Prenom" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="Contact_Telephone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="Contact_Type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="Formations_Description" xml:space="preserve">
     <value>Description</value>
@@ -239,5 +278,8 @@
   </data>
   <data name="RestException_Validation_Prefix" xml:space="preserve">
     <value>Validation des services web</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
 </root>
