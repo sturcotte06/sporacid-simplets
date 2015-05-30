@@ -21,7 +21,7 @@
         /// Gets all club entities to which the current user is subscribed, from the system.
         /// </summary>
         /// <returns>All club entities subscribed to.</returns>
-        [RequiredClaims(Claims.ReadAll | Claims.Read)]
+        [RequiredClaims(Claims.None)]
         IEnumerable<WithId<Int32, ClubDto>> GetClubsSubscribedTo();
     }
 
