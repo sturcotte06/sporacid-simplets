@@ -938,27 +938,56 @@ function EntitiesDescriptionModelView($self) {
 };
 
 // Model view for the commanditaire object.
-function CommanditairesModelView($self, $error) {
+function CommanditairesModelView($self) {
     // Define closure safe properties.
     var self = this;
-
+    
+    self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.commanditaires = ko.observableArray();
-    self.currentCommanditaire = ko.observable();
+    self.currentCommanditaire =
+        ko.observable({
+            nom: "test",
+            contact: "contact",
+            typeCommanditaireId: 1,
+            adresse: {
+                NoCivique: 350,
+                Rue: "des patates",
+                Appartement: "10abc",
+                Ville: "Stoke beach",
+                CodePostal: "H0H 0H0"
+            },
+            contact: {
+                TypeContactId: 1,
+                Nom: "Dlascrap",
+                Prenom: "Yvan",
+                Telephone: "123-456-7890",
+                Courriel: "bebelle@de.cul"
+            },
+            commentaire:"commentaire"
+        });
 
+
+    self.typesCommanditaires = app.data.enums.typesCommanditaires.observable;
+    self.typeCommanditaire = ko.observable();
+    self.typesContacts = app.data.enums.typesContacts.observable;
+    self.typeContact = ko.observable();
+    
     // Define all jquery selectors.
     var $panel = $self.parents(".panel").first();
 
     // Begin edition of a commanditaire.
     self.beginEdit = function (commanditaire) {
 
-        // Blur the content.
-        $("#wrapper").addClass("blurred");
+        self.currentCommanditaire(commanditaire);
 
-        // Show the commanditaire modal.
-        $self.modal({ backdrop: "static", keyboard: false });
-        $self.modal("show");
-        $modal = $self.find(".modal-dialog");
-        $self.focus();
+        // Blur the content.
+        //$("#wrapper").addClass("blurred");
+
+        //// Show the commanditaire modal.
+        //$self.modal({ backdrop: "static", keyboard: false });
+        //$self.modal("show");
+        //$modal = $self.find(".modal-dialog");
+        //$self.focus();
 
     };
 
@@ -1003,6 +1032,23 @@ function CommanditairesModelView($self, $error) {
         // Load the commanditairesList entity.
         // ***GAGF url à déterminer, doit fournir le nom du club (va provenir d'un dropdown)
         api.clubs.commanditaires.getAll(app.user.current.context.current.nom).done(function (commanditaires) {
+            /*$.each(commanditaires, function (i, commanditaire) {
+                commanditaire.contact.toString = function ()
+                {
+                    return sprintf("%s %s (%s)",
+                        commanditaire.contact.Prenom,
+                        commanditaire.contact.Nom,
+                        commanditaire.contact.Telephone);
+                };
+
+                commanditaire.adresse.toString = function () {
+                    return sprintf("%s %s (%s)",
+                        commanditaire.contact.Prenom,
+                        commanditaire.contact.Nom,
+                        commanditaire.contact.Telephone);
+                };
+            });*/
+
             self.commanditaires(commanditaires);
 
             // Reactivate the view.
