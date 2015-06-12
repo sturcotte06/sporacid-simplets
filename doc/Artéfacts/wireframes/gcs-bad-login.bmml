@@ -1,0 +1,56 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1586" measuredH="792" mockupW="1186" mockupH="752">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="400" y="40" w="1186" h="752" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Authentification%0Asimplets.etsmtl.ca</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="843" y="150" w="300" h="175" measuredW="165" measuredH="115" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <filter>true</filter>
+        <src>../../src/gcs.website/web-content/images/logo.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="843" y="422" w="300" h="182" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextInput" x="1011" y="437" w="118" h="-1" measuredW="71" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>AJ47700</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Paragraph" x="750" y="619" w="487" h="137" measuredW="200" measuredH="80" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mot%20de%20passe%20oubli%E9%20%3F%0A%20%0AVous%20pouvez%20r%E9initialiser%20votre%20mot%20de%20passe%20sur%20%5Bcette%20page%5D%2C%20si%20vous%20avez%20d%E9fini%20une%20question%20secrete%20dans%20votre%20profil.%20Ou%20sinon%2C%20contactez%20%20le%20Bureau%20du%20registraire%3A%0A%20%0A%20%09-%20En%20personne%2C%20local%20A-1130%0A%09-%20Par%20courriel%3A%20registraire@etsmtl.ca%0A%09-%20Par%20t%E9l%E9phone%3A%20514-396-8888</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::TextInput" x="1011" y="479" w="118" h="-1" measuredW="79" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>XXXXXXXX</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="933" y="528" w="134" h="27" measuredW="99" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>gcs-good-login%26bm%3Bgcs-good-login.bmml%26bm%3Bgcs-good-login.bmml%26bm%3Bgcs-good-login.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22533%2C488%2C667%2C515%22%20href%3D%22gcs-good-login.bmml%22%20alt%3D%22gcs-good-login%22%20id%3D%227%22/%3E</map>
+        <text>S%27authentifier</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="889" y="440" w="107" h="21" measuredW="97" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>right</align>
+        <text>Code%20Universel%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="889" y="482" w="107" h="21" measuredW="88" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>right</align>
+        <text>Mot%20de%20passe%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Paragraph" x="710" y="335" w="566" h="77" measuredW="200" measuredH="80" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Veuillez%20vous%20identifier%0A%20%0A%09-%20Code%20d%27acc%E8s%20universel%20%28ex%3A%20AA12345%20seulement%2C%20sans%20le%20@ens.etsmtl.ca%29%0A%09-%20Mot%20de%20passe%3A%20tel%20que%20d%E9fini%20sur%20votre%20lettre%20d%27admission%20ou%20celui%20quue%20vous%20vous%20%EAtes%20choisi</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
