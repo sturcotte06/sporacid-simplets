@@ -1,5 +1,4 @@
-#Bienvenue au wiki de SimplETS
-##Présentation du projet
+#Présentation du projet
 # LOG/GTI792 - Été 2015
 
 ## Mise en situation
@@ -55,4 +54,4 @@ Désigner 1 personne dans l'équipe pour m'envoyer sur Gitter, avant 8:30am chaq
 - Ce qui ralenti ou bloque l'équipe?
 - Ce qu'on prévoi faire au cours de la prochaine semaine?
 
-##[Notre wiki](https://github.com/sturcotte06/sporacid-simplets/wiki)
+#[Notre wiki](https://github.com/sturcotte06/sporacid-simplets/wiki)
