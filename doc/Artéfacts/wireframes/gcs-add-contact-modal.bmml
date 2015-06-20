@@ -1,0 +1,10 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="900" measuredH="409" mockupW="320" mockupH="240">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::ModalScreen" x="580" y="169" w="-1" h="-1" measuredW="320" measuredH="240" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="614" y="202" w="-1" h="-1" measuredW="67" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
