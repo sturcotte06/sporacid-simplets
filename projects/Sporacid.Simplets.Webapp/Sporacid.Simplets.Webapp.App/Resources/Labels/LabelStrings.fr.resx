@@ -121,7 +121,7 @@
     <value>Appartement</value>
   </data>
   <data name="Adresse_CodePostal" xml:space="preserve">
-    <value>Zip code</value>
+    <value>Code postal</value>
   </data>
   <data name="Adresse_NoCivique" xml:space="preserve">
     <value>No civique</value>
@@ -167,6 +167,18 @@
   </data>
   <data name="Commanditaire_TypeCommanditaire" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="Commandites_Commentaire" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="Commandites_Recu" xml:space="preserve">
+    <value>Reçu</value>
+  </data>
+  <data name="Commandites_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Commandites_Valeur" xml:space="preserve">
+    <value>Montant</value>
   </data>
   <data name="Contact_Courriel" xml:space="preserve">
     <value>Courriel</value>
@@ -278,8 +290,5 @@
   </data>
   <data name="RestException_Validation_Prefix" xml:space="preserve">
     <value>Validation des services web</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
 </root>

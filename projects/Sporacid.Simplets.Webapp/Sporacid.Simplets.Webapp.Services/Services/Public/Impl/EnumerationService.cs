@@ -21,6 +21,7 @@
         private readonly IEntityRepository<Int32, TypeContact> typeContactRepository;
         private readonly IEntityRepository<Int32, Unite> uniteRepository;
         private readonly IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository;
+        private readonly IEntityRepository<Int32, TypeCommandite> typeCommanditeRepository;
         private readonly IEntityRepository<Int32, TypeAntecedent> typeAntecedentRepository;
         private readonly IEntityRepository<Int32, TypeFournisseur> typeFournisseurRepository;
 
@@ -30,6 +31,7 @@
             IEntityRepository<Int32, StatutSuivie> statutSuivieRepository,
             IEntityRepository<Int32, Unite> uniteRepository,
             IEntityRepository<Int32, TypeCommanditaire> typeCommanditaireRepository,
+            IEntityRepository<Int32, TypeCommandite> typeCommanditeRepository,
             IEntityRepository<Int32, TypeAntecedent> typeAntecedentRepository,
             IEntityRepository<Int32, TypeFournisseur> typeFournisseurRepository)
         {
@@ -38,6 +40,7 @@
             this.statutSuivieRepository = statutSuivieRepository;
             this.uniteRepository = uniteRepository;
             this.typeCommanditaireRepository = typeCommanditaireRepository;
+            this.typeCommanditeRepository = typeCommanditeRepository;
             this.typeAntecedentRepository = typeAntecedentRepository;
             this.typeFournisseurRepository = typeFournisseurRepository;
         }
@@ -131,6 +134,19 @@
             return this.typeAntecedentRepository
                 .GetAll()
                 .MapAllWithIds<TypeAntecedent, TypeAntecedentDto>();
+        }
+
+        /// <summary>
+        /// Returns all commandite types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all commandite types.</returns>
+        [HttpGet, Route("types-commandites")]
+        [CacheOutput(ServerTimeSpan = (Int32)CacheDuration.Maximum, ClientTimeSpan = (Int32)CacheDuration.Maximum)]
+        public IEnumerable<WithId<int, TypeCommanditeDto>> GetAllTypeCommandites()
+        {
+          return this.typeCommanditeRepository
+              .GetAll()
+              .MapAllWithIds<TypeCommandite, TypeCommanditeDto>();
         }
     }
 }

@@ -53,6 +53,13 @@
         IEnumerable<WithId<Int32, TypeCommanditaireDto>> GetAllTypeCommanditaires();
 
         /// <summary>
+        /// Returns all commandite types from the system.
+        /// </summary>
+        /// <returns>Enumeration of all commandite types.</returns>
+        [RequiredClaims(Claims.None)]
+        IEnumerable<WithId<Int32, TypeCommanditeDto>> GetAllTypeCommandites();
+
+        /// <summary>
         /// Returns all fournisseur types from the system.
         /// </summary>
         /// <returns>Enumeration of all fournisseur types.</returns>
@@ -133,6 +140,16 @@
 
             // Dummy return.
             return default(IEnumerable<WithId<Int32, TypeAntecedentDto>>);
+        }
+
+
+        public IEnumerable<WithId<int, TypeCommanditeDto>> GetAllTypeCommandites()
+        {
+          // Postconditions.
+          Contract.Ensures(Contract.Result<IEnumerable<WithId<Int32, TypeCommanditeDto>>>() != null, ContractStrings.EnumerationService_GetAllTypeCommandites_EnsuresNonNullTypeCommandites);
+
+          // Dummy return.
+          return default(IEnumerable<WithId<Int32, TypeCommanditeDto>>);
         }
     }
 }

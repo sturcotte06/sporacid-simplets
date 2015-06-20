@@ -391,6 +391,21 @@ var app = {
                     }).invoke();
                 }
             },
+            typesCommandites: {
+                observable: ko.observableArray(),
+                store: null,
+                // Loads the types commanditaires enumeration as both an observable array and a data store.
+                load: function () {
+                    api.enumerations.typesCommandites().done(function (typesCommandites) {
+                        $.each(typesCommandites, function (i, typeCommandite) {
+                            typeCommandite.toString = function () { return typeCommandite.nom; };
+                        });
+
+                        app.data.enums.typesCommandites.observable(typesCommandites);
+                        app.data.enums.typesCommandites.store = app.collection.store(typesCommandites);
+                    }).invoke();
+                }
+            },
             typesAntecedents: {
                 observable: ko.observableArray(),
                 store: null,

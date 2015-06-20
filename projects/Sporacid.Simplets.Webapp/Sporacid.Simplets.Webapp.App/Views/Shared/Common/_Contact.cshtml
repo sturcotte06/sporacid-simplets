@@ -14,23 +14,28 @@
         <form role="form">
           <div class="form-group">
             <label>@Html.Raw(LabelStrings.Contact_Type)</label>
-            <input data-bind="value: Prenom" class="form-control" placeholder="Votre nom" />
+            <select data-bind="options: $root.typesContacts,
+                               optionsValue: 'id',
+                               optionsText: 'nom',
+                               value: typeContactId" class="form-control">
+
+            </select>
           </div>
           <div class="form-group">
             <label>@Html.Raw(LabelStrings.Contact_Prenom)</label>
-            <input data-bind="value: Prenom" class="form-control" placeholder="Votre prenom" />
+            <input data-bind="value: prenom" class="form-control" placeholder="Votre prenom" />
           </div>
           <div class="form-group">
             <label>@Html.Raw(LabelStrings.Contact_Nom)</label>
-            <input data-bind="value: Nom" class="form-control" placeholder="Votre nom" />
+            <input data-bind="value: nom" class="form-control" placeholder="Votre nom" />
           </div>
           <div class="form-group">
             <label>@Html.Raw(LabelStrings.Contact_Telephone)</label>
-            <input data-bind="value: Telephone" class="form-control" placeholder="Votre nom" />
+            <input data-bind="value: telephone" class="form-control" placeholder="Votre nom" />
           </div>
           <div class="form-group">
             <label>@Html.Raw(LabelStrings.Contact_Courriel)</label>
-            <input data-bind="value: Courriel" class="form-control" placeholder="Votre nom" />
+            <input data-bind="value: courriel" class="form-control" placeholder="Votre nom" />
           </div>
         </form>
       </div>

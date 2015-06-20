@@ -941,6 +941,7 @@ function EntitiesDescriptionModelView($self) {
 function CommanditairesModelView($self) {
     // Define closure safe properties.
     var self = this;
+    var emptyCommanditaire;
     
     self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.commanditaires = ko.observableArray();
@@ -974,21 +975,30 @@ function CommanditairesModelView($self) {
     
     // Define all jquery selectors.
     var $panel = $self.parents(".panel").first();
+    var $modal = $self.find(".modal");
+
+    // Begin adding a commanditaire.
+    self.beginAdd = function () {
+        
+        if (emptyCommanditaire)
+            self.currentCommanditaire(emptyCommanditaire);
+        else {
+            api.utility.empty("commanditaire").done(function (emptyCommanditaire) {
+                this.emptyCommanditaire = emptyCommanditaire;
+                self.currentCommanditaire(emptyCommanditaire);
+            }).invoke();
+        }
+
+        self.viewmode(app.enums.viewmodes.creation);
+        self.showModal();
+    };
 
     // Begin edition of a commanditaire.
     self.beginEdit = function (commanditaire) {
 
         self.currentCommanditaire(commanditaire);
-
-        // Blur the content.
-        //$("#wrapper").addClass("blurred");
-
-        //// Show the commanditaire modal.
-        //$self.modal({ backdrop: "static", keyboard: false });
-        //$self.modal("show");
-        //$modal = $self.find(".modal-dialog");
-        //$self.focus();
-
+        self.viewmode(app.enums.viewmodes.edition);
+        self.showModal();
     };
 
     // Deletion of a commanditaire.
@@ -1011,9 +1021,48 @@ function CommanditairesModelView($self) {
 
     };
 
-    // Begin adding a commanditaire.
-    self.beginAdd = function () {
+    self.save = function () {
 
+        if (self.viewmode() == app.enums.viewmodes.creation) {
+
+            api.clubs.commanditaires.create(app.user.current.context.current.nom, self.currentCommanditaire).done(function (id) {
+                self.currentCommanditaire.id = id;
+                self.viewmode(app.enums.viewmodes.view);
+
+            }).fail(function(exception) {
+                self.error(exception);
+            }).invoke();
+        }
+        else if (self.viewmode() == app.enums.viewmodes.edition) {
+
+            api.clubs.commanditaires.update(app.user.current.context.current.nom, self.currentCommanditaire.id, self.currentCommanditaire).done(function () {
+                self.viewmode(app.enums.viewmodes.view);
+
+            }).fail(function (exception) {
+                self.error(exception);
+            }).invoke();
+        }
+
+        //self.closeModal;
+
+    };
+
+    self.cancel = function () {
+        self.closeModal();
+    };
+
+    self.showModal = function () {
+
+        $modal.modal({ backdrop: "static", keyboard: false });
+        $modal.modal("show");
+        $modal.focus();
+    }
+
+    self.closeModal = function () {
+        //// Reactivate the view.
+        if ($modal) $modal.active();
+
+        $modal.modal("hide");
     };
 
     // sur retour de la modal pour refresh de la liste
@@ -1030,7 +1079,6 @@ function CommanditairesModelView($self) {
         $panel.waiting();
 
         // Load the commanditairesList entity.
-        // ***GAGF url à déterminer, doit fournir le nom du club (va provenir d'un dropdown)
         api.clubs.commanditaires.getAll(app.user.current.context.current.nom).done(function (commanditaires) {
             /*$.each(commanditaires, function (i, commanditaire) {
                 commanditaire.contact.toString = function ()
@@ -1056,85 +1104,229 @@ function CommanditairesModelView($self) {
             $self.trigger("loaded");
         }).invoke();
 
-        api.utility.empty("commanditaire").done(function (emptyCommanditaire) {
-            alert(JSON.stringify(emptyCommanditaire));
-            self.currentCommanditaire(emptyCommanditaire);
-        }).invoke();
+        //api.utility.empty("commanditaire").done(function (emptyCommanditaire) {
+        //    alert(JSON.stringify(emptyCommanditaire));
+        //    self.currentCommanditaire(emptyCommanditaire);
+        //}).invoke();
 
     }();
 }
 
-// Model view for the commanditaire object.
-function CommanditaireModelView($self, validationModelView) {
+// Model view for the commandite object.
+function CommanditesModelView($self) {
     // Define closure safe properties.
     var self = this;
 
-    // operation type on modal exit
-    var operationType;
+    self.viewmode = ko.observable(app.enums.viewmodes.view);
+    self.commandites = ko.observableArray();
 
-    // GAGF TODO set dynamicaly viewmode
-    // Define all onservable properties.
-    self.viewmode = ko.observable(viewmodes.edition());
-    self.commanditaire = ko.observable();
-    self.typesCommanditaires = storeData.typesCommanditaires;
-    self.typeCommanditaire = ko.observable();
+    // GAGF à ajouter dans le service
+    self.typesCommandites = app.data.enums.typesCommandites.observable;
+    self.typeCommandite = ko.observable();
 
-    // GAGF TODO probablement pas besoin du load
-    // Loads the profil entity from the rest services.
-    self.load = function () {
+    // Define all jquery selectors.
+    var $panel = $self.parents(".panel").first();
+
+    // Begin adding a commandite.
+    self.beginAdd = function () {
+
+        api.utility.empty("commandite").done(function (emptyCommandite) {
+            // nécessaire ou non ?
+        }).invoke();        
+
+        self.viewmode(app.enums.viewmodes.creation);
+    };
+
+    // Begin edition of a commandite.
+    self.beginEdit = function (commandite) {
+
+        commandite.viewmode(app.enums.viewmodes.edition);
+    };
+
+    // Deletion of a commandite.
+    self.delete = function (commandite) {
+
         // Deactivate the view.
         $panel.waiting();
 
-        // Load the commanditaire entity.
-        // ***GAGF url à déterminer, doit fournir le nom du club (dropdown)
-        restCall(buildUrl(apiUrl, "Patate", "commanditaire", commanditaireId), operations.get(), buildTokenAuthHeader()).done(function (commanditaire) {
-            self.commanditaire(commanditaire);
+        api.clubs.commandites.delete(app.user.current.context.current.nom, commandite.id).done(function () {
 
-            if (commanditaire.TypeCommanditaireId) {
-                self.typeCommanditaire(stores.typesCommanditaires[commanditaire.TypeCommanditaireId]);
-            }
+            self.commandites.remove(commandite);
 
             // Reactivate the view.
             $panel.active();
             $self.trigger("loaded");
         }).invoke();
+
     };
 
-    self.save = function () {
+    self.save = function (commandite) {
 
-        if (self.viewmode == viewmodes.edition())
-            operation = operations.update();
-        else
-            operation = operations.create();
+        if (self.viewmode() == app.enums.viewmodes.creation) {
 
-        // ***GAGF url à déterminer, doit fournir le nom du club (va provenir d'un dropdown)
-        restCall(buildUrl(apiUrl, "Patate", "commanditaire", commanditaire), operation, buildTokenAuthHeader()).done(function () {
+            api.clubs.commandites.create(app.user.current.context.current.nom, commandite).done(function (id) {
+                self.commandite.id = id;
+                self.viewmode(app.enums.viewmodes.view);
 
-            self.closeModal("commanditaire-saved");
+            }).fail(function (exception) {
+                self.error(exception);
+            }).invoke();
+        }
+        else if (self.viewmode() == app.enums.viewmodes.edition) {
 
-        }).invoke();
+            api.clubs.commandites.update(app.user.current.context.current.nom, commandite.id, commandite).done(function () {
+                self.viewmode(app.enums.viewmodes.view);
+
+            }).fail(function (exception) {
+                self.error(exception);
+            }).invoke();
+        }
+
+        //self.closeModal;
 
     };
 
     self.cancel = function () {
-        self.closeModal("commanditaire-closed");
+        self.closeModal();
     };
 
-    self.closeModal = function (exitEvent) {
-        // Reactivate the view.
-        if ($modal) $modal.active();
+    // Loads the profil entity from the rest services.
+    self.load = function () {
+        // Deactivate the view.
+        $panel.waiting();
 
-        // Hide the login modal.
-        $self.modal("hide");
+        // Load the commanditesList entity.
+        api.clubs.commandites.getAll(app.user.current.context.current.nom, commanditaireId).done(function (commandites) {
+            
+            /*$.each(commandites, function (i, commandite) {
+                typeCommandite.toString = function ()
+                {
+                    return sprintf("%s %s (%s)",
+                        commandite.typeCommandite.Nom
+                        commanditaire.contact.Nom,
+                        commanditaire.contact.Telephone);
+                };
 
-        // Remove the content's blur.
-        $("#page-wrapper").show();
-        $("#wrapper").removeClass("blurred");
+                commanditaire.adresse.toString = function () {
+                    return sprintf("%s %s (%s)",
+                        commanditaire.contact.Prenom,
+                        commanditaire.contact.Nom,
+                        commanditaire.contact.Telephone);
+                };
+            });*/
 
-        // Trigger a new event to wake up model views waiting on this event.
-        $self.trigger(exitEvent);
+            self.commandites(commandites);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+
+        //api.utility.empty("commandite").done(function (emptyCommandite) {
+        //    alert(JSON.stringify(emptyCommandite));
+        //    self.currentCommandite(emptyCommandite);
+        //}).invoke();
+
+    }();
+}
+
+// Model view for the suivi object.
+function SuiviesModelView($self) {
+    // Define closure safe properties.
+    var self = this;
+
+    self.viewmode = ko.observable(app.enums.viewmodes.view);
+    self.suivies = ko.observableArray();
+
+    // GAGF à ajouter dans le service
+    self.typesSuivies = app.data.enums.typesSuivies.observable;
+    self.typeSuivie = ko.observable();
+
+    // Define all jquery selectors.
+    var $panel = $self.parents(".panel").first();
+
+    // Begin adding a suivie.
+    self.beginAdd = function () {
+
+        api.utility.empty("suivie").done(function (emptySuivie) {
+            // nécessaire ou non ?
+        }).invoke();
+
+        self.viewmode(app.enums.viewmodes.creation);
     };
 
-    // Load the entity.
-    self.load();
+    // Begin edition of a suivie.
+    self.beginEdit = function (suivie) {
+
+        suivie.viewmode(app.enums.viewmodes.edition);
+    };
+
+    // Deletion of a suivie.
+    self.delete = function (suivie) {
+
+        // Deactivate the view.
+        $panel.waiting();
+
+        api.clubs.suivies.delete(app.user.current.context.current.nom, suivie.id).done(function () {
+
+            self.suivies.remove(suivie);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+
+    };
+
+    self.save = function (suivie) {
+
+        if (self.viewmode() == app.enums.viewmodes.creation) {
+
+            api.clubs.suivies.create(app.user.current.context.current.nom, suivie).done(function (id) {
+                self.suivie.id = id;
+                self.viewmode(app.enums.viewmodes.view);
+
+            }).fail(function (exception) {
+                self.error(exception);
+            }).invoke();
+        }
+        else if (self.viewmode() == app.enums.viewmodes.edition) {
+
+            api.clubs.suivies.update(app.user.current.context.current.nom, suivie.id, suivie).done(function () {
+                self.viewmode(app.enums.viewmodes.view);
+
+            }).fail(function (exception) {
+                self.error(exception);
+            }).invoke();
+        }
+
+        //self.closeModal;
+
+    };
+
+    self.cancel = function () {
+        self.closeModal();
+    };
+
+    // Loads the profil entity from the rest services.
+    self.load = function () {
+        // Deactivate the view.
+        $panel.waiting();
+
+        // Load the suiviesList entity.
+        api.clubs.suivies.getAll(app.user.current.context.current.nom, commanditaireId, commanditeId).done(function (suivies) {
+            
+            self.suivies(suivies);
+
+            // Reactivate the view.
+            $panel.active();
+            $self.trigger("loaded");
+        }).invoke();
+
+        //api.utility.empty("suivie").done(function (emptysuivie) {
+        //    alert(JSON.stringify(emptysuivie));
+        //    self.currentsuivie(emptysuivie);
+        //}).invoke();
+
+    }();
 }

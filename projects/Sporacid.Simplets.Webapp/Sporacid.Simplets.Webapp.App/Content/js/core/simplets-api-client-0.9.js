@@ -43,6 +43,10 @@ var api = {
         typesCommanditaires: function() {
             return app.utility.rest.call(app.utility.url.build(api.url, "enumeration/types-commanditaires"), app.enums.operations.get);
         },
+        // Get all operation for types commanditaires enumeration.
+        typesCommandites: function () {
+            return app.utility.rest.call(app.utility.url.build(api.url, "enumeration/types-commandites"), app.enums.operations.get);
+        },
         // Get all operation for types antecedents enumeration.
         typesAntecedents: function() {
             return app.utility.rest.call(app.utility.url.build(api.url, "enumeration/types-antecedents"), app.enums.operations.get);

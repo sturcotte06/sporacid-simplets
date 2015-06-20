@@ -165,6 +165,18 @@
   <data name="Commanditaire_TypeCommanditaire" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Commandites_Commentaire" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Commandites_Recu" xml:space="preserve">
+    <value>Receipt</value>
+  </data>
+  <data name="Commandites_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Commandites_Valeur" xml:space="preserve">
+    <value>Amount</value>
+  </data>
   <data name="Contact_Courriel" xml:space="preserve">
     <value>Email</value>
   </data>

@@ -2,22 +2,18 @@
 @using Sporacid.Simplets.Webapp.App.Resources.Labels
 @using Sporacid.Simplets.Webapp.App.Resources.Messages
 @using Sporacid.Simplets.Webapp.App.Resources.Titles
-
-<div id="commanditaire" data-bind="with: currentCommanditaire">
-  <div >
-    <div >
-      <div >
+<!-- class="modal fade"-->
+<div id="commanditaire" class="modal fade" data-bind="with: currentCommanditaire">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
         <h4 >@Html.Raw(TitleStrings.Commanditaire_MainTitle)</h4>
       </div>
-      <div >
+      <div class="modal-body">
         <form role="form">
           <div class="form-group">
             <label>@Html.Raw(LabelStrings.Commanditaire_Nom)</label>
             <input data-bind="value: nom" class="form-control" />
-          </div>
-          <div class="form-group">
-              <label>@Html.Raw(LabelStrings.Commanditaire_Contact)</label>
-              <input data-bind="value: contact" class="form-control"/>
           </div>
           <div class="form-group">
               <label>@Html.Raw(LabelStrings.Commanditaire_TypeCommanditaire)</label>
@@ -33,6 +29,18 @@
           @Html.Partial("Common/_Adresse")
           @Html.Partial("Common/_Contact")
         </form>
+        <!-- Save button. -->
+        <button data-bind="click: $root.save" type="submit" class="btn btn-warning">
+            <i class="fa fa-2x fa-save white vcenter"></i><span class="vcenter">Sauvegarder</span>
+        </button>
+        <!-- Delete button. -->
+        <button data-bind="click: $root.delete" type="submit" class="btn btn-danger">
+            <i class="fa fa-2x fa-trash white vcenter"></i><span class="vcenter">Fermer</span>
+        </button>
+        <!-- Cancel/Close button. -->
+        <button data-bind="click: $root.cancel" type="submit" class="btn btn-success">
+            <i class="fa fa-2x fa-close white vcenter"></i><span class="vcenter">Fermer</span>
+        </button>
       </div>
     </div>
   </div>

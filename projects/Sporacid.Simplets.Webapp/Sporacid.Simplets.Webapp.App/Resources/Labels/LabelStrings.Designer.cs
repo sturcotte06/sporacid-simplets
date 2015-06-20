@@ -205,6 +205,42 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Commandites_Commentaire {
+            get {
+                return ResourceManager.GetString("Commandites_Commentaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receipt.
+        /// </summary>
+        public static string Commandites_Recu {
+            get {
+                return ResourceManager.GetString("Commandites_Recu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Commandites_Type {
+            get {
+                return ResourceManager.GetString("Commandites_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Commandites_Valeur {
+            get {
+                return ResourceManager.GetString("Commandites_Valeur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Contact_Courriel {

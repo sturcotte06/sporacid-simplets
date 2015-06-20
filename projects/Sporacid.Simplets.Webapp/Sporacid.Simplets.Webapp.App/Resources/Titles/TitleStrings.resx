@@ -168,4 +168,7 @@
   <data name="Contact_MainTitle" xml:space="preserve">
     <value>Contact</value>
   </data>
+  <data name="Commandites_MainTitle" xml:space="preserve">
+    <value>Sponsorships</value>
+  </data>
 </root>

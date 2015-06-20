@@ -115,6 +115,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sponsorships.
+        /// </summary>
+        public static string Commandites_MainTitle {
+            get {
+                return ResourceManager.GetString("Commandites_MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         public static string Contact_MainTitle {
