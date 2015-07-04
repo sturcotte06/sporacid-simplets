@@ -177,11 +177,17 @@
   <data name="Commandites_Type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Commandites_Type_Placeholder" xml:space="preserve">
+    <value>Choisissez un type de commandite</value>
+  </data>
   <data name="Commandites_Valeur" xml:space="preserve">
     <value>Montant</value>
   </data>
   <data name="Contact_Courriel" xml:space="preserve">
     <value>Courriel</value>
+  </data>
+  <data name="Contact_Courriel_Placeholder" xml:space="preserve">
+    <value>adresse@fournisseur.com</value>
   </data>
   <data name="Contact_Nom" xml:space="preserve">
     <value>Nom</value>
@@ -191,6 +197,9 @@
   </data>
   <data name="Contact_Telephone" xml:space="preserve">
     <value>Téléphone</value>
+  </data>
+  <data name="Contact_Telephone_Placeholder" xml:space="preserve">
+    <value>999-999-9999</value>
   </data>
   <data name="Contact_Type" xml:space="preserve">
     <value>Type</value>
@@ -290,5 +299,14 @@
   </data>
   <data name="RestException_Validation_Prefix" xml:space="preserve">
     <value>Validation des services web</value>
+  </data>
+  <data name="Suivis_Commentaire" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="Suivis_Statut" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="Suivis_Statut_Placeholder" xml:space="preserve">
+    <value>Choisissez un statut</value>
   </data>
 </root>

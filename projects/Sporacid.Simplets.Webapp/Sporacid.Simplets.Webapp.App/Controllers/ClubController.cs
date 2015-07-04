@@ -15,6 +15,11 @@
             return this.PartialView("Club/_CommanditairesComplets");
         }
 
+        public ActionResult Commandites()
+        {
+          return this.PartialView("Club/_CommanditesCompletes");
+        }
+
         public ActionResult Evenements()
         {
             throw new NotImplementedException();

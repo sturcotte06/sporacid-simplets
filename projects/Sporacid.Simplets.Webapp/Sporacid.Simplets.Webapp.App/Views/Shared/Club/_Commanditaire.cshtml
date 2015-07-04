@@ -31,15 +31,15 @@
         </form>
         <!-- Save button. -->
         <button data-bind="click: $root.save" type="submit" class="btn btn-warning">
-            <i class="fa fa-2x fa-save white vcenter"></i><span class="vcenter">Sauvegarder</span>
+            <i class="fa fa-2x fa-save white vcenter"></i><span class="vcenter">@Html.Raw(ButtonStrings.Save)</span>
         </button>
         <!-- Delete button. -->
         <button data-bind="click: $root.delete" type="submit" class="btn btn-danger">
-            <i class="fa fa-2x fa-trash white vcenter"></i><span class="vcenter">Fermer</span>
+            <i class="fa fa-2x fa-trash white vcenter"></i><span class="vcenter">@Html.Raw(ButtonStrings.Delete)</span>
         </button>
         <!-- Cancel/Close button. -->
         <button data-bind="click: $root.cancel" type="submit" class="btn btn-success">
-            <i class="fa fa-2x fa-close white vcenter"></i><span class="vcenter">Fermer</span>
+            <i class="fa fa-2x fa-close white vcenter"></i><span class="vcenter">@Html.Raw(ButtonStrings.Cancel)</span>
         </button>
       </div>
     </div>

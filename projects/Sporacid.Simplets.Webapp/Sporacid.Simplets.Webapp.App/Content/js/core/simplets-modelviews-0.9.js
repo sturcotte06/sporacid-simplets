@@ -946,27 +946,6 @@ function CommanditairesModelView($self) {
     self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.commanditaires = ko.observableArray();
     self.currentCommanditaire = ko.observable();
-        //ko.observable({
-        //    nom: "test",
-        //    contact: "contact",
-        //    typeCommanditaireId: 1,
-        //    adresse: {
-        //        NoCivique: 350,
-        //        Rue: "des patates",
-        //        Appartement: "10abc",
-        //        Ville: "Stoke beach",
-        //        CodePostal: "H0H 0H0"
-        //    },
-        //    contact: {
-        //        TypeContactId: 1,
-        //        Nom: "Dlascrap",
-        //        Prenom: "Yvan",
-        //        Telephone: "123-456-7890",
-        //        Courriel: "bebelle@de.cul"
-        //    },
-        //    commentaire:"commentaire"
-        //});
-
 
     self.typesCommanditaires = app.data.enums.typesCommanditaires.observable;
     self.typeCommanditaire = ko.observable();
@@ -1023,6 +1002,9 @@ function CommanditairesModelView($self) {
 
     self.save = function () {
 
+        // GAGF TODO bonne façon de forcer type de contact = 6 Commanditaire ???
+        self.currentCommanditaire.contact.typeContactId = app.data.enums.typesContacts;
+
         if (self.viewmode() == app.enums.viewmodes.creation) {
 
             api.clubs.commanditaires.create(app.user.current.context.current.nom, self.currentCommanditaire).done(function (id) {
@@ -1051,6 +1033,13 @@ function CommanditairesModelView($self) {
         self.closeModal();
     };
 
+    self.showCommandites = function (commanditaire) {
+
+        //location.href = "Commandites?commanditaireId=" + commanditaire.id;
+        var url = app.utility.url.build(app.url, "Club", "Commandites") + "?commanditaireId=" + commanditaire.id;
+        app.utility.ajax.loadContent(url);
+    }
+
     self.showModal = function () {
 
         $modal.modal({ backdrop: "static", keyboard: false });
@@ -1065,14 +1054,6 @@ function CommanditairesModelView($self) {
         $modal.modal("hide");
     };
 
-    // sur retour de la modal pour refresh de la liste
-    // Refreshes the observable array of antecedents.
-    //self.refresh = function () {
-    //    var antecedents = self.antecedents().slice(0);
-    //    self.antecedents([]);
-    //    self.antecedents(antecedents);
-    //};
-
     // Loads the profil entity from the rest services.
     self.load = function () {
         // Deactivate the view.
@@ -1080,35 +1061,13 @@ function CommanditairesModelView($self) {
 
         // Load the commanditairesList entity.
         api.clubs.commanditaires.getAll(app.user.current.context.current.nom).done(function (commanditaires) {
-            /*$.each(commanditaires, function (i, commanditaire) {
-                commanditaire.contact.toString = function ()
-                {
-                    return sprintf("%s %s (%s)",
-                        commanditaire.contact.Prenom,
-                        commanditaire.contact.Nom,
-                        commanditaire.contact.Telephone);
-                };
-
-                commanditaire.adresse.toString = function () {
-                    return sprintf("%s %s (%s)",
-                        commanditaire.contact.Prenom,
-                        commanditaire.contact.Nom,
-                        commanditaire.contact.Telephone);
-                };
-            });*/
-
+            
             self.commanditaires(commanditaires);
 
             // Reactivate the view.
             $panel.active();
             $self.trigger("loaded");
         }).invoke();
-
-        //api.utility.empty("commanditaire").done(function (emptyCommanditaire) {
-        //    alert(JSON.stringify(emptyCommanditaire));
-        //    self.currentCommanditaire(emptyCommanditaire);
-        //}).invoke();
-
     }();
 }
 
@@ -1117,30 +1076,78 @@ function CommanditesModelView($self) {
     // Define closure safe properties.
     var self = this;
 
-    self.viewmode = ko.observable(app.enums.viewmodes.view);
-    self.commandites = ko.observableArray();
+    // GAGF récupérer dans query string
+    var commanditaireId = 5;
+    var currentCommanditeId;
 
-    // GAGF à ajouter dans le service
+    self.commandites = ko.observableArray();
+    self.suivis = ko.observableArray();
+
     self.typesCommandites = app.data.enums.typesCommandites.observable;
-    self.typeCommandite = ko.observable();
+    self.statutsSuivies = app.data.enums.statutsSuivies.observable;
 
     // Define all jquery selectors.
     var $panel = $self.parents(".panel").first();
 
-    // Begin adding a commandite.
-    self.beginAdd = function () {
+    // Adds a single commandite entity.
+    self.add = function (commandite) {
+        $panel.waiting();
+
+        api.clubs.commandites.create(app.user.current.context.current.nom, commanditaireId, commandite).done(function (id) {
+
+            self.commandite.id = id;
+            self.viewmode(app.enums.viewmodes.view);
+            self.refreshTypeCommandite(commandite);
+            self.addBlank();
+            $panel.active();
+
+        }).fail(function (exception) {
+
+            self.error(exception);
+
+        }).invoke();
+    };
+
+    // Adds a blank commandite entity in creation mode.
+    self.addBlank = function () {
 
         api.utility.empty("commandite").done(function (emptyCommandite) {
-            // nécessaire ou non ?
-        }).invoke();        
 
-        self.viewmode(app.enums.viewmodes.creation);
+            emptyCommandite.viewmode = ko.observable(app.enums.viewmodes.creation);
+            self.refreshTypeCommandite(emptyCommandite);
+            self.commandites.push(emptyCommandite);
+
+        }).invoke();
     };
 
     // Begin edition of a commandite.
     self.beginEdit = function (commandite) {
+        // Save the current version of the object.
+        commandite.beforeEdit = jQuery.extend(true, {}, commandite);
 
         commandite.viewmode(app.enums.viewmodes.edition);
+    };
+
+    // Edit a commandite
+    self.edit = function (commandite) {
+        $panel.waiting();
+
+        api.clubs.commandites.update(app.user.current.context.current.nom, commanditaireId, commandite.id, commandite).done(function () {
+            commandite.viewmode(app.enums.viewmodes.view);
+            self.refreshTypeCommandite(commandite);
+
+            $panel.active();
+
+        }).fail(function (exception) {
+            self.error(exception);
+        }).invoke();
+    };
+
+    // Cancels the edition of a commandite.
+    self.cancelEdit = function (commandite) {
+        $.extend(commandite, commandite.beforeEdit);
+        commandite.viewmode(app.enums.viewmodes.view);
+        self.refreshTypeCommandite(commandite);
     };
 
     // Deletion of a commandite.
@@ -1149,46 +1156,42 @@ function CommanditesModelView($self) {
         // Deactivate the view.
         $panel.waiting();
 
-        api.clubs.commandites.delete(app.user.current.context.current.nom, commandite.id).done(function () {
+        api.clubs.commandites.delete(app.user.current.context.current.nom, commanditaireId, commandite.id).done(function () {
 
             self.commandites.remove(commandite);
 
             // Reactivate the view.
             $panel.active();
             $self.trigger("loaded");
+
         }).invoke();
 
     };
 
-    self.save = function (commandite) {
-
-        if (self.viewmode() == app.enums.viewmodes.creation) {
-
-            api.clubs.commandites.create(app.user.current.context.current.nom, commandite).done(function (id) {
-                self.commandite.id = id;
-                self.viewmode(app.enums.viewmodes.view);
-
-            }).fail(function (exception) {
-                self.error(exception);
-            }).invoke();
-        }
-        else if (self.viewmode() == app.enums.viewmodes.edition) {
-
-            api.clubs.commandites.update(app.user.current.context.current.nom, commandite.id, commandite).done(function () {
-                self.viewmode(app.enums.viewmodes.view);
-
-            }).fail(function (exception) {
-                self.error(exception);
-            }).invoke();
-        }
-
-        //self.closeModal;
-
+    // Updates the commandite type object from the new commandite type id.
+    self.refreshTypeCommandite = function (commandite) {
+        commandite.typeCommandite = commandite.typeCommanditeId
+            ? app.data.enums.typesCommandites.store[commandite.typeCommanditeId]
+            : null;
     };
 
-    self.cancel = function () {
-        self.closeModal();
-    };
+    self.showSuivis = function (commandite) {
+
+        currentCommanditeId = commandite.commanditeId;
+
+        if (commandite.suivies) {
+
+            // Add a viewmode to each suivi to keep track of view state.
+            $.each(commandite.suivies, function (i, suivi) {
+                suivi.viewmode = ko.observable(app.enums.viewmodes.view);
+                self.refreshStatutSuivi(suivi);
+            });
+
+            self.suivis(commandite.suivies);
+        }
+
+        self.addBlankSuivi();
+    }
 
     // Loads the profil entity from the rest services.
     self.load = function () {
@@ -1198,36 +1201,71 @@ function CommanditesModelView($self) {
         // Load the commanditesList entity.
         api.clubs.commandites.getAll(app.user.current.context.current.nom, commanditaireId).done(function (commandites) {
             
-            /*$.each(commandites, function (i, commandite) {
-                typeCommandite.toString = function ()
-                {
-                    return sprintf("%s %s (%s)",
-                        commandite.typeCommandite.Nom
-                        commanditaire.contact.Nom,
-                        commanditaire.contact.Telephone);
-                };
-
-                commanditaire.adresse.toString = function () {
-                    return sprintf("%s %s (%s)",
-                        commanditaire.contact.Prenom,
-                        commanditaire.contact.Nom,
-                        commanditaire.contact.Telephone);
-                };
-            });*/
+            // Add a viewmode to each commandite to keep track of view state.
+            $.each(commandites, function (i, commandite) {
+                commandite.viewmode = ko.observable(app.enums.viewmodes.view);
+                self.refreshTypeCommandite(commandite);
+            });
 
             self.commandites(commandites);
 
             // Reactivate the view.
-            $panel.active();
-            $self.trigger("loaded");
+            self.addBlank();
+            //self.addBlankSuivi();
+
+            api.utility.empty("suivie").done(function (emptySuivi) {
+
+                emptySuivi.viewmode = ko.observable(app.enums.viewmodes.creation);
+                self.refreshStatutSuivi(emptySuivi);
+                self.suivis.push(emptySuivi);
+                $panel.active();
+                $self.trigger("loaded");
+
+            }).invoke();
+
+
         }).invoke();
-
-        //api.utility.empty("commandite").done(function (emptyCommandite) {
-        //    alert(JSON.stringify(emptyCommandite));
-        //    self.currentCommandite(emptyCommandite);
-        //}).invoke();
-
     }();
+
+    /***********  Suivi section *************/
+
+    // Adds a single suivi entity.
+    self.addSuivi = function (suivi) {
+        $panel.waiting();
+
+        api.clubs.suivies.create(app.user.current.context.current.nom, commanditaireId, commandite).done(function (id) {
+
+            suivi.id = id;
+            suivi.viewmode(app.enums.viewmodes.view);
+            self.refreshStatutSuivi(suivi);
+            self.addBlankSuivi();
+            $panel.active();
+
+        }).fail(function (exception) {
+
+            self.error(exception);
+
+        }).invoke();
+    };
+
+    // Adds a blank suivi entity in creation mode.
+    self.addBlankSuivi = function () {
+
+        api.utility.empty("suivie").done(function (emptySuivi) {
+
+            emptySuivi.viewmode = ko.observable(app.enums.viewmodes.creation);
+            self.refreshStatutSuivi(emptySuivi);
+            self.suivis.push(emptySuivi);
+
+        }).invoke();
+    };
+
+    // Updates the suivi type object from the new suivi statut id.
+    self.refreshStatutSuivi = function (suivi) {
+        suivi.statutSuivie = suivi.statutSuivieId
+            ? app.data.enums.statutsSuivies.store[suivi.statutSuivieId]
+            : null;
+    };
 }
 
 // Model view for the suivi object.
@@ -1235,12 +1273,7 @@ function SuiviesModelView($self) {
     // Define closure safe properties.
     var self = this;
 
-    self.viewmode = ko.observable(app.enums.viewmodes.view);
     self.suivies = ko.observableArray();
-
-    // GAGF à ajouter dans le service
-    self.typesSuivies = app.data.enums.typesSuivies.observable;
-    self.typeSuivie = ko.observable();
 
     // Define all jquery selectors.
     var $panel = $self.parents(".panel").first();

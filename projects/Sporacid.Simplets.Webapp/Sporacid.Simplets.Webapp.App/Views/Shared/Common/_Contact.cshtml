@@ -9,36 +9,40 @@
   </div>
   <div id="adresse" style="padding: 20px;" data-bind="with: contact">
     <!-- Base profil edition mode. -->
-    <div id="edit-profil-base" class="row">
-      <div class="col-md-8">
-        <form role="form">
-          <div class="form-group">
-            <label>@Html.Raw(LabelStrings.Contact_Type)</label>
-            <select data-bind="options: $root.typesContacts,
-                               optionsValue: 'id',
-                               optionsText: 'nom',
-                               value: typeContactId" class="form-control">
-
-            </select>
-          </div>
-          <div class="form-group">
+    <div id="edit-profil-base">
+      <form role="form">
+        <div class="row">
+          <div class="form-group col-md-6">
             <label>@Html.Raw(LabelStrings.Contact_Prenom)</label>
-            <input data-bind="value: prenom" class="form-control" placeholder="Votre prenom" />
+            <input data-bind="value: prenom" class="form-control" />
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-6">
             <label>@Html.Raw(LabelStrings.Contact_Nom)</label>
-            <input data-bind="value: nom" class="form-control" placeholder="Votre nom" />
+            <input data-bind="value: nom" class="form-control" />
           </div>
-          <div class="form-group">
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
             <label>@Html.Raw(LabelStrings.Contact_Telephone)</label>
-            <input data-bind="value: telephone" class="form-control" placeholder="Votre nom" />
+            <input data-bind="value: telephone" class="form-control" placeholder="@Html.Raw(LabelStrings.Contact_Telephone_Placeholder)" />
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-8">
             <label>@Html.Raw(LabelStrings.Contact_Courriel)</label>
-            <input data-bind="value: courriel" class="form-control" placeholder="Votre nom" />
+            <input data-bind="value: courriel" class="form-control" placeholder="@Html.Raw(LabelStrings.Contact_Courriel_Placeholder)" />
           </div>
-        </form>
-      </div>
+        </div>
+
+
+        <div class="form-group">
+          <label>@Html.Raw(LabelStrings.Contact_Type)</label>
+          <select data-bind="options: $root.typesContacts,
+  optionsValue: 'id',
+  optionsText: 'nom',
+  value: typeContactId" class="form-control">
+
+          </select>
+        </div>
+      </form>
     </div>
   </div>
 </div>

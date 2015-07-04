@@ -174,11 +174,17 @@
   <data name="Commandites_Type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Commandites_Type_Placeholder" xml:space="preserve">
+    <value>Choose sponsorship type</value>
+  </data>
   <data name="Commandites_Valeur" xml:space="preserve">
     <value>Amount</value>
   </data>
   <data name="Contact_Courriel" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="Contact_Courriel_Placeholder" xml:space="preserve">
+    <value>address@provider.com</value>
   </data>
   <data name="Contact_Nom" xml:space="preserve">
     <value>Last name</value>
@@ -188,6 +194,9 @@
   </data>
   <data name="Contact_Telephone" xml:space="preserve">
     <value>Phone</value>
+  </data>
+  <data name="Contact_Telephone_Placeholder" xml:space="preserve">
+    <value>999-999-9999</value>
   </data>
   <data name="Contact_Type" xml:space="preserve">
     <value>Type</value>
@@ -287,6 +296,15 @@
   </data>
   <data name="RestException_Validation_Prefix" xml:space="preserve">
     <value>Web Services Validation Mismatch</value>
+  </data>
+  <data name="Suivis_Commentaire" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Suivis_Statut" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Suivis_Statut_Placeholder" xml:space="preserve">
+    <value>Choose a status</value>
   </data>
   <data name="Téléphone" xml:space="preserve">
     <value>Phone</value>

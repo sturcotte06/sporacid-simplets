@@ -171,4 +171,7 @@
   <data name="Commandites_MainTitle" xml:space="preserve">
     <value>Commandites</value>
   </data>
+  <data name="Suivis_MainTitle" xml:space="preserve">
+    <value>Suivis</value>
+  </data>
 </root>

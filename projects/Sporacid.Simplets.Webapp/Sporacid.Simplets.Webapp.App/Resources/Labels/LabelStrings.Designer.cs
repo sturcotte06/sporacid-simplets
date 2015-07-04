@@ -232,6 +232,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose sponsorship type.
+        /// </summary>
+        public static string Commandites_Type_Placeholder {
+            get {
+                return ResourceManager.GetString("Commandites_Type_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string Commandites_Valeur {
@@ -246,6 +255,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         public static string Contact_Courriel {
             get {
                 return ResourceManager.GetString("Contact_Courriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to address@provider.com.
+        /// </summary>
+        public static string Contact_Courriel_Placeholder {
+            get {
+                return ResourceManager.GetString("Contact_Courriel_Placeholder", resourceCulture);
             }
         }
         
@@ -273,6 +291,15 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         public static string Contact_Telephone {
             get {
                 return ResourceManager.GetString("Contact_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 999-999-9999.
+        /// </summary>
+        public static string Contact_Telephone_Placeholder {
+            get {
+                return ResourceManager.GetString("Contact_Telephone_Placeholder", resourceCulture);
             }
         }
         
@@ -570,6 +597,33 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Labels {
         public static string RestException_Validation_Prefix {
             get {
                 return ResourceManager.GetString("RestException_Validation_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Suivis_Commentaire {
+            get {
+                return ResourceManager.GetString("Suivis_Commentaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Suivis_Statut {
+            get {
+                return ResourceManager.GetString("Suivis_Statut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a status.
+        /// </summary>
+        public static string Suivis_Statut_Placeholder {
+            get {
+                return ResourceManager.GetString("Suivis_Statut_Placeholder", resourceCulture);
             }
         }
         

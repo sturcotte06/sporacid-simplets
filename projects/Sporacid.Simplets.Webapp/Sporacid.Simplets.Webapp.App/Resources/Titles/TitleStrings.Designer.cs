@@ -221,5 +221,14 @@ namespace Sporacid.Simplets.Webapp.App.Resources.Titles {
                 return ResourceManager.GetString("ProfilBase_MainTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow up.
+        /// </summary>
+        public static string Suivis_MainTitle {
+            get {
+                return ResourceManager.GetString("Suivis_MainTitle", resourceCulture);
+            }
+        }
     }
 }

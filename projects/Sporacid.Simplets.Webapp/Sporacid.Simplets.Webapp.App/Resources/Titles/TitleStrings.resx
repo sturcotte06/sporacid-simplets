@@ -171,4 +171,7 @@
   <data name="Commandites_MainTitle" xml:space="preserve">
     <value>Sponsorships</value>
   </data>
+  <data name="Suivis_MainTitle" xml:space="preserve">
+    <value>Follow up</value>
+  </data>
 </root>

@@ -6,12 +6,12 @@
     {
         public ActionResult Api()
         {
-            return this.View("Fulls/Description/_ApiDescription");
+            return this.View("Description/_ApiDescription");
         }
 
         public ActionResult Entities()
         {
-            return this.View("Fulls/Description/_EntitiesDescription");
+            return this.View("Description/_EntitiesDescription");
         }
     }
 }

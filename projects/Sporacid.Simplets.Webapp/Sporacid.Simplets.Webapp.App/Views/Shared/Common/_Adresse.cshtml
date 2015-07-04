@@ -9,31 +9,33 @@
   </div>
   <div id="adresse" style="padding: 20px;" data-bind="with: adresse">
     <!-- Address edition mode. -->
-    <div id="edit-address" class="row">
-      <div class="col-md-8">
-        <form role="form">
-          <div class="form-group">
+    <div id="edit-address">
+      <form role="form">
+        <div class="row">
+          <div class="form-group col-md-3">
             <label>@Html.Raw(LabelStrings.Adresse_NoCivique)</label>
             <input data-bind="value: noCivique" class="form-control" placeholder="Votre prenom" />
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-6">
             <label>@Html.Raw(LabelStrings.Adresse_Rue)</label>
             <input data-bind="value: rue" class="form-control" placeholder="Votre nom" />
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-3">
             <label>@Html.Raw(LabelStrings.Adresse_Appartement)</label>
             <input data-bind="value: appartement" class="form-control" placeholder="Votre nom" />
           </div>
-          <div class="form-group">
+        </div>
+        <div class="row">
+          <div class="form-group col-md-9">
             <label>@Html.Raw(LabelStrings.Adresse_Ville)</label>
             <input data-bind="value: ville" class="form-control" placeholder="Votre nom" />
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-3">
             <label>@Html.Raw(LabelStrings.Adresse_CodePostal)</label>
             <input data-bind="value: codePostal" class="form-control" placeholder="Votre nom" />
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
