@@ -24,7 +24,7 @@
         public ILdapUser SearchForUser(SearchBy searchBy, String value)
         {
             // TODO change my hardcoded credentials for the authenticated user's
-            using (var context = new PrincipalContext(ContextType.Domain, this.activeDirectyDomainName, "AJ50440", "AOPbgtZXD666"))
+            using (var context = new PrincipalContext(ContextType.Domain, this.activeDirectyDomainName, "code AJ", "mot de passe"))
             {
                 // find user by display name
                 var user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, value);
